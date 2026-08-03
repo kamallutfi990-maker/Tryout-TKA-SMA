@@ -1,0 +1,31 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Helper to check if signed in
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // Helper to check ownership
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    // User-specific paths (e.g. profiles, report cards scans)
+    match /users/{userId}/{allPaths=**} {
+      allow read: if isSignedIn();
+      allow write: if isOwner(userId);
+    }
+
+    // Guru/Admin uploads (videos, material attachments, thumbnails)
+    match /materials/{allPaths=**} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn(); // Guru or Admin restricted logically in UI
+    }
+
+    // Default deny for other paths
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

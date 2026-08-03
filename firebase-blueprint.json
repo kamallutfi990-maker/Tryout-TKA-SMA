@@ -1,0 +1,320 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "User account information, including roles, schools, and progress statistics",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Unique Firebase Authentication UID" },
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string", "minLength": 2, "maxLength": 100 },
+        "role": { "type": "string", "enum": ["Admin", "Guru", "Siswa"] },
+        "schoolId": { "type": "string", "description": "Reference to schools collection" },
+        "targetPTN": { "type": "string" },
+        "targetProdi": { "type": "string" },
+        "xp": { "type": "integer" },
+        "level": { "type": "integer" },
+        "streak": { "type": "integer" },
+        "lastActive": { "type": "string", "format": "date-time" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "School": {
+      "title": "School",
+      "description": "SMA or equivalent school entity for regional rankings",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "city": { "type": "string" },
+        "province": { "type": "string" }
+      },
+      "required": ["id", "name"]
+    },
+    "Subject": {
+      "title": "Subject",
+      "description": "Subject categories like Matematika, Fisika, etc.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" }
+      },
+      "required": ["id", "name"]
+    },
+    "Material": {
+      "title": "Study Material",
+      "description": "Written learning guides or theory summaries",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "content": { "type": "string" },
+        "subjectId": { "type": "string" },
+        "bab": { "type": "string" },
+        "subbab": { "type": "string" }
+      },
+      "required": ["id", "title", "content", "subjectId"]
+    },
+    "Video": {
+      "title": "Learning Video",
+      "description": "Educational videos uploaded by Admin or Guru",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "url": { "type": "string" },
+        "thumbnail": { "type": "string" },
+        "description": { "type": "string" },
+        "subjectId": { "type": "string" },
+        "bab": { "type": "string" },
+        "guru": { "type": "string" },
+        "duration": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "title", "url", "subjectId"]
+    },
+    "Question": {
+      "title": "Question Bank Item",
+      "description": "CBT practice questions supporting LaTeX, images, and explanations",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "text": { "type": "string" },
+        "options": { "type": "array" },
+        "correctAnswerIndex": { "type": "integer" },
+        "correctAnswer": { "type": "string" },
+        "explanation": { "type": "string" },
+        "videoUrl": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "subjectId": { "type": "string" },
+        "difficulty": { "type": "string", "enum": ["Mudah", "Sedang", "Sulit"] },
+        "bab": { "type": "string" },
+        "subbab": { "type": "string" },
+        "year": { "type": "string" }
+      },
+      "required": ["id", "text", "options", "correctAnswerIndex", "correctAnswer", "subjectId"]
+    },
+    "Exam": {
+      "title": "Try Out Exam",
+      "description": "Try Out configurations compiled by Admin",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "duration": { "type": "integer" },
+        "passingGrade": { "type": "number" },
+        "subjectIds": { "type": "array" },
+        "questionCount": { "type": "integer" },
+        "randomizeQuestions": { "type": "boolean" },
+        "randomizeOptions": { "type": "boolean" },
+        "startDate": { "type": "string" },
+        "endDate": { "type": "string" }
+      },
+      "required": ["id", "name", "duration"]
+    },
+    "ExamSession": {
+      "title": "Exam Session",
+      "description": "Active student exam attempt or state",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "examId": { "type": "string" },
+        "userId": { "type": "string" },
+        "answers": { "type": "object" },
+        "flagged": { "type": "array" },
+        "remainingTime": { "type": "integer" },
+        "status": { "type": "string", "enum": ["active", "submitted"] },
+        "startedAt": { "type": "string", "format": "date-time" },
+        "submittedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "examId", "userId", "status"]
+    },
+    "Score": {
+      "title": "Siswa Exam Score",
+      "description": "Scores recorded after a Try Out session submission",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "examId": { "type": "string" },
+        "userId": { "type": "string" },
+        "score": { "type": "integer" },
+        "percentage": { "type": "number" },
+        "correctCount": { "type": "integer" },
+        "wrongCount": { "type": "integer" },
+        "subjectBreakdown": { "type": "object" },
+        "passed": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "examId", "userId", "score"]
+    },
+    "ReportCard": {
+      "title": "Siswa Report Card Grades",
+      "description": "School report card grades for Semester 1 to 6 across subjects",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "grades": { "type": "object" },
+        "average": { "type": "number" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "grades"]
+    },
+    "UniversityPrediction": {
+      "title": "University Admission Prediction",
+      "description": "Peluang prediction calculated by system based on grades and tryout scores",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "university": { "type": "string" },
+        "studyProgram": { "type": "string" },
+        "pathway": { "type": "string" },
+        "probability": { "type": "string", "enum": ["Sangat Tinggi", "Tinggi", "Sedang", "Rendah", "Sangat Rendah"] },
+        "probabilityScore": { "type": "number" },
+        "recommendation": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "university", "studyProgram", "pathway", "probability"]
+    },
+    "University": {
+      "title": "University",
+      "description": "State university listings (PTN)",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "acronym": { "type": "string" }
+      },
+      "required": ["id", "name"]
+    },
+    "StudyProgram": {
+      "title": "Study Program",
+      "description": "Program studi available under PTNs with passing grades",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "universityId": { "type": "string" },
+        "name": { "type": "string" },
+        "passingGrade": { "type": "integer" },
+        "capacity": { "type": "integer" }
+      },
+      "required": ["id", "universityId", "name", "passingGrade"]
+    },
+    "Ranking": {
+      "title": "User Rank Summary",
+      "description": "Regional ranks across school, county, province, and national boundaries",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "score": { "type": "integer" },
+        "rankSchool": { "type": "integer" },
+        "rankCity": { "type": "integer" },
+        "rankProvince": { "type": "integer" },
+        "rankNational": { "type": "integer" }
+      },
+      "required": ["userId", "score"]
+    },
+    "Achievement": {
+      "title": "Gamification Achievement",
+      "description": "Earned badges or achievements for gamification",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "xp": { "type": "integer" },
+        "iconName": { "type": "string" }
+      },
+      "required": ["id", "title", "xp"]
+    },
+    "Notification": {
+      "title": "Notification",
+      "description": "System alerts or direct notices sent to users",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "body": { "type": "string" },
+        "read": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "title", "body"]
+    },
+    "Certificate": {
+      "title": "Certificate",
+      "description": "PDF/QR certs generated automatically after passing Try Outs",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "examId": { "type": "string" },
+        "certificateNumber": { "type": "string" },
+        "qrCode": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "examId", "certificateNumber"]
+    },
+    "Payment": {
+      "title": "Payment Transaction",
+      "description": "Transaction logs via QRIS or Bank Transfer",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "amount": { "type": "integer" },
+        "package": { "type": "string" },
+        "method": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "success", "failed"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "amount", "package", "status"]
+    },
+    "Subscription": {
+      "title": "Subscription Status",
+      "description": "Active premium packages",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "status": { "type": "string", "enum": ["free", "premium"] },
+        "expiryDate": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "status"]
+    },
+    "Announcement": {
+      "title": "Announcement",
+      "description": "Global notices shown to all students",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "body": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "title", "body"]
+    }
+  },
+  "firestore": {
+    "/users/{uid}": { "schema": "User", "description": "User profiles" },
+    "/schools/{schoolId}": { "schema": "School", "description": "SMA listings" },
+    "/subjects/{subjectId}": { "schema": "Subject", "description": "CBT subject topics" },
+    "/materials/{materialId}": { "schema": "Material", "description": "Theory review notes" },
+    "/videos/{videoId}": { "schema": "Video", "description": "Uploaded class video clips" },
+    "/questions/{questionId}": { "schema": "Question", "description": "CBT questions bank" },
+    "/exams/{examId}": { "schema": "Exam", "description": "Exams" },
+    "/examSessions/{sessionId}": { "schema": "ExamSession", "description": "Live active/submitted test logs" },
+    "/scores/{scoreId}": { "schema": "Score", "description": "Final Try Out grades" },
+    "/reportCards/{userId}": { "schema": "ReportCard", "description": "Report cards Semester 1-6" },
+    "/universityPredictions/{predictionId}": { "schema": "UniversityPrediction", "description": "PTN Likelihood estimates" },
+    "/universities/{universityId}": { "schema": "University", "description": "Universitas listings" },
+    "/studyPrograms/{programId}": { "schema": "StudyProgram", "description": "Prodi details and passing grades" },
+    "/rankings/{userId}": { "schema": "Ranking", "description": "Leaderboards" },
+    "/notifications/{notificationId}": { "schema": "Notification", "description": "In-app alerts" },
+    "/certificates/{certificateId}": { "schema": "Certificate", "description": "Sertifikat kelulusan TO" },
+    "/payments/{paymentId}": { "schema": "Payment", "description": "Payment transactions info" },
+    "/subscriptions/{userId}": { "schema": "Subscription", "description": "Sub status" },
+    "/announcements/{announcementId}": { "schema": "Announcement", "description": "Global notices" }
+  }
+}

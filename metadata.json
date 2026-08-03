@@ -1,0 +1,6 @@
+{
+  "name": "TKA SMA Indonesia",
+  "description": "Platform latihan dan simulasi Tes Kompetensi Akademik (TKA) untuk siswa SMA kelas XII dan alumni.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

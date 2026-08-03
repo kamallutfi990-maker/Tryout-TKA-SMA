@@ -1,0 +1,183 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Global Safety Net - Default Deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Reuseable primitives
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isEmailVerified() {
+      return isSignedIn() && request.auth.token.email_verified == true;
+    }
+
+    // Role check helper from users collection lookup
+    function getUserRole() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && getUserRole() == 'Admin';
+    }
+
+    function isGuru() {
+      return isSignedIn() && getUserRole() == 'Guru';
+    }
+
+    function isAdminOrGuru() {
+      return isAdmin() || isGuru();
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // Users collection
+    match /users/{userId} {
+      allow read: if isSignedIn();
+      // Block users from self-promoting or hijacking other profiles
+      allow create: if isOwner(userId) && request.resource.data.role == 'Siswa';
+      allow update: if isOwner(userId) && (
+        !request.resource.data.diff(resource.data).affectedKeys().hasAny(['role']) || isAdmin()
+      );
+      allow delete: if isAdmin();
+    }
+
+    // Schools collection
+    match /schools/{schoolId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+
+    // Subjects collection
+    match /subjects/{subjectId} {
+      allow read: if isSignedIn();
+      allow write: if isAdminOrGuru();
+    }
+
+    // Materials collection
+    match /materials/{materialId} {
+      allow read: if isSignedIn();
+      allow write: if isAdminOrGuru();
+    }
+
+    // Videos collection
+    match /videos/{videoId} {
+      allow read: if isSignedIn();
+      allow write: if isAdminOrGuru();
+    }
+
+    // Questions collection
+    match /questions/{questionId} {
+      allow read: if isSignedIn();
+      allow write: if isAdminOrGuru();
+    }
+
+    // Exams collection
+    match /exams/{examId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+
+    // Exam Sessions
+    match /examSessions/{sessionId} {
+      allow read: if isSignedIn() && (resource.data.userId == request.auth.uid || isAdminOrGuru());
+      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+      allow update: if isSignedIn() && resource.data.userId == request.auth.uid && (
+        !request.resource.data.diff(resource.data).affectedKeys().hasAny(['userId', 'examId'])
+      );
+      allow delete: if isAdmin();
+    }
+
+    // Scores
+    match /scores/{scoreId} {
+      allow read: if isSignedIn() && (resource.data.userId == request.auth.uid || isAdminOrGuru());
+      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // Report Cards
+    match /reportCards/{userId} {
+      allow read: if isSignedIn() && (isOwner(userId) || isAdminOrGuru());
+      allow write: if isSignedIn() && isOwner(userId);
+    }
+
+    // University Predictions
+    match /universityPredictions/{predictionId} {
+      allow read: if isSignedIn() && (resource.data.userId == request.auth.uid || isAdminOrGuru());
+      allow create, update: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+      allow delete: if isSignedIn() && resource.data.userId == request.auth.uid;
+    }
+
+    // Universities listings
+    match /universities/{universityId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+
+    // Study Programs
+    match /studyPrograms/{programId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+
+    // Rankings
+    match /rankings/{userId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin() || (isSignedIn() && userId == request.auth.uid);
+    }
+
+    // Achievements
+    match /achievements/{id} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+
+    // Notifications
+    match /notifications/{notificationId} {
+      allow read: if isSignedIn() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow create: if isAdmin() || isGuru();
+      allow update: if isSignedIn() && resource.data.userId == request.auth.uid && (
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['read'])
+      );
+      allow delete: if isAdmin() || (isSignedIn() && resource.data.userId == request.auth.uid);
+    }
+
+    // Certificates
+    match /certificates/{certificateId} {
+      allow read: if isSignedIn() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow create: if isAdmin() || isGuru();
+      allow delete: if isAdmin();
+    }
+
+    // Payments
+    match /payments/{paymentId} {
+      allow read: if isSignedIn() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+      allow update: if isAdmin() || (isSignedIn() && resource.data.userId == request.auth.uid);
+      allow delete: if isAdmin();
+    }
+
+    // Subscriptions
+    match /subscriptions/{userId} {
+      allow read: if isSignedIn() && (isOwner(userId) || isAdmin());
+      allow write: if isAdmin();
+    }
+
+    // Announcements
+    match /announcements/{announcementId} {
+      allow read: if isSignedIn();
+      allow write: if isAdminOrGuru();
+    }
+  }
+}
