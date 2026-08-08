@@ -99,6 +99,8 @@ export interface ExamScore {
   subject: string;
   passed: boolean;
   createdAt: string;
+  strongSubjects?: string[];
+  weakSubjects?: string[];
 }
 
 export interface ReportCard {
@@ -806,11 +808,11 @@ const INITIAL_QUESTIONS: Question[] = [
     text: 'Manakah fungsi berikut yang memiliki domain semua bilangan real ($\\mathbb{R}$)? *(Pilih semua jawaban yang benar)*',
     questionType: 'checkboxes',
     options: [
-      'f(x) = x^2 + 1',
-      'f(x) = \\sqrt{x}',
-      'f(x) = 2^x',
-      'f(x) = |x|',
-      'f(x) = \\frac{1}{x}'
+      '$f(x) = x^2 + 1$',
+      '$f(x) = \\sqrt{x}$',
+      '$f(x) = 2^x$',
+      '$f(x) = |x|$',
+      '$f(x) = \\frac{1}{x}$'
     ],
     correctAnswerIndices: [0, 2, 3],
     correctAnswerIndex: 0,
@@ -826,8 +828,8 @@ const INITIAL_QUESTIONS: Question[] = [
     text: 'Manakah pernyataan yang merupakan hasil translasi oleh vektor $\\begin{pmatrix} 2 \\\\ -3 \\end{pmatrix}$? *(Pilih semua jawaban yang benar)*',
     questionType: 'checkboxes',
     options: [
-      '(x, y) \\rightarrow (x + 2, y - 3)',
-      '(x, y) \\rightarrow (x - 2, y + 3)',
+      '$(x, y) \\rightarrow (x + 2, y - 3)$',
+      '$(x, y) \\rightarrow (x - 2, y + 3)$',
       'Titik bergeser 2 satuan ke kanan',
       'Titik bergeser 3 satuan ke bawah',
       'Refleksi terhadap sumbu-X'
@@ -866,11 +868,11 @@ const INITIAL_QUESTIONS: Question[] = [
     text: 'Manakah limit berikut yang bernilai 1? *(Pilih semua jawaban yang benar)*',
     questionType: 'checkboxes',
     options: [
-      '\\lim_{x \\to 0} \\frac{\\sin x}{x}',
-      '\\lim_{x \\to 0} \\frac{\\tan x}{x}',
-      '\\lim_{x \\to 0} \\frac{1 - \\cos x}{x}',
-      '\\lim_{x \\to 0} \\frac{x}{\\sin x}',
-      '\\lim_{x \\to 0} \\frac{x}{\\tan x}'
+      '$\\lim_{x \\to 0} \\frac{\\sin x}{x}$',
+      '$\\lim_{x \\to 0} \\frac{\\tan x}{x}$',
+      '$\\lim_{x \\to 0} \\frac{1 - \\cos x}{x}$',
+      '$\\lim_{x \\to 0} \\frac{x}{\\sin x}$',
+      '$\\lim_{x \\to 0} \\frac{x}{\\tan x}$'
     ],
     correctAnswerIndices: [0, 1, 3, 4],
     correctAnswerIndex: 0,
@@ -1381,315 +1383,6 @@ const INITIAL_QUESTIONS: Question[] = [
     subject: 'Matematika Lanjut',
     difficulty: 'Sedang',
     bab: 'Turunan Fungsi',
-    year: '2026'
-  },
-  // --- 20 Soal TKA Matematika Tingkat Lanjut 2025/2026 (IRT 200 - 800) ---
-  {
-    id: 'q_mtk_lanjut_1',
-    text: 'Diketahui $A = \\begin{pmatrix} 2 & 1 \\\\ 3 & 4 \\end{pmatrix}$. Determinan matriks $A$ adalah ....',
-    options: ['2', '5', '8', '10', '12'],
-    correctAnswerIndex: 1,
-    correctAnswer: 'B',
-    explanation: '$$\\det(A) = (2 \\cdot 4) - (1 \\cdot 3) = 8 - 3 = 5$$',
-    subject: 'Matematika Tingkat Lanjut',
-    difficulty: 'Sedang',
-    bab: 'Aljabar & Matriks',
-    year: '2026'
-  },
-  {
-    id: 'q_mtk_lanjut_2',
-    text: 'Invers dari matriks $\\begin{pmatrix} 1 & 2 \\\\ 3 & 5 \\end{pmatrix}$ adalah ....',
-    options: [
-      '$\\begin{pmatrix} 5 & -2 \\\\ -3 & 1 \\end{pmatrix}$',
-      '$\\begin{pmatrix} -5 & 2 \\\\ 3 & -1 \\end{pmatrix}$',
-      '$\\begin{pmatrix} -5 & 2 \\\\ 3 & -1 \\end{pmatrix}$',
-      '$\\begin{pmatrix} 5 & 2 \\\\ 3 & 1 \\end{pmatrix}$',
-      'Matriks tidak memiliki invers.'
-    ],
-    correctAnswerIndex: 1,
-    correctAnswer: 'B',
-    explanation: 'Determinannya = $1(5) - 2(3) = -1$.\n$$A^{-1} = \\frac{1}{-1} \\begin{pmatrix} 5 & -2 \\\\ -3 & 1 \\end{pmatrix} = \\begin{pmatrix} -5 & 2 \\\\ 3 & -1 \\end{pmatrix}$$',
-    subject: 'Matematika Tingkat Lanjut',
-    difficulty: 'Sedang',
-    bab: 'Aljabar & Matriks',
-    year: '2026'
-  },
-  {
-    id: 'q_mtk_lanjut_3',
-    text: 'Jika $P(x) = x^3 - 4x^2 + x + 6$, maka sisa pembagian oleh $(x - 2)$ adalah ....',
-    options: ['-4', '0', '2', '4', '8'],
-    correctAnswerIndex: 1,
-    correctAnswer: 'B',
-    explanation: 'Berdasarkan Teorema Sisa, sisa pembagian $P(x)$ oleh $(x-2)$ adalah $P(2)$:\n$$P(2) = (2)^3 - 4(2)^2 + (2) + 6 = 8 - 16 + 2 + 6 = 0$$',
-    subject: 'Matematika Tingkat Lanjut',
-    difficulty: 'Sedang',
-    bab: 'Polinomial',
-    year: '2026'
-  },
-  {
-    id: 'q_mtk_lanjut_4',
-    text: 'Faktor dari $x^2 - 7x + 12$ adalah ....',
-    options: ['$(x - 2)(x - 5)$', '$(x - 3)(x - 4)$', '$(x + 3)(x - 4)$', '$(x + 2)(x - 6)$', '$(x - 1)(x - 12)$'],
-    correctAnswerIndex: 1,
-    correctAnswer: 'B',
-    explanation: 'Dua bilangan yang dikalikan bernilai $12$ dan dijumlahkan bernilai $-7$ adalah $-3$ dan $-4$.\n$$x^2 - 7x + 12 = (x - 3)(x - 4)$$',
-    subject: 'Matematika Tingkat Lanjut',
-    difficulty: 'Mudah',
-    bab: 'Aljabar',
-    year: '2026'
-  },
-  {
-    id: 'q_mtk_lanjut_5',
-    text: 'Domain fungsi $f(x) = \\frac{\\sqrt{x - 1}}{x - 4}$ adalah ....',
-    options: ['$x > 1$', '$x \\ge 1$', '$x \\ge 1, x \\neq 4$', 'Semua bilangan real', '$x > 4$'],
-    correctAnswerIndex: 2,
-    correctAnswer: 'C',
-    explanation: 'Syarat bentuk akar: $x - 1 \\ge 0 \\implies x \\ge 1$.\nSyarat penyebut: $x - 4 \\neq 0 \\implies x \\neq 4$.\nDomain: $x \\ge 1, x \\neq 4$.',
-    subject: 'Matematika Tingkat Lanjut',
-    difficulty: 'Sedang',
-    bab: 'Fungsi & Domain',
-    year: '2026'
-  },
-  {
-    id: 'q_mtk_lanjut_6',
-    text: 'Nilai dari $\\log_2 32 + \\log_2 \\frac{1}{8}$ adalah ....',
-    options: ['1', '2', '3', '4', '5'],
-    correctAnswerIndex: 1,
-    correctAnswer: 'B',
-    explanation: '$$\\log_2 32 = 5 \\quad \\text{dan} \\quad \\log_2 \\frac{1}{8} = -3$$\n$$\\log_2 32 + \\log_2 \\frac{1}{8} = 5 + (-3) = 2$$',
-    subject: 'Matematika Tingkat Lanjut',
-    difficulty: 'Mudah',
-    bab: 'Eksponen & Logaritma',
-    year: '2026'
-  },
-  {
-    id: 'q_mtk_lanjut_7',
-    text: 'Panjang vektor $\\vec{v} = (6, -8)$ adalah ....',
-    options: ['8', '9', '10', '12', '14'],
-    correctAnswerIndex: 2,
-    correctAnswer: 'C',
-    explanation: '$$|\\vec{v}| = \\sqrt{6^2 + (-8)^2} = \\sqrt{36 + 64} = \\sqrt{100} = 10$$',
-    subject: 'Matematika Tingkat Lanjut',
-    difficulty: 'Mudah',
-    bab: 'Vektor',
-    year: '2026'
-  },
-  {
-    id: 'q_mtk_lanjut_8',
-    text: 'Persamaan lingkaran berpusat di $(2, -1)$ dan berjari-jari $3$ adalah ....',
-    options: [
-      '$x^2 + y^2 = 9$',
-      '$(x + 2)^2 + (y - 1)^2 = 9$',
-      '$(x - 2)^2 + (y + 1)^2 = 9$',
-      '$(x - 2)^2 + (y - 1)^2 = 3$',
-      '$(x + 2)^2 + (y + 1)^2 = 9$'
-    ],
-    correctAnswerIndex: 2,
-    correctAnswer: 'C',
-    explanation: 'Rumus persamaan lingkaran pusat $(a,b)$ dan jari-jari $r$:\n$$(x - a)^2 + (y - b)^2 = r^2$$\n$$(x - 2)^2 + (y - (-1))^2 = 3^2 \\implies (x - 2)^2 + (y + 1)^2 = 9$$',
-    subject: 'Matematika Tingkat Lanjut',
-    difficulty: 'Sedang',
-    bab: 'Geometri Lingkaran',
-    year: '2026'
-  },
-  {
-    id: 'q_mtk_lanjut_9',
-    text: 'Titik $(3, -2)$ direfleksikan terhadap sumbu-$Y$. Hasil bayangannya adalah ....',
-    options: ['(-3, -2)', '(3, 2)', '(-3, 2)', '(2, 3)', '(-2, 3)'],
-    correctAnswerIndex: 0,
-    correctAnswer: 'A',
-    explanation: 'Refleksi titik $(x, y)$ terhadap sumbu-$Y$ menghasilkan $(-x, y)$.\nSehingga bayangan dari $(3, -2)$ adalah $(-3, -2)$.',
-    subject: 'Matematika Tingkat Lanjut',
-    difficulty: 'Mudah',
-    bab: 'Transformasi Geometri',
-    year: '2026'
-  },
-  {
-    id: 'q_mtk_lanjut_10',
-    text: 'Nilai dari $\\lim_{x \\to 2} \\frac{x^2 - 4}{x - 2}$ adalah ....',
-    options: ['0', '2', '4', '6', 'Tak hingga'],
-    correctAnswerIndex: 2,
-    correctAnswer: 'C',
-    explanation: 'Faktorkan pembilang:\n$$\\lim_{x \\to 2} \\frac{(x-2)(x+2)}{x-2} = \\lim_{x \\to 2} (x+2) = 2 + 2 = 4$$',
-    subject: 'Matematika Tingkat Lanjut',
-    difficulty: 'Mudah',
-    bab: 'Kalkulus - Limit',
-    year: '2026'
-  },
-  {
-    id: 'q_mtk_lanjut_11',
-    text: 'Nilai dari $\\lim_{x \\to 0} \\frac{\\sin x}{x}$ adalah ....',
-    options: ['0', '1', '2', 'Tidak ada', 'Tak hingga'],
-    correctAnswerIndex: 1,
-    correctAnswer: 'B',
-    explanation: 'Berdasarkan identitas dan teorema dasar limit trigonometri:\n$$\\lim_{x \\to 0} \\frac{\\sin x}{x} = 1$$',
-    subject: 'Matematika Tingkat Lanjut',
-    difficulty: 'Mudah',
-    bab: 'Kalkulus - Limit Trigonometri',
-    year: '2026'
-  },
-  {
-    id: 'q_mtk_lanjut_12',
-    text: 'Nilai dari $2^3 \\times 2^{-5}$ adalah ....',
-    options: ['4', '2', '$\\frac{1}{4}$', '$\\frac{1}{2}$', '$\\frac{1}{8}$'],
-    correctAnswerIndex: 2,
-    correctAnswer: 'C',
-    explanation: '$$2^3 \\times 2^{-5} = 2^{3 - 5} = 2^{-2} = \\frac{1}{2^2} = \\frac{1}{4}$$',
-    subject: 'Matematika Tingkat Lanjut',
-    difficulty: 'Mudah',
-    bab: 'Eksponen',
-    year: '2026'
-  },
-  {
-    id: 'q_mtk_lanjut_13',
-    text: 'Manakah fungsi berikut yang memiliki domain semua bilangan real ($\\mathbb{R}$)? *(Pilih semua jawaban yang benar)*',
-    options: [
-      '$f(x) = x^2 + 1$',
-      '$f(x) = \\sqrt{x}$',
-      '$f(x) = 2^x$',
-      '$f(x) = |x|$',
-      '$f(x) = \\frac{1}{x}$'
-    ],
-    questionType: 'checkboxes',
-    correctAnswerIndex: 0,
-    correctAnswerIndices: [0, 2, 3],
-    correctAnswer: 'A, C, D',
-    explanation: '- $f(x)=x^2+1$: Polinomial, domain $\\mathbb{R}$ (Benar)\n- $f(x)=\\sqrt{x}$: Domain $x \\ge 0$ (Salah)\n- $f(x)=2^x$: Eksponensial, domain $\\mathbb{R}$ (Benar)\n- $f(x)=|x|$: Nilai mutlak, domain $\\mathbb{R}$ (Benar)\n- $f(x)=\\frac{1}{x}$: Domain $x \\neq 0$ (Salah)',
-    subject: 'Matematika Tingkat Lanjut',
-    difficulty: 'Sedang',
-    bab: 'Fungsi & Domain',
-    year: '2026'
-  },
-  {
-    id: 'q_mtk_lanjut_14',
-    text: 'Manakah pernyataan yang merupakan hasil translasi oleh vektor $\\begin{pmatrix} 2 \\\\ -3 \\end{pmatrix}$? *(Pilih semua jawaban yang benar)*',
-    options: [
-      '$(x, y) \\rightarrow (x + 2, y - 3)$',
-      '$(x, y) \\rightarrow (x - 2, y + 3)$',
-      'Titik bergeser 2 satuan ke kanan',
-      'Titik bergeser 3 satuan ke bawah',
-      'Refleksi terhadap sumbu-$X$'
-    ],
-    questionType: 'checkboxes',
-    correctAnswerIndex: 0,
-    correctAnswerIndices: [0, 2, 3],
-    correctAnswer: 'A, C, D',
-    explanation: 'Translasi $\\begin{pmatrix} 2 \\\\ -3 \\end{pmatrix}$ menggeser titik $2$ satuan ke kanan ($+2$ pada $x$) dan $3$ satuan ke bawah ($-3$ pada $y$).\nSehingga $(x, y) \\rightarrow (x + 2, y - 3)$ adalah tepat.',
-    subject: 'Matematika Tingkat Lanjut',
-    difficulty: 'Sedang',
-    bab: 'Transformasi Geometri',
-    year: '2026'
-  },
-  {
-    id: 'q_mtk_lanjut_15',
-    text: 'Diketahui matriks $A = \\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}$. Pernyataan yang benar adalah .... *(Pilih semua jawaban yang benar)*',
-    options: [
-      'Determinan $A = -2$',
-      'Determinan $A = 2$',
-      'Matriks memiliki invers',
-      'Matriks singular',
-      'Ordo matriks adalah $2 \\times 2$'
-    ],
-    questionType: 'checkboxes',
-    correctAnswerIndex: 0,
-    correctAnswerIndices: [0, 2, 4],
-    correctAnswer: 'A, C, E',
-    explanation: '- $\\det(A) = (1 \\cdot 4) - (2 \\cdot 3) = -2$ (Benar)\n- Karena $\\det(A) \\neq 0$, matriks non-singular dan memiliki invers (Benar)\n- Ukuran matriks $2 \\times 2$ (Benar)',
-    subject: 'Matematika Tingkat Lanjut',
-    difficulty: 'Sedang',
-    bab: 'Aljabar & Matriks',
-    year: '2026'
-  },
-  {
-    id: 'q_mtk_lanjut_16',
-    text: 'Manakah limit berikut yang bernilai 1? *(Pilih semua jawaban yang benar)*',
-    options: [
-      '$\\lim_{x \\to 0} \\frac{\\sin x}{x}$',
-      '$\\lim_{x \\to 0} \\frac{\\tan x}{x}$',
-      '$\\lim_{x \\to 0} \\frac{1 - \\cos x}{x}$',
-      '$\\lim_{x \\to 0} \\frac{x}{\\sin x}$',
-      '$\\lim_{x \\to 0} \\frac{x}{\\tan x}$'
-    ],
-    questionType: 'checkboxes',
-    correctAnswerIndex: 0,
-    correctAnswerIndices: [0, 1, 3, 4],
-    correctAnswer: 'A, B, D, E',
-    explanation: '- $\\lim_{x \\to 0} \\frac{\\sin x}{x} = 1$\n- $\\lim_{x \\to 0} \\frac{\\tan x}{x} = 1$\n- $\\lim_{x \\to 0} \\frac{1 - \\cos x}{x} = 0$\n- $\\lim_{x \\to 0} \\frac{x}{\\sin x} = 1$\n- $\\lim_{x \\to 0} \\frac{x}{\\tan x} = 1$',
-    subject: 'Matematika Tingkat Lanjut',
-    difficulty: 'Sulit',
-    bab: 'Kalkulus - Limit Trigonometri',
-    year: '2026'
-  },
-  {
-    id: 'q_mtk_lanjut_17',
-    text: 'Tentukan kebenaran dari pernyataan matriks berikut:\n1) Determinan matriks identitas selalu 1.\n2) Semua matriks memiliki invers.\n3) Determinan matriks singular sama dengan nol.',
-    options: [
-      '1) Benar, 2) Salah, 3) Benar',
-      '1) Benar, 2) Benar, 3) Benar',
-      '1) Salah, 2) Salah, 3) Benar',
-      '1) Benar, 2) Salah, 3) Salah',
-      '1) Salah, 2) Benar, 3) Salah'
-    ],
-    correctAnswerIndex: 0,
-    correctAnswer: 'A',
-    explanation: '1) $\\det(I) = 1$ (Benar)\n2) Hanya matriks persegi dengan $\\det \\neq 0$ yang memiliki invers (Salah)\n3) Matriks singular didefinisikan sebagai matriks dengan $\\det = 0$ (Benar)',
-    subject: 'Matematika Tingkat Lanjut',
-    difficulty: 'Sedang',
-    bab: 'Aljabar & Matriks',
-    year: '2026'
-  },
-  {
-    id: 'q_mtk_lanjut_18',
-    text: 'Tentukan kebenaran dari pernyataan fungsi eksponen dan logaritma berikut:\n1) Grafik fungsi eksponensial selalu melalui titik $(0,1)$.\n2) Fungsi logaritma merupakan invers fungsi eksponensial.\n3) Domain fungsi logaritma adalah semua bilangan real.',
-    options: [
-      '1) Benar, 2) Benar, 3) Benar',
-      '1) Benar, 2) Benar, 3) Salah',
-      '1) Benar, 2) Salah, 3) Salah',
-      '1) Salah, 2) Benar, 3) Salah',
-      '1) Salah, 2) Salah, 3) Benar'
-    ],
-    correctAnswerIndex: 1,
-    correctAnswer: 'B',
-    explanation: '1) $a^0 = 1$, memotong sumbu-$Y$ di $(0,1)$ (Benar)\n2) Logaritma merupakan invers dari eksponen (Benar)\n3) Domain $f(x)=\\log_a x$ hanya $x > 0$, bukan semua bilangan real (Salah)',
-    subject: 'Matematika Tingkat Lanjut',
-    difficulty: 'Sedang',
-    bab: 'Eksponen & Logaritma',
-    year: '2026'
-  },
-  {
-    id: 'q_mtk_lanjut_19',
-    text: 'Tentukan kebenaran dari pernyataan geometri berikut:\n1) Panjang vektor tidak pernah bernilai negatif.\n2) Refleksi terhadap sumbu-$X$ mengubah tanda koordinat $y$.\n3) Dilatasi dengan faktor skala 1 mengubah ukuran bangun.',
-    options: [
-      '1) Benar, 2) Benar, 3) Salah',
-      '1) Benar, 2) Salah, 3) Benar',
-      '1) Salah, 2) Benar, 3) Benar',
-      '1) Benar, 2) Benar, 3) Benar',
-      '1) Salah, 2) Salah, 3) Salah'
-    ],
-    correctAnswerIndex: 0,
-    correctAnswer: 'A',
-    explanation: '1) Panjang vektor $|\\vec{v}| \\ge 0$ (Benar)\n2) Refleksi sumbu-$X$: $(x,y) \\rightarrow (x,-y)$ (Benar)\n3) Dilatasi skala $k=1$ tidak mengubah ukuran ataupun bentuk (Salah)',
-    subject: 'Matematika Tingkat Lanjut',
-    difficulty: 'Sedang',
-    bab: 'Vektor & Geometri',
-    year: '2026'
-  },
-  {
-    id: 'q_mtk_lanjut_20',
-    text: 'Tentukan kebenaran dari pernyataan limit fungsi berikut:\n1) $\\lim_{x \\to 0} \\frac{\\sin x}{x} = 1$.\n2) Limit fungsi selalu dapat dihitung dengan substitusi langsung.\n3) Jika limit kiri dan limit kanan berbeda maka limit tidak ada.',
-    options: [
-      '1) Benar, 2) Benar, 3) Benar',
-      '1) Benar, 2) Salah, 3) Benar',
-      '1) Salah, 2) Benar, 3) Salah',
-      '1) Benar, 2) Salah, 3) Salah',
-      '1) Salah, 2) Salah, 3) Benar'
-    ],
-    correctAnswerIndex: 1,
-    correctAnswer: 'B',
-    explanation: '1) $\\lim_{x \\to 0} \\frac{\\sin x}{x} = 1$ (Benar)\n2) Jika bentuk tak tentu $\\frac{0}{0}$, tidak bisa substitusi langsung (Salah)\n3) Syarat keberadaan limit adalah limit kiri = limit kanan (Benar)',
-    subject: 'Matematika Tingkat Lanjut',
-    difficulty: 'Sedang',
-    bab: 'Kalkulus - Limit',
     year: '2026'
   },
   // --- 20 SOAL SIMULASI ANBK / TKA MATEMATIKA WAJIB (IRT SCALE 200 - 800) ---
@@ -2428,8 +2121,8 @@ export class FirestoreSimulator {
         displayName: name.charAt(0).toUpperCase() + name.slice(1),
         role: role,
         schoolName: 'SMA Negeri 1 Jakarta',
-        targetPTN: 'Universitas Indonesia',
-        targetProdi: 'Teknik Informatika',
+        targetPTN: '',
+        targetProdi: '',
         xp: 100,
         level: 1,
         streak: 1,
@@ -2485,8 +2178,8 @@ export class FirestoreSimulator {
       displayName: displayName,
       role: role,
       schoolName: 'SMA Negeri 8 Jakarta',
-      targetPTN: 'Institut Teknologi Bandung',
-      targetProdi: 'Sekolah Teknik Elektro & Informatika (STEI)',
+      targetPTN: '',
+      targetProdi: '',
       xp: 150,
       level: 1,
       streak: 1,
@@ -2824,12 +2517,16 @@ export class FirestoreSimulator {
     let wrongCount = 0;
     
     const subjectBreakdown: { [subj: string]: { correct: number; total: number } } = {};
+    const correctTopicsSet = new Set<string>();
+    const wrongTopicsSet = new Set<string>();
 
     examQuestions.forEach(q => {
       if (!subjectBreakdown[q.subject]) {
         subjectBreakdown[q.subject] = { correct: 0, total: 0 };
       }
       subjectBreakdown[q.subject].total++;
+
+      const topicName = q.bab || q.subject || 'Konsep Umum';
 
       const selected = answers[q.id];
       if (selected !== undefined) {
@@ -2848,13 +2545,19 @@ export class FirestoreSimulator {
         if (isCorrect) {
           correctCount++;
           subjectBreakdown[q.subject].correct++;
+          correctTopicsSet.add(topicName);
         } else {
           wrongCount++;
+          wrongTopicsSet.add(topicName);
         }
       } else {
         wrongCount++; // unanswered is marked wrong
+        wrongTopicsSet.add(topicName);
       }
     });
+
+    const strongSubjects = Array.from(correctTopicsSet);
+    const weakSubjects = Array.from(wrongTopicsSet);
 
     const totalQuestions = examQuestions.length || 1;
     const percentage = parseFloat(((correctCount / totalQuestions) * 100).toFixed(1));
@@ -2876,7 +2579,9 @@ export class FirestoreSimulator {
       totalQuestions,
       subject: exam.subject,
       passed,
-      createdAt: new Date().toISOString()
+      createdAt: new Date().toISOString(),
+      strongSubjects,
+      weakSubjects
     };
 
     // Save score
@@ -4028,7 +3733,22 @@ $$a = \\frac{g \\sin \\theta}{1 + k}$$`,
 
 // Global bootstrap functions to access static defaults
 export const getQuestions = () => {
-  const list = FirestoreSimulator.getCollection<Question>('questions', INITIAL_QUESTIONS);
+  let list = FirestoreSimulator.getCollection<Question>('questions', INITIAL_QUESTIONS);
+  
+  // Deduplicate cached list by question ID
+  const seenIds = new Set<string>();
+  const uniqueList: Question[] = [];
+  list.forEach(q => {
+    if (!seenIds.has(q.id)) {
+      seenIds.add(q.id);
+      uniqueList.push(q);
+    }
+  });
+  if (uniqueList.length !== list.length) {
+    list = uniqueList;
+    FirestoreSimulator.saveCollection('questions', list);
+  }
+
   const existingIds = new Set(list.map(q => q.id));
   let updated = false;
   INITIAL_QUESTIONS.filter(q => q.id.startsWith('q_mtk_slugpost_') || q.id.startsWith('q_limit_') || q.id.startsWith('q_mtk_lanjut_') || q.id.startsWith('q_integral_') || q.id.startsWith('q_turunan_') || q.id.startsWith('q_tka_bindo_') || q.id.startsWith('q_tka_bing_')).forEach(q => {

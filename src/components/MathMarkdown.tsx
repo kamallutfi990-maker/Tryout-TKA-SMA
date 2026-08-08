@@ -11,11 +11,21 @@ interface MathMarkdownProps {
 
 export function preprocessLaTeX(text: string): string {
   if (!text) return '';
-  return text
+  let processed = text
     .replace(/\\\[/g, '$$$$')
     .replace(/\\\]/g, '$$$$')
     .replace(/\\\(/g, '$')
     .replace(/\\\)/g, '$');
+
+  // Auto-wrap string if it contains LaTeX math commands but is missing $ delimiters
+  if (
+    !processed.includes('$') &&
+    /\\(frac|sqrt|lim|begin|end|vec|int|det|pmatrix|bmatrix|matrix|log|sin|cos|tan|theta|pi|ge|le|neq|implies|to|rightarrow|leftarrow|cdot|infty|sum)/i.test(processed)
+  ) {
+    processed = `$${processed}$`;
+  }
+
+  return processed;
 }
 
 export default function MathMarkdown({ content, className = '' }: MathMarkdownProps) {

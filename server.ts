@@ -256,45 +256,100 @@ app.post("/api/ai/recommend", async (req, res) => {
   try {
     const { scores, targetPTN, targetProdi } = req.body;
 
-    const fallbackRecommendation = `### 📊 Analisis & Rekomendasi Belajar TKA (Mode Offline Cerdas)
+    const numSalah = Number(scores?.salah) || 0;
+    const numBenar = Number(scores?.benar) || 0;
+    const isAllCorrect = scores?.isAllCorrect || (numSalah === 0 && numBenar > 0);
+
+    const weakSubjectsText = scores?.materiLemah || "Materi yang terjawab kurang tepat";
+    const strongSubjectsText = scores?.materiSangatKuat || "Materi yang dikuasai";
+
+    const fallbackAppreciation = `### 🎉 APRESIASI SPESIAL: PENCAPAIAN SEMPURNA ($100\\%$)!
+
+Selamat! Kamu telah menjawab **seluruh ($100\\%$) soal dengan benar** tanpa ada kesalahan sedikit pun pada latihan ini! 🏆✨
 
 Target Program Studi: **${targetProdi || "Program Studi Impian"}** - **${targetPTN || "PTN Impian"}**
 
-#### 🎯 Area Fokus & Prioritas Utama:
-1. **Perkuat Bab Dasar & HOTS:** Evaluasi berkala pada mata pelajaran yang masih di bawah passing grade skor $650$.
-2. **Manajemen Waktu CBT:** Latihan pengerjaan soal dengan alokasi waktu $t \\le 1,5$ menit per butir soal.
-3. **Pendalaman Rumus & Konsep:** Kuasai persamaan acuan seperti $f'(x) = a \\cdot n \\cdot x^{n-1}$ atau determinan $\\det(A) = ad - bc$.
+#### 🌟 Evaluasi & Apresiasi Performa Sempurna:
+1. **Penguasaan Materi 100% Utuh:** Semua konsep dan materi pada latihan ini telah kamu kuasai secara mendalam. Tidak ada materi lemah yang perlu di-review ulang!
+2. **Akurasi & Penalaran Sangat Tinggi:** Hasil $100\\%$ benar membuktikan ketelitian, efisiensi pengerjaan, dan pemahaman konsep yang sangat matang.
+3. **Peluang Menembus PTN Impian:** Dengan konsistensi performa seperti ini, peluang kamu lolos ke **${targetProdi || "Prodi Impian"}** di **${targetPTN || "PTN Impian"}** sangat terbuka lebar!
 
-#### 📅 3 Langkah Taktis Mingguan:
-* **Hari 1–3:** Tinjau ulang konsep formula $TKA$ yang sering salah pada kuis harian.
-* **Hari 4–5:** Kerjakan $1$ paket Try Out CBT terstruktur secara mandiri.
-* **Hari 6–7:** Analisis pembahasan setiap soal salah dan catat rumus pentingnya dalam jurnal rumus $LaTeX$.
+#### 🚀 3 Langkah Taktis Mempertahankan Performa:
+* **Langkah 1:** Pertahankan ketelitian ini dengan terus mencoba paket latihan level **HOTS (High Order Thinking Skills)**.
+* **Langkah 2:** Tingkatkan kecepatan pengerjaan ($t \\le 1,2$ menit/soal) tanpa mengorbankan akurasi.
+* **Langkah 3:** Jaga fisik dan tingkatkan rasa percaya diri menuju hari H tes TKA/UTBK!
+
+*Pertahankan prestasi luar biasa ini hingga lulus di PTN impianmu!* 🎓🔥`;
+
+    const fallbackRecommendation = `### 📊 Analisis & Strategi Belajar AI Tutor (Fokus Perbaikan Materi Salah)
+
+Target Program Studi: **${targetProdi || "Program Studi Impian"}** - **${targetPTN || "PTN Impian"}**
+
+#### 🎯 Evaluasi Materi Salah & Prioritas Utama:
+1. **Fokus Review Utama:** Segera pelajari ulang materi **${weakSubjectsText}** yang belum tepat pada latihan ini.
+2. **Kuasai Konsep & Formula:** Pahami kembali teori dasar dan persamaan acuan pada materi **${weakSubjectsText}** agar tidak mengulangi kesalahan pada tipe soal serupa.
+3. **Materi yang Sudah Kuat:** Pertahankan penguasaan pada **${strongSubjectsText}**.
+
+#### 📅 3 Langkah Taktis Perbaikan 7 Hari Ke Depan:
+* **Hari 1–3:** Tinjau ulang pembahasan soal salah dan pelajari materi ringkas **${weakSubjectsText}**.
+* **Hari 4–5:** Latihan soal terfokus khusus bab **${weakSubjectsText}** hingga akurasi mencapai $\\ge 85\\%$.
+* **Hari 6–7:** Kerjakan kembali $1$ paket Simulasi CBT dan evaluasi peningkatan skor.
 
 *(Catatan: Rekomendasi offline otomatis aktif saat kuota/lalu lintas API Gemini padat).*`;
 
+    const chosenFallback = isAllCorrect ? fallbackAppreciation : fallbackRecommendation;
+
     if (!process.env.GEMINI_API_KEY) {
-      return res.json({ recommendation: fallbackRecommendation });
+      return res.json({ recommendation: chosenFallback });
     }
 
     try {
       const ai = getGeminiClient();
+      let prompt = "";
+
+      if (isAllCorrect) {
+        prompt = `Siswa ini baru saja menyelesaikan latihan/tryout dan berhasil menjawab SELURUH SOAL DENGAN BENAR (100% Benar / 0 Salah)!
+Data Performa:
+- Total Soal Benar: ${numBenar || 'Seluruh Soal'}
+- Total Soal Salah: 0 (Tidak Ada Salah)
+- Materi Terbukti Kuat: ${strongSubjectsText}
+- Target PTN: ${targetPTN || 'PTN Impian'}
+- Target Prodi: ${targetProdi || 'Prodi Impian'}
+
+TUGAS AI TUTOR:
+1. Berikan APRESIASI DAN PUJIAN HANGAT SETINGGI-TINGGINYA atas pencapaian sempurna ($100\\%$) ini.
+2. Sampaikan secara jelas bahwa TIDAK ADA MATERI LEMAH yang perlu direview karena semua soal dijawab dengan benar.
+3. Berikan 3 tips taktis belajar untuk mempertajam ketelitian, meningkatkan efisiensi waktu, dan tantangan latihan level lebih tinggi (HOTS) agar siswa siap menembus ${targetProdi} di ${targetPTN}.
+4. PENTING: Gunakan format LaTeX ($...$ atau $$...$$) untuk semua rumus, angka statistik, persentase ($100\\%$), atau variabel agar sangat rapi. Jawab dengan format Markdown yang memotivasi.`;
+      } else {
+        prompt = `Rekomendasikan strategi belajar berdasarkan hasil latihan/tryout siswa berikut:
+Data Hasil Latihan:
+- Jumlah Soal Benar: ${numBenar}
+- Jumlah Soal Salah: ${numSalah}
+- Materi Sangat Kuat (Jawab Benar): ${strongSubjectsText}
+- MATERI LEMAH / TERJAWAB SALAH (PRIORITAS UTAMA REVIEW): ${weakSubjectsText}
+- Skor per Mapel: ${JSON.stringify(scores?.skorTiapMapel || {})}
+- Target Universitas: ${targetPTN || 'PTN Impian'}
+- Target Program Studi: ${targetProdi || 'Prodi Impian'}
+
+TUGAS AI TUTOR:
+1. Fokuskan analisis dan rekomendasi belajar SECARA SPESIFIK pada materi yang TERJAWAB SALAH (${weakSubjectsText}).
+2. Jelaskan bab/konsep dari materi salah tersebut yang wajib dipelajari ulang dan berikan tips agar tidak mengulangi kesalahan pada tipe soal tersebut.
+3. Susun rencana taktis perbaikan 7 hari ke depan untuk memperbaiki materi yang salah tersebut.
+4. PENTING: Gunakan format LaTeX ($...$ atau $$...$$) untuk menuliskan semua rumus matematika, variabel, persentase, atau angka skor agar tersaji super rapi dan presisi! Jawab dengan format Markdown yang rapi dan memotivasi.`;
+      }
+
       const response = await ai.models.generateContent({
         model: "gemini-3.6-flash",
-        contents: `Rekomendasikan strategi belajar berdasarkan profil tryout siswa berikut:
-Skor Tryout per Mapel: ${JSON.stringify(scores)}
-Target Universitas: ${targetPTN}
-Target Program Studi: ${targetProdi}
-
-Analisislah materi mata pelajaran mana yang perlu diprioritaskan untuk ditingkatkan, berikan saran bab spesifik yang harus diperkuat, dan susun 3 tips taktis belajar mingguan untuk mendongkrak skor agar melampaui passing grade target prodi tersebut.
-PENTING: Gunakan format LaTeX ($...$ atau $$...$$) untuk menuliskan semua rumus matematika, variabel, persamaan, persentase, atau simbol nilai skor agar tersaji super rapi dan presisi! Jawab dengan format Markdown yang rapi, bersih, dan memotivasi siswa.`,
+        contents: prompt,
         config: {
-          systemInstruction: "Kamu adalah AI Tutor Study Strategist senior. Selalu sajikan rumus, persamaan, variabel matematika/fisika/kimia, dan angka statistik menggunakan format LaTeX ($...$ atau $$...$$) agar sangat estetis dan mudah dibaca oleh siswa."
+          systemInstruction: "Kamu adalah AI Tutor Study Strategist senior. Selalu berikan apresiasi hangat jika siswa menjawab 100% benar (0 salah). Jika ada soal salah, selalu singkronkan rekomendasi belajar dengan materi yang terjawab salah. Selalu sajikan rumus, persamaan, variabel matematika/fisika/kimia, dan angka statistik menggunakan format LaTeX ($...$ atau $$...$$) agar sangat estetis dan mudah dibaca oleh siswa."
         }
       });
       return res.json({ recommendation: response.text });
     } catch (apiErr: any) {
       console.warn("Gemini Recommend API Error (fallback mode activated):", apiErr?.message);
-      return res.json({ recommendation: fallbackRecommendation });
+      return res.json({ recommendation: chosenFallback });
     }
   } catch (error: any) {
     console.error("Recommend Error:", error);
@@ -490,53 +545,6 @@ app.post("/api/slugpost/parse", async (req, res) => {
   } catch (error: any) {
     console.error("SlugPost Parse Error:", error);
     res.status(500).json({ success: false, error: error.message || "Gagal membaca data hasil SlugPost." });
-  }
-});
-
-// Endpoint Webhook Aman untuk Integrasi Mayar.id + Make.com
-app.post("/api/payment/webhook", async (req, res) => {
-  try {
-    const { email, packageName, status, secretToken } = req.body;
-    
-    // Validasi token rahasia dari Make.com untuk mencegah pemanggilan ilegal dari luar
-    const expectedToken = process.env.MAKE_WEBHOOK_TOKEN || "glorious_secret_token_123";
-    if (secretToken !== expectedToken) {
-      return res.status(401).json({ 
-        success: false, 
-        error: "Unauthorized: Token rahasia webhook tidak valid atau tidak cocok." 
-      });
-    }
-
-    if (!email || !packageName) {
-      return res.status(400).json({ 
-        success: false, 
-        error: "Data tidak lengkap: email dan packageName wajib disertakan." 
-      });
-    }
-
-    const normalizedEmail = email.trim().toLowerCase();
-
-    if (status === "success" || status === "paid") {
-      console.log(`[Webhook Sukses] Pengguna ${normalizedEmail} membeli paket ${packageName}.`);
-      
-      // CATATAN PENGEMBANGAN:
-      // Di sini, Anda akan mengintegrasikan kode untuk mengupdate status user di database terpusat Anda (Firestore atau SQL).
-      // Contoh jika menggunakan Firestore nyata:
-      // await db.collection("users").doc(userId).update({ isPremium: true });
-      
-      return res.json({ 
-        success: true, 
-        message: `Status pengguna ${normalizedEmail} berhasil diaktifkan menjadi Premium VIP untuk paket ${packageName}.` 
-      });
-    }
-
-    res.json({ 
-      success: false, 
-      message: "Status pembayaran bukan success/paid. Tidak ada tindakan yang diambil." 
-    });
-  } catch (error: any) {
-    console.error("Webhook Payment Error:", error);
-    res.status(500).json({ success: false, error: error.message || "Gagal memproses webhook pembayaran." });
   }
 });
 

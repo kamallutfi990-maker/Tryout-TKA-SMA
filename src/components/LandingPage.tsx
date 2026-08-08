@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { BookOpen, Video, Award, BarChart3, Users, Compass, ShieldCheck, ChevronDown, MessageSquare } from 'lucide-react';
+import { BookOpen, Video, Award, BarChart3, Users, Compass, ShieldCheck, ChevronDown, MessageSquare, Radio } from 'lucide-react';
 
 interface LandingPageProps {
   onStartLearning: () => void;
@@ -30,6 +30,11 @@ export default function LandingPage({ onStartLearning, onCobaGratis }: LandingPa
   }, []);
 
   const features = [
+    {
+      icon: <Radio className="w-6 h-6 text-red-600 animate-pulse" />,
+      title: '🔴 Live Streaming Sabtu & Minggu (Flagship)',
+      desc: 'Program keunggulan pembeda #1: Siaran langsung interaktif bedah soal HOTS, trik 10 detik, dan Q&A real-time setiap Sabtu & Minggu jam 19:00 WIB. Tonton Fullscreen di dalam aplikasi!'
+    },
     {
       icon: <BookOpen className="w-6 h-6 text-blue-600" />,
       title: 'Bank Soal Ribuan',

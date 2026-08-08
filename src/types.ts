@@ -98,6 +98,8 @@ export interface ExamScore {
   subject: string;
   passed: boolean;
   createdAt: string;
+  strongSubjects?: string[];
+  weakSubjects?: string[];
 }
 
 export interface ReportCard {

@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { Clock, HelpCircle, AlertCircle, CheckCircle, ChevronLeft, ChevronRight, HelpCircle as QueryIcon, Sparkles, Maximize2, Minimize2 } from 'lucide-react';
+import { Clock, HelpCircle, AlertCircle, CheckCircle, ChevronLeft, ChevronRight, HelpCircle as QueryIcon, Sparkles, Maximize2, Minimize2, ChevronDown, Check } from 'lucide-react';
 import { TryOut, Question, ExamScore } from '../types';
 import { FirestoreSimulator, getQuestions } from '../lib/firestoreSimulator';
 import MathMarkdown from './MathMarkdown';
@@ -33,6 +33,11 @@ export default function CbtSimulator({ tryout, userProfile, onBack, onFinish }: 
 
   // Full Screen State (Pure App Fullscreen to avoid browser native security notification popups)
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(false);
+
+  useEffect(() => {
+    setOpenDropdown(false);
+  }, [currentIndex]);
 
   const toggleFullscreen = () => {
     // If native browser fullscreen is active, exit it cleanly
@@ -316,25 +321,65 @@ export default function CbtSimulator({ tryout, userProfile, onBack, onFinish }: 
 
               {/* Options selection list */}
               {currentQ.questionType === 'dropdown' ? (
-                <div className="space-y-3 bg-slate-50 p-4 rounded-2xl border border-slate-200/60 pl-2">
+                <div className="space-y-3 bg-slate-50 p-4 rounded-2xl border border-slate-200/60 pl-2 relative">
                   <label className="text-xs font-bold text-slate-600 block">Pilih Jawaban Anda dari Dropdown Menu:</label>
-                  <select
-                    value={typeof answers[currentQ.id] === 'number' ? (answers[currentQ.id] as number) : ""}
-                    onChange={(e) => {
-                      const val = e.target.value;
-                      if (val !== "") {
-                        handleSelectAnswer(currentQ.id, parseInt(val), 'dropdown');
-                      }
-                    }}
-                    className="w-full p-3 border border-slate-200 rounded-xl bg-white font-semibold text-slate-700 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+                  
+                  {/* Trigger Button */}
+                  <button
+                    type="button"
+                    onClick={() => setOpenDropdown(!openDropdown)}
+                    className="w-full p-3.5 border border-slate-200 rounded-xl bg-white text-left font-semibold text-slate-700 text-xs sm:text-sm flex items-center justify-between shadow-xs hover:border-blue-500 transition-all cursor-pointer"
                   >
-                    <option value="">-- Silakan Pilih Jawaban --</option>
-                    {currentQ.options.map((option, oIdx) => (
-                      <option key={oIdx} value={oIdx}>
-                        Opsi {String.fromCharCode(65 + oIdx)}: {option}
-                      </option>
-                    ))}
-                  </select>
+                    <div className="flex items-center gap-2 overflow-hidden flex-1">
+                      {typeof answers[currentQ.id] === 'number' ? (
+                        <div className="flex items-center gap-2">
+                          <span className="font-extrabold text-blue-600 bg-blue-50 px-2 py-0.5 rounded text-xs shrink-0">
+                            Opsi {String.fromCharCode(65 + (answers[currentQ.id] as number))}
+                          </span>
+                          <div className="truncate text-slate-800">
+                            <MathMarkdown content={currentQ.options[answers[currentQ.id] as number]} />
+                          </div>
+                        </div>
+                      ) : (
+                        <span className="text-slate-400 font-normal">-- Silakan Pilih Jawaban --</span>
+                      )}
+                    </div>
+                    <ChevronDown className={`w-4 h-4 text-slate-400 shrink-0 transition-transform ${openDropdown ? 'rotate-180' : ''}`} />
+                  </button>
+
+                  {/* Dropdown Options List */}
+                  {openDropdown && (
+                    <div className="space-y-1.5 pt-2 border-t border-slate-200 mt-2 animate-in fade-in duration-150">
+                      {currentQ.options.map((option, oIdx) => {
+                        const isSelected = answers[currentQ.id] === oIdx;
+                        return (
+                          <button
+                            key={oIdx}
+                            type="button"
+                            onClick={() => {
+                              handleSelectAnswer(currentQ.id, oIdx, 'dropdown');
+                              setOpenDropdown(false);
+                            }}
+                            className={`w-full text-left p-3 border rounded-xl text-xs sm:text-sm flex items-center gap-2.5 transition-all cursor-pointer ${
+                              isSelected
+                                ? 'bg-blue-50 border-blue-500 text-blue-900 font-bold shadow-xs'
+                                : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-100/80'
+                            }`}
+                          >
+                            <span className={`w-5 h-5 rounded-full font-bold flex items-center justify-center text-[10px] shrink-0 ${
+                              isSelected ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-600'
+                            }`}>
+                              {String.fromCharCode(65 + oIdx)}
+                            </span>
+                            <div className="flex-1">
+                              <MathMarkdown content={option} />
+                            </div>
+                            {isSelected && <Check className="w-4 h-4 text-blue-600 shrink-0" />}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
                 </div>
               ) : currentQ.questionType === 'checkboxes' ? (
                 <div className="space-y-2.5 pl-2">
@@ -509,12 +554,12 @@ export default function CbtSimulator({ tryout, userProfile, onBack, onFinish }: 
               correctCount: scoreResult.correctCount,
               wrongCount: scoreResult.wrongCount,
               totalQuestions: scoreResult.totalQuestions,
-              targetPTN: userProfile.targetPTN || "Institut Teknologi Bandung",
-              targetProdi: userProfile.targetProdi || "Sekolah Teknik Elektro & Informatika (STEI)",
+              targetPTN: userProfile.targetPTN || "",
+              targetProdi: userProfile.targetProdi || "",
               keketatan: "Keketatan Sangat Kompetitif",
               xpEarned: scoreResult.correctCount * 15 + 50,
-              strongSubjects: ["Turunan", "Atmosfer"],
-              weakSubjects: ["Listrik Dinamis", "Eksponen"]
+              strongSubjects: scoreResult.strongSubjects || ["Pemahaman Konsep"],
+              weakSubjects: scoreResult.weakSubjects || []
             }}
             userProfile={userProfile}
             onClose={onBack}

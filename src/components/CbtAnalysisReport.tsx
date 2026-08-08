@@ -4,7 +4,7 @@
  */
 
 import React, { useState } from 'react';
-import { Sparkles, Trophy, CheckCircle, XCircle, Target, ExternalLink, RefreshCw, BookOpen, Share2, Edit3, Save, Sliders, Check, FileCode2 } from 'lucide-react';
+import { Sparkles, Trophy, CheckCircle, XCircle, Target, ExternalLink, RefreshCw, BookOpen, Share2, Edit3, Save, Sliders, Check, FileCode2, Maximize2, Minimize2, X } from 'lucide-react';
 import MathMarkdown from './MathMarkdown';
 import HtmlPembahasanModal from './HtmlPembahasanModal';
 
@@ -35,6 +35,7 @@ export default function CbtAnalysisReport({ report, userProfile, onClose }: CbtA
   const [loadingAi, setLoadingAi] = useState(false);
   const [aiRecommendation, setAiRecommendation] = useState('');
   const [showHtmlModal, setShowHtmlModal] = useState(false);
+  const [isAiFullscreen, setIsAiFullscreen] = useState(false);
 
   // Editable States for easy score modification
   const [isEditing, setIsEditing] = useState(false);
@@ -43,16 +44,20 @@ export default function CbtAnalysisReport({ report, userProfile, onClose }: CbtA
   const [wrongCount, setWrongCount] = useState<number | string>(report.wrongCount);
   const [totalQuestions, setTotalQuestions] = useState<number | string>(report.totalQuestions || 4);
 
+  const displayCorrectCount = Number(correctCount) || 0;
+  const displayWrongCount = Number(wrongCount) || 0;
+  const isAllCorrect = displayWrongCount === 0 && displayCorrectCount > 0;
+
   const [strongText, setStrongText] = useState<string>(
     report.strongSubjects && report.strongSubjects.length > 0
       ? report.strongSubjects.join(', ')
-      : 'Turunan, Atmosfer'
+      : (report.correctCount > 0 ? 'Pemahaman Konsep & Akurasi Jawaban' : '')
   );
 
   const [weakText, setWeakText] = useState<string>(
     report.weakSubjects && report.weakSubjects.length > 0
       ? report.weakSubjects.join(', ')
-      : 'Listrik Dinamis, Eksponen'
+      : (report.wrongCount > 0 ? 'Listrik Dinamis, Eksponen' : '')
   );
 
   const [radarScores, setRadarScores] = useState<{ [key: string]: number | string }>({
@@ -64,10 +69,9 @@ export default function CbtAnalysisReport({ report, userProfile, onClose }: CbtA
     Logika: report.radarScores?.Logika ?? 85,
   });
 
-  const targetPTN = report.targetPTN || userProfile?.targetPTN || "Institut Teknologi Bandung";
-  const targetProdi = report.targetProdi || userProfile?.targetProdi || "Sekolah Teknik Elektro & Informatika (STEI)";
+  const targetPTN = (report.targetPTN && report.targetPTN.trim()) || (userProfile?.targetPTN && userProfile.targetPTN.trim()) || "";
+  const targetProdi = (report.targetProdi && report.targetProdi.trim()) || (userProfile?.targetProdi && userProfile.targetProdi.trim()) || "";
   const keketatan = report.keketatan || "Keketatan Sangat Kompetitif";
-  const displayCorrectCount = Number(correctCount) || 0;
   const xpValue = report.xpEarned ?? (displayCorrectCount * 15 + 50);
 
   const numericScore = Number(score) || 0;
@@ -121,10 +125,11 @@ export default function CbtAnalysisReport({ report, userProfile, onClose }: CbtA
         body: JSON.stringify({
           scores: {
             [report.title]: numericScore,
-            benar: Number(correctCount) || 0,
-            salah: Number(wrongCount) || 0,
-            materiSangatKuat: strongText,
-            materiLemah: weakText,
+            benar: displayCorrectCount,
+            salah: displayWrongCount,
+            materiSangatKuat: strongText || (isAllCorrect ? 'Semua Materi Ujian' : 'Pemahaman Konsep'),
+            materiLemah: isAllCorrect ? '' : weakText,
+            isAllCorrect: isAllCorrect,
             skorTiapMapel: radarScores
           },
           targetPTN: targetPTN,
@@ -400,16 +405,29 @@ export default function CbtAnalysisReport({ report, userProfile, onClose }: CbtA
             Target PTN
           </span>
           <div className="space-y-1">
-            <h4 className="font-extrabold text-sm sm:text-base text-slate-800 leading-snug truncate" title={targetPTN}>
-              {targetPTN}
-            </h4>
-            <p className="text-xs text-slate-500 leading-relaxed truncate" title={targetProdi}>
-              {targetProdi}
-            </p>
+            {targetPTN ? (
+              <>
+                <h4 className="font-extrabold text-sm sm:text-base text-slate-800 leading-snug truncate" title={targetPTN}>
+                  {targetPTN}
+                </h4>
+                <p className="text-xs text-slate-500 leading-relaxed truncate" title={targetProdi || "Belum Memilih Jurusan"}>
+                  {targetProdi || "Belum Memilih Jurusan"}
+                </p>
+              </>
+            ) : (
+              <>
+                <h4 className="font-extrabold text-sm sm:text-base text-slate-400 italic leading-snug">
+                  Belum Memilih Target PTN
+                </h4>
+                <p className="text-xs text-slate-400 italic">
+                  Silakan pilih PTN di menu Prediksi PTN
+                </p>
+              </>
+            )}
           </div>
           <div>
-            <span className="text-xs font-bold text-blue-600 block">
-              {keketatan}
+            <span className={`text-xs font-bold block ${targetPTN ? 'text-blue-600' : 'text-slate-400'}`}>
+              {targetPTN ? keketatan : "-"}
             </span>
           </div>
         </div>
@@ -433,13 +451,16 @@ export default function CbtAnalysisReport({ report, userProfile, onClose }: CbtA
       {/* Bottom Content Grid (2 Columns) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
-        {/* Left Column: Visualisasi Analisis Tiap Bab */}
-        <div className="lg:col-span-6 border border-slate-100 rounded-3xl p-6 space-y-4">
+        {/* Left Column: Visualisasi Soal Terjawab dengan Benar */}
+        <div className="lg:col-span-6 border border-slate-100 rounded-3xl p-6 space-y-5">
           <div className="flex justify-between items-start">
             <div>
-              <h4 className="text-sm sm:text-base font-bold text-slate-800">Visualisasi Analisis Tiap Bab</h4>
+              <h4 className="text-sm sm:text-base font-bold text-slate-800 flex items-center gap-2">
+                <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
+                <span>Visualisasi Soal Terjawab dengan Benar</span>
+              </h4>
               <p className="text-xs text-slate-400 mt-0.5">
-                Diagram penguasaan materi di bawah dihitung secara objektif berdasarkan akurasi tiap mapel.
+                Rasio persentase akurasi pengerjaan soal benar vs salah dari total pertanyaan.
               </p>
             </div>
             <button
@@ -447,58 +468,141 @@ export default function CbtAnalysisReport({ report, userProfile, onClose }: CbtA
               className="text-xs font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1 bg-blue-50 px-2.5 py-1 rounded-lg cursor-pointer shrink-0"
             >
               <Edit3 className="w-3.5 h-3.5" />
-              <span>Edit Nilai Mapel</span>
+              <span>Edit Jawaban</span>
             </button>
           </div>
 
-          {/* Custom SVG Hexagonal Radar Chart */}
-          <div className="relative flex justify-center py-6">
-            <svg className="w-64 h-64 overflow-visible" viewBox="0 0 200 200">
-              {/* Outer hexagonal grids */}
-              <polygon points="100,10 178,55 178,145 100,190 22,145 22,55" fill="none" stroke="#E2E8F0" strokeWidth="1" />
-              <polygon points="100,32.5 158.5,66.25 158.5,133.75 100,167.5 41.5,133.75 41.5,66.25" fill="none" stroke="#E2E8F0" strokeWidth="1" />
-              <polygon points="100,55 139,77.5 139,122.5 100,145 61,122.5 61,77.5" fill="none" stroke="#F1F5F9" strokeWidth="1" />
-              
-              {/* Grid lines */}
-              <line x1="100" y1="10" x2="100" y2="190" stroke="#E2E8F0" strokeWidth="1" strokeDasharray="3,3" />
-              <line x1="22" y1="55" x2="178" y2="145" stroke="#E2E8F0" strokeWidth="1" strokeDasharray="3,3" />
-              <line x1="22" y1="145" x2="178" y2="55" stroke="#E2E8F0" strokeWidth="1" strokeDasharray="3,3" />
+          {/* Visual Donut Chart & Accuracy Metrics */}
+          {(() => {
+            const numTotal = Math.max(1, Number(totalQuestions) || 1);
+            const numCorrect = Math.max(0, Number(correctCount) || 0);
+            const numWrong = Math.max(0, Number(wrongCount) || 0);
+            const accuracyPct = Math.min(100, Math.round((numCorrect / numTotal) * 100));
+            const wrongPct = Math.min(100, 100 - accuracyPct);
 
-              {/* Student actual performance polygon */}
-              <polygon 
-                points={`100,${100 - scoreMat*0.8} ${100 + scoreFis*0.78},${100 - scoreFis*0.45} ${100 + scoreKim*0.78},${100 + scoreKim*0.45} 100,${100 + scoreBio*0.8} ${100 - scoreSos*0.78},${100 + scoreSos*0.45} ${100 - scoreLog*0.78},${100 - scoreLog*0.45}`} 
-                fill="rgba(37, 99, 235, 0.15)" 
-                stroke="#2563EB" 
-                strokeWidth="2.5" 
-              />
+            // SVG Donut Circle parameters
+            const radius = 54;
+            const circumference = 2 * Math.PI * radius;
+            const strokeDashoffset = circumference - (accuracyPct / 100) * circumference;
 
-              {/* Subject Labels with values */}
-              <text x="100" y="2" textAnchor="middle" className="text-[10px] font-extrabold fill-slate-700">Matematika ({radarScores.Matematika === '' ? '-' : scoreMat})</text>
-              <text x="185" y="55" textAnchor="start" className="text-[10px] font-extrabold fill-slate-700">Fisika ({radarScores.Fisika === '' ? '-' : scoreFis})</text>
-              <text x="185" y="150" textAnchor="start" className="text-[10px] font-extrabold fill-slate-700">Kimia ({radarScores.Kimia === '' ? '-' : scoreKim})</text>
-              <text x="100" y="202" textAnchor="middle" className="text-[10px] font-extrabold fill-slate-700">Biologi ({radarScores.Biologi === '' ? '-' : scoreBio})</text>
-              <text x="15" y="150" textAnchor="end" className="text-[10px] font-extrabold fill-slate-700">Soshum ({radarScores.Soshum === '' ? '-' : scoreSos})</text>
-              <text x="15" y="55" textAnchor="end" className="text-[10px] font-extrabold fill-slate-700">Logika ({radarScores.Logika === '' ? '-' : scoreLog})</text>
-            </svg>
-          </div>
+            return (
+              <div className="space-y-5">
+                {/* Donut Chart & Key Badges */}
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-6 py-2 bg-slate-50/70 border border-slate-100 rounded-2xl p-4">
+                  {/* Donut SVG */}
+                  <div className="relative flex items-center justify-center shrink-0">
+                    <svg className="w-36 h-36 -rotate-90 transform" viewBox="0 0 120 120">
+                      {/* Background Circle (Wrong/Empty portion) */}
+                      <circle
+                        cx="60"
+                        cy="60"
+                        r={radius}
+                        className="text-red-100"
+                        strokeWidth="12"
+                        stroke="currentColor"
+                        fill="transparent"
+                      />
+                      {/* Foreground Circle (Correct portion) */}
+                      <circle
+                        cx="60"
+                        cy="60"
+                        r={radius}
+                        className="text-emerald-500 transition-all duration-700 ease-out"
+                        strokeWidth="12"
+                        strokeDasharray={circumference}
+                        strokeDashoffset={strokeDashoffset}
+                        strokeLinecap="round"
+                        stroke="currentColor"
+                        fill="transparent"
+                      />
+                    </svg>
+                    {/* Inner Text */}
+                    <div className="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none">
+                      <span className="text-2xl font-black text-slate-900 tracking-tight">{accuracyPct}%</span>
+                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Akurasi</span>
+                    </div>
+                  </div>
 
-          {/* Interactive Subject List Cards for easy editing directly under the chart */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 py-2 border-t border-b border-slate-100">
-            {subjectList.map(sub => (
-              <div key={sub.key} className="bg-slate-50 border border-slate-100 rounded-xl p-2 flex items-center justify-between">
-                <span className="text-[11px] font-bold text-slate-700">{sub.label}:</span>
-                <input
-                  type="text"
-                  inputMode="numeric"
-                  placeholder="0"
-                  value={radarScores[sub.key] ?? ''}
-                  onFocus={(e) => e.target.select()}
-                  onChange={(e) => handleSubjectScoreChange(sub.key, e.target.value)}
-                  className="w-12 bg-white border border-slate-200 text-xs font-black text-slate-800 text-center rounded focus:outline-none focus:border-blue-500 py-0.5"
-                />
+                  {/* Summary Metric Chips */}
+                  <div className="flex-1 space-y-3 w-full">
+                    <div className="bg-emerald-50/80 border border-emerald-200/60 rounded-xl p-3 flex justify-between items-center">
+                      <div className="flex items-center gap-2">
+                        <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
+                        <div>
+                          <span className="text-xs font-bold text-emerald-950 block">Soal Benar</span>
+                          <span className="text-[10px] text-emerald-700 font-medium">{numCorrect} dari {numTotal} soal</span>
+                        </div>
+                      </div>
+                      <span className="text-base font-black text-emerald-700">{accuracyPct}%</span>
+                    </div>
+
+                    <div className="bg-red-50/80 border border-red-200/60 rounded-xl p-3 flex justify-between items-center">
+                      <div className="flex items-center gap-2">
+                        <XCircle className="w-4 h-4 text-red-500 shrink-0" />
+                        <div>
+                          <span className="text-xs font-bold text-red-950 block">Soal Salah / Kosong</span>
+                          <span className="text-[10px] text-red-700 font-medium">{numWrong} dari {numTotal} soal</span>
+                        </div>
+                      </div>
+                      <span className="text-base font-black text-red-600">{wrongPct}%</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Progress Bars for Detailed Breakdown */}
+                <div className="space-y-3 bg-white border border-slate-100 rounded-2xl p-4 shadow-xs">
+                  <div>
+                    <div className="flex justify-between items-center text-xs mb-1.5">
+                      <span className="font-bold text-slate-700 flex items-center gap-1.5">
+                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span>
+                        Tingkat Keterjawaban Benar
+                      </span>
+                      <span className="font-black text-emerald-600">{numCorrect} / {numTotal} Soal ({accuracyPct}%)</span>
+                    </div>
+                    <div className="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
+                      <div
+                        className="bg-emerald-500 h-full rounded-full transition-all duration-500"
+                        style={{ width: `${accuracyPct}%` }}
+                      ></div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="flex justify-between items-center text-xs mb-1.5">
+                      <span className="font-bold text-slate-700 flex items-center gap-1.5">
+                        <span className="w-2.5 h-2.5 rounded-full bg-red-400 inline-block"></span>
+                        Tingkat Kesalahan / Belum Tepat
+                      </span>
+                      <span className="font-black text-red-500">{numWrong} / {numTotal} Soal ({wrongPct}%)</span>
+                    </div>
+                    <div className="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
+                      <div
+                        className="bg-red-400 h-full rounded-full transition-all duration-500"
+                        style={{ width: `${wrongPct}%` }}
+                      ></div>
+                    </div>
+                  </div>
+                </div>
               </div>
-            ))}
-          </div>
+            );
+          })()}
+
+          {/* Appreciation Banner if 100% Correct */}
+          {isAllCorrect && (
+            <div className="bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-50 border border-emerald-200/80 rounded-2xl p-4 flex items-start gap-3.5 text-emerald-950 animate-in fade-in duration-300">
+              <div className="p-2 bg-emerald-600 text-white rounded-xl shrink-0 shadow-sm">
+                <Trophy className="w-5 h-5 text-amber-300" />
+              </div>
+              <div className="space-y-1">
+                <h5 className="font-extrabold text-sm text-emerald-950 flex items-center gap-1.5">
+                  Apresiasi Performa Sempurna ($100\%$ Benar)! 🎉
+                </h5>
+                <p className="text-xs text-emerald-800 leading-relaxed">
+                  Luar biasa! Seluruh <strong>{displayCorrectCount} dari {displayCorrectCount} soal</strong> berhasil kamu jawab dengan tepat tanpa ada kesalahan satu pun. Semua materi pada latihan ini telah kamu kuasai secara utuh!
+                </p>
+              </div>
+            </div>
+          )}
 
           {/* Breakdown Pills */}
           <div className="space-y-3 pt-1">
@@ -512,7 +616,9 @@ export default function CbtAnalysisReport({ report, userProfile, onClose }: CbtA
                   className="w-full sm:w-auto flex-1 bg-white border border-slate-300 text-xs font-bold text-emerald-700 rounded px-2 py-1 focus:outline-none"
                 />
               ) : (
-                <span className="text-emerald-600 font-bold bg-emerald-50 px-2.5 py-0.5 rounded">{strongText}</span>
+                <span className="text-emerald-600 font-bold bg-emerald-50 px-2.5 py-0.5 rounded">
+                  {isAllCorrect ? `🌟 ${strongText || 'Seluruh Materi Latihan Dikuasai Sempurna (100% Benar)'}` : (strongText || 'Pemahaman Konsep & Akurasi')}
+                </span>
               )}
             </div>
 
@@ -526,7 +632,13 @@ export default function CbtAnalysisReport({ report, userProfile, onClose }: CbtA
                   className="w-full sm:w-auto flex-1 bg-white border border-slate-300 text-xs font-bold text-red-700 rounded px-2 py-1 focus:outline-none"
                 />
               ) : (
-                <span className="text-red-600 font-bold bg-red-50 px-2.5 py-0.5 rounded">{weakText}</span>
+                <span className={`font-bold px-2.5 py-0.5 rounded ${
+                  isAllCorrect 
+                    ? 'text-emerald-800 bg-emerald-100 border border-emerald-200/80 font-extrabold' 
+                    : 'text-red-600 bg-red-50'
+                }`}>
+                  {isAllCorrect ? '🎉 Luar Biasa! Sempurna 100% Benar. Tidak ada materi yang salah/perlu direview!' : (weakText || 'Sesuai Soal yang Terjawab Salah')}
+                </span>
               )}
             </div>
           </div>
@@ -534,24 +646,45 @@ export default function CbtAnalysisReport({ report, userProfile, onClose }: CbtA
 
         {/* Right Column: AI Tutor Study Strategist */}
         <div className="lg:col-span-6 border border-slate-100 rounded-3xl p-6 bg-slate-50/50 space-y-4">
-          <div className="flex items-center gap-2.5">
-            <div className="bg-slate-900 text-white p-2 rounded-xl shrink-0">
-              <Sparkles className="w-4 h-4 text-amber-400" />
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2.5">
+              <div className="bg-slate-900 text-white p-2 rounded-xl shrink-0">
+                <Sparkles className="w-4 h-4 text-amber-400" />
+              </div>
+              <div>
+                <h4 className="text-sm sm:text-base font-bold text-slate-800">AI Tutor Study Strategist</h4>
+                <p className="text-[10px] text-slate-400">Analis strategi berbasis Gemini AI</p>
+              </div>
             </div>
-            <div>
-              <h4 className="text-sm sm:text-base font-bold text-slate-800">AI Tutor Study Strategist</h4>
-              <p className="text-[10px] text-slate-400">Analis strategi berbasis Gemini AI</p>
-            </div>
+
+            <button
+              onClick={() => setIsAiFullscreen(true)}
+              className="p-2 sm:px-3 sm:py-1.5 text-slate-600 hover:text-slate-900 bg-white hover:bg-slate-100 border border-slate-200/80 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 text-xs font-bold shadow-xs"
+              title="Tampilkan Layar Penuh (Fullscreen)"
+            >
+              <Maximize2 className="w-3.5 h-3.5 text-blue-600" />
+              <span className="hidden sm:inline">Layar Penuh</span>
+            </button>
           </div>
 
           {aiRecommendation ? (
-            <div className="bg-white border border-slate-200/60 rounded-2xl p-4 text-xs sm:text-sm text-slate-700 leading-relaxed max-h-[45vh] overflow-y-auto space-y-2">
+            <div className="bg-white border border-slate-200/60 rounded-2xl p-4 text-xs sm:text-sm text-slate-700 leading-relaxed max-h-[45vh] overflow-y-auto space-y-2 relative group">
+              <button
+                onClick={() => setIsAiFullscreen(true)}
+                className="absolute top-2 right-2 p-1.5 bg-slate-100 hover:bg-blue-50 hover:text-blue-600 rounded-lg text-slate-500 transition-all cursor-pointer shadow-xs flex items-center gap-1 text-[11px] font-bold"
+                title="Layar Penuh (Fullscreen)"
+              >
+                <Maximize2 className="w-3.5 h-3.5" />
+                <span className="hidden md:inline">Layar Penuh</span>
+              </button>
               <MathMarkdown content={aiRecommendation} />
             </div>
           ) : (
             <div className="text-center py-10 space-y-4">
               <p className="text-xs text-slate-500 max-w-sm mx-auto leading-relaxed">
-                Dapatkan analisis materi prioritas belajar dan jadwal belajar taktis 7 hari ke depan dari Gemini AI khusus berdasarkan skor tryout kamu ini.
+                {isAllCorrect 
+                  ? 'Dapatkan apresiasi dan strategi mempertahankan performa 100% benar menuju PTN impian dari Gemini AI.'
+                  : `Dapatkan analisis strategi perbaikan khusus materi yang salah (${weakText || 'materi terindikasi lemah'}) dan jadwal belajar 7 hari ke depan dari Gemini AI.`}
               </p>
               <button
                 onClick={handleGetAiRecommendation}
@@ -566,7 +699,7 @@ export default function CbtAnalysisReport({ report, userProfile, onClose }: CbtA
                 ) : (
                   <>
                     <Sparkles className="w-4 h-4 text-amber-300 shrink-0" />
-                    Buat Strategi Belajar AI
+                    {isAllCorrect ? 'Dapatkan Apresiasi & Strategi AI' : 'Buat Strategi Belajar AI'}
                   </>
                 )}
               </button>
@@ -581,6 +714,118 @@ export default function CbtAnalysisReport({ report, userProfile, onClose }: CbtA
         onClose={() => setShowHtmlModal(false)}
         title={`Pembahasan Lengkap HTML - ${report.title}`}
       />
+
+      {/* Fullscreen AI Tutor Modal */}
+      {isAiFullscreen && (
+        <div className="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md p-3 sm:p-6 flex items-center justify-center animate-in fade-in duration-200">
+          <div className="bg-white w-full max-w-5xl h-[92vh] rounded-3xl shadow-2xl flex flex-col overflow-hidden border border-slate-200/80">
+            {/* Modal Header */}
+            <div className="px-6 py-4 bg-slate-900 text-white flex items-center justify-between shrink-0">
+              <div className="flex items-center gap-3">
+                <div className="p-2.5 bg-slate-800 rounded-xl text-amber-400 border border-slate-700 shadow-xs">
+                  <Sparkles className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="font-extrabold text-base sm:text-lg flex items-center gap-2">
+                    AI Tutor Study Strategist — Layar Penuh
+                  </h3>
+                  <p className="text-xs text-slate-400">
+                    Rekomendasi & Analisis Strategi Belajar Terstruktur Gemini AI
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={handleGetAiRecommendation}
+                  disabled={loadingAi}
+                  className="px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-700 text-white text-xs font-bold rounded-xl transition-all cursor-pointer flex items-center gap-1.5 shadow-sm"
+                >
+                  {loadingAi ? (
+                    <>
+                      <span className="flex h-2 w-2 rounded-full bg-white animate-ping"></span>
+                      Menyusun AI...
+                    </>
+                  ) : (
+                    <>
+                      <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+                      {aiRecommendation ? 'Regenerasi AI' : (isAllCorrect ? 'Dapatkan Apresiasi' : 'Buat Strategi AI')}
+                    </>
+                  )}
+                </button>
+                <button
+                  onClick={() => setIsAiFullscreen(false)}
+                  className="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-xl transition-all cursor-pointer"
+                  title="Keluar Layar Penuh"
+                >
+                  <Minimize2 className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={() => setIsAiFullscreen(false)}
+                  className="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-xl transition-all cursor-pointer"
+                  title="Tutup"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Modal Body */}
+            <div className="flex-1 p-6 sm:p-8 overflow-y-auto bg-slate-50/50 leading-relaxed text-slate-800">
+              {aiRecommendation ? (
+                <div className="bg-white border border-slate-200/80 rounded-2xl p-6 sm:p-8 shadow-xs space-y-4 text-sm sm:text-base">
+                  <MathMarkdown content={aiRecommendation} />
+                </div>
+              ) : (
+                <div className="h-full flex flex-col items-center justify-center text-center p-8 space-y-5">
+                  <div className="p-4 bg-blue-50 text-blue-600 rounded-2xl shadow-inner">
+                    <Sparkles className="w-10 h-10 animate-bounce text-blue-600" />
+                  </div>
+                  <div className="max-w-md space-y-2">
+                    <h4 className="font-bold text-lg text-slate-800">Belum Ada Rekomendasi AI</h4>
+                    <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
+                      {isAllCorrect 
+                        ? 'Klik tombol di bawah untuk mendapatkan apresiasi dan panduan taktis mempertahankan nilai 100% dari AI Tutor.'
+                        : `Klik tombol di bawah untuk meminta AI Tutor menganalisis materi salah (${weakText || 'materi terindikasi lemah'}) secara mendalam.`}
+                    </p>
+                  </div>
+                  <button
+                    onClick={handleGetAiRecommendation}
+                    disabled={loadingAi}
+                    className="px-8 py-3.5 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-300 text-white font-bold text-sm rounded-2xl shadow-lg shadow-blue-500/20 transition-all cursor-pointer flex items-center gap-2"
+                  >
+                    {loadingAi ? (
+                      <>
+                        <span className="flex h-2.5 w-2.5 rounded-full bg-white animate-ping"></span>
+                        Sedang Menganalisis & Menyusun Strategi AI...
+                      </>
+                    ) : (
+                      <>
+                        <Sparkles className="w-4 h-4 text-amber-300" />
+                        {isAllCorrect ? 'Dapatkan Apresiasi & Strategi AI' : 'Buat Analisis Strategi Belajar AI'}
+                      </>
+                    )}
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* Modal Footer */}
+            <div className="px-6 py-3.5 bg-white border-t border-slate-200 flex items-center justify-between shrink-0 text-xs text-slate-500">
+              <span className="flex items-center gap-1.5 font-medium">
+                <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                Gemini 3.6 Flash AI Tutor Study Strategist
+              </span>
+              <button
+                onClick={() => setIsAiFullscreen(false)}
+                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl transition-all cursor-pointer"
+              >
+                Tutup Layar Penuh
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
     </div>
   );
