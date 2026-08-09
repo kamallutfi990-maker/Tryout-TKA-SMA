@@ -11,6 +11,7 @@ import DashboardAdmin from './components/DashboardAdmin';
 import DashboardGuru from './components/DashboardGuru';
 import AiTutorSandbox from './components/AiTutorSandbox';
 import { FirestoreSimulator } from './lib/firestoreSimulator';
+import { subscribeAuthChange, logoutFirebase } from './lib/firebaseAuth';
 import { UserProfile } from './types';
 import { Bot, Sparkles, X, GraduationCap, ArrowUpRight } from 'lucide-react';
 
@@ -43,6 +44,14 @@ export default function App() {
       }
       setCurrentUser(session);
     }
+
+    const unsubscribe = subscribeAuthChange((profile) => {
+      if (profile) {
+        setCurrentUser(profile);
+      }
+    });
+
+    return () => unsubscribe();
   }, []);
 
   const handleAuthSuccess = (user: UserProfile) => {
@@ -51,7 +60,7 @@ export default function App() {
   };
 
   const handleLogout = () => {
-    FirestoreSimulator.logout();
+    logoutFirebase();
     setCurrentUser(null);
   };
 
