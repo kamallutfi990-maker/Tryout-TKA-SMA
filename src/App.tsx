@@ -4,6 +4,9 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import SecurityWrapper from './components/SecurityWrapper';
+import ThemeToggle from './components/ThemeToggle';
+import PaymentModal from './components/PaymentModal';
 import LandingPage from './components/LandingPage';
 import AuthModal from './components/AuthModal';
 import DashboardSiswa from './components/DashboardSiswa';
@@ -25,6 +28,7 @@ export default function App() {
   
   // Floating AI Tutor helper panel
   const [showAiFloating, setShowAiFloating] = useState(false);
+  const [showPayment, setShowPayment] = useState(false);
 
   useEffect(() => {
     // Check if user session already exists in Simulator / LocalStorage
@@ -32,7 +36,7 @@ export default function App() {
     if (session) {
       if (session.role === 'Admin' || session.role === 'Guru') {
         const email = session.email.trim().toLowerCase();
-        if (email !== 'kamallutfi990@gmail.com') {
+        if (email !== 'kamallutfi990@gmail.com' && email !== 'kamallutfirohidin90@gmail.com') {
           const designated = FirestoreSimulator.getDesignatedUsers();
           const isAllowed = designated.some(u => u.email.toLowerCase() === email && u.role === session.role);
           if (!isAllowed) {
@@ -42,11 +46,14 @@ export default function App() {
           }
         }
       }
+      
+      checkAccessLimit(session);
       setCurrentUser(session);
     }
 
     const unsubscribe = subscribeAuthChange((profile) => {
       if (profile) {
+        checkAccessLimit(profile);
         setCurrentUser(profile);
       }
     });
@@ -54,7 +61,21 @@ export default function App() {
     return () => unsubscribe();
   }, []);
 
+  const checkAccessLimit = (user: UserProfile) => {
+    const isAllowedUser = ['kamallutfi990@gmail.com', 'kamallutfirohidin90@gmail.com'].includes(user.email.trim().toLowerCase());
+    if (isAllowedUser) return;
+
+    const createdAt = new Date(user.createdAt);
+    const now = new Date();
+    const diffDays = Math.ceil((now.getTime() - createdAt.getTime()) / (1000 * 60 * 60 * 24));
+    
+    if (diffDays > 14) {
+      setShowPayment(true);
+    }
+  };
+
   const handleAuthSuccess = (user: UserProfile) => {
+    checkAccessLimit(user);
     setCurrentUser(user);
     setShowAuth(false);
   };
@@ -69,11 +90,15 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800 font-sans relative">
-      
-      {/* Universal Sticky Top Alert / Quick Grade Notice */}
-      {showTopAlert && (
-        <div className="bg-blue-600 text-white py-1.5 px-4 text-center text-xs font-semibold flex items-center justify-between gap-1.5 shadow-sm relative pr-10">
+    <SecurityWrapper>
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 font-sans relative">
+        <div className="fixed top-4 right-4 z-[60]">
+          <ThemeToggle />
+        </div>
+        
+        {/* Universal Sticky Top Alert / Quick Grade Notice */}
+        {showTopAlert && (
+        <div className="bg-blue-600 dark:bg-blue-800 text-white py-1.5 px-4 text-center text-xs font-semibold flex items-center justify-between gap-1.5 shadow-sm relative pr-10">
           <div className="flex items-center justify-center gap-1.5 w-full">
             <Sparkles className="w-3.5 h-3.5 text-amber-300 animate-pulse" />
             <span>Selamat Datang di Platform Simulasi & CBT TKA SMA Indonesia!</span>
@@ -90,6 +115,8 @@ export default function App() {
           </button>
         </div>
       )}
+
+      {showPayment && <PaymentModal onClose={() => {}} />}
 
       {/* Main routing depending on login status and role */}
       {!currentUser ? (
@@ -168,5 +195,6 @@ export default function App() {
         </div>
       )}
     </div>
+  </SecurityWrapper>
   );
 }

@@ -171,6 +171,7 @@ export interface Payment {
 }
 
 import { SNPMB_UNIVERSITIES, SNPMB_STUDY_PROGRAMS, getSnpmbStudyPrograms } from '../data/snpmbData';
+import { PEMBAHASAN_TKA_MATEMATIKA_WAJIB_HTML, PEMBAHASAN_TKA_MATEMATIKA_LANJUT_HTML, PEMBAHASAN_TKA_BAHASA_INDONESIA_HTML, PEMBAHASAN_TKA_BAHASA_INGGRIS_HTML } from '../data/pembahasanTkaHtml';
 
 // Initial Mock Universities & Programs
 export const MOCK_UNIVERSITIES: University[] = SNPMB_UNIVERSITIES;
@@ -1668,185 +1669,720 @@ const INITIAL_QUESTIONS: Question[] = [
   },
   {
     id: 'q_tka_bindo_1',
-    text: 'Bacalah paragraf berikut!\n\n"Perkembangan teknologi kecerdasan buatan (AI) di bidang pendidikan telah memberikan dampak signifikan terhadap efisiensi pembelajaran. Kendati demikian, ketergantungan yang berlebihan pada teknologi AI berisiko mengikis kemampuan berpikir kritis serta kreativitas mandiri peserta didik jika tidak diimbangi dengan bimbingan pedagogis yang tepat."\n\nGagasan utama paragraf di atas adalah ....',
+    text: 'Bacalah teks berikut untuk menjawab soal nomor 1 sampai 4!\n\n**Pencemaran Laut dan Ancaman Mikroplastik**\nLautan di seluruh dunia kini menghadapi ancaman ganda akibat pemanasan global dan pencemaran sampah. Salah satu isu lingkungan yang paling mengkhawatirkan adalah keberadaan sampah plastik. Setiap tahun, jutaan ton sampah plastik bermuara di lautan dan membutuhkan waktu ratusan tahun agar dapat terurai secara alami. Dalam proses penguraian tersebut, partikel plastik pecah menjadi ukuran yang sangat kecil dan dikenal sebagai mikroplastik.\n\nKeberadaan mikroplastik di perairan laut sangat berbahaya bagi keberlangsungan ekosistem perairan. Hewan-hewan laut seperti plankton, ikan kecil, hingga mamalia laut sering kali keliru mengira mikroplastik sebagai sumber makanan. Akibatnya, partikel berbahaya ini masuk ke dalam rantai makanan laut. Ketika manusia mengonsumsi hasil tangkapan laut yang telah terkontaminasi mikroplastik, zat kimia berbahaya tersebut berisiko memicu gangguan kesehatan kronis.\n\nOleh sebab itu, diperlukan mobilisasi seluruh elemen masyarakat, pemerintah, serta sektor industri untuk mengurangi pemakaian plastik sekali pakai. Pemanfaatan material alternatif yang mudah terurai dan perbaikan sistem daur ulang menjadi langkah strategis yang harus segera direalisasikan demi menjaga kelestarian laut bagi generasi mendatang.\n\n---\n\nMakna istilah **mobilisasi** pada paragraf ketiga teks tersebut adalah ....',
     options: [
-      'Dampak positif AI terhadap pendidikan',
-      'Pentingnya bimbingan guru dalam sekolah',
-      'Perkembangan kecerdasan buatan di Indonesia',
-      'Dampak AI dan risiko ketergantungan tanpa bimbingan tepat',
-      'Kemampuan berpikir kritis siswa zaman sekarang'
+      'Pengarahan tenaga atau massa untuk bergerak bersama',
+      'Percepatan proses daur ulang sampah',
+      'Perjalanan dari satu tempat ke tempat lain',
+      'Perencanaan strategi secara matang',
+      'Penilaian kelayakan suatu produk pengganti'
     ],
-    correctAnswerIndex: 3,
-    correctAnswer: 'D',
-    explanation: 'Gagasan utama mencakup dampak positif AI sekaligus risiko ketergantungannya yang memerlukan bimbingan pedagogis tepat.',
+    correctAnswerIndex: 0,
+    correctAnswer: 'A',
+    explanation: 'Dalam konteks menggerakkan seluruh elemen masyarakat dan industri, mobilisasi bermakna pengarahan tenaga atau massa untuk bergerak dan bertindak bersama-sama.',
+    subject: 'Bahasa Indonesia',
+    difficulty: 'Sedang',
+    bab: 'Makna Istilah & Kosakata',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_bindo_2',
+    text: 'Gagasan utama paragraf pertama pada teks "Pencemaran Laut dan Ancaman Mikroplastik" di atas adalah ....',
+    options: [
+      'Manfaat laut bagi kehidupan manusia',
+      'Ancaman pemanasan global dan pencemaran sampah plastik di lautan',
+      'Waktu yang diperlukan mikroplastik untuk terurai',
+      'Perbedaan antara sampah organik dan plastik',
+      'Proses pemecahan plastik menjadi partikel kecil'
+    ],
+    correctAnswerIndex: 1,
+    correctAnswer: 'B',
+    explanation: 'Paragraf pertama berfokus memaparkan ancaman nyata pemanasan global dan pencemaran sampah plastik di lautan.',
     subject: 'Bahasa Indonesia',
     difficulty: 'Sedang',
     bab: 'Ide Pokok & Teks Eksplanasi',
     year: '2026'
   },
   {
-    id: 'q_tka_bindo_2',
-    text: 'Kalimat berikut yang merupakan kalimat efektif dan memenuhi aturan tata bahasa PUEBI/EYD adalah ....',
-    options: [
-      'Bagi seluruh siswa-siswa kelas XII diharapkan hadir tepat waktu di aula.',
-      'Dalam rapat kemarin membicarakan tentang kelulusan ujian siswa.',
-      'Kepala sekolah menyerahkan penghargaan kepada siswa berprestasi.',
-      'Meskipun hujan deras, tetapi para siswa tetap antusias mengikuti ujian.',
-      'Untuk mempercepat daripada waktu, acara segera kita mulai.'
-    ],
-    correctAnswerIndex: 2,
-    correctAnswer: 'C',
-    explanation: 'Kalimat C memiliki subjek (Kepala sekolah), predikat (menyerahkan), dan objek (penghargaan) yang jelas tanpa pemborosan kata (pleonasme) atau konjungsi ganda.',
-    subject: 'Bahasa Indonesia',
-    difficulty: 'Sedang',
-    bab: 'Kalimat Efektif & PUEBI',
-    year: '2026'
-  },
-  {
     id: 'q_tka_bindo_3',
-    text: 'Manakah di antara pernyataan berikut yang termasuk fakta (bukan opini)?',
+    text: 'Mengapa mikroplastik berbahaya bagi kesehatan manusia menurut teks bacaan di atas?',
     options: [
-      'Pendidikan di Indonesia merupakan yang terbaik di Asia Tenggara.',
-      'Soal-soal ujian TKA Bahasa Indonesia sangat sulit dikerjakan.',
-      'Ujian Sekolah Berbasis Komputer (CBT) diselenggarakan secara serentak.',
-      'Belajar bahasa Inggris jauh lebih menarik daripada matematika.',
-      'Siswa hendaknya belajar minimal 4 jam sehari agar lulus PTN.'
+      'Menghalangi masuknya sinar matahari ke dasar laut',
+      'Merusak alat tangkap ikan tradisional milik nelayan',
+      'Masuk ke dalam rantai makanan laut dan terkonsumsi oleh manusia',
+      'Mengurangi kadar oksigen di atmosfer secara drastis',
+      'Memicu kenaikan suhu permukaan air laut secara mendadak'
     ],
     correctAnswerIndex: 2,
     correctAnswer: 'C',
-    explanation: 'Pernyataan C dapat dibuktikan secara objektif dan memiliki data nyata, sehingga tergolong fakta.',
+    explanation: 'Mikroplastik termakan oleh hewan laut (plankton/ikan) lalu masuk ke rantai makanan laut dan akhirnya terkonsumsi oleh manusia yang memakan hasil laut.',
     subject: 'Bahasa Indonesia',
     difficulty: 'Mudah',
-    bab: 'Fakta & Opini',
+    bab: 'Hubungan Kausalitas',
     year: '2026'
   },
   {
     id: 'q_tka_bindo_4',
-    text: 'Penulisan kata serapan yang baku dan benar menurut Kamus Besar Bahasa Indonesia (KBBI) terdapat pada kalimat ....',
+    text: 'Simpulan yang tepat dari teks bacaan "Pencemaran Laut dan Ancaman Mikroplastik" adalah ....',
     options: [
-      'Sistem analisa data di laboratorium sudah terintegrasi.',
-      'Kreatifitas dan inovasi sangat dibutuhkan di era digital.',
-      'Praktik kerja lapangan dilaksanakan pada semester lima.',
-      'Progres kwalitas pendidikan terus meningkat setiap tahun.',
-      'Para pakar melakukan diagnosa terhadap penyakit tersebut.'
+      'Sampah plastik hanya dapat diatasi jika masyarakat berhenti mengonsumsi ikan.',
+      'Mikroplastik tidak berbahaya selama ikan diolah dengan temperatur tinggi.',
+      'Lautan akan bersih dengan sendirinya tanpa bantuan kebijakan pemerintah.',
+      'Upaya bersama lintas sektor dalam mengurangi plastik sekali pakai sangat krusial untuk melindungi ekosistem laut.',
+      'Pemanasan global merupakan penyebab utama terbentuknya mikroplastik.'
     ],
-    correctAnswerIndex: 2,
-    correctAnswer: 'C',
-    explanation: 'Kata "praktik" adalah bentuk baku (bukan praktek). Kata baku lainnya: sistem (bukan sistim), analisis (bukan analisa), kreativitas (bukan kreatifitas), kualitas (bukan kwalitas), diagnosis (bukan diagnosa).',
+    correctAnswerIndex: 3,
+    correctAnswer: 'D',
+    explanation: 'Simpulan merangkum esensi bahwa kerja sama lintas sektor (masyarakat, pemerintah, industri) mengurangi plastik sekali pakai sangat penting demi menjaga kelestarian laut.',
     subject: 'Bahasa Indonesia',
     difficulty: 'Sedang',
-    bab: 'Ejaan & Kata Baku KBBI',
+    bab: 'Simpulan Teks',
     year: '2026'
   },
   {
     id: 'q_tka_bindo_5',
-    text: 'Bacalah cuplikan teks argumentasi berikut!\n\n"Diversifikasi pangan lokal seperti singkong dan sagu perlu terus ditingkatkan guna mengurangi ketergantungan nasional terhadap impor gandum. Selain menjaga ketahanan pangan, konsumsi pangan lokal juga dapat meningkatkan kesejahteraan petani daerah."\n\nSimpulan yang paling tepat dari paragraf di atas adalah ....',
+    text: 'Bacalah kutipan cerpen berikut untuk menjawab soal nomor 5 sampai 8!\n\n**Menatap Padi Menguning**\nSepulang sekolah, langkah kaki Ardi terasa sangat berat. Di atas meja belajarnya, buku catatan sains masih terbuka pada halaman materi olimpiade yang harus ia kuasai pekan depan. Namun, suara Ayah dari beranda belakang membuyarkan konsentrasinya.\n\n"Ardi, mulai besok sore kamu tidak usah ke tempat les sains dulu. Ini sudah masuk musim panen. Ayah butuh kamu untuk membantu menghalau kawanan burung pipit di sawah bagian timur," ucap Ayah dengan nada datar tanpa menoleh.\n\nDada Ardi terasa sesak. Ia ingin sekali membantah dan menjelaskan bahwa olimpiade ini adalah kesempatan emas baginya untuk meraih beasiswa. Namun, melihat punggung Ayah yang mulai membungkuk dan peluh yang membasahi kemeja usangnya, kata-kata itu tercekat di tenggorokan. Ardi tahu, panen kali ini adalah satu-satunya tumpuan keluarga untuk melunasi biaya sekolah kakaknya.\n\n---\n\nKonflik batin yang dialami oleh tokoh Ardi dalam kutipan cerpen di atas adalah ....',
     options: [
-      'Singkong dan sagu adalah satu-satunya bahan pangan lokal Indonesia.',
-      'Impor gandum harus dihentikan sepenuhnya mulai tahun ini.',
-      'Peningkatan diversifikasi pangan lokal mendukung ketahanan pangan dan petani.',
-      'Petani daerah hanya menggantungkan hidup dari tanaman singkong.',
-      'Konsumsi gandum menurunkan tingkat kesejahteraan petani nasional.'
+      'Keinginan untuk pindah sekolah ke luar kota',
+      'Perselisihan sengit dengan sang kakak mengenai biaya sekolah',
+      'Dilema antara mengejar impian olimpiade atau membantu beban ekonomi ayahnya di sawah',
+      'Rasa malas belajar menjelang ujian akhir sekolah',
+      'Kekecewaan karena gagal dalam seleksi olimpiade tingkat kabupaten'
     ],
     correctAnswerIndex: 2,
     correctAnswer: 'C',
-    explanation: 'Simpulan merangkum dua manfaat utama diversifikasi pangan lokal yang disebutkan dalam teks, yaitu ketahanan pangan dan kesejahteraan petani.',
+    explanation: 'Ardi mengalami pergolakan batin antara ambisi akademiknya (les persiapan olimpiade beasiswa) dan baktinya membantu panen di sawah demi ekonomi keluarga.',
     subject: 'Bahasa Indonesia',
     difficulty: 'Sedang',
-    bab: 'Teks Argumentasi & Simpulan',
+    bab: 'Konflik Cerita & Unsur Intrinsik',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_bindo_6',
+    text: 'Penyebab terjadinya konflik pada kutipan cerita "Menatap Padi Menguning" di atas adalah ....',
+    options: [
+      'Kakak Ardi menolak membantu pekerjaan ayahnya',
+      'Ayah meminta Ardi berhenti les demi membantu panen di sawah',
+      'Ardi tidak memahami materi olimpiade sains yang diajarkan',
+      'Burung pipit menghancurkan seluruh hasil panen di sawah timur',
+      'Pihak sekolah membatalkan pendaftaran olimpiade Ardi'
+    ],
+    correctAnswerIndex: 1,
+    correctAnswer: 'B',
+    explanation: 'Pemicu utama konflik berawal dari permintaan Ayah agar Ardi tidak pergi les sains dulu dan menggantinya dengan membantu menghalau burung pipit di sawah.',
+    subject: 'Bahasa Indonesia',
+    difficulty: 'Mudah',
+    bab: 'Alur & Sebab Akibat Cerita',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_bindo_7',
+    text: 'Watak tokoh Ardi yang tergambar dalam kutipan cerpen di atas adalah ....',
+    options: [
+      'Pemarah dan pendendam',
+      'Keras kepala dan egois',
+      'Berbakti dan penuh pengertian',
+      'Putus asa dan pasif',
+      'Ceroboh dan pembangkang'
+    ],
+    correctAnswerIndex: 2,
+    correctAnswer: 'C',
+    explanation: 'Meskipun kecewa, Ardi menahan diri dan memahami kondisi ayahnya yang banting tulang, membuktikan ia anak yang berbakti dan penuh empati.',
+    subject: 'Bahasa Indonesia',
+    difficulty: 'Mudah',
+    bab: 'Penokohan & Karakter',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_bindo_8',
+    text: 'Nilai moral yang dapat dipetik dari kutipan cerpen di atas adalah ....',
+    options: [
+      'Menuntut hak tanpa memedulikan kondisi keluarga',
+      'Menghindari pekerjaan fisik agar dapat berprestasi',
+      'Memahami pengorbanan orang tua dan bersikap bijak menghadapi keadaan',
+      'Mengabaikan pendidikan demi kepentingan jangka pendek',
+      'Menyelesaikan masalah keluarga dengan cara berdebat terbuka'
+    ],
+    correctAnswerIndex: 2,
+    correctAnswer: 'C',
+    explanation: 'Cerita mengajarkan kepekaan terhadap beban orang tua dan keikhlasan berkorban demi kebaikan keluarga.',
+    subject: 'Bahasa Indonesia',
+    difficulty: 'Sedang',
+    bab: 'Nilai Moral Sastra',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_bindo_9',
+    text: 'Bacalah teks berikut untuk menjawab soal nomor 9 sampai 12!\n\n**Bahaya Zat Pewarna Sintetis Rhodamin B**\nRhodamin B merupakan zat pewarna sintetis yang pada dasarnya diperuntukkan bagi industri tekstil, kertas, dan cat. Senyawa ini berbentuk kristal kehijauan yang ketika dilarutkan dalam air akan menghasilkan warna merah keunguan cerah serta berpendar jika terkena sinar ultraviolet. Harganya yang relatif murah serta daya warnanya yang kuat membuat zat kimia berbahaya ini kerap disalahgunakan oleh produsen nakal sebagai pewarna makanan, seperti pada sirup, kerupuk, terasi, dan kembang gula.\n\nBadan Pengawas Obat dan Makanan (BPOM) telah melarang keras penggunaan Rhodamin B untuk produk pangan karena memiliki sifat karsinogenik. Paparan Rhodamin B secara berulang dalam jangka panjang dapat memicu penumpukan racun di organ hati dan ginjal, sehingga berpotensi menimbulkan kerusakan jaringan seluler hingga kanker. Masyarakat diimbau untuk lebih teliti dalam memilih pangan olahan dengan menghindari produk yang memiliki warna mencolok tidak wajar.\n\n---\n\nTujuan penulisan teks tersebut adalah untuk ....',
+    options: [
+      'Memberikan tutorial cara pembuatan pewarna tekstil secara mandiri',
+      'Menginformasikan bahaya penyalahgunaan Rhodamin B dalam makanan bagi kesehatan tubuh',
+      'Mempromosikan penggunaan pewarna sintetis berharga murah',
+      'Membandingkan daya tahan warna Rhodamin B dengan pewarna alami',
+      'Menganalisis omzet produsen kerupuk dan sirup di pasaran'
+    ],
+    correctAnswerIndex: 1,
+    correctAnswer: 'B',
+    explanation: 'Tujuan teks adalah memberikan edukasi dan peringatan kepada masyarakat tentang bahaya kesehatan jika Rhodamin B digunakan pada makanan.',
+    subject: 'Bahasa Indonesia',
+    difficulty: 'Mudah',
+    bab: 'Tujuan Penulis & Teks Informasi',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_bindo_10',
+    text: 'Ciri fisik Rhodamin B berdasarkan teks bacaan di atas adalah ....',
+    options: [
+      'Serbuk putih tanpa aroma dan larut dalam minyak',
+      'Cairan kental berwarna kuning kecokelatan',
+      'Serbuk kristal kehijauan yang larut menghasilkan warna merah keunguan cerah',
+      'Butiran kasar berwarna biru dongker yang tidak larut dalam air',
+      'Kristal transparan yang berubah warna saat dipanaskan'
+    ],
+    correctAnswerIndex: 2,
+    correctAnswer: 'C',
+    explanation: 'Teks menyebutkan secara eksplisit bahwa Rhodamin B berupa kristal kehijauan yang saat dilarutkan menghasilkan warna merah keunguan cerah.',
+    subject: 'Bahasa Indonesia',
+    difficulty: 'Mudah',
+    bab: 'Informasi Tersurat',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_bindo_11',
+    text: 'Kalimat yang mengandung hubungan sebab-akibat (kausalitas) pada teks "Bahaya Zat Pewarna Sintetis Rhodamin B" di atas adalah ....',
+    options: [
+      '"Rhodamin B merupakan zat pewarna sintetis yang pada dasarnya diperuntukkan bagi industri tekstil..."',
+      '"Harganya yang relatif murah serta daya warnanya yang kuat membuat zat kimia berbahaya ini kerap disalahgunakan..."',
+      '"Senyawa ini berbentuk kristal kehijauan yang ketika dilarutkan dalam air akan menghasilkan warna merah..."',
+      '"BPOM telah melarang keras penggunaan Rhodamin B untuk produk pangan..."',
+      '"Masyarakat diimbau untuk lebih teliti dalam memilih pangan olahan..."'
+    ],
+    correctAnswerIndex: 1,
+    correctAnswer: 'B',
+    explanation: 'Frasa "membuat zat kimia berbahaya ini kerap disalahgunakan" menyatakan hubungan akibat dari sebab harganya yang murah dan daya warnanya yang kuat.',
+    subject: 'Bahasa Indonesia',
+    difficulty: 'Sedang',
+    bab: 'Hubungan Kausalitas & Konjungsi',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_bindo_12',
+    text: 'Langkah pencegahan yang disarankan penulis kepada masyarakat pada teks di atas adalah ....',
+    options: [
+      'Memeriksa kandungan kimia makanan menggunakan mikroskop pribadi',
+      'Menghentikan konsumsi semua jenis makanan yang memiliki rasa manis',
+      'Menghindari produk pangan yang memiliki warna mencolok tidak wajar',
+      'Membeli produk pangan hanya yang diproduksi oleh industri tekstil',
+      'Melarutkan semua makanan ke dalam air sebelum dikonsumsi'
+    ],
+    correctAnswerIndex: 2,
+    correctAnswer: 'C',
+    explanation: 'Kalimat terakhir menyarankan masyarakat untuk menghindari produk pangan yang memiliki warna mencolok tidak wajar.',
+    subject: 'Bahasa Indonesia',
+    difficulty: 'Mudah',
+    bab: 'Solusi & Saran Teks',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_bindo_13',
+    text: 'Bacalah teks berikut untuk menjawab soal nomor 13 sampai 16!\n\n**Transformasi Digital dan Pemberdayaan UMKM**\nPerkembangan teknologi informasi telah membawa dampak transformatif bagi sektor Usaha Mikro, Kecil, dan Menengah (UMKM). Pemanfaatan platform niaga elektronik (e-commerce) dan sistem pembayaran berbasis kode respons cepat (QRIS) membuka akses pasar yang jauh lebih luas bagi pelaku usaha lokal. Transaksi yang semula terbatas secara geografis kini dapat menjangkau konsumen antardaerah bahkan mancanegara secara instan.\n\nKendati demikian, percepatan digitalisasi ini bukan tanpa hambatan. Tingkat literasi digital para pelaku UMKM masih menjadi tantangan utama yang perlu diatasi. Selain itu, keamanan siber dan perlindungan data pribadi konsumen menuntut perhatian serius agar ekosistem niaga digital tetap aman dan terpercaya. Oleh karena itu, sinergi pelatihan literasi teknologi dari berbagai pihak sangat diperlukan guna mendorong daya saing UMKM di era modern.\n\n---\n\nIde pokok paragraf pertama teks di atas adalah ....',
+    options: [
+      'Prosedur pembuatan kode respons cepat bagi pelaku usaha mikro',
+      'Keunggulan transaksi tunai dibandingkan pembayaran digital',
+      'Dampak positif kemajuan teknologi terhadap perluasan pasar UMKM',
+      'Kegagalan produk UMKM menembus pasar internasional',
+      'Biaya langganan platform niaga elektronik di Indonesia'
+    ],
+    correctAnswerIndex: 2,
+    correctAnswer: 'C',
+    explanation: 'Paragraf pertama menjelaskan dampak positif teknologi (e-commerce dan QRIS) yang membuka akses pasar luas bagi UMKM.',
+    subject: 'Bahasa Indonesia',
+    difficulty: 'Sedang',
+    bab: 'Ide Pokok Paragraf',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_bindo_14',
+    text: 'Kata penghubung (konjungsi) antarkalimat yang menyatakan pertentangan pada paragraf kedua teks di atas adalah ....',
+    options: [
+      'Selain itu',
+      'Oleh karena itu',
+      'Kendati demikian',
+      'Bahkan',
+      'Agar'
+    ],
+    correctAnswerIndex: 2,
+    correctAnswer: 'C',
+    explanation: '"Kendati demikian" adalah konjungsi antarkalimat yang menyatakan hubungan pertentangan/konsesif.',
+    subject: 'Bahasa Indonesia',
+    difficulty: 'Mudah',
+    bab: 'Konjungsi & Kohesi',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_bindo_15',
+    text: 'Tantangan utama yang dihadapi UMKM dalam proses digitalisasi menurut teks di atas adalah ....',
+    options: [
+      'Tingginya harga bahan baku lokal',
+      'Ketiadaan perangkat telepon pintar di pasaran',
+      'Rendahnya minat konsumen terhadap belanja daring',
+      'Rendahnya tingkat literasi digital dan risiko keamanan siber',
+      'Larangan transaksi antarpulau oleh otoritas berwenang'
+    ],
+    correctAnswerIndex: 3,
+    correctAnswer: 'D',
+    explanation: 'Paragraf kedua menyebutkan literasi digital pelaku usaha dan keamanan siber sebagai tantangan utama.',
+    subject: 'Bahasa Indonesia',
+    difficulty: 'Mudah',
+    bab: 'Analisis Masalah Teks',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_bindo_16',
+    text: 'Pola pengembangan paragraf kedua pada teks "Transformasi Digital dan Pemberdayaan UMKM" adalah ....',
+    options: [
+      'Kronologis (urutan waktu)',
+      'Definisi umum',
+      'Masalah dan solusi',
+      'Analogi',
+      'Narasi fiktif'
+    ],
+    correctAnswerIndex: 2,
+    correctAnswer: 'C',
+    explanation: 'Paragraf kedua memaparkan masalah/tantangan (hambatan literasi dan keamanan siber) lalu ditutup dengan alternatif solusi (sinergi pelatihan literasi teknologi).',
+    subject: 'Bahasa Indonesia',
+    difficulty: 'Sedang',
+    bab: 'Struktur Paragraf',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_bindo_17',
+    text: 'Penulisan kata serapan yang baku untuk memperbaiki kata "proyeck" dan "revitallisasi" dalam kalimat: "Pemerintah merencanakan proyeck revitallisasi infrastruktur perkotaan demi kenyamanan publik." adalah ....',
+    options: [
+      'Proyek, revitalisasi',
+      'Projek, revitallisasi',
+      'Proyek, revitallisasi',
+      'Projek, revitalisasi',
+      'Proyeck, revitalisir'
+    ],
+    correctAnswerIndex: 0,
+    correctAnswer: 'A',
+    explanation: 'Kata serapan yang baku menurut KBBI adalah "proyek" (bukan projek/proyeck) dan "revitalisasi" (satu huruf l).',
+    subject: 'Bahasa Indonesia',
+    difficulty: 'Mudah',
+    bab: 'Kata Baku & Serapan KBBI',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_bindo_18',
+    text: 'Perhatikan kalimat berikut:\n"Ayah membeli buah-buahan di pasar: apel, jeruk, dan mangga."\n\nPenggunaan tanda baca titik dua (:) pada kalimat tersebut adalah ....',
+    options: [
+      'Benar / Tepat (Sesuai PUEBI/EYD)',
+      'Salah / Tidak Tepat (Tidak Sesuai PUEBI/EYD)'
+    ],
+    correctAnswerIndex: 0,
+    correctAnswer: 'A',
+    explanation: 'Tanda titik dua (:) digunakan pada akhir pernyataan lengkap yang diikuti oleh pemerian atau perincian.',
+    subject: 'Bahasa Indonesia',
+    difficulty: 'Mudah',
+    bab: 'PUEBI / EYD',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_bindo_19',
+    text: 'Konjungsi subordinatif yang tepat untuk melengkapi kalimat: "Krisis energi global tidak akan teratasi [...] masyarakat dunia belum beralih ke sumber energi terbarukan." adalah ....',
+    options: [
+      'sehingga',
+      'jika',
+      'meskipun',
+      'bahwa',
+      'lalu'
+    ],
+    correctAnswerIndex: 1,
+    correctAnswer: 'B',
+    explanation: 'Konjungsi "jika" menyatakan hubungan syarat yang logis untuk menghubungkan kedua klausa.',
+    subject: 'Bahasa Indonesia',
+    difficulty: 'Mudah',
+    bab: 'Konjungsi Subordinatif',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_bindo_20',
+    text: 'Perhatikan kalimat berikut:\n"Mahasiswa yang terlambat masuk ke dalam ruangan tidak diperkenankan mengikuti ujian."\n\nKalimat tersebut merupakan kalimat yang efektif dan logis.',
+    options: [
+      'Benar / Tepat (Efektif)',
+      'Salah / Tidak Tepat (Tidak Efektif)'
+    ],
+    correctAnswerIndex: 0,
+    correctAnswer: 'A',
+    explanation: 'Kalimat tersebut efektif karena memiliki subjek, predikat, dan keterangan yang jelas tanpa pemborosan kata (pleonasme) dan memiliki makna yang logis.',
+    subject: 'Bahasa Indonesia',
+    difficulty: 'Mudah',
+    bab: 'Kalimat Efektif',
     year: '2026'
   },
   {
     id: 'q_tka_bing_1',
-    text: 'Read the text below!\n\n"Renewable energy technologies, such as solar panels and wind turbines, have experienced dramatic cost reductions over the past decade. Consequently, many developing countries are now bypassing fossil-fuel infrastructure in favor of clean energy solutions that offer both environmental and economic benefits."\n\nWhat is the main topic of the passage?',
+    text: 'Read the text below to answer questions 1 to 5!\n\n**The Legend of Son Tinh and Thuy Tinh**\nKing Hung Vuong VI had a beautiful daughter. He did not want her to marry just any prince. So, he made an announcement that he was looking for the right husband for her. Many princes came from faraway lands, but none of them was a good match for the princess.\n\nSon Tinh was the Spirit of the Mountain, and Thuy Tinh was the Spirit of the Waters. One day, they both appeared as young noblemen and asked to marry the princess. They were equally talented, powerful, and respected. The King found it hard to choose, so he decided to give them a test. He said that the one who brought the proper wedding gifts first the next morning would marry his daughter.\n\nThe next day, Son Tinh arrived early with his gifts. The King kept his promise and gave the princess to him. Thuy Tinh was angry about losing. He challenged Son Tinh to fight for the princess. But Son Tinh refused, believing he had already won fairly. Furious, Thuy Tinh used his power to call the rivers and streams to rise. Soon, the land was covered with floods that destroyed crops and homes.\n\nSon Tinh stayed calm in his mountain palace. Whenever the water rose, he made his mountains higher. After many days of fighting, Thuy Tinh grew tired and ordered the waters to retreat. Still, he never accepted his defeat. Every year, he tried again to attack, and this is how monsoons came to Vietnam.\n\n---\n\nWhich of the following outlines shows the correct main points of the story?',
     options: [
-      'The decline of traditional oil companies in developing nations',
-      'How solar panels are manufactured in modern factories',
-      'The rising affordability and adoption of renewable energy',
-      'The environmental disadvantages of wind power generators',
-      'Government taxes on fossil fuel imports'
+      'King Hung Vuong VI wanted the best husband for his daughter. Many princes came but none was suitable. Son Tinh and Thuy Tinh both wanted to marry her. The King gave them a test. Thuy Tinh arrived first with wedding gifts.',
+      'King Hung Vuong VI looked for a husband for his daughter. Son Tinh and Thuy Tinh competed for her. The King set a test with gifts. Son Tinh arrived first and won. Angry Thuy Tinh caused floods but was defeated.',
+      'The King invited many princes. Son Tinh refused the challenge. The King chose Thuy Tinh as the winner.',
+      'The princess decided to choose her own husband among the mountain spirits.',
+      'Thuy Tinh defeated Son Tinh and became the ruler of Vietnam.'
     ],
-    correctAnswerIndex: 2,
-    correctAnswer: 'C',
-    explanation: 'The passage highlights how cost reductions in solar/wind technology lead to adoption of clean energy in developing countries.',
+    correctAnswerIndex: 1,
+    correctAnswer: 'B',
+    explanation: 'Outline B correctly summarizes the full narrative arc: king seeks husband -> two spirits compete -> gift test -> Son Tinh wins -> Thuy Tinh retaliates with floods -> defeated.',
     subject: 'Bahasa Inggris',
     difficulty: 'Sedang',
-    bab: 'Reading Comprehension & Main Idea',
+    bab: 'Reading Comprehension & Narrative Text',
     year: '2026'
   },
   {
     id: 'q_tka_bing_2',
-    text: 'Choose the sentence with the correct grammatical structure (Subject-Verb Agreement and Tense):',
+    text: 'Why did Thuy Tinh attack Son Tinh after the wedding?',
     options: [
-      'Neither the teacher nor the students was aware of the schedule change.',
-      'Each of the participants have submitted their final research paper.',
-      'The team of researchers has conducted several groundbreaking experiments.',
-      'If I was you, I will accept the scholarship offer immediately.',
-      'Barely had he entered the room when the bell ring.'
+      'He was jealous of Son Tinh\'s victory and angry about losing',
+      'He believed the King had lied to him about the princess',
+      'He thought the princess loved him more than Son Tinh',
+      'He wanted to show off his water powers to the entire kingdom',
+      'He had made a vow to fight every prince in the land'
     ],
-    correctAnswerIndex: 2,
-    correctAnswer: 'C',
-    explanation: '"The team" is a singular collective noun acting as subject, so "has conducted" is correct.',
+    correctAnswerIndex: 0,
+    correctAnswer: 'A',
+    explanation: 'The text states: "Thuy Tinh was angry about losing... Furious, Thuy Tinh used his power to call the rivers and streams to rise."',
     subject: 'Bahasa Inggris',
-    difficulty: 'Sedang',
-    bab: 'Grammar & Structure',
+    difficulty: 'Mudah',
+    bab: 'Direct Comprehension',
     year: '2026'
   },
   {
     id: 'q_tka_bing_3',
-    text: '"The scientist\'s **meticulous** approach to data collection ensured that no errors were overlooked during the experiment."\n\nThe underlined word "**meticulous**" is closest in meaning to ....',
+    text: 'Based on the text, Son Tinh and Thuy Tinh share which similarity?',
     options: [
-      'Careless',
-      'Thorough and precise',
-      'Hasty',
-      'Ambiguous',
-      'Superficial'
+      'Both possess elemental supernatural powers and are not ordinary humans',
+      'Both live deep under the ocean in water palaces',
+      'Both arrived at the exact same hour with their wedding gifts',
+      'Both gave up their magical abilities to marry the princess',
+      'Both were princes from a faraway foreign continent'
     ],
-    correctAnswerIndex: 1,
-    correctAnswer: 'B',
-    explanation: 'Meticulous means showing great attention to detail; extremely careful and precise.',
+    correctAnswerIndex: 0,
+    correctAnswer: 'A',
+    explanation: 'Son Tinh is the Spirit of the Mountain and Thuy Tinh is the Spirit of the Waters; both wield supernatural elemental powers.',
+    subject: 'Bahasa Inggris',
+    difficulty: 'Sedang',
+    bab: 'Character Analysis',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_bing_4',
+    text: 'What does the phrase "kept his promise" in paragraph 3 mean?',
+    options: [
+      'Forgot about his previous decision',
+      'Changed his mind about the wedding conditions',
+      'Did faithfully what he had promised to do',
+      'Delayed the marriage ceremony for many months',
+      'Demanded more gifts before approving the wedding'
+    ],
+    correctAnswerIndex: 2,
+    correctAnswer: 'C',
+    explanation: '"Kept his promise" means fulfilling or doing what was previously committed/promised.',
     subject: 'Bahasa Inggris',
     difficulty: 'Mudah',
     bab: 'Vocabulary in Context',
     year: '2026'
   },
   {
-    id: 'q_tka_bing_4',
-    text: '"If the government _____ more funds into public education last year, the literacy rate among rural youth would have improved significantly."\n\nWhich phrase correctly completes the conditional sentence?',
+    id: 'q_tka_bing_5',
+    text: 'What is the main moral lesson of the story?',
     options: [
-      'invested',
-      'has invested',
-      'had invested',
-      'would invest',
-      'invests'
+      'Accept defeat gracefully and avoid angry destructive reactions that harm others',
+      'Never participate in royal competitions',
+      'Water power is always inferior to mountain power',
+      'Kings should never organize gift tests for their children',
+      'Monsoons are caused by human disputes'
     ],
-    correctAnswerIndex: 2,
-    correctAnswer: 'C',
-    explanation: 'This is a Third Conditional sentence referring to an unreal past situation (If + Past Perfect, would have + V3). So "had invested" is correct.',
+    correctAnswerIndex: 0,
+    correctAnswer: 'A',
+    explanation: 'Thuy Tinh\'s inability to accept defeat brought destruction and floods to the land, teaching that one should accept defeat with grace.',
     subject: 'Bahasa Inggris',
     difficulty: 'Sedang',
-    bab: 'Conditional Sentences',
+    bab: 'Moral Value & Theme',
     year: '2026'
   },
   {
-    id: 'q_tka_bing_5',
-    text: 'Read the short paragraph:\n\n"Artificial intelligence tools can synthesize massive datasets in seconds. However, critical decision-making still demands human intuition, ethics, and emotional intelligence."\n\nWhat can be inferred from the paragraph?',
+    id: 'q_tka_bing_6',
+    text: 'Read the infographic guide below to answer questions 6 to 10!\n\n**HOW TO STUDY IN THE LIBRARY**\nStudying in the library is a good way to focus and learn. Follow these steps to use your time well:\n- PREPARE YOUR MATERIALS: Bring your books, notes, stationery, and water. Make sure you also have your library card.\n- CHOOSE QUIET SPOT: Find a table with good light and little noise. Avoid sitting too close to the entrance or the restroom.\n- SET A STUDY GOAL: Decide what you want to finish, such as reading two chapters or writing an essay.\n- FOLLOW LIBRARY RULES: Speak softly, keep your phone on silent, and do not eat inside. Respect other students.\n- TAKE SHORT BREAKS: After one hour, stand up, stretch, or walk for five minutes. This will help you stay fresh.\n- REVIEW BEFORE LEAVING: Check your notes, organize your books, and return borrowed materials.\n\n---\n\nWhich activity belongs to "Taking Short Breaks" rather than "Preparation"?',
     options: [
-      'AI will completely replace human workers in all industries within a year.',
-      'AI efficiency cannot fully substitute human ethical judgment and intuition.',
-      'Human intuition is slower and less reliable than raw AI processing power.',
-      'Data analysis is no longer useful in modern corporate decision-making.',
-      'AI tools are incapable of processing numerical data accurately.'
+      'Bringing your library card and stationery',
+      'Standing up, stretching, or walking for five minutes',
+      'Deciding to finish reading two chapters',
+      'Organizing borrowed books before leaving',
+      'Setting your mobile phone to silent mode'
     ],
     correctAnswerIndex: 1,
     correctAnswer: 'B',
-    explanation: 'The contrast ("However...") implies that despite AI\'s speed, human intuition and ethics remain indispensable.',
+    explanation: 'Standing up, stretching, and walking for 5 minutes are listed under the "TAKE SHORT BREAKS" section.',
+    subject: 'Bahasa Inggris',
+    difficulty: 'Mudah',
+    bab: 'Infographic & Scanning Details',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_bing_7',
+    text: 'According to the guide, what makes a library table spot perfect for studying?',
+    options: [
+      'It has good lighting, low noise, and is situated away from the entrance and restroom',
+      'It is right next to the cafeteria so students can eat snacks',
+      'It is positioned directly in front of the main entrance',
+      'It has high background music volume to boost energy',
+      'It is reserved exclusively for group discussions'
+    ],
+    correctAnswerIndex: 0,
+    correctAnswer: 'A',
+    explanation: 'The guide advises: "Find a table with good light and little noise. Avoid sitting too close to the entrance or the restroom."',
+    subject: 'Bahasa Inggris',
+    difficulty: 'Mudah',
+    bab: 'Factual Details',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_bing_8',
+    text: 'Who is the primary intended target audience of this infographic?',
+    options: [
+      'Students who want to study productively in the school library',
+      'Librarians from other city branches',
+      'Parents who visit the school during sports festivals',
+      'Construction contractors designing new libraries',
+      'Book store publishers selling novels'
+    ],
+    correctAnswerIndex: 0,
+    correctAnswer: 'A',
+    explanation: 'The infographic provides practical rules and study habits tailored for students utilizing library spaces.',
+    subject: 'Bahasa Inggris',
+    difficulty: 'Mudah',
+    bab: 'Target Audience & Purpose',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_bing_9',
+    text: 'Which action violates the library rules mentioned in the infographic?',
+    options: [
+      'Speaking loudly and eating crunchy snacks at the study desk',
+      'Setting the smartphone to silent mode',
+      'Walking for five minutes after one hour of study',
+      'Bringing your own notes and library card',
+      'Returning borrowed books before leaving'
+    ],
+    correctAnswerIndex: 0,
+    correctAnswer: 'A',
+    explanation: 'Speaking loudly and eating inside the library violate the rule: "Speak softly, keep your phone on silent, and do not eat inside."',
+    subject: 'Bahasa Inggris',
+    difficulty: 'Mudah',
+    bab: 'Rule Analysis',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_bing_10',
+    text: 'What should a student prepare before visiting the library?',
+    options: [
+      'A full fast-food lunch meal to eat at the study desk',
+      'Books, notes, necessary stationery, and their library card',
+      'A loud speaker to play background music',
+      'A stack of games to play with classmates',
+      'New chairs to replace library furniture'
+    ],
+    correctAnswerIndex: 1,
+    correctAnswer: 'B',
+    explanation: 'Under "PREPARE YOUR MATERIALS", students are told to bring books, notes, stationery, water, and their library card.',
+    subject: 'Bahasa Inggris',
+    difficulty: 'Mudah',
+    bab: 'Scanning Details',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_bing_11',
+    text: 'Read the text below to answer questions 11 to 13!\n\n**Exploring Bali’s Natural Wonders**\nBali, a beautiful island in Indonesia, is known for its stunning landscapes and rich culture. While many come for the beaches and temples, the island also offers natural attractions that amaze nature lovers from around the world. From national parks and waterfalls to terraced rice fields, Bali is full of natural beauty.\n\nIn the west lies West Bali National Park, a peaceful area filled with green forests, calm mangrove swamps, and colorful coral reefs along the sea. One of the park’s most special sights is the Bali Starling—a rare white bird with bright blue around its eyes.\n\nHeading north, travelers find the scenic Munduk Waterfall, surrounded by green hills and forests. Water flows gently over rocky cliffs into a cool, clear pool. Munduk is the perfect place to relax and enjoy Bali’s natural charm.\n\nNear the cultural center Ubud, the famous Tegalalang rice terraces stretch across the hills in green steps. These terraces are shaped by generations of farmers who work the land by hand. The quiet surroundings and slow rhythm of farm life create a peaceful and inspiring scene.\n\n---\n\nWhat is the primary distinction between visiting West Bali National Park and Munduk Waterfall according to the text?',
+    options: [
+      'West Bali National Park focuses on protected wildlife conservation (e.g. Bali Starling), while Munduk Waterfall offers serene relaxation',
+      'West Bali National Park is an urban shopping mall, while Munduk is a beach',
+      'Munduk is a modern waterpark, while West Bali is an active volcano',
+      'Both sites are completely devoid of any green trees or water',
+      'West Bali is strictly closed to all tourists and researchers'
+    ],
+    correctAnswerIndex: 0,
+    correctAnswer: 'A',
+    explanation: 'West Bali National Park is a protected sanctuary preserving rare wildlife like the Bali Starling, while Munduk Waterfall is highlighted as a peaceful spot to relax.',
     subject: 'Bahasa Inggris',
     difficulty: 'Sedang',
-    bab: 'Inference & Text Analysis',
+    bab: 'Comparative Reading & Detail Analysis',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_bing_12',
+    text: 'The text "Exploring Bali’s Natural Wonders" mainly discusses ....',
+    options: [
+      'Modern nightlife and entertainment clubs in downtown Bali',
+      'The industrial manufacturing plants in Denpasar',
+      'Bali\'s remarkable natural beauty, landscapes, and conservation sites',
+      'The history of international airport construction in Indonesia',
+      'Cooking recipes of traditional Balinese cuisine'
+    ],
+    correctAnswerIndex: 2,
+    correctAnswer: 'C',
+    explanation: 'The passage explores Bali\'s diverse natural landscapes including national parks, waterfalls, and rice terraces.',
+    subject: 'Bahasa Inggris',
+    difficulty: 'Mudah',
+    bab: 'Main Idea',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_bing_13',
+    text: 'Which phrase from the text describes the visual scenery of Tegalalang?',
+    options: [
+      '"Famous rice terraces stretch across the hills in green steps"',
+      '"Heavy industrial factories producing textiles along the highway"',
+      '"Deep ocean trenches where large cargo ships dock"',
+      '"Dry desert sand dunes with no vegetation"',
+      '"Crowded subway stations filled with daily commuters"'
+    ],
+    correctAnswerIndex: 0,
+    correctAnswer: 'A',
+    explanation: 'The text explicitly says: "the famous Tegalalang rice terraces stretch across the hills in green steps."',
+    subject: 'Bahasa Inggris',
+    difficulty: 'Mudah',
+    bab: 'Descriptive Phrases',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_bing_14',
+    text: 'Read the excerpt to answer questions 14 to 16!\n\n**My Experience as an Intern at a Sports Club**\nLast summer, I had the opportunity to work as an intern at a local sports club. Every morning I had to wake up early, arrive on time, and follow instructions carefully. On my first day, I met the head coach who explained my tasks: setting up cones for drills, bringing water for the players, and checking training schedules.\n\nIn the second month, I was trained in emergency procedures. During football practice, a player fell and hurt his ankle. I quickly ran to get the first aid kit and helped the coach attend to the player. At the end of the internship, the coaches praised my teamwork, responsibility, and communication, and gifted me a club jersey.\n\n---\n\nDuring the internship, what was part of the writer\'s daily morning routine?',
+    options: [
+      'Conducting complex orthopedic surgeries alone',
+      'Writing official press releases for international media',
+      'Waking up early, arriving on time, and preparing practice equipment/water',
+      'Playing as the lead striker in official league matches',
+      'Managing the financial payroll of the entire coaching staff'
+    ],
+    correctAnswerIndex: 2,
+    correctAnswer: 'C',
+    explanation: 'The writer mentions waking up early, arriving on time, setting up cones, and bringing water for drills.',
+    subject: 'Bahasa Inggris',
+    difficulty: 'Mudah',
+    bab: 'Recount Text & Factual Details',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_bing_15',
+    text: 'What character traits did the coaches praise about the intern?',
+    options: [
+      'Teamwork, responsibility, and proactive communication',
+      'Arrogance and preference for working alone',
+      'Tendency to arrive late and ignore instructions',
+      'Reluctance to help injured teammates',
+      'Unwillingness to learn new skills'
+    ],
+    correctAnswerIndex: 0,
+    correctAnswer: 'A',
+    explanation: 'The coaches highlighted the intern\'s strengths in "teamwork, responsibility, and communication."',
+    subject: 'Bahasa Inggris',
+    difficulty: 'Mudah',
+    bab: 'Character Assessment',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_bing_16',
+    text: 'What will the writer most likely do in the future based on this internship experience?',
+    options: [
+      'Avoid all sports and athletics permanently',
+      'Pursue future career opportunities in sports clubs or sports administration',
+      'Complain about waking up early to the school administration',
+      'Refuse to ever use a first-aid kit again',
+      'Sell the gifted club jersey online'
+    ],
+    correctAnswerIndex: 1,
+    correctAnswer: 'B',
+    explanation: 'The author concludes: "It was a great experience, and I hope to work in a sports club again in the future."',
+    subject: 'Bahasa Inggris',
+    difficulty: 'Mudah',
+    bab: 'Inference',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_bing_17',
+    text: 'Read the excerpt to answer questions 17 to 20!\n\n**Social Media Harms Teen Mental Health**\nWhile social media offers connection, excessive usage brings serious problems. First, it makes teenagers compare themselves to curated, filtered profiles, leading to low self-esteem and anxiety. Second, late-night phone scrolling disrupts sleep schedules, which lowers academic focus and increases stress. Finally, cyberbullying causes victims to feel isolated and helpless. Therefore, parents and educators must guide teenagers toward healthier digital habits.\n\n---\n\nWhat is one negative effect of poor sleep caused by late-night phone usage?',
+    options: [
+      'Reduced concentration in class and increased academic stress',
+      'Instant improvement in sports performance',
+      'Automatic elevation of school grades',
+      'Elimination of all feelings of anxiety',
+      'Increased physical stamina during daytime'
+    ],
+    correctAnswerIndex: 0,
+    correctAnswer: 'A',
+    explanation: 'The text explains that reduced sleep causes teens to lose focus in class, which hurts grades and raises stress.',
+    subject: 'Bahasa Inggris',
+    difficulty: 'Mudah',
+    bab: 'Exposition Text & Cause-Effect',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_bing_18',
+    text: 'Which additional evidence would make the author\'s argument about social media most persuasive?',
+    options: [
+      'Empirical clinical research data and psychological statistics on teen anxiety rates',
+      'A list of the most expensive smartphones available in stores',
+      'An advertisement for phone charging cables',
+      'A history of how the internet was invented in the 1960s',
+      'A tutorial on how to apply photo filters'
+    ],
+    correctAnswerIndex: 0,
+    correctAnswer: 'A',
+    explanation: 'Empirical research data and expert medical opinions provide the strongest objective backing for persuasive argument essays.',
+    subject: 'Bahasa Inggris',
+    difficulty: 'Sedang',
+    bab: 'Argumentative Text Evaluation',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_bing_19',
+    text: 'Which statement from the text directly supports the claim that social media harms teen self-image?',
+    options: [
+      '"When teens see pictures of people who seem perfect, they feel that they are not good enough."',
+      '"Social media is a big part of many teenagers\' daily lives."',
+      '"Schools should teach students how to use social media."',
+      '"Teenagers need support from parents and teachers."',
+      '"Phone scrolling can be done at any time."'
+    ],
+    correctAnswerIndex: 0,
+    correctAnswer: 'A',
+    explanation: 'The comparison to unrealistic online standards lowering self-esteem directly supports the claim.',
+    subject: 'Bahasa Inggris',
+    difficulty: 'Mudah',
+    bab: 'Textual Evidence',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_bing_20',
+    text: 'What is the overarching conclusion of the essay on social media?',
+    options: [
+      'Although social media has benefits, its mental health risks require proactive guidance and healthy digital boundaries from schools and parents',
+      'All social media applications should be banned by law immediately',
+      'Teenagers should never sleep more than four hours a night',
+      'Cyberbullying has zero effect on teen psychological well-being',
+      'Smartphones should only be sold to adults above 40 years old'
+    ],
+    correctAnswerIndex: 0,
+    correctAnswer: 'A',
+    explanation: 'The conclusion emphasizes the need for balanced digital habits guided by parents and teachers to protect teens\' mental health.',
+    subject: 'Bahasa Inggris',
+    difficulty: 'Sedang',
+    bab: 'Conclusion & Synthesis',
     year: '2026'
   }
 ];
+
 
 // Initial Learning Videos
 const INITIAL_VIDEOS: LearningVideo[] = [
@@ -1942,10 +2478,38 @@ const INITIAL_TRYOUTS: TryOut[] = [
     subject: 'Matematika Tingkat Lanjut',
     category: 'TKA',
     randomizeQuestions: false,
-    randomizeOptions: true,
+    randomizeOptions: false,
     startDate: '2026-07-20',
     endDate: '2026-12-31',
     solvedCount: 680
+  },
+  {
+    id: 'to-tka-bindo-2026',
+    name: 'Try Out CBT TKA: Bahasa Indonesia (20 Soal IRT)',
+    duration: 45,
+    passingGrade: 500,
+    questionCount: 20,
+    subject: 'Bahasa Indonesia',
+    category: 'TKA',
+    randomizeQuestions: false,
+    randomizeOptions: false,
+    startDate: '2026-07-20',
+    endDate: '2026-12-31',
+    solvedCount: 940
+  },
+  {
+    id: 'to-tka-bing-2026',
+    name: 'Try Out CBT TKA: Bahasa Inggris (20 Soal IRT)',
+    duration: 45,
+    passingGrade: 500,
+    questionCount: 20,
+    subject: 'Bahasa Inggris',
+    category: 'TKA',
+    randomizeQuestions: false,
+    randomizeOptions: false,
+    startDate: '2026-07-20',
+    endDate: '2026-12-31',
+    solvedCount: 880
   },
   {
     id: 'to3',
@@ -2741,6 +3305,58 @@ export interface AiKnowledgeItem {
 }
 
 const INITIAL_MATERIALS: LearningMaterial[] = [
+  {
+    id: 'm_anbk_mtk_wajib',
+    title: 'Modul & Pembahasan Lengkap Matematika Wajib ANBK / TKA 2026',
+    subject: 'Matematika Wajib',
+    bab: 'Pembahasan Simulasi 20 Soal IRT',
+    description: 'Modul digital interaktif dan pembahasan lengkap 20 soal Matematika Wajib format CBT / IRT dengan formula matematis dan penjelasan konseptual.',
+    pdfName: 'Pembahasan_TKA_Matematika_Wajib_2026.pdf',
+    pdfUrl: '#',
+    youtubeUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    guruName: 'Dr. Hendra Gunawan, M.Si.',
+    htmlContent: PEMBAHASAN_TKA_MATEMATIKA_WAJIB_HTML,
+    createdAt: '2026-07-20T08:00:00Z'
+  },
+  {
+    id: 'm_tka_mtk_lanjut',
+    title: 'Modul & Pembahasan Lengkap Matematika Tingkat Lanjut TKA 2026',
+    subject: 'Matematika Tingkat Lanjut',
+    bab: 'Pembahasan Simulasi 20 Soal IRT',
+    description: 'Modul digital interaktif dan pembahasan lengkap 20 soal Matematika Tingkat Lanjut (Kalkulus, Polinomial, Matriks, Vektor) berstandar TKA / Pusmendik.',
+    pdfName: 'Pembahasan_TKA_Matematika_Lanjut_2026.pdf',
+    pdfUrl: '#',
+    youtubeUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    guruName: 'Prof. Bambang Supeno, Ph.D.',
+    htmlContent: PEMBAHASAN_TKA_MATEMATIKA_LANJUT_HTML,
+    createdAt: '2026-07-20T08:30:00Z'
+  },
+  {
+    id: 'm_tka_bindo',
+    title: 'Modul & Pembahasan Lengkap Bahasa Indonesia TKA 2026',
+    subject: 'Bahasa Indonesia',
+    bab: 'Literasi Membaca, Cerpen & PUEBI (20 Soal)',
+    description: 'Modul digital interaktif dan pembahasan lengkap 20 soal Bahasa Indonesia mencakup teks argumentasi, eksplanasi, unsur intrinsik sastra, dan kaidah kebahasaan PUEBI.',
+    pdfName: 'Pembahasan_TKA_Bahasa_Indonesia_2026.pdf',
+    pdfUrl: '#',
+    youtubeUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    guruName: 'Dra. Sri Wahyuni, M.Pd.',
+    htmlContent: PEMBAHASAN_TKA_BAHASA_INDONESIA_HTML,
+    createdAt: '2026-07-20T09:00:00Z'
+  },
+  {
+    id: 'm_tka_bing',
+    title: 'Modul & Pembahasan Lengkap Bahasa Inggris TKA 2026',
+    subject: 'Bahasa Inggris',
+    bab: 'Reading Comprehension, Narrative & Grammar (20 Soal)',
+    description: 'Modul digital interaktif dan pembahasan mendalam 20 soal Bahasa Inggris mencakup Reading Comprehension, Narrative Legend, Infographic Guide, Recount Text, dan Argumentative Essay.',
+    pdfName: 'Pembahasan_TKA_Bahasa_Inggris_2026.pdf',
+    pdfUrl: '#',
+    youtubeUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    guruName: 'Sarah Jenkins, M.A.',
+    htmlContent: PEMBAHASAN_TKA_BAHASA_INGGRIS_HTML,
+    createdAt: '2026-07-20T09:30:00Z'
+  },
   {
     id: 'm1',
     title: 'Ringkasan Sakti Listrik Dinamis & Rumus Cepat',
@@ -3751,15 +4367,22 @@ export const getQuestions = () => {
 
   const existingIds = new Set(list.map(q => q.id));
   let updated = false;
-  INITIAL_QUESTIONS.filter(q => q.id.startsWith('q_mtk_slugpost_') || q.id.startsWith('q_limit_') || q.id.startsWith('q_mtk_lanjut_') || q.id.startsWith('q_integral_') || q.id.startsWith('q_turunan_') || q.id.startsWith('q_tka_bindo_') || q.id.startsWith('q_tka_bing_')).forEach(q => {
+  INITIAL_QUESTIONS.filter(q => q.id.startsWith('q_mtk_slugpost_') || q.id.startsWith('q_limit_') || q.id.startsWith('q_mtk_lanjut_') || q.id.startsWith('q_anbk_mtkw_') || q.id.startsWith('q_integral_') || q.id.startsWith('q_turunan_') || q.id.startsWith('q_tka_bindo_') || q.id.startsWith('q_tka_bing_')).forEach(q => {
     if (!existingIds.has(q.id)) {
       list.unshift(q);
       updated = true;
-    } else if (q.id.startsWith('q_turunan_')) {
+    } else {
       const idx = list.findIndex(item => item.id === q.id);
-      if (idx !== -1 && list[idx].questionType !== q.questionType) {
-        list[idx] = { ...list[idx], questionType: q.questionType, correctAnswerIndices: q.correctAnswerIndices };
-        updated = true;
+      if (idx !== -1) {
+        if (q.id.startsWith('q_tka_bindo_') || q.id.startsWith('q_tka_bing_') || q.id.startsWith('q_anbk_mtkw_') || q.id.startsWith('q_mtk_lanjut_')) {
+          if (list[idx].text !== q.text || list[idx].options.length !== q.options.length) {
+            list[idx] = { ...q };
+            updated = true;
+          }
+        } else if (q.id.startsWith('q_turunan_') && list[idx].questionType !== q.questionType) {
+          list[idx] = { ...list[idx], questionType: q.questionType, correctAnswerIndices: q.correctAnswerIndices };
+          updated = true;
+        }
       }
     }
   });
@@ -3775,16 +4398,10 @@ export const getTryOuts = () => {
   let tryouts = FirestoreSimulator.getCollection<TryOut>('exams', INITIAL_TRYOUTS);
   let updated = false;
 
-  const filtered = tryouts.filter(t => t.id !== 'to-tka-bindo-2026');
-  if (filtered.length !== tryouts.length) {
-    tryouts = filtered;
-    updated = true;
-  }
-
   // Ensure all INITIAL_TRYOUTS are synced into local storage if missing
   const existingIds = new Set(tryouts.map(t => t.id));
   INITIAL_TRYOUTS.forEach(initTo => {
-    if (initTo.id !== 'to-tka-bindo-2026' && !existingIds.has(initTo.id)) {
+    if (!existingIds.has(initTo.id)) {
       tryouts.unshift(initTo);
       updated = true;
     }

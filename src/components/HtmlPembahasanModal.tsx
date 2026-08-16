@@ -1,32 +1,75 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { X, CheckCircle2, BookOpen } from 'lucide-react';
-import { PEMBAHASAN_TURUNAN_HTML, PEMBAHASAN_TKA_MATEMATIKA_LANJUT_HTML, PEMBAHASAN_TKA_MATEMATIKA_WAJIB_HTML } from '../data/pembahasanTkaHtml';
+import {
+  PEMBAHASAN_TKA_MATEMATIKA_LANJUT_HTML,
+  PEMBAHASAN_TKA_MATEMATIKA_WAJIB_HTML,
+  PEMBAHASAN_TKA_BAHASA_INDONESIA_HTML,
+  PEMBAHASAN_TKA_BAHASA_INGGRIS_HTML
+} from '../data/pembahasanTkaHtml';
 
 interface HtmlPembahasanModalProps {
   isOpen: boolean;
   onClose: () => void;
   title?: string;
+  subject?: string;
   htmlContent?: string;
 }
 
 export default function HtmlPembahasanModal({
   isOpen,
   onClose,
-  title = "Pembahasan Try Out",
+  title,
+  subject,
   htmlContent
 }: HtmlPembahasanModalProps) {
-  const [activeDoc, setActiveDoc] = useState<'mtk_wajib' | 'tka_lanjut' | 'turunan'>('mtk_wajib');
-
   if (!isOpen) return null;
 
-  const getDocHtml = () => {
-    if (htmlContent) return htmlContent;
-    if (activeDoc === 'mtk_wajib') return PEMBAHASAN_TKA_MATEMATIKA_WAJIB_HTML;
-    if (activeDoc === 'tka_lanjut') return PEMBAHASAN_TKA_MATEMATIKA_LANJUT_HTML;
-    return PEMBAHASAN_TURUNAN_HTML;
+  const resolveSubjectInfo = () => {
+    const checkStr = `${subject || ''} ${title || ''}`.toLowerCase();
+
+    if (checkStr.includes('inggris') || checkStr.includes('english')) {
+      return {
+        key: 'inggris',
+        label: 'Bahasa Inggris',
+        badgeColor: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+        iconColor: 'bg-emerald-100 text-emerald-700',
+        html: PEMBAHASAN_TKA_BAHASA_INGGRIS_HTML,
+        subLabel: 'Dokumen Pembahasan 20 Soal CBT TKA Bahasa Inggris'
+      };
+    }
+    if (checkStr.includes('indonesia') || checkStr.includes('indo')) {
+      return {
+        key: 'indo',
+        label: 'Bahasa Indonesia',
+        badgeColor: 'bg-rose-50 text-rose-700 border-rose-200',
+        iconColor: 'bg-rose-100 text-rose-700',
+        html: PEMBAHASAN_TKA_BAHASA_INDONESIA_HTML,
+        subLabel: 'Dokumen Pembahasan 20 Soal CBT TKA Bahasa Indonesia'
+      };
+    }
+    if (checkStr.includes('lanjut') || checkStr.includes('tingkat lanjut')) {
+      return {
+        key: 'tka_lanjut',
+        label: 'Matematika Tingkat Lanjut',
+        badgeColor: 'bg-purple-50 text-purple-700 border-purple-200',
+        iconColor: 'bg-purple-100 text-purple-700',
+        html: PEMBAHASAN_TKA_MATEMATIKA_LANJUT_HTML,
+        subLabel: 'Dokumen Pembahasan 20 Soal CBT TKA Matematika Tingkat Lanjut'
+      };
+    }
+    return {
+      key: 'mtk_wajib',
+      label: 'Matematika Wajib',
+      badgeColor: 'bg-blue-50 text-blue-700 border-blue-200',
+      iconColor: 'bg-blue-100 text-blue-700',
+      html: PEMBAHASAN_TKA_MATEMATIKA_WAJIB_HTML,
+      subLabel: 'Dokumen Pembahasan 20 Soal CBT TKA / ANBK Matematika Wajib'
+    };
   };
 
-  const currentHtml = getDocHtml();
+  const subjectInfo = resolveSubjectInfo();
+  const currentHtml = htmlContent || subjectInfo.html;
+  const displayTitle = title || `Pembahasan Try Out CBT - ${subjectInfo.label}`;
 
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-slate-900/80 backdrop-blur-sm p-2 sm:p-4 animate-fadeIn">
@@ -34,54 +77,24 @@ export default function HtmlPembahasanModal({
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between px-5 py-4 border-b border-slate-200 bg-slate-50 gap-3">
           <div className="flex items-center gap-3">
-            <div className="p-2.5 bg-blue-100 text-blue-700 rounded-xl">
-              <BookOpen className="w-5 h-5 text-blue-600" />
+            <div className={`p-2.5 rounded-xl ${subjectInfo.iconColor}`}>
+              <BookOpen className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-base sm:text-lg font-bold text-slate-800">{title}</h3>
-              <p className="text-xs text-slate-500">Dokumen Pembahasan Lengkap & Formula Matematika</p>
+              <div className="flex items-center gap-2">
+                <h3 className="text-base sm:text-lg font-bold text-slate-800">{displayTitle}</h3>
+                <span className={`px-2.5 py-0.5 text-[11px] font-bold rounded-lg border ${subjectInfo.badgeColor}`}>
+                  {subjectInfo.label}
+                </span>
+              </div>
+              <p className="text-xs text-slate-500">{subjectInfo.subLabel}</p>
             </div>
           </div>
 
           <div className="flex items-center gap-2 self-end sm:self-auto">
-            {!htmlContent && (
-              <div className="flex bg-slate-200/80 p-1 rounded-xl gap-1 overflow-x-auto">
-                <button
-                  onClick={() => setActiveDoc('mtk_wajib')}
-                  className={`px-3 py-1 text-xs font-bold rounded-lg transition-all whitespace-nowrap ${
-                    activeDoc === 'mtk_wajib'
-                      ? 'bg-blue-600 text-white shadow-sm'
-                      : 'text-slate-600 hover:text-slate-900'
-                  }`}
-                >
-                  Matematika Wajib (20 Soal)
-                </button>
-                <button
-                  onClick={() => setActiveDoc('tka_lanjut')}
-                  className={`px-3 py-1 text-xs font-bold rounded-lg transition-all whitespace-nowrap ${
-                    activeDoc === 'tka_lanjut'
-                      ? 'bg-blue-600 text-white shadow-sm'
-                      : 'text-slate-600 hover:text-slate-900'
-                  }`}
-                >
-                  Matematika Lanjut (20 Soal)
-                </button>
-                <button
-                  onClick={() => setActiveDoc('turunan')}
-                  className={`px-3 py-1 text-xs font-bold rounded-lg transition-all whitespace-nowrap ${
-                    activeDoc === 'turunan'
-                      ? 'bg-blue-600 text-white shadow-sm'
-                      : 'text-slate-600 hover:text-slate-900'
-                  }`}
-                >
-                  Turunan Fungsi (20 Soal)
-                </button>
-              </div>
-            )}
-
             <button
               onClick={onClose}
-              className="p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-200/60 rounded-lg transition-colors"
+              className="p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-200/60 rounded-lg transition-colors cursor-pointer"
               title="Tutup"
             >
               <X className="w-5 h-5" />
@@ -93,7 +106,7 @@ export default function HtmlPembahasanModal({
         <div className="flex-1 bg-slate-100 p-1 sm:p-2 overflow-hidden relative">
           <iframe
             srcDoc={currentHtml}
-            title="Pembahasan HTML TKA Matematika"
+            title={`Pembahasan ${subjectInfo.label}`}
             className="w-full h-full rounded-lg border border-slate-200 bg-white shadow-inner"
             sandbox="allow-scripts allow-same-origin allow-popups"
           />
@@ -103,11 +116,11 @@ export default function HtmlPembahasanModal({
         <div className="px-5 py-3 border-t border-slate-200 bg-slate-50 flex flex-wrap items-center justify-between text-xs text-slate-500 gap-2">
           <div className="flex items-center gap-1.5 text-emerald-600 font-medium">
             <CheckCircle2 className="w-4 h-4" />
-            <span>Terintegrasi dengan Try Out CBT TKA Matematika (Soal + Solusi MathJax)</span>
+            <span>Terintegrasi dengan Try Out CBT TKA SMA: {subjectInfo.label}</span>
           </div>
           <button
             onClick={onClose}
-            className="px-4 py-1.5 bg-slate-800 text-white font-medium rounded-lg hover:bg-slate-900 transition-colors"
+            className="px-4 py-1.5 bg-slate-800 text-white font-medium rounded-lg hover:bg-slate-900 transition-colors cursor-pointer"
           >
             Tutup Pembahasan
           </button>
@@ -116,3 +129,4 @@ export default function HtmlPembahasanModal({
     </div>
   );
 }
+

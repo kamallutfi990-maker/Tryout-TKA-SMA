@@ -10,6 +10,7 @@ import HtmlPembahasanModal from './HtmlPembahasanModal';
 
 export interface CbtReportData {
   title: string;
+  subject?: string;
   timestamp?: string;
   score: number;
   correctCount: number;
@@ -712,7 +713,8 @@ export default function CbtAnalysisReport({ report, userProfile, onClose }: CbtA
       <HtmlPembahasanModal
         isOpen={showHtmlModal}
         onClose={() => setShowHtmlModal(false)}
-        title={`Pembahasan Lengkap HTML - ${report.title}`}
+        title={`Pembahasan Lengkap - ${report.title}`}
+        subject={report.subject || report.title}
       />
 
       {/* Fullscreen AI Tutor Modal */}

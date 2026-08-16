@@ -2,7 +2,6 @@ import express from "express";
 import path from "path";
 import dotenv from "dotenv";
 import { GoogleGenAI } from "@google/genai";
-import { createServer as createViteServer } from "vite";
 
 dotenv.config();
 
@@ -550,7 +549,12 @@ app.post("/api/slugpost/parse", async (req, res) => {
 
 // Vite middleware and server binding wrapped in async initServer
 async function initServer() {
+  if (process.env.VERCEL) {
+    return;
+  }
+
   if (process.env.NODE_ENV !== "production") {
+    const { createServer: createViteServer } = await import("vite");
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: "spa",
@@ -570,3 +574,5 @@ async function initServer() {
 }
 
 initServer();
+
+export default app;

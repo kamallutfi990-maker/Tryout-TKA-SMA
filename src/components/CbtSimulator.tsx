@@ -124,6 +124,20 @@ export default function CbtSimulator({ tryout, userProfile, onBack, onFinish }: 
         const numB = parseInt(b.id.replace('q_mtk_lanjut_', '')) || 0;
         return numA - numB;
       });
+    } else if (tryout.id === 'to-tka-bindo-2026' || tryout.name.includes('Bahasa Indonesia') || tryout.subject === 'Bahasa Indonesia') {
+      // Sort in order q_tka_bindo_1 .. 20
+      pool.sort((a, b) => {
+        const numA = parseInt(a.id.replace('q_tka_bindo_', '')) || 0;
+        const numB = parseInt(b.id.replace('q_tka_bindo_', '')) || 0;
+        return numA - numB;
+      });
+    } else if (tryout.id === 'to-tka-bing-2026' || tryout.name.includes('Bahasa Inggris') || tryout.subject === 'Bahasa Inggris') {
+      // Sort in order q_tka_bing_1 .. 20
+      pool.sort((a, b) => {
+        const numA = parseInt(a.id.replace('q_tka_bing_', '')) || 0;
+        const numB = parseInt(b.id.replace('q_tka_bing_', '')) || 0;
+        return numA - numB;
+      });
     } else if (pool.length < (tryout.questionCount || 20) && !tryout.id.includes('integral') && !tryout.id.includes('turunan')) {
       const isSpecificSubject = tryout.subject && !['semua', 'campuran', 'umum', 'utbk', 'tka'].some(k => tryout.subject.toLowerCase().includes(k));
       const remaining = allQ.filter(q => {
@@ -549,6 +563,7 @@ export default function CbtSimulator({ tryout, userProfile, onBack, onFinish }: 
           <CbtAnalysisReport
             report={{
               title: tryout.name,
+              subject: tryout.subject,
               timestamp: new Date(scoreResult.createdAt).toLocaleString('id-ID'),
               score: scoreResult.score,
               correctCount: scoreResult.correctCount,

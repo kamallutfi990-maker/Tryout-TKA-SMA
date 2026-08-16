@@ -11,7 +11,6 @@ import CbtSimulator from './CbtSimulator';
 import MidtransSimulator from './MidtransSimulator';
 import MathMarkdown from './MathMarkdown';
 import CbtAnalysisReport, { CbtReportData } from './CbtAnalysisReport';
-import YouTubeLiveStreamModal from './YouTubeLiveStreamModal';
 
 interface DashboardSiswaProps {
   userProfile: UserProfile;
@@ -500,7 +499,7 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
       
       {/* Top Premium Callout Banner */}
       {!userProfile.isPremium && (
-        <div className="bg-slate-900 text-white py-2 px-4 text-xs text-center flex flex-wrap items-center justify-center gap-2 border-b border-slate-800">
+        <div className="bg-slate-900 dark:bg-slate-800 text-white py-2 px-4 text-xs text-center flex flex-wrap items-center justify-center gap-2 border-b border-slate-800 dark:border-slate-700">
           <span className="bg-blue-600 text-white font-black px-2 py-0.5 rounded text-[10px] animate-pulse">PROMO VIP</span>
           <span>Dapatkan akses CBT Try Out Premium dan AI Tutor Tanpa Batas hanya dengan <strong>Rp 49.000 / Bulan</strong>!</span>
           <button
@@ -513,13 +512,13 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
       )}
 
       {/* Main Header Row */}
-      <header className="bg-white border-b border-slate-100 shadow-sm sticky top-0 z-30 shrink-0">
+      <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 shadow-sm sticky top-0 z-30 shrink-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
           
           <div className="flex items-center gap-2">
             <span className="bg-blue-600 text-white w-9 h-9 rounded-xl flex items-center justify-center font-extrabold text-lg">T</span>
             <div>
-              <h1 className="text-base font-extrabold text-slate-900 leading-none">TKA SMA Indonesia</h1>
+              <h1 className="text-base font-extrabold text-slate-900 dark:text-slate-50 leading-none">TKA SMA Indonesia</h1>
               <span className="text-[10px] text-blue-600 font-bold uppercase tracking-wider">Pusat Belajar Kelas XII & Alumni</span>
             </div>
           </div>
@@ -1622,7 +1621,7 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                 </div>
               )}
 
-              {/* Tab: Try Out (CBT Selection Center for UTBK or TKA) */}
+
               {(activeTab === 'tryout' || activeTab === 'tryout_tka') && (() => {
                 const isTka = activeTab === 'tryout_tka';
 
@@ -1866,7 +1865,7 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                                 <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-black ${
                                   isSelected ? 'bg-emerald-800 text-emerald-100' : 'bg-slate-200 text-slate-700'
                                 }`}>
-                                  {count}
+                                  {count} paket
                                 </span>
                               </button>
                             );
@@ -1920,7 +1919,7 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                                 <div className="pt-4 border-t border-slate-100 mt-3 flex items-center justify-between text-xs">
                                   <span className="font-extrabold text-slate-700 flex items-center gap-1 text-[11px]">
                                     <Folder className="w-3.5 h-3.5 text-amber-500 fill-amber-400" />
-                                    {matchingTryouts.length} Paket Bab
+                                    {matchingTryouts.length} paket
                                   </span>
                                   <span className="text-[11px] font-black text-emerald-600 group-hover:translate-x-1 transition-transform flex items-center">
                                     Buka <ChevronRight className="w-3 h-3" />
@@ -2280,12 +2279,6 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
         />
       )}
 
-      {/* Flagship YouTube Live Stream Modal Overlay */}
-      <YouTubeLiveStreamModal
-        isOpen={isLiveStreamOpen}
-        onClose={() => setIsLiveStreamOpen(false)}
-        userDisplayName={userProfile.displayName}
-      />
 
     </div>
   );
