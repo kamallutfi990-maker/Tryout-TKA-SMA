@@ -3099,6 +3099,76 @@ const INITIAL_TRYOUTS: TryOut[] = [
     solvedCount: 710
   },
   {
+    id: 'to-tka-sosiologi-1-2026',
+    name: 'Try Out CBT TKA: Sosiologi SMA (20 Soal IRT & Analisis Wacana)',
+    duration: 45,
+    passingGrade: 600,
+    questionCount: 20,
+    subject: 'Sosiologi',
+    category: 'TKA',
+    randomizeQuestions: false,
+    randomizeOptions: false,
+    startDate: '2026-07-20',
+    endDate: '2026-12-31',
+    solvedCount: 820
+  },
+  {
+    id: 'to-tka-ekonomi-1-2026',
+    name: 'Try Out CBT TKA: Ekonomi SMA (20 Soal Pusmendik & Analisis Makro-Mikro)',
+    duration: 45,
+    passingGrade: 600,
+    questionCount: 20,
+    subject: 'Ekonomi',
+    category: 'TKA',
+    randomizeQuestions: false,
+    randomizeOptions: false,
+    startDate: '2026-07-20',
+    endDate: '2026-12-31',
+    solvedCount: 780
+  },
+  {
+    id: 'to-tka-ppkn-2026',
+    name: 'Try Out CBT TKA: PPKn SMA (10 Soal Analisis Kebangsaan, Konstitusi & Dinamika Demokrasi)',
+    duration: 30,
+    passingGrade: 650,
+    questionCount: 10,
+    subject: 'PPKn (PKn)',
+    category: 'TKA',
+    randomizeQuestions: false,
+    randomizeOptions: false,
+    startDate: '2026-07-20',
+    endDate: '2026-12-31',
+    solvedCount: 420
+  },
+  {
+    id: 'to-tka-geografi-2026',
+    name: 'Try Out CBT TKA: Geografi SMA (10 Soal Analisis Spasial, Litosfer, Penginderaan Jauh & SIG)',
+    duration: 30,
+    passingGrade: 650,
+    questionCount: 10,
+    subject: 'Geografi',
+    category: 'TKA',
+    randomizeQuestions: false,
+    randomizeOptions: false,
+    startDate: '2026-07-20',
+    endDate: '2026-12-31',
+    solvedCount: 390
+  },
+  {
+    id: 'to-tka-sejarah-2026',
+    name: 'Try Out CBT TKA: Sejarah SMA (10 Soal Analisis Peradaban & Perjuangan Bangsa)',
+    duration: 30,
+    passingGrade: 650,
+    questionCount: 10,
+    subject: 'Sejarah',
+    category: 'TKA',
+    randomizeQuestions: false,
+    randomizeOptions: false,
+    startDate: '2026-07-20',
+    endDate: '2026-12-31',
+    solvedCount: 380
+  },
+  {
     id: 'to3',
     name: 'Mini Tryout 1: Matematika & Logika Kuantitatif',
     duration: 30,
@@ -5024,8 +5094,14 @@ export const getTryOuts = () => {
   let updated = false;
 
   // Filter out removed tryout packages
-  const removedIds = new Set(['to-tka-indo-lanjut-2026', 'to-tka-inggris-lanjut-2026']);
-  const filtered = tryouts.filter(t => !removedIds.has(t.id) && t.subject !== 'Bahasa Indonesia Tingkat Lanjut' && t.subject !== 'Bahasa Inggris Tingkat Lanjut');
+  const removedIds = new Set(['to-tka-indo-lanjut-2026', 'to-tka-inggris-lanjut-2026', 'to-tka-ppkn-1-2026', 'to-tka-sejarah-1-2026', 'to-tka-geografi-1-2026']);
+  const filtered = tryouts.filter(t => 
+    !removedIds.has(t.id) && 
+    t.subject !== 'Bahasa Indonesia Tingkat Lanjut' && 
+    t.subject !== 'Bahasa Inggris Tingkat Lanjut' && 
+    t.id !== 'to-tka-sejarah-1-2026' &&
+    t.id !== 'to-tka-geografi-1-2026'
+  );
   if (filtered.length !== tryouts.length) {
     tryouts = filtered;
     updated = true;

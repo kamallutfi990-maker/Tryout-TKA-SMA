@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { Home, FileText, Compass, BookOpen, Video, Award, Trophy, Sparkles, Star, Zap, ChevronRight, Play, BookOpenCheck, CheckCircle2, AlertTriangle, ShieldCheck, Heart, Link, Image, Youtube, ExternalLink, FileSpreadsheet, Download, Folder, FolderOpen, ArrowLeft, FileCode, Target, Radio, Calendar, Users, Maximize2 } from 'lucide-react';
+import { Home, FileText, Compass, BookOpen, Video, Award, Trophy, Sparkles, Star, Zap, ChevronRight, Play, BookOpenCheck, CheckCircle2, AlertTriangle, ShieldCheck, Heart, Link, Image, Youtube, ExternalLink, FileSpreadsheet, Download, Folder, FolderOpen, ArrowLeft, FileCode, Target, Radio, Calendar, Users, Maximize2, Search } from 'lucide-react';
 import { UserProfile, ReportCard, TryOut, LearningVideo, UniversityPrediction, ExamScore, Achievement, LearningMaterial } from '../types';
 import { FirestoreSimulator, getTryouts, getVideos, getAchievements, getUniversities, getStudyPrograms, getMaterials, getAllScores } from '../lib/firestoreSimulator';
 import CbtSimulator from './CbtSimulator';
@@ -15,6 +15,11 @@ import CbtTryoutIndoLanjut from './tryout_cbt_tka/bahasa_indonesia_tingkat_lanju
 import CbtTryoutKimia from './tryout_cbt_tka/kimia/CbtTryoutKimia';
 import CbtTryoutBiologi from './tryout_cbt_tka/biologi/CbtTryoutBiologi';
 import CbtTryoutFisika from './tryout_cbt_tka/fisika/CbtTryoutFisika';
+import CbtTryoutSosiologi from './tryout_cbt_tka/sosiologi/CbtTryoutSosiologi';
+import CbtTryoutEkonomi from './tryout_cbt_tka/ekonomi/CbtTryoutEkonomi';
+import CbtTryoutPpkn from './tryout_cbt_tka/ppkn/CbtTryoutPpkn';
+import CbtTryoutSejarah from './tryout_cbt_tka/sejarah/CbtTryoutSejarah';
+import CbtTryoutGeografi from './tryout_cbt_tka/geografi/CbtTryoutGeografi';
 
 interface DashboardSiswaProps {
   userProfile: UserProfile;
@@ -36,6 +41,8 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
   // Tryouts state
   const [tryoutsList, setTryoutsList] = useState<TryOut[]>(getTryouts());
   const [selectedTkaFolder, setSelectedTkaFolder] = useState<string | null>(null);
+  const [tkaCategoryFilter, setTkaCategoryFilter] = useState<'all' | 'wajib' | 'saintek' | 'soshum'>('all');
+  const [tkaSearchQuery, setTkaSearchQuery] = useState<string>('');
 
   useEffect(() => {
     const syncTryouts = () => {
@@ -635,9 +642,13 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
             <span>Try Out CBT UTBK</span>
           </button>
           <button
-            onClick={() => setActiveTab('tryout_tka')}
+            onClick={() => {
+              setActiveCbt(null);
+              setSelectedTkaFolder(null);
+              setActiveTab('tryout_tka');
+            }}
             className={`px-4 py-3 rounded-xl font-bold text-xs flex items-center gap-2.5 transition-all cursor-pointer shrink-0 ${
-              activeTab === 'tryout_tka' ? 'bg-blue-50 text-[#2563EB] border border-blue-100/50 shadow-sm' : 'bg-white text-slate-500 hover:bg-slate-50 border border-slate-200/60'
+              activeTab === 'tryout_tka' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200/80 shadow-sm' : 'bg-white text-slate-500 hover:bg-slate-50 border border-slate-200/60'
             }`}
           >
             <Award className="w-4 h-4 text-emerald-600" />
@@ -689,6 +700,21 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
             ) : activeCbt.id === 'to-tka-fisika-1-2026' ||
             (activeCbt.subject === 'Fisika' && !activeCbt.googleFormUrl) ? (
               <CbtTryoutFisika onBack={() => setActiveCbt(null)} />
+            ) : activeCbt.id === 'to-tka-sosiologi-1-2026' ||
+            (activeCbt.subject === 'Sosiologi' && !activeCbt.googleFormUrl) ? (
+              <CbtTryoutSosiologi onBack={() => setActiveCbt(null)} />
+            ) : activeCbt.id === 'to-tka-ekonomi-1-2026' ||
+            (activeCbt.subject === 'Ekonomi' && !activeCbt.googleFormUrl) ? (
+              <CbtTryoutEkonomi onBack={() => setActiveCbt(null)} />
+            ) : activeCbt.id === 'to-tka-ppkn-2026' ||
+            (activeCbt.subject === 'PPKn (PKn)' && !activeCbt.googleFormUrl) ? (
+              <CbtTryoutPpkn onBack={() => setActiveCbt(null)} />
+            ) : activeCbt.id === 'to-tka-sejarah-2026' ||
+            (activeCbt.subject === 'Sejarah' && !activeCbt.googleFormUrl) ? (
+              <CbtTryoutSejarah onBack={() => setActiveCbt(null)} />
+            ) : activeCbt.id === 'to-tka-geografi-2026' ||
+            (activeCbt.subject === 'Geografi' && !activeCbt.googleFormUrl) ? (
+              <CbtTryoutGeografi onBack={() => setActiveCbt(null)} />
             ) : (
               <CbtSimulator
                 tryout={activeCbt}
@@ -847,18 +873,22 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                     </button>
 
                     <button
-                      onClick={() => setActiveTab('tryout_tka')}
+                      onClick={() => {
+                        setActiveCbt(null);
+                        setSelectedTkaFolder(null);
+                        setActiveTab('tryout_tka');
+                      }}
                       className="bg-white border border-slate-100 hover:border-emerald-300 p-6 rounded-3xl text-left shadow-sm hover:shadow-md transition-all cursor-pointer group flex flex-col justify-between space-y-4"
                     >
                       <div className="space-y-2">
                         <div className="inline-flex gap-1 bg-emerald-50 text-emerald-700 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border border-emerald-100">
-                          <Award className="w-3 h-3 text-emerald-600 shrink-0" /> TKA Akademik
+                          <FolderOpen className="w-3 h-3 text-emerald-600 shrink-0" /> 14 Folder Mapel TKA
                         </div>
                         <h3 className="font-extrabold text-sm sm:text-base text-slate-900">Try Out CBT TKA</h3>
-                        <p className="text-xs text-slate-500">Simulasi CBT Tes Kemampuan Akademik (TKA) sesuai mata pelajaran SMA.</p>
+                        <p className="text-xs text-slate-500">Buka dan akses 14 folder mata pelajaran TKA SMA (MIPA, IPS, dan Wajib) untuk memulai simulasi ujian.</p>
                       </div>
                       <div className="flex items-center justify-between pt-2 text-xs font-bold text-emerald-600 group-hover:text-emerald-700 transition-colors">
-                        <span>Mulai Try Out TKA</span>
+                        <span>Buka Folder Try Out TKA</span>
                         <ChevronRight className="w-4 h-4" />
                       </div>
                     </button>
@@ -1828,7 +1858,8 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                     match: (s: string, name: string) => {
                       const ls = s.toLowerCase();
                       const ln = name.toLowerCase();
-                      return ls.includes('sejarah') || ln.includes('sejarah');
+                      if (ls.includes('pkn') || ls.includes('ppkn') || ln.includes('pkn') || ln.includes('ppkn')) return false;
+                      return ls === 'sejarah' || ls.includes('sejarah') || (ln.includes('sejarah') && !ln.includes('ppkn'));
                     }
                   },
                   {
@@ -1914,7 +1945,7 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                       </div>
                       <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
                         {isTka 
-                          ? 'Masing-masing Try Out bab dikumpulkan secara rapi di dalam 12 Folder Mata Pelajaran TKA SMA (Matematika Wajib, Matematika Tingkat Lanjut, Bahasa Indonesia, Bahasa Indonesia Tingkat Lanjut, Bahasa Inggris, Bahasa Inggris Tingkat Lanjut, Fisika, Kimia, Biologi, Ekonomi, Geografi, Sejarah, Sosiologi, PPKn). Pilih folder mapel di bawah untuk mengakses seluruh paket Try Out bab.'
+                          ? `Masing-masing Try Out bab dikumpulkan secara rapi di dalam ${TKA_SMA_SUBJECT_FOLDERS.length} Folder Mata Pelajaran TKA SMA (Matematika Wajib, Matematika Tingkat Lanjut, Bahasa Indonesia, Bahasa Indonesia Tingkat Lanjut, Bahasa Inggris, Bahasa Inggris Tingkat Lanjut, Fisika, Kimia, Biologi, Ekonomi, Geografi, Sejarah, Sosiologi, PPKn). Pilih folder mapel di bawah untuk membuka paket Try Out per bab.`
                           : 'Daftar seluruh paket Try Out UTBK/SNBT resmi yang diupload oleh Tim Guru dan Admin Utama. Pilih paket di bawah ini untuk mengerjakan simulasi CBT interaktif maupun ujian Google Form.'}
                       </p>
 
@@ -1922,7 +1953,11 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                       {isTka && (
                         <div className="pt-2 flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
                           <button
-                            onClick={() => setSelectedTkaFolder(null)}
+                            onClick={() => {
+                              setSelectedTkaFolder(null);
+                              setTkaCategoryFilter('all');
+                              setTkaSearchQuery('');
+                            }}
                             className={`px-3.5 py-1.5 rounded-xl text-xs font-extrabold transition-all whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
                               selectedTkaFolder === null
                                 ? 'bg-emerald-600 text-white shadow-sm'
@@ -1959,62 +1994,148 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                     </div>
 
                     {/* TKA Folder Grid Section (When selectedTkaFolder is null or showing overview) */}
-                    {isTka && selectedTkaFolder === null && (
-                      <div className="space-y-4">
-                        <div className="flex items-center justify-between">
-                          <h3 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
-                            <Folder className="w-5 h-5 text-emerald-600" />
-                            Folder {TKA_SMA_SUBJECT_FOLDERS.length} Mata Pelajaran TKA SMA
-                          </h3>
-                          <span className="text-xs text-slate-500 font-medium">
-                            Pilih folder untuk membuka paket per bab
-                          </span>
-                        </div>
+                    {isTka && selectedTkaFolder === null && (() => {
+                      const filteredFolders = TKA_SMA_SUBJECT_FOLDERS.filter(f => {
+                        // Category filter
+                        if (tkaCategoryFilter === 'wajib' && !['matematika_wajib', 'bahasa_indonesia', 'bahasa_indonesia_lanjut', 'bahasa_inggris', 'bahasa_inggris_lanjut', 'ppkn'].includes(f.id)) return false;
+                        if (tkaCategoryFilter === 'saintek' && !['matematika_lanjut', 'fisika', 'kimia', 'biologi'].includes(f.id)) return false;
+                        if (tkaCategoryFilter === 'soshum' && !['ekonomi', 'geografi', 'sejarah', 'sosiologi'].includes(f.id)) return false;
+                        // Search query filter
+                        if (tkaSearchQuery.trim()) {
+                          const query = tkaSearchQuery.toLowerCase();
+                          return f.name.toLowerCase().includes(query) || f.description.toLowerCase().includes(query) || f.badge.toLowerCase().includes(query);
+                        }
+                        return true;
+                      });
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
-                          {TKA_SMA_SUBJECT_FOLDERS.map((f) => {
-                            const matchingTryouts = allTkaTryouts.filter(to => f.match(to.subject, to.name));
-                            return (
-                              <div
-                                key={f.id}
-                                onClick={() => setSelectedTkaFolder(f.id)}
-                                className={`bg-white border border-slate-200/80 rounded-3xl p-5 flex flex-col justify-between shadow-sm transition-all cursor-pointer group hover:-translate-y-1 ${f.borderClass}`}
+                      return (
+                        <div className="space-y-5">
+                          {/* Filter Tabs & Search Controls */}
+                          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-white p-4 rounded-2xl border border-slate-100 shadow-sm">
+                            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 no-scrollbar">
+                              <button
+                                onClick={() => setTkaCategoryFilter('all')}
+                                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
+                                  tkaCategoryFilter === 'all'
+                                    ? 'bg-slate-900 text-white shadow-sm'
+                                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                                }`}
                               >
-                                <div className="space-y-3">
-                                  <div className="flex items-center justify-between">
-                                    <div className={`w-10 h-10 rounded-2xl flex items-center justify-center text-xl shadow-inner ${f.bgLight}`}>
-                                      {f.icon}
+                                Semua Mapel ({TKA_SMA_SUBJECT_FOLDERS.length})
+                              </button>
+                              <button
+                                onClick={() => setTkaCategoryFilter('wajib')}
+                                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
+                                  tkaCategoryFilter === 'wajib'
+                                    ? 'bg-blue-600 text-white shadow-sm'
+                                    : 'bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-100'
+                                }`}
+                              >
+                                Mapel Wajib (6)
+                              </button>
+                              <button
+                                onClick={() => setTkaCategoryFilter('saintek')}
+                                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
+                                  tkaCategoryFilter === 'saintek'
+                                    ? 'bg-emerald-600 text-white shadow-sm'
+                                    : 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-100'
+                                }`}
+                              >
+                                MIPA / Saintek (4)
+                              </button>
+                              <button
+                                onClick={() => setTkaCategoryFilter('soshum')}
+                                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
+                                  tkaCategoryFilter === 'soshum'
+                                    ? 'bg-amber-600 text-white shadow-sm'
+                                    : 'bg-amber-50 text-amber-700 hover:bg-amber-100 border border-amber-100'
+                                }`}
+                              >
+                                IPS / Soshum (4)
+                              </button>
+                            </div>
+
+                            <div className="relative min-w-[200px] sm:w-64">
+                              <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                              <input
+                                type="text"
+                                value={tkaSearchQuery}
+                                onChange={(e) => setTkaSearchQuery(e.target.value)}
+                                placeholder="Cari folder mapel..."
+                                className="w-full pl-9 pr-8 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
+                              />
+                              {tkaSearchQuery && (
+                                <button
+                                  onClick={() => setTkaSearchQuery('')}
+                                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 text-xs font-bold"
+                                >
+                                  ✕
+                                </button>
+                              )}
+                            </div>
+                          </div>
+
+                          {/* Folder Grid */}
+                          {filteredFolders.length > 0 ? (
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                              {filteredFolders.map((f) => {
+                                const matchingTryouts = allTkaTryouts.filter(to => f.match(to.subject, to.name));
+                                return (
+                                  <div
+                                    key={f.id}
+                                    onClick={() => setSelectedTkaFolder(f.id)}
+                                    className={`bg-white border border-slate-200/80 rounded-3xl p-5 flex flex-col justify-between shadow-sm transition-all cursor-pointer group hover:-translate-y-1 ${f.borderClass}`}
+                                  >
+                                    <div className="space-y-3">
+                                      <div className="flex items-center justify-between">
+                                        <div className={`w-11 h-11 rounded-2xl flex items-center justify-center text-2xl shadow-inner ${f.bgLight}`}>
+                                          {f.icon}
+                                        </div>
+                                        <span className={`text-[10px] font-black px-2.5 py-0.5 rounded-full border ${f.badgeClass}`}>
+                                          {f.badge}
+                                        </span>
+                                      </div>
+
+                                      <div>
+                                        <h4 className="font-extrabold text-slate-900 text-sm group-hover:text-emerald-700 transition-colors">
+                                          {f.name}
+                                        </h4>
+                                        <p className="text-[11px] text-slate-400 line-clamp-2 mt-1 leading-snug">
+                                          {f.description}
+                                        </p>
+                                      </div>
                                     </div>
-                                    <span className={`text-[10px] font-black px-2.5 py-0.5 rounded-full border ${f.badgeClass}`}>
-                                      {f.badge}
-                                    </span>
-                                  </div>
 
-                                  <div>
-                                    <h4 className="font-extrabold text-slate-900 text-sm group-hover:text-emerald-700 transition-colors">
-                                      {f.name}
-                                    </h4>
-                                    <p className="text-[11px] text-slate-400 line-clamp-2 mt-1 leading-snug">
-                                      {f.description}
-                                    </p>
+                                    <div className="pt-4 border-t border-slate-100 mt-3 flex items-center justify-between text-xs">
+                                      <span className="font-extrabold text-slate-700 flex items-center gap-1.5 text-[11px]">
+                                        <Folder className="w-3.5 h-3.5 text-amber-500 fill-amber-400" />
+                                        {matchingTryouts.length} paket tryout
+                                      </span>
+                                      <span className="text-[11px] font-black text-emerald-600 group-hover:translate-x-1 transition-transform flex items-center">
+                                        Buka Folder <ChevronRight className="w-3 h-3 ml-0.5" />
+                                      </span>
+                                    </div>
                                   </div>
-                                </div>
-
-                                <div className="pt-4 border-t border-slate-100 mt-3 flex items-center justify-between text-xs">
-                                  <span className="font-extrabold text-slate-700 flex items-center gap-1 text-[11px]">
-                                    <Folder className="w-3.5 h-3.5 text-amber-500 fill-amber-400" />
-                                    {matchingTryouts.length} paket
-                                  </span>
-                                  <span className="text-[11px] font-black text-emerald-600 group-hover:translate-x-1 transition-transform flex items-center">
-                                    Buka <ChevronRight className="w-3 h-3" />
-                                  </span>
-                                </div>
-                              </div>
-                            );
-                          })}
+                                );
+                              })}
+                            </div>
+                          ) : (
+                            <div className="bg-white border border-slate-200 rounded-3xl p-8 text-center space-y-3">
+                              <p className="text-sm font-bold text-slate-700">Tidak ada folder mata pelajaran yang cocok dengan pencarian "{tkaSearchQuery}"</p>
+                              <button
+                                onClick={() => {
+                                  setTkaSearchQuery('');
+                                  setTkaCategoryFilter('all');
+                                }}
+                                className="px-4 py-2 bg-slate-900 text-white rounded-xl text-xs font-bold hover:bg-slate-800 transition-colors cursor-pointer"
+                              >
+                                Tampilkan Semua {TKA_SMA_SUBJECT_FOLDERS.length} Folder
+                              </button>
+                            </div>
+                          )}
                         </div>
-                      </div>
-                    )}
+                      );
+                    })()}
 
                     {/* Selected Folder Banner / Back navigation */}
                     {isTka && currentFolderObj && (
