@@ -113,14 +113,32 @@ Context pelajaran/siswa saat ini: ${JSON.stringify(context || {})}$${knowledgePr
     });
 
     try {
-      const response = await ai.models.generateContent({
-        model: "gemini-3.6-flash",
-        contents: contents,
-        config: {
-          systemInstruction: sysInstruction,
-          temperature: 0.7,
+      let response;
+      try {
+        response = await ai.models.generateContent({
+          model: "gemini-3.7-flash",
+          contents: contents,
+          config: {
+            systemInstruction: sysInstruction,
+            temperature: 0.7,
+          }
+        });
+      } catch (firstErr: any) {
+        // If 503 unavailable or high demand spike, fallback to gemini-3.1-flash-lite
+        if (firstErr?.message?.includes("503") || firstErr?.message?.includes("high demand") || firstErr?.status === "UNAVAILABLE") {
+          console.warn("Primary model busy (503), retrying with gemini-3.1-flash-lite...");
+          response = await ai.models.generateContent({
+            model: "gemini-3.1-flash-lite",
+            contents: contents,
+            config: {
+              systemInstruction: sysInstruction,
+              temperature: 0.7,
+            }
+          });
+        } else {
+          throw firstErr;
         }
-      });
+      }
 
       return res.json({ text: response.text });
     } catch (apiErr: any) {
@@ -226,9 +244,11 @@ app.post("/api/ai/explain", async (req, res) => {
 
     try {
       const ai = getGeminiClient();
-      const response = await ai.models.generateContent({
-        model: "gemini-3.6-flash",
-        contents: `Jelaskan secara mendalam soal TKA berikut ini:
+      let response;
+      try {
+        response = await ai.models.generateContent({
+          model: "gemini-3.7-flash",
+          contents: `Jelaskan secara mendalam soal TKA berikut ini:
 Mata Pelajaran: ${question.subject || "Umum"}
 Soal: ${question.text}
 Pilihan: ${JSON.stringify(question.options)}
@@ -236,10 +256,31 @@ Jawaban Benar: ${question.correctAnswer} (Index ${question.correctAnswerIndex})
 Pilihan Siswa: ${selectedOption || "Belum memilih"}
 
 Berikan penjelasan langkah-demi-langkah (step-by-step), cantumkan rumus atau konsep dasar yang digunakan, berikan trik cepat (cepat kilat) untuk pengerjaan soal sejenis, dan jelaskan mengapa pilihan lainnya salah. Gunakan bahasa Indonesia yang santun dan mudah dipahami anak SMA.`,
-        config: {
-          systemInstruction: "Kamu adalah Tutor Senior TKA yang mahir menguraikan konsep sulit menjadi penjelasan langkah demi langkah yang sederhana dan cerdas."
+          config: {
+            systemInstruction: "Kamu adalah Tutor Senior TKA yang mahir menguraikan konsep sulit menjadi penjelasan langkah demi langkah yang sederhana dan cerdas."
+          }
+        });
+      } catch (firstErr: any) {
+        if (firstErr?.message?.includes("503") || firstErr?.message?.includes("high demand") || firstErr?.status === "UNAVAILABLE") {
+          console.warn("Primary model busy for explain, retrying with gemini-3.1-flash-lite...");
+          response = await ai.models.generateContent({
+            model: "gemini-3.1-flash-lite",
+            contents: `Jelaskan secara mendalam soal TKA berikut ini:
+Mata Pelajaran: ${question.subject || "Umum"}
+Soal: ${question.text}
+Pilihan: ${JSON.stringify(question.options)}
+Jawaban Benar: ${question.correctAnswer} (Index ${question.correctAnswerIndex})
+Pilihan Siswa: ${selectedOption || "Belum memilih"}
+
+Berikan penjelasan langkah-demi-langkah (step-by-step), cantumkan rumus atau konsep dasar yang digunakan, berikan trik cepat (cepat kilat) untuk pengerjaan soal sejenis, dan jelaskan mengapa pilihan lainnya salah. Gunakan bahasa Indonesia yang santun dan mudah dipahami anak SMA.`,
+            config: {
+              systemInstruction: "Kamu adalah Tutor Senior TKA yang mahir menguraikan konsep sulit menjadi penjelasan langkah demi langkah yang sederhana dan cerdas."
+            }
+          });
+        } else {
+          throw firstErr;
         }
-      });
+      }
       return res.json({ explanation: response.text });
     } catch (apiErr: any) {
       console.warn("Gemini Explain API Error (fallback mode activated):", apiErr?.message);
@@ -261,40 +302,76 @@ app.post("/api/ai/recommend", async (req, res) => {
 
     const weakSubjectsText = scores?.materiLemah || "Materi yang terjawab kurang tepat";
     const strongSubjectsText = scores?.materiSangatKuat || "Materi yang dikuasai";
+    const examTitle = scores?.title || "Simulasi CBT TKA / UTBK";
 
     const fallbackAppreciation = `### 🎉 APRESIASI SPESIAL: PENCAPAIAN SEMPURNA ($100\\%$)!
 
 Selamat! Kamu telah menjawab **seluruh ($100\\%$) soal dengan benar** tanpa ada kesalahan sedikit pun pada latihan ini! 🏆✨
 
-Target Program Studi: **${targetProdi || "Program Studi Impian"}** - **${targetPTN || "PTN Impian"}**
+* **Target Program Studi:** **${targetProdi || "Program Studi Impian"}**
+* **Target Universitas:** **${targetPTN || "PTN Impian"}**
 
-#### 🌟 Evaluasi & Apresiasi Performa Sempurna:
-1. **Penguasaan Materi 100% Utuh:** Semua konsep dan materi pada latihan ini telah kamu kuasai secara mendalam. Tidak ada materi lemah yang perlu di-review ulang!
-2. **Akurasi & Penalaran Sangat Tinggi:** Hasil $100\\%$ benar membuktikan ketelitian, efisiensi pengerjaan, dan pemahaman konsep yang sangat matang.
-3. **Peluang Menembus PTN Impian:** Dengan konsistensi performa seperti ini, peluang kamu lolos ke **${targetProdi || "Prodi Impian"}** di **${targetPTN || "PTN Impian"}** sangat terbuka lebar!
+---
 
-#### 🚀 3 Langkah Taktis Mempertahankan Performa:
-* **Langkah 1:** Pertahankan ketelitian ini dengan terus mencoba paket latihan level **HOTS (High Order Thinking Skills)**.
-* **Langkah 2:** Tingkatkan kecepatan pengerjaan ($t \\le 1,2$ menit/soal) tanpa mengorbankan akurasi.
-* **Langkah 3:** Jaga fisik dan tingkatkan rasa percaya diri menuju hari H tes TKA/UTBK!
+#### 🌟 Evaluasi Performa 100% Utuh:
+1. **Penguasaan Materi Sempurna:** Seluruh butir soal pada materi **${strongSubjectsText}** terjawab akurat dan tepat sasaran. Tidak ada materi lemah yang memerlukan remedial konsep dasar.
+2. **Kecepatan & Akurasi Teruji:** Efisiensi analisis kamu telah melampaui rata-rata standar passing grade nasional.
 
-*Pertahankan prestasi luar biasa ini hingga lulus di PTN impianmu!* 🎓🔥`;
+---
 
-    const fallbackRecommendation = `### 📊 Analisis & Strategi Belajar AI Tutor (Fokus Perbaikan Materi Salah)
+#### 🚀 Panduan Belajar Step-by-Step Mempertahankan Ketajaman:
+* **Step 1 (Drill HOTS Lanjutan):** Kerjakan soal level High Order Thinking Skills (HOTS) tingkat advance dengan variasi kasus gabungan antar-bab.
+* **Step 2 (Peningkatan Kecepatan $t \\le 1{,}0$ Menit):** Latih kecepatan membaca dan menyelesaikan soal hitungan/wacana tanpa mengurangi ketelitian.
+* **Step 3 (Simulasi Kondisi Ujian Nyata):** Lakukan simulasi full-length CBT dengan timer ketat untuk melatih stamina mental dan fokus panjang.
+* **Step 4 (Pemeliharaan Ritme Belajar):** Tinjau ringkasan formula kunci 2 kali sepekan agar daya ingat jangka panjang tetap prima.
 
-Target Program Studi: **${targetProdi || "Program Studi Impian"}** - **${targetPTN || "PTN Impian"}**
+*Pertahankan prestasi luar biasa ini hingga resmi diterima di ${targetProdi || "Program Studi Impian"} ${targetPTN || "PTN Impian"}!* 🎓🔥`;
 
-#### 🎯 Evaluasi Materi Salah & Prioritas Utama:
-1. **Fokus Review Utama:** Segera pelajari ulang materi **${weakSubjectsText}** yang belum tepat pada latihan ini.
-2. **Kuasai Konsep & Formula:** Pahami kembali teori dasar dan persamaan acuan pada materi **${weakSubjectsText}** agar tidak mengulangi kesalahan pada tipe soal serupa.
-3. **Materi yang Sudah Kuat:** Pertahankan penguasaan pada **${strongSubjectsText}**.
+    const fallbackRecommendation = `### 📊 AI Tutor Study Strategist: Rekomendasi Belajar Step-by-Step
 
-#### 📅 3 Langkah Taktis Perbaikan 7 Hari Ke Depan:
-* **Hari 1–3:** Tinjau ulang pembahasan soal salah dan pelajari materi ringkas **${weakSubjectsText}**.
-* **Hari 4–5:** Latihan soal terfokus khusus bab **${weakSubjectsText}** hingga akurasi mencapai $\\ge 85\\%$.
-* **Hari 6–7:** Kerjakan kembali $1$ paket Simulasi CBT dan evaluasi peningkatan skor.
+* **Ujian:** **${examTitle}**
+* **Target Impian:** **${targetProdi || "Program Studi Impian"}** — **${targetPTN || "PTN Impian"}**
+* **Materi Kuat:** **${strongSubjectsText}**
+* **⚠️ MATERI LEMAH (PERLU REVIEW):** **${weakSubjectsText}**
 
-*(Catatan: Rekomendasi offline otomatis aktif saat kuota/lalu lintas API Gemini padat).*`;
+---
+
+#### 🎯 Diagnostik & Analisis Materi Lemah:
+Berdasarkan hasil pengerjaan try out, terdapat indikasi perlunya penguatan konsep mendasar dan latihan tipe soal terarah pada materi **${weakSubjectsText}**. 
+
+---
+
+#### 📌 Panduan Belajar Step-by-Step pada Materi Lemah (${weakSubjectsText}):
+
+1. **Step 1: Diagnostik & Identifikasi Miskonsepsi**
+   * Buka modul **Pembahasan Try Out** untuk melihat letak kekeliruan logika atau jebakan pada soal-soal materi **${weakSubjectsText}**.
+   * Catat poin-poin istilah, rumus, atau konsep teoritis yang belum kamu kuasai.
+
+2. **Step 2: Pendalaman Teori & Rangkuman Formula/Kaidah Inti**
+   * Pelajari kembali ringkasan materi dan catatan konsep untuk bab **${weakSubjectsText}**.
+   * Buat *mind-map* atau kartu rumus ringkas agar mudah diulang kapan saja.
+
+3. **Step 3: Latihan Terarah Level Mudah s.d Sedang ($10-15$ Soal)**
+   * Kerjakan bank soal khusus sub-topik **${weakSubjectsText}** tanpa batasan waktu untuk memastikan akurasi mencapai $\\ge 80\\%$.
+
+4. **Step 4: Latihan Soal Tipe HOTS & Penalaran Konteks**
+   * Latih variasi soal yang mengombinasikan logika analitis, grafik/wacana panjang, atau perhitungan bertingkat pada materi **${weakSubjectsText}**.
+
+5. **Step 5: Simulasi CBT Terbatas & Manajemen Waktu**
+   * Uji kembali kemampuan dengan latihan berbatas waktu ($t \\le 1{,}2$ menit per soal) untuk melatih ketenangan dan kecepatan eksekusi.
+
+6. **Step 6: Evaluasi Ulang & Post-Test Ujian**
+   * Kerjakan ulang $1$ paket try out CBT untuk memvalidasi lompatan skor dan memastikan materi **${weakSubjectsText}** telah berpindah menjadi materi yang kamu kuasai sepenuhnya.
+
+---
+
+#### 📅 Jadwal Aksi Belajar 7 Hari Ke Depan:
+* **Hari 1–2:** Tinjau pembahasan soal salah dan pelajari ulang teori dasar bab **${weakSubjectsText}**.
+* **Hari 3–4:** Latihan soal terfokus $15-20$ butir khusus bab **${weakSubjectsText}**.
+* **Hari 5:** Latihan soal level HOTS dan telaah trik penyelesaian cepat.
+* **Hari 6–7:** Uji coba $1$ paket simulasi CBT lengkap untuk mengukur peningkatan skor.
+
+*(Rekomendasi ini disusun secara otomatis oleh AI Tutor Study Strategist untuk memandu persiapan sukses masuk PTN).*`;
 
     const chosenFallback = isAllCorrect ? fallbackAppreciation : fallbackRecommendation;
 
@@ -318,10 +395,10 @@ Data Performa:
 TUGAS AI TUTOR:
 1. Berikan APRESIASI DAN PUJIAN HANGAT SETINGGI-TINGGINYA atas pencapaian sempurna ($100\\%$) ini.
 2. Sampaikan secara jelas bahwa TIDAK ADA MATERI LEMAH yang perlu direview karena semua soal dijawab dengan benar.
-3. Berikan 3 tips taktis belajar untuk mempertajam ketelitian, meningkatkan efisiensi waktu, dan tantangan latihan level lebih tinggi (HOTS) agar siswa siap menembus ${targetProdi} di ${targetPTN}.
+3. Berikan Panduan Belajar Step-by-Step (Step 1 s.d Step 4) untuk mempertajam ketelitian, meningkatkan efisiensi waktu ($t \\le 1{,}0$ menit), dan tantangan latihan level lebih tinggi (HOTS) agar siswa siap menembus ${targetProdi} di ${targetPTN}.
 4. PENTING: Gunakan format LaTeX ($...$ atau $$...$$) untuk semua rumus, angka statistik, persentase ($100\\%$), atau variabel agar sangat rapi. Jawab dengan format Markdown yang memotivasi.`;
       } else {
-        prompt = `Rekomendasikan strategi belajar berdasarkan hasil latihan/tryout siswa berikut:
+        prompt = `Rekomendasikan strategi belajar step by step berdasarkan hasil latihan/tryout siswa berikut:
 Data Hasil Latihan:
 - Jumlah Soal Benar: ${numBenar}
 - Jumlah Soal Salah: ${numSalah}
@@ -332,19 +409,38 @@ Data Hasil Latihan:
 - Target Program Studi: ${targetProdi || 'Prodi Impian'}
 
 TUGAS AI TUTOR:
-1. Fokuskan analisis dan rekomendasi belajar SECARA SPESIFIK pada materi yang TERJAWAB SALAH (${weakSubjectsText}).
-2. Jelaskan bab/konsep dari materi salah tersebut yang wajib dipelajari ulang dan berikan tips agar tidak mengulangi kesalahan pada tipe soal tersebut.
-3. Susun rencana taktis perbaikan 7 hari ke depan untuk memperbaiki materi yang salah tersebut.
+1. Fokuskan analisis dan rekomendasi belajar SECARA SPESIFIK pada materi yang TERJAWAB SALAH / MATERI LEMAH (${weakSubjectsText}).
+2. Susun PANDUAN BELAJAR STEP-BY-STEP yang runtut dan jelas (Step 1 hingga Step 6) untuk menguasai materi lemah (${weakSubjectsText}), mulai dari identifikasi kesalahan, pendalaman teori & formula, latihan soal dasar, latihan soal HOTS, hingga simulasi kecepatan waktu.
+3. Susun jadwal rencana taktis perbaikan 7 hari ke depan yang terstruktur.
 4. PENTING: Gunakan format LaTeX ($...$ atau $$...$$) untuk menuliskan semua rumus matematika, variabel, persentase, atau angka skor agar tersaji super rapi dan presisi! Jawab dengan format Markdown yang rapi dan memotivasi.`;
       }
 
-      const response = await ai.models.generateContent({
-        model: "gemini-3.6-flash",
-        contents: prompt,
-        config: {
-          systemInstruction: "Kamu adalah AI Tutor Study Strategist senior. Selalu berikan apresiasi hangat jika siswa menjawab 100% benar (0 salah). Jika ada soal salah, selalu singkronkan rekomendasi belajar dengan materi yang terjawab salah. Selalu sajikan rumus, persamaan, variabel matematika/fisika/kimia, dan angka statistik menggunakan format LaTeX ($...$ atau $$...$$) agar sangat estetis dan mudah dibaca oleh siswa."
+      let response;
+      const sysInst = "Kamu adalah AI Tutor Study Strategist senior. Selalu berikan panduan belajar step-by-step yang terstruktur dan mendalam pada materi lemah (yang terjawab salah/perlu review). Sajikan rumus, persamaan, variabel matematika/fisika/kimia, dan angka statistik menggunakan format LaTeX ($...$ atau $$...$$) agar sangat estetis dan mudah dibaca oleh siswa.";
+
+      try {
+        response = await ai.models.generateContent({
+          model: "gemini-3.7-flash",
+          contents: prompt,
+          config: {
+            systemInstruction: sysInst
+          }
+        });
+      } catch (firstErr: any) {
+        if (firstErr?.message?.includes("503") || firstErr?.message?.includes("high demand") || firstErr?.status === "UNAVAILABLE") {
+          console.warn("Primary model busy for recommend, retrying with gemini-3.1-flash-lite...");
+          response = await ai.models.generateContent({
+            model: "gemini-3.1-flash-lite",
+            contents: prompt,
+            config: {
+              systemInstruction: sysInst
+            }
+          });
+        } else {
+          throw firstErr;
         }
-      });
+      }
+
       return res.json({ recommendation: response.text });
     } catch (apiErr: any) {
       console.warn("Gemini Recommend API Error (fallback mode activated):", apiErr?.message);
@@ -396,9 +492,8 @@ app.post("/api/ai/generate-quiz", async (req, res) => {
 
     try {
       const ai = getGeminiClient();
-      const response = await ai.models.generateContent({
-        model: "gemini-3.6-flash",
-        contents: `Buatkan 15 soal latihan TKA tentang mata pelajaran ${subject} dengan topik/bab ${topic}. 
+      let response;
+      const quizPrompt = `Buatkan 15 soal latihan TKA tentang mata pelajaran ${subject} dengan topik/bab ${topic}. 
 Sertakan 5 pilihan ganda (A, B, C, D, E). PENTING: Tulis semua opsi pilihan ganda menggunakan format LaTeX ($...$) jika berisi rumus, persamaan, variabel, atau angka matematika/kimia/fisika agar rapi!
 Sertakan pula indeks jawaban benar (0=A, 1=B, dst), pembahasan lengkap yang menyertakan rumus LaTeX ($...$ atau $$...$$), dan tingkat kesulitan (Mudah, Sedang, Sulit).
 Format response harus JSON murni yang sesuai dengan schema ini:
@@ -413,11 +508,31 @@ Format response harus JSON murni yang sesuai dengan schema ini:
     "topic": "${topic}",
     "year": "2026"
   }
-]`,
-        config: {
-          responseMimeType: "application/json",
+]`;
+
+      try {
+        response = await ai.models.generateContent({
+          model: "gemini-3.7-flash",
+          contents: quizPrompt,
+          config: {
+            responseMimeType: "application/json",
+          }
+        });
+      } catch (firstErr: any) {
+        if (firstErr?.message?.includes("503") || firstErr?.message?.includes("high demand") || firstErr?.status === "UNAVAILABLE") {
+          console.warn("Primary model busy for quiz gen, retrying with gemini-3.1-flash-lite...");
+          response = await ai.models.generateContent({
+            model: "gemini-3.1-flash-lite",
+            contents: quizPrompt,
+            config: {
+              responseMimeType: "application/json",
+            }
+          });
+        } else {
+          throw firstErr;
         }
-      });
+      }
+
       return res.json(JSON.parse(response.text || "[]"));
     } catch (apiErr) {
       console.warn("Gemini Quiz Generation API Error (falling back to mock questions):", apiErr);

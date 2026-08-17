@@ -1,21 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { indoTryoutData } from './indoTryoutData';
-import HtmlPembahasanModal from '../../HtmlPembahasanModal';
+import CbtAnalysisReport, { CbtReportData } from '../../CbtAnalysisReport';
+
+const getIndoTopic = (id: number): string => {
+  if (id >= 1 && id <= 4) return 'Analisis Teks & Wacana Ilmiah (Makna Istilah & Gagasan Utama)';
+  if (id >= 5 && id <= 8) return 'Unsur Intrinsik Cerpen & Nilai Moral';
+  if (id >= 9 && id <= 12) return 'Pola Kausalitas & Tujuan Penulisan Teks Eksposisi';
+  if (id >= 13 && id <= 16) return 'Struktur Teks Eksplanasi & Konjungsi Antarkalimat';
+  return 'Kaidah Ejaan (PUEBI/EYD), Tanda Baca & Kalimat Efektif';
+};
 
 const CbtTryoutIndo: React.FC = () => {
   const [currentIdx, setCurrentIdx] = useState(0);
   const [answers, setAnswers] = useState<Record<number, any>>({});
   const [submitted, setSubmitted] = useState(false);
-  const [showPembahasan, setShowPembahasan] = useState(false);
   const [timeLeft, setTimeLeft] = useState(20 * 60); // 20 minutes
 
   useEffect(() => {
     if (submitted || timeLeft <= 0) {
-        if (timeLeft <= 0 && !submitted) setSubmitted(true);
-        return;
+      if (timeLeft <= 0 && !submitted) setSubmitted(true);
+      return;
     }
     const timer = setInterval(() => {
-        setTimeLeft(prev => prev - 1);
+      setTimeLeft(prev => prev - 1);
     }, 1000);
     return () => clearInterval(timer);
   }, [submitted, timeLeft]);
@@ -32,39 +39,78 @@ const CbtTryoutIndo: React.FC = () => {
     setAnswers(prev => ({ ...prev, [q.id]: val }));
   };
 
-  const calculateScore = () => {
-    let score = 0;
+  const evaluation = useMemo(() => {
+    let correct = 0;
+    const strongTopics = new Set<string>();
+    const weakTopics = new Set<string>();
+
     indoTryoutData.forEach(question => {
       const ans = answers[question.id];
+      let isQuestionCorrect = false;
+
       if (question.type === 'multiple') {
-        if (ans === question.options?.find(o => o.correct)?.id) score++;
+        if (ans === question.options?.find(o => o.correct)?.id) isQuestionCorrect = true;
       } else if (question.type === 'multiple-complex') {
         const correctIds = question.correctAnswer || [];
-        if (Array.isArray(ans) && ans.length === correctIds.length && ans.every(id => correctIds.includes(id))) score++;
+        if (Array.isArray(ans) && ans.length === correctIds.length && ans.every(id => correctIds.includes(id))) {
+          isQuestionCorrect = true;
+        }
       } else if (question.type === 'true-false-table') {
         let allCorrect = true;
         question.statements?.forEach(s => {
           if (ans?.[s.id] !== s.correct) allCorrect = false;
         });
-        if (allCorrect) score++;
+        if (allCorrect) isQuestionCorrect = true;
+      }
+
+      const topic = getIndoTopic(question.id);
+      if (isQuestionCorrect) {
+        correct++;
+        strongTopics.add(topic);
+      } else {
+        weakTopics.add(topic);
       }
     });
-    return (score / indoTryoutData.length) * 100;
-  };
+
+    const total = indoTryoutData.length;
+    const wrong = total - correct;
+    const scaledScore = Math.round(200 + (correct / total) * 800);
+
+    const report: CbtReportData = {
+      title: 'Try Out Bahasa Indonesia',
+      subject: 'Bahasa Indonesia',
+      score: scaledScore,
+      correctCount: correct,
+      wrongCount: wrong,
+      totalQuestions: total,
+      targetPTN: 'Universitas Indonesia',
+      targetProdi: 'Sastra & Komunikasi',
+      keketatan: 'Keketatan Sangat Kompetitif',
+      strongSubjects: Array.from(strongTopics),
+      weakSubjects: Array.from(weakTopics),
+      radarScores: {
+        'Pemahaman Bacaan': Math.min(100, Math.round((correct / total) * 100)),
+        'Tata Bahasa': Math.min(100, Math.round((correct / total) * 92 + 8)),
+        'Analisis Konteks': Math.min(100, Math.round((correct / total) * 88 + 12)),
+        'Kaidah Ejaan': Math.min(100, Math.round((correct / total) * 96)),
+      },
+      xpEarned: correct * 25 + 50
+    };
+
+    return { correct, wrong, total, scaledScore, report };
+  }, [answers]);
 
   if (submitted) {
     return (
-      <div className="p-8 text-center">
-        <h2 className="text-2xl font-bold mb-4">Hasil Try Out</h2>
-        <p className="text-4xl font-bold text-blue-600">{calculateScore().toFixed(2)}</p>
-        <div className="flex gap-4 justify-center mt-6">
-            <button className="px-6 py-2 bg-blue-600 text-white rounded-lg" onClick={() => { setSubmitted(false); setAnswers({}); setCurrentIdx(0); setTimeLeft(20 * 60); }}>Ulangi</button>
-            <button className="px-6 py-2 bg-green-600 text-white rounded-lg" onClick={() => setShowPembahasan(true)}>Lihat Pembahasan</button>
-        </div>
-        <HtmlPembahasanModal
-            isOpen={showPembahasan}
-            onClose={() => setShowPembahasan(false)}
-            title="Pembahasan Bahasa Indonesia"
+      <div className="p-2 sm:p-4 animate-in fade-in duration-200">
+        <CbtAnalysisReport
+          report={evaluation.report}
+          onClose={() => {
+            setSubmitted(false);
+            setAnswers({});
+            setCurrentIdx(0);
+            setTimeLeft(20 * 60);
+          }}
         />
       </div>
     );

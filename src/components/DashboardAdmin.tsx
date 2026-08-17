@@ -565,11 +565,18 @@ export default function DashboardAdmin({ userProfile, onLogout }: DashboardAdmin
                         >
                           <option>Matematika Umum</option>
                           <option>Matematika Lanjut</option>
+                          <option>Bahasa Indonesia</option>
+                          <option>Bahasa Indonesia Tingkat Lanjut</option>
+                          <option>Bahasa Inggris</option>
+                          <option>Bahasa Inggris Tingkat Lanjut</option>
                           <option>Fisika</option>
                           <option>Kimia</option>
                           <option>Biologi</option>
                           <option>Ekonomi</option>
                           <option>Geografi</option>
+                          <option>Sejarah</option>
+                          <option>Sosiologi</option>
+                          <option>PPKn (PKn)</option>
                         </select>
                       </div>
 
@@ -1022,6 +1029,10 @@ export default function DashboardAdmin({ userProfile, onLogout }: DashboardAdmin
                           <option>Semua Mata Pelajaran (Campuran UTBK)</option>
                           <option>Matematika Umum</option>
                           <option>Matematika Lanjut</option>
+                          <option>Bahasa Indonesia</option>
+                          <option>Bahasa Indonesia Tingkat Lanjut</option>
+                          <option>Bahasa Inggris</option>
+                          <option>Bahasa Inggris Tingkat Lanjut</option>
                           <option>Fisika</option>
                           <option>Kimia</option>
                           <option>Biologi</option>
@@ -1029,6 +1040,7 @@ export default function DashboardAdmin({ userProfile, onLogout }: DashboardAdmin
                           <option>Geografi</option>
                           <option>Sejarah</option>
                           <option>Sosiologi</option>
+                          <option>PPKn (PKn)</option>
                         </select>
                       </div>
 

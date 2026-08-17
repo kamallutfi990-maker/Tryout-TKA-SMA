@@ -171,7 +171,14 @@ export interface Payment {
 }
 
 import { SNPMB_UNIVERSITIES, SNPMB_STUDY_PROGRAMS, getSnpmbStudyPrograms } from '../data/snpmbData';
-import { PEMBAHASAN_TKA_MATEMATIKA_WAJIB_HTML, PEMBAHASAN_TKA_MATEMATIKA_LANJUT_HTML, PEMBAHASAN_TKA_BAHASA_INDONESIA_HTML, PEMBAHASAN_TKA_BAHASA_INGGRIS_HTML } from '../data/pembahasanTkaHtml';
+import {
+  PEMBAHASAN_TKA_MATEMATIKA_WAJIB_HTML,
+  PEMBAHASAN_TKA_MATEMATIKA_LANJUT_HTML,
+  PEMBAHASAN_TKA_BAHASA_INDONESIA_HTML,
+  PEMBAHASAN_TKA_BAHASA_INGGRIS_HTML,
+  PEMBAHASAN_TKA_BAHASA_INDONESIA_LANJUT_HTML,
+  PEMBAHASAN_TKA_BAHASA_INGGRIS_LANJUT_HTML
+} from '../data/pembahasanTkaHtml';
 
 // Initial Mock Universities & Programs
 export const MOCK_UNIVERSITIES: University[] = SNPMB_UNIVERSITIES;
@@ -2022,6 +2029,190 @@ const INITIAL_QUESTIONS: Question[] = [
     year: '2026'
   },
   {
+    id: 'q_tka_bindo_lanjut_1',
+    text: '**PROPOSAL KEGIATAN: Pemanfaatan Teknologi Digital untuk Meningkatkan Daya Saing UKM Pangan Lokal**\n\nDalam beberapa tahun terakhir, perkembangan teknologi digital telah membuka peluang besar bagi pelaku Usaha Kecil dan Menengah (UKM), khususnya di sektor pangan lokal. Namun, banyak UKM yang belum mampu memanfaatkan teknologi secara optimal karena keterbatasan akses informasi, pelatihan, dan pendanaan. Berdasarkan survei yang dilakukan oleh Dinas Koperasi dan UKM Provinsi Jawa Barat pada 2023, hanya 35% UKM pangan yang aktif menggunakan platform digital untuk pemasaran.\n\nSeiring dengan meningkatnya penggunaan internet dan perangkat digital, konsumen semakin bergeser ke transaksi daring sekitar 60%. Fenomena ini menjadi peluang besar yang belum dimaksimalkan oleh UKM pangan lokal. Misalnya, banyak produk makanan khas daerah memiliki potensi pasar nasional dan bahkan internasional, tetapi belum memiliki strategi pemasaran yang memadai di digital. Di sisi lain, persaingan dengan produk pangan dari industri besar dan waralaba semakin ketat, sehingga inovasi digital menjadi kebutuhan mendesak.\n\nOleh karena itu, kami mengajukan program pelatihan bertema “Digitalisasi UKM Pangan Lokal” yang bertujuan untuk meningkatkan literasi digital, pemahaman e-commerce, serta keterampilan penggunaan dompet digital dan media sosial sebagai sarana promosi. Program ini dirancang untuk menjangkau 50% pelaku UKM di tiga kabupaten, dengan metode blended learning (daring dan luring), serta pendampingan usaha selama 3 bulan.\n\nProgram ini penting karena teknologi digital tidak hanya memperluas pasar, tetapi juga menekan biaya distribusi, meningkatkan efisiensi, dan mempercepat proses transaksi. Berdasarkan data Bank Indonesia, nilai transaksi e-commerce pada 2022 mencapai Rp476 triliun, yang 60% didominasi oleh produk konsumsi rumah tangga, termasuk pangan. Data tersebut menunjukkan adanya kebutuhan akan peningkatan kapasitas pelaku UKM dalam mengakses ekosistem digital.\n\nDengan adanya pelatihan ini, diharapkan pelaku UKM pangan lokal dapat bersaing secara sehat di pasar digital yang terus berkembang. Usulan program ini akan disampaikan kepada Kementerian Koperasi dan UKM dengan anggaran sebesar Rp450 juta, yang mencakup biaya pelatihan, honor narasumber, pembuatan modul, serta pengembangan platform daring lokal. Program ini juga mendukung Tujuan Pembangunan Berkelanjutan (SDG\'s), khususnya poin 8 tentang pekerjaan layak dan pertumbuhan ekonomi, serta poin 9 tentang industri, inovasi, dan infrastruktur.\n*(Sumber: www.pusat.or.id/je/ecommerce-ukm2022)*\n\n---\n\nDari pernyataan-pernyataan berikut, manakah pernyataan yang mengungkapkan kesesuaian antara usulan program dan data pendukung sesuai teks proposal tersebut?\n\n| Usulan Program dan Data Pendukung | Kesesuaian |\n|---|---|\n| 1. Usulan Program: Mengajukan program pelatihan digitalisasi bagi pelaku UKM di tiga kabupaten.<br>Data Pendukung: Hanya 35% UKM pangan aktif menggunakan platform digital. | **Sesuai** |\n| 2. Usulan Program: Mengusulkan pelatihan e-commerce, promosi digital, dan penggunaan dompet digital.<br>Data Pendukung: Nilai transaksi e-commerce nasional mencapai 476 triliun rupiah dan 60% berupa produk konsumsi termasuk pangan. | **Sesuai** |\n| 3. Usulan Program: Meminta Kementerian turun langsung ke lapangan sebelum menyetujui usulan.<br>Data Pendukung: Data survei telah menunjukkan kebutuhan pelatihan tanpa menyebut perlunya kunjungan langsung oleh kementerian. | **Tidak Sesuai** |',
+    options: [
+      '1: Sesuai, 2: Sesuai, 3: Tidak Sesuai',
+      '1: Sesuai, 2: Tidak Sesuai, 3: Sesuai',
+      '1: Tidak Sesuai, 2: Sesuai, 3: Sesuai',
+      '1: Sesuai, 2: Sesuai, 3: Sesuai',
+      '1: Tidak Sesuai, 2: Tidak Sesuai, 3: Tidak Sesuai'
+    ],
+    correctAnswerIndex: 0,
+    correctAnswer: 'A',
+    explanation: 'Berdasarkan teks proposal:\n1. Pernyataan 1 Sesuai karena program pelatihan digitalisasi diajukan untuk mengatasi fakta bahwa baru 35% UKM pangan yang aktif menggunakan platform digital.\n2. Pernyataan 2 Sesuai karena pelatihan e-commerce & dompet digital didukung oleh data transaksi e-commerce yang mencapai Rp476 triliun (60% konsumsi pangan).\n3. Pernyataan 3 Tidak Sesuai karena proposal tidak memuat usulan agar kementerian melakukan kunjungan langsung sebelum persetujuan.',
+    subject: 'Bahasa Indonesia Tingkat Lanjut',
+    difficulty: 'Sedang',
+    bab: 'Analisis Proposal Kegiatan & Data Pendukung',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_bindo_lanjut_2',
+    text: 'Berdasarkan teks proposal "Pemanfaatan Teknologi Digital untuk Meningkatkan Daya Saing UKM Pangan Lokal", hubungan koherensi antara paragraf ke-2 dan ke-3 adalah ....',
+    options: [
+      'alasan pengajuan proposal yang diperinci dengan contoh UKM',
+      'alasan pengajuan program pelatihan yang diperkuat tujuan',
+      'akibat dari maraknya fenomena digitalisasi UKM di daerah',
+      'akibat dari program literasi digital yang disertai tujuan',
+      'alasan pengajuan proposal program dengan persyaratan'
+    ],
+    correctAnswerIndex: 1,
+    correctAnswer: 'B',
+    explanation: 'Paragraf ke-2 memaparkan alasan/latar belakang pentingnya inovasi digital UKM pangan di tengah pergeseran belanja konsumen, kemudian paragraf ke-3 menyajikan pengajuan program pelatihan digitalisasi yang diperkuat dengan rincian target tujuan.',
+    subject: 'Bahasa Indonesia Tingkat Lanjut',
+    difficulty: 'Sedang',
+    bab: 'Koherensi Antar-Paragraf',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_bindo_lanjut_3',
+    text: 'Berdasarkan teks proposal, manakah argumen yang logis dari pernyataan-pernyataan berikut?\n\n| No | Pernyataan Argumen | Status Kelogisan |\n|---|---|---|\n| 1 | Program pelatihan penting karena teknologi digital pasti memperluas jejaring secara mutlak. | **Tidak Logis** |\n| 2 | Program pelatihan penting karena teknologi digital tidak hanya memperluas pasar, tetapi juga menekan biaya distribusi dan meningkatkan efisiensi. | **Logis** |\n| 3 | Usulan program didasarkan pada data survei dan kebutuhan nyata di lapangan. | **Logis** |',
+    options: [
+      '1: Tidak Logis, 2: Logis, 3: Logis',
+      '1: Logis, 2: Logis, 3: Logis',
+      '1: Logis, 2: Tidak Logis, 3: Logis',
+      '1: Tidak Logis, 2: Tidak Logis, 3: Logis',
+      '1: Logis, 2: Logis, 3: Tidak Logis'
+    ],
+    correctAnswerIndex: 0,
+    correctAnswer: 'A',
+    explanation: 'Analisis kelogisan:\n- Argumen 1 Tidak Logis karena mengandung overgeneralisasi mutlak.\n- Argumen 2 Logis karena sesuai dengan relasi efisiensi biaya operasional dan perluasan pasar.\n- Argumen 3 Logis karena didukung fakta survei Dinas KUKM Jabar 2023 dan BI 2022.',
+    subject: 'Bahasa Indonesia Tingkat Lanjut',
+    difficulty: 'Sedang',
+    bab: 'Evaluasi Logika Argumen Wacana',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_bindo_lanjut_4',
+    text: 'Kutipan puisi untuk soal nomor 4 - 6:\n\n*Huesca jiwa di dunia yang hilang*\n*atas sayap kenangan padamu*\n*adalah derita di sisiku*\n*bayangan berkelebat tinjauan beku*\n*angin bangkit ketika senja*\n*ngingatkan musim gugur akan tiba*\n*aku cemas bisa kehilangan kau*\n*aku cemas pada kecemasanku sendiri*\n*di batu penghabisan ke Huesca*\n*batas terakhir dari kebanggaan kita*\n*kenanglah sayang, dengan mesra*\n*kau kubayangkan di sisiku ada*\n*dan jika untung malang menghampirkan*\n*aku dalam kuburan dangkal*\n*ingatlah sebisu-segala yang indah*\n*dan cintaku yang kekal*\n*(Puisi Huesca karya John Cornford diterjemahkan oleh Chairil Anwar)*\n\n---\n\n*di batu penghabisan ke Huesca*\n*batas terakhir dari kebanggaan kita*\n\nMakna kiasan **batu penghabisan** dan **batas terakhir** memperjelas kondisi yang dialami aku lirik (penyair) tentang ....',
+    options: [
+      'perpisahan antara penyair dengan orang yang dikasihi',
+      'situasi kejiwaan yang penuh dinamika kehidupan',
+      'setiap perjuangan akan dibatasi dengan perpisahan',
+      'semua ikhtiar harus dilakukan sampai batas kemampuan',
+      'apa pun hasil akhirnya harus disikapi dengan keikhlasan'
+    ],
+    correctAnswerIndex: 0,
+    correctAnswer: 'A',
+    explanation: 'Larik "di batu penghabisan ke Huesca / batas terakhir dari kebanggaan kita" merupakan metafora titik perpisahan tragis di medan pertempuran antara penyair (aku lirik) dengan sang kekasih.',
+    subject: 'Bahasa Indonesia Tingkat Lanjut',
+    difficulty: 'Sulit',
+    bab: 'Kritik Sastra & Makna Kias Puisi',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_bindo_lanjut_5',
+    text: 'Perhatikan bait puisi Huesca berikut:\n\n*angin bangkit ketika senja*\n*ngingatkan musim gugur akan tiba*\n\nMakna citraan penglihatan *ketika senja* dan *musim gugur* mengkonkretkan gagasan penyair tentang ....',
+    options: [
+      'pergantian hari dan musim',
+      'batas akhir aktivitas manusia',
+      'suasana kedukaan di ujung waktu',
+      'siap menghadapi perubahan waktu',
+      'kondisi menjelang akhir kehidupan'
+    ],
+    correctAnswerIndex: 4,
+    correctAnswer: 'E',
+    explanation: 'Citraan visual "senja" dan "musim gugur" secara simbolis dalam puisi merepresentasikan fase kepudaran daya hidup, akhir masa perjuangan, atau kondisi menjelang kematian.',
+    subject: 'Bahasa Indonesia Tingkat Lanjut',
+    difficulty: 'Sedang',
+    bab: 'Citraan & Simbolisme Puisi',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_bindo_lanjut_6',
+    text: 'Perhatikan bait puisi Huesca berikut:\n\n*angin bangkit ketika senja*\n*ngingatkan musim gugur akan tiba*\n*aku cemas bisa kehilangan kau*\n*aku cemas pada kecemasanku sendiri*\n\nSuasana hati yang muncul setelah membaca bait puisi tersebut adalah ....',
+    options: [
+      'kehilangan hati saat musim gugur sudah tiba',
+      'kemuraman saat senja hari di musim gugur',
+      'keadaan gersang karena daun berguguran',
+      'kesedihan karena takut kehilangan orang terkasih',
+      'kebimbangan hati menunggu pergantian musim'
+    ],
+    correctAnswerIndex: 3,
+    correctAnswer: 'D',
+    explanation: 'Larik "aku cemas bisa kehilangan kau / aku cemas pada kecemasanku sendiri" secara langsung mengalirkan suasana batin kesedihan yang mendalam dan kecemasan akan kehilangan sosok terkasih.',
+    subject: 'Bahasa Indonesia Tingkat Lanjut',
+    difficulty: 'Mudah',
+    bab: 'Suasana Batin & Emosi Puisi',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_bindo_lanjut_7',
+    text: '**TEKS ULASAN: KAMPUNG ADAT CIPTAGELAR**\n\n*Teks Digital (Ulasan Pengunjung ⭐ 4,8/5):*\n- Rini Kartika (⭐⭐⭐⭐⭐): "Pengalaman saya di Kampung Adat Ciptagelar sungguh luar biasa. Udara sejuk dan pemandangan hutan di kaki Gunung Halimun sangat menenangkan. Penduduknya sangat ramah dan terbuka... Saya merasa seperti kembali ke masa lalu, hidup dalam harmoni dengan alam..."\n- Arif Nugroho (⭐⭐⭐☆☆): "Saya sangat mengapresiasi masyarakat Ciptagelar menjaga nilai adat... Namun informasi aturan kunjungan masih kurang jelas secara daring..."\n- Linda Mariana (⭐⭐⭐⭐⭐): "Kampung ini sungguh unik!... bukan sekadar wisata, ini adalah pengalaman spiritual dan edukatif."\n- Bagas Permana (⭐⭐☆☆☆): "...ulasan artikel bilang \'semua orang pasti jatuh cinta pada Ciptagelar\', tapi menurut saya itu terlalu berlebihan/menggeneralisasi..."\n- Melati Dewi (⭐⭐⭐⭐⭐): "Sangat merekomendasikan!..."\n\n*Teks Cetak:*\n"Kampung Adat Ciptagelar di Gunung Halimun Sukabumi menyuguhkan pengalaman autentik... Kekuatan desa ini bukan pada fasilitas wisata modern, melainkan pada kesederhanaan hidup yang penuh makna..."\n\n---\n\nManakah kalimat yang menyatakan evaluasi dalam teks ulasan cetak dan ulasan digital tersebut?\n*(Pilihan Ganda Kompleks: jawaban benar lebih dari satu)*',
+    options: [
+      'Saya merasa seperti kembali ke masa lalu, hidup dalam harmoni dengan alam.',
+      'Artikel ini menyajikan informasi lengkap tentang rute menuju Kampung Ciptagelar.',
+      'Menurut saya, pernyataan \'semua orang pasti jatuh cinta\' terlalu menggeneralisasi.',
+      'Tokoh adat menjelaskan larangan penggunaan listrik di rumah-rumah warga.',
+      'Kekuatan desa ini bukan pada fasilitas wisata modern, melainkan pada kesederhanaan hidup yang penuh makna.'
+    ],
+    correctAnswerIndex: 0,
+    correctAnswerIndices: [0, 2, 4],
+    questionType: 'checkboxes',
+    correctAnswer: 'A, C, E',
+    explanation: 'Kalimat evaluasi memuat penilaian, opini subjektif, dan pertimbangan nilai:\n- "Saya merasa seperti kembali ke masa lalu..." (Penilaian impresif Rini)\n- "Menurut saya, pernyataan \'semua orang pasti jatuh cinta\' terlalu menggeneralisasi." (Kritik evaluatif Bagas)\n- "Kekuatan desa ini bukan pada fasilitas wisata modern, melainkan pada kesederhanaan hidup..." (Evaluasi esensi pada teks cetak).',
+    subject: 'Bahasa Indonesia Tingkat Lanjut',
+    difficulty: 'Sulit',
+    bab: 'Analisis Struktur Teks Ulasan (Evaluasi)',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_bindo_lanjut_8',
+    text: 'Manakah pilihan kata yang tepat untuk menggambarkan kesederhanaan Kampung Ciptagelar?\n\n| No | Kalimat | Ketepatan Diksi Kesederhanaan |\n|---|---|---|\n| 1 | Suasana yang jauh dari kebisingan kota ini dianggap cocok bagi siapa pun yang ingin beristirahat sekaligus belajar dari kearifan lokal. | **Tepat** |\n| 2 | Tempat ini bukan sekadar destinasi, tetapi ruang untuk menyelami makna hidup yang sederhana namun bermakna. | **Tepat** |\n| 3 | Kampung ini menawarkan kehidupan masyarakat adat Sunda yang masih memegang teguh nilai-nilai adat dan tata cara warisan leluhur. | **Tidak Tepat** |',
+    options: [
+      '1: Tepat, 2: Tepat, 3: Tidak Tepat',
+      '1: Tepat, 2: Tidak Tepat, 3: Tepat',
+      '1: Tidak Tepat, 2: Tepat, 3: Tepat',
+      '1: Tepat, 2: Tepat, 3: Tepat',
+      '1: Tidak Tepat, 2: Tidak Tepat, 3: Tidak Tepat'
+    ],
+    correctAnswerIndex: 0,
+    correctAnswer: 'A',
+    explanation: 'Kalimat 1 dan 2 secara spesifik memilih diksi ketenangan dan kesederhanaan ("sederhana namun bermakna"). Kalimat 3 lebih menonjolkan aspek kepatuhan adat leluhur (konservasi tradisi), sehingga kurang tepat jika ditujukan khusus untuk mendeskripsikan aspek kesederhanaan.',
+    subject: 'Bahasa Indonesia Tingkat Lanjut',
+    difficulty: 'Sedang',
+    bab: 'Pilihan Kata (Diksi) Teks Ulasan',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_bindo_lanjut_9',
+    text: 'Manakah kalimat yang merupakan kalimat majemuk setara dalam teks ulasan digital dan cetak tersebut?\n*(Pilihan Ganda Kompleks: jawaban benar lebih dari satu)*',
+    options: [
+      'Suasana yang jauh dari kebisingan kota ini dianggap cocok bagi siapa pun yang ingin beristirahat sekaligus belajar dari kearifan lokal.',
+      'Namun, ia juga mencatat perlunya peningkatan informasi daring terkait aturan kunjungan agar wisatawan baru lebih siap dan nyaman.',
+      'Meski mendapat pujian, tidak semua pengunjung sepenuhnya setuju dengan pandangan idealis tentang tempat ini.',
+      'Kami merasa sangat dihargai sebagai tamu, dan pengalaman berinteraksi langsung dengan masyarakat adat memberikan kesan yang sulit dilupakan.',
+      'Ia mengikuti tur budaya yang dipandu oleh sesepuh adat dan merasakan kedalaman nilai-nilai spiritual yang dijunjung tinggi oleh masyarakat.'
+    ],
+    correctAnswerIndex: 1,
+    correctAnswerIndices: [1, 3, 4],
+    questionType: 'checkboxes',
+    correctAnswer: 'B, D, E',
+    explanation: 'Kalimat majemuk setara menggunakan konjungsi koordinatif:\n- Opsi 2 memuat koordinasi klausa yang setara ("lebih siap dan nyaman").\n- Opsi 4 memuat koordinasi antarklausa sejajar dengan konjungsi "dan" ("Kami merasa sangat dihargai..., dan pengalaman...").\n- Opsi 5 memuat koordinasi tindakan berurutan setara ("Ia mengikuti... dan merasakan...").',
+    subject: 'Bahasa Indonesia Tingkat Lanjut',
+    difficulty: 'Sedang',
+    bab: 'Sintaksis & Kalimat Majemuk Setara',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_bindo_lanjut_10',
+    text: 'Manakah pernyataan yang mengungkapkan kesesuaian antara ulasan dan fakta dalam teks ulasan digital dan cetak tersebut?\n\n| No | Pasangan Ulasan dan Fakta | Kesesuaian |\n|---|---|---|\n| 1 | **Ulasan**: Tempat ini cocok untuk siapa pun yang ingin rehat dari hiruk-pikuk kota.<br>**Fakta**: Suasana kampung yang tenang, sejuk, dan jauh dari kebisingan kota. | **Sesuai** |\n| 2 | **Ulasan**: Semua orang pasti akan jatuh cinta pada keunikan Ciptagelar.<br>**Fakta**: Tidak semua pengunjung merasa nyaman, seperti ulasan Bagas Permana. | **Tidak Sesuai** |\n| 3 | **Ulasan**: Saya merasa seperti kembali ke masa lalu, hidup dalam harmoni dengan alam.<br>**Fakta**: Kehidupan tradisional tanpa listrik, penuh nilai adat dan kesederhanaan. | **Sesuai** |',
+    options: [
+      '1: Sesuai, 2: Tidak Sesuai, 3: Sesuai',
+      '1: Sesuai, 2: Sesuai, 3: Sesuai',
+      '1: Tidak Sesuai, 2: Sesuai, 3: Sesuai',
+      '1: Sesuai, 2: Sesuai, 3: Tidak Sesuai',
+      '1: Tidak Sesuai, 2: Tidak Sesuai, 3: Sesuai'
+    ],
+    correctAnswerIndex: 0,
+    correctAnswer: 'A',
+    explanation: 'Analisis kesesuaian fakta:\n1. Pasangan 1 Sesuai (Ulasan Rini sejalan dengan fakta alam pedesaan yang tenang).\n2. Pasangan 2 Tidak Sesuai (Pernyataan mutlak "semua orang jatuh cinta" bertolak belakang dengan fakta ulasan Bagas yang mengkritik generalisasi).\n3. Pasangan 3 Sesuai (Ulasan selaras dengan fakta kearifan lokal warga Ciptagelar).',
+    subject: 'Bahasa Indonesia Tingkat Lanjut',
+    difficulty: 'Mudah',
+    bab: 'Kesesuaian Ulasan dan Fakta',
+    year: '2026'
+  },
+  {
     id: 'q_tka_bing_1',
     text: 'Read the text below to answer questions 1 to 5!\n\n**The Legend of Son Tinh and Thuy Tinh**\nKing Hung Vuong VI had a beautiful daughter. He did not want her to marry just any prince. So, he made an announcement that he was looking for the right husband for her. Many princes came from faraway lands, but none of them was a good match for the princess.\n\nSon Tinh was the Spirit of the Mountain, and Thuy Tinh was the Spirit of the Waters. One day, they both appeared as young noblemen and asked to marry the princess. They were equally talented, powerful, and respected. The King found it hard to choose, so he decided to give them a test. He said that the one who brought the proper wedding gifts first the next morning would marry his daughter.\n\nThe next day, Son Tinh arrived early with his gifts. The King kept his promise and gave the princess to him. Thuy Tinh was angry about losing. He challenged Son Tinh to fight for the princess. But Son Tinh refused, believing he had already won fairly. Furious, Thuy Tinh used his power to call the rivers and streams to rise. Soon, the land was covered with floods that destroyed crops and homes.\n\nSon Tinh stayed calm in his mountain palace. Whenever the water rose, he made his mountains higher. After many days of fighting, Thuy Tinh grew tired and ordered the waters to retreat. Still, he never accepted his defeat. Every year, he tried again to attack, and this is how monsoons came to Vietnam.\n\n---\n\nWhich of the following outlines shows the correct main points of the story?',
     options: [
@@ -2380,6 +2571,306 @@ const INITIAL_QUESTIONS: Question[] = [
     difficulty: 'Sedang',
     bab: 'Conclusion & Synthesis',
     year: '2026'
+  },
+  {
+    id: 'q_tka_kimia_1',
+    text: 'Seorang siswa melakukan percobaan di laboratorium untuk membuat larutan buffer asam. Ia mencampurkan 20 mL larutan asam asetat 0,1 M dengan 20 mL larutan natrium asetat 0,1 M. Diketahui bahwa tetapan ionisasi asam asetat adalah Ka = 1 × 10⁻⁵.\n\nBerdasarkan data tersebut, tentukan pH larutan buffer yang terbentuk!',
+    options: ['6 - log 5', '5', '7', '9', '9 + log 5'],
+    correctAnswerIndex: 1,
+    correctAnswer: 'B',
+    explanation: 'Materi: Larutan Penyangga (Buffer Asam)\n• mol CH₃COOH = 20 mL × 0,1 M = 2 mmol\n• mol CH₃COONa = 20 mL × 0,1 M = 2 mmol\n• [H⁺] = Ka × (mol asam / mol garam) = (1 × 10⁻⁵) × (2 / 2) = 1 × 10⁻⁵ M\n• pH = -log[H⁺] = -log(1 × 10⁻⁵) = 5\n\nJawaban: B (5)',
+    subject: 'Kimia',
+    difficulty: 'Sedang',
+    bab: 'Larutan Penyangga (Buffer)',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_kimia_2',
+    text: 'Salah satu senyawa alkana bercabang digunakan sebagai bahan aditif dalam bahan bakar untuk meningkatkan kualitas pembakaran. Struktur senyawa tersebut ditunjukkan pada bagan berikut:\n\n       CH₃\n        |\nCH₃ - CH₂ - CH₂ - C - CH - CH₃\n                    |   |\n                   CH₃ CH₃\n\nBanyaknya atom C primer dan tersier berturut-turut adalah ....',
+    options: ['5 dan 3', '5 dan 2', '5 dan 1', '4 dan 2', '4 dan 1'],
+    correctAnswerIndex: 2,
+    correctAnswer: 'C',
+    explanation: 'Materi: Identifikasi Atom Karbon (Kimia Organik)\n• C Primer (1°): Mengikat 1 atom C lain -> gugus -CH₃ pada (a), (d), (f), (g), (e) -> ada 5 buah\n• C Sekunder (2°): Mengikat 2 atom C lain -> gugus -CH₂- pada (b), (c) -> ada 2 buah\n• C Tersier (3°): Mengikat 3 atom C lain -> gugus -CH- yang mengikat dua -CH₃ dan C kuartener -> ada 1 buah\n• C Kuartener (4°): Mengikat 4 atom C lain -> atom C pusat -> ada 1 buah\n\nBanyaknya atom C primer dan tersier berturut-turut adalah 5 dan 1.\n\nJawaban: C (5 dan 1)',
+    subject: 'Kimia',
+    difficulty: 'Sedang',
+    bab: 'Hidrokarbon & Senyawa Karbon',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_kimia_3',
+    text: 'Gas nitrogen dioksida yang berwarna merah kecoklatan dapat membentuk reaksi kesetimbangan dengan gas dinitrogen tetroksida yang tak berwarna dalam suatu wadah tertutup dengan volume tertentu sesuai persamaan termokimia berikut:\n\n2 NO₂(g) ⇌ N₂O₄(g)   ΔH = -57,20 kJ\n(Merah coklat)        (Tak berwarna)\n\nKetika suhu dinaikkan, warna campuran merah coklat semakin pekat.\nBerdasarkan info dari soal, kelompokkan variabel berikut apakah termasuk ke dalam variabel bebas/terikat/terkontrol:\n• Volume: Variabel Terkontrol\n• Suhu: Variabel Bebas\n• Warna: Variabel Terikat',
+    options: [
+      'Volume: Terkontrol; Suhu: Bebas; Warna: Terikat',
+      'Volume: Bebas; Suhu: Terikat; Warna: Terkontrol',
+      'Volume: Terikat; Suhu: Terkontrol; Warna: Bebas',
+      'Volume: Bebas; Suhu: Terkontrol; Warna: Terikat',
+      'Volume: Terkontrol; Suhu: Terikat; Warna: Bebas'
+    ],
+    correctAnswerIndex: 0,
+    correctAnswer: 'A',
+    explanation: 'Materi: Variabel Penelitian Kimia\n• Variabel Bebas: Faktor yang sengaja diubah/dimanipulasi -> Suhu (suhu dinaikkan).\n• Variabel Terikat: Faktor yang berubah sebagai akibat -> Warna (warna campuran menjadi makin pekat).\n• Variabel Terkontrol: Faktor yang dijaga konstan -> Volume (dalam wadah tertutup bervolume tetap).\n\nJawaban: Suhu = Variabel Bebas, Volume = Variabel Terkontrol, Warna = Variabel Terikat',
+    subject: 'Kimia',
+    difficulty: 'Sedang',
+    bab: 'Kesetimbangan Kimia',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_kimia_4',
+    text: 'Dalam sebuah percobaan laboratorium, dilakukan penguraian gas SO₃ pada suhu tertentu. Reaksi yang terjadi adalah:\n\n2 SO₃(g) ⇌ 2 SO₂(g) + O₂(g)\n\nPerubahan konsentrasi SO₃ diamati terhadap waktu dan hasilnya ditunjukkan pada data grafik (pada t = 0 s, konsentrasi SO₃ = 4 M; pada t = 40 s, konsentrasi SO₃ = 2 M; pada t = 80 s, konsentrasi SO₃ = 0 M).\n\nLaju reaksi penguraian 2 SO₃(g) → 2 SO₂(g) + O₂(g) pada 40 detik pertama adalah ....',
+    options: ['2,0 × 10⁻³ M/detik', '2,0 × 10⁻² M/detik', '2,5 × 10⁻³ M/detik', '2,5 × 10⁻² M/detik', '5,0 × 10⁻² M/detik'],
+    correctAnswerIndex: 4,
+    correctAnswer: 'E',
+    explanation: 'Materi: Laju Reaksi\n• Dari grafik: pada t = 0 s, [SO₃] = 4 M; pada t = 40 s, [SO₃] = 2 M.\n• Δt = 40 - 0 = 40 detik\n• Δ[SO₃] = 4 - 2 = 2 M\n• v = Δ[SO₃] / Δt = 2 M / 40 detik = 0,05 M/detik = 5,0 × 10⁻² M/detik\n\nJawaban: E (5,0 × 10⁻² M/detik)',
+    subject: 'Kimia',
+    difficulty: 'Sedang',
+    bab: 'Laju Reaksi',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_kimia_5',
+    text: 'Dalam kehidupan sehari-hari, larutan asam dan basa sering digunakan, misalnya dalam industri makanan, obat-obatan, maupun pembersih rumah tangga. Larutan asam dan basa jika dicampurkan dapat membentuk larutan dengan pH netral.\n\nDiketahui beberapa larutan berikut:\n(1) Larutan HCl 0,1 M sebanyak 10 mL\n(2) Larutan NaOH 0,2 M sebanyak 10 mL\n(3) Larutan H₂SO₄ 0,1 M sebanyak 10 mL\n(4) Larutan Mg(OH)₂ 0,2 M sebanyak 20 mL\n\nPasangan larutan jika dicampurkan menghasilkan campuran dengan pH netral ditunjukkan nomor ....',
+    options: ['(1) dan (2)', '(2) dan (3)', '(1) dan (4)', '(2) dan (4)', '(3) dan (4)'],
+    correctAnswerIndex: 1,
+    correctAnswer: 'B',
+    explanation: 'Materi: Netralisasi Asam-Basa\nSyarat reaksi tepat netral: mol H⁺ = mol OH⁻\n• (1) 10 mL HCl 0,1 M -> mol H⁺ = 10 × 0,1 × 1 = 1 mmol\n• (2) 10 mL NaOH 0,2 M -> mol OH⁻ = 10 × 0,2 × 1 = 2 mmol\n• (3) 10 mL H₂SO₄ 0,1 M -> mol H⁺ = 10 × 0,1 × 2 = 2 mmol\n• (4) 20 mL Mg(OH)₂ 0,2 M -> mol OH⁻ = 20 × 0,2 × 2 = 8 mmol\n\nPasangan yang memiliki mol H⁺ = mol OH⁻ adalah (2) dan (3) (sama-sama 2 mmol).\n\nJawaban: B ((2) dan (3))',
+    subject: 'Kimia',
+    difficulty: 'Mudah',
+    bab: 'Titrasi & Netralisasi Asam-Basa',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_kimia_6',
+    text: 'Diketahui notasi dua macam unsur:\n₁₄ ₇Q  dan  ₁₉ ₉Z  (Unsur Q dengan nomor atom 7 dan nomor massa 14; Unsur Z dengan nomor atom 9 dan nomor massa 19).\n\nJika kedua unsur bersenyawa, hibridisasi atom pusat, geometri molekul, dan kepolaran senyawanya berturut-turut adalah ....',
+    options: ['sp²; segitiga planar; nonpolar', 'sp²; segitiga piramida; polar', 'sp³; segitiga planar; nonpolar', 'sp³; segitiga piramida; polar', 'sp³d; oktahedral; polar'],
+    correctAnswerIndex: 3,
+    correctAnswer: 'D',
+    explanation: 'Materi: Hibridisasi, Geometri Molekul & Kepolaran\n• Atom pusat ₇Q: 2, 5 (elektron valensi = 5)\n• Atom terikat ₉Z: 2, 7 (butuh 1 elektron)\n• Molekul QZ₃: PEI = 3, PEB = (5 - 3(1)) / 2 = 1\n• Tipe AX₃E:\n  - Hibridisasi: sp³ (4 domain)\n  - Geometri: Segitiga piramida\n  - Kepolaran: Polar (memiliki 1 PEB sehingga asimetris)\n\nJawaban: D (sp³; segitiga piramida; polar)',
+    subject: 'Kimia',
+    difficulty: 'Sedang',
+    bab: 'Bentuk Molekul & Hibridisasi',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_kimia_7',
+    text: 'Gas sulfur dioksida (SO₂) di udara dapat mengalami reaksi oksidasi menghasilkan sulfur trioksida (SO₃). Persamaan reaksi kimia tersebut dapat dituliskan dalam bentuk:\n\na SO₂ + b O₂ → c SO₃\n\nUntuk menyetarakan reaksi, nilai koefisien a, b, dan c harus ditentukan. Nilai a, b, dan c berturut-turut adalah ....',
+    options: ['4, 3, dan 2', '2, 3, dan 4', '2, 1, dan 2', '2, 1, dan 3', '2, 1, dan 1'],
+    correctAnswerIndex: 2,
+    correctAnswer: 'C',
+    explanation: 'Materi: Penyetaraan Reaksi Kimia\nReaksi: a SO₂ + b O₂ -> c SO₃\n• Atom S: a = c\n• Atom O: 2a + 2b = 3c\n• Jika a = 2, maka c = 2, sehingga 2(2) + 2b = 3(2) => 4 + 2b = 6 => b = 1.\n• Reaksi setara: 2 SO₂ + 1 O₂ -> 2 SO₃\n• Koefisien a, b, c berturut-turut: 2, 1, dan 2.\n\nJawaban: C (2, 1, dan 2)',
+    subject: 'Kimia',
+    difficulty: 'Mudah',
+    bab: 'Penyetaraan Reaksi Kimia',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_kimia_8',
+    text: 'Sebuah laboratorium pengolahan limbah industri melakukan uji cepat untuk menentukan sisa ion perak setelah proses netralisasi dan pemisahan garam. Sebanyak 50 mL larutan AgNO₃ 0,01 M dicampurkan dengan 50 mL larutan NaCl 0,03 M dalam bejana gelas. Karena terbentuk endapan AgCl, sistem mencapai kesetimbangan yang dipengaruhi oleh tetapan kelarutan Ksp dari AgCl (diketahui Ksp = 1 × 10⁻¹⁰).\n\nBerapakah konsentrasi ion Ag⁺ yang tersisa dalam larutan campuran setelah mencapai kesetimbangan?',
+    options: ['1 × 10⁻¹⁰ M', '1 × 10⁻⁸ M', '2 × 10⁻⁸ M', '6,7 × 10⁻⁹ M', '1 × 10⁻⁷ M'],
+    correctAnswerIndex: 1,
+    correctAnswer: 'B',
+    explanation: 'Materi: Hasil Kali Kelarutan (Ksp) & Efek Ion Senama\n• mol Ag⁺ = 50 mL × 0,01 M = 0,5 mmol\n• mol Cl⁻ = 50 mL × 0,03 M = 1,5 mmol\n• Volume total = 100 mL\n• Endapan AgCl terbentuk, sisa Cl⁻ = 1,5 - 0,5 = 1,0 mmol\n• [Cl⁻] = 1,0 mmol / 100 mL = 0,01 M = 10⁻² M\n• [Ag⁺] sisa = Ksp / [Cl⁻] = (1 × 10⁻¹⁰) / (10⁻²) = 1 × 10⁻⁸ M\n\nJawaban: B (1 × 10⁻⁸ M)',
+    subject: 'Kimia',
+    difficulty: 'Sedang',
+    bab: 'Kelarutan & Hasil Kali Kelarutan (Ksp)',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_kimia_9',
+    text: 'Untuk mendinginkan adonan es doger, sejumlah urea dan NaCl dilarutkan dengan es berair hingga jenuh dalam bejana berbeda. Jika konsentrasi kedua larutan sama, penurunan titik beku larutan NaCl ternyata 2 kali lebih besar dibandingkan penurunan titik beku urea.\n\nPenjelasan dari fenomena tersebut adalah ....',
+    options: [
+      'massa kedua zat sama',
+      'massa kedua zat lebih besar dibandingkan urea',
+      'massa urea 2 kali lebih besar dibandingkan NaCl',
+      'NaCl adalah garam biner',
+      'urea merupakan elektrolit lemah sedangkan NaCl elektrolit kuat'
+    ],
+    correctAnswerIndex: 3,
+    correctAnswer: 'D',
+    explanation: 'Materi: Sifat Koligatif Larutan (Penurunan Titik Beku)\n• Rumus: ΔTf = m × Kf × i\n• Urea adalah nonelektrolit (i = 1)\n• NaCl adalah elektrolit kuat biner (terurai menjadi Na⁺ + Cl⁻, i = 2)\n• Karena i(NaCl) = 2 × i(urea), pada molalitas yang sama penurunan titik beku NaCl adalah 2 kali lebih besar dari urea karena NaCl adalah garam biner.\n\nJawaban: D (NaCl adalah garam biner)',
+    subject: 'Kimia',
+    difficulty: 'Mudah',
+    bab: 'Sifat Koligatif Larutan',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_kimia_10',
+    text: 'Untuk mengetahui faktor yang mempengaruhi laju korosi pada besi, dilakukan percobaan sederhana dengan merendam paku dalam beberapa kondisi sebagai berikut:\n(1) Paku dalam tabung berisi udara + air\n(2) Paku dalam tabung berisi tanpa udara dan air (direndam air yang dilapisi oli di atasnya)\n(3) Paku dalam tabung berisi udara + air + garam\n\nUrutan laju terjadinya korosi paku dari yang paling cepat adalah ....',
+    options: ['(1), (2), (3)', '(2), (3), (1)', '(2), (1), (3)', '(3), (1), (2)', '(3), (2), (1)'],
+    correctAnswerIndex: 3,
+    correctAnswer: 'D',
+    explanation: 'Materi: Laju Korosi Besi\n• Korosi dipicu oleh oksigen dan air.\n• Tabung (3) (udara + air + garam): paling cepat berkarat karena adanya elektrolit garam yang mempercepat transfer elektron.\n• Tabung (1) (udara + air): berkarat secara normal.\n• Tabung (2) (air dilapisi oli/tertutup): paling lambat/tidak berkarat karena oli menghalangi oksigen.\n• Urutan laju dari tercepat: (3), (1), (2).\n\nJawaban: D ((3), (1), (2))',
+    subject: 'Kimia',
+    difficulty: 'Mudah',
+    bab: 'Elektrokimia & Korosi',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_kimia_11',
+    text: 'Seorang murid akan melakukan eksperimen untuk menghasilkan 1,435 gram AgCl dari larutan AgNO₃ dan NaCl melalui reaksi kimia berikut:\nAgNO₃(aq) + NaCl(aq) → AgCl(s) + NaNO₃(aq)\n\nTerdapat empat botol zat yang berisi dua jenis reaktan dengan dua variasi konsentrasi berbeda:\n• Botol A: AgNO₃ 1 M | Botol B: AgNO₃ 2 M | Botol C: NaCl 1 M | Botol D: NaCl 2 M\n\nKomposisi mana saja yang dapat menghasilkan tepat 1,435 gram padatan AgCl? (Ar Ag = 108, Ar N = 14, Ar O = 16, Ar Na = 23, Ar H = 1, Ar Cl = 35,5).\n(1) 5 mL Botol A + 5 mL Botol C\n(2) 10 mL Botol A + 5 mL Botol D\n(3) 10 mL Botol B + 10 mL Botol D',
+    options: [
+      'Pernyataan 1: Tepat; Pernyataan 2: Tidak Tepat; Pernyataan 3: Tepat',
+      'Pernyataan 1: Tidak Tepat; Pernyataan 2: Tepat; Pernyataan 3: Tepat',
+      'Pernyataan 1: Tepat; Pernyataan 2: Tepat; Pernyataan 3: Tidak Tepat',
+      'Pernyataan 1: Tidak Tepat; Pernyataan 2: Tidak Tepat; Pernyataan 3: Tepat',
+      'Semua pernyataan Tepat'
+    ],
+    correctAnswerIndex: 0,
+    correctAnswer: 'A',
+    explanation: 'Materi: Stoikiometri Reaksi Pengendapan AgCl\nMr AgCl = 143,5 g/mol. Target massa = 1,435 g = 0,01 mol = 10 mmol.\nReaksi: AgNO₃ + NaCl -> AgCl(s) + NaNO₃\n• Analisis Stoikiometri:\n  - Pernyataan 1: Tepat\n  - Pernyataan 2: Tidak Tepat\n  - Pernyataan 3: Tepat\n\nJawaban:\n- Pernyataan 1: Tepat\n- Pernyataan 2: Tidak Tepat\n- Pernyataan 3: Tepat',
+    subject: 'Kimia',
+    difficulty: 'Sedang',
+    bab: 'Stoikiometri Larutan',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_kimia_12',
+    text: 'Sekelompok peneliti kimia lingkungan sedang meneliti kandungan bahan organik dalam limbah cair industri makanan. Mereka berhasil memurnikan satu senyawa organik utama, yang diketahui hanya tersusun atas unsur karbon (C), hidrogen (H), dan oksigen (O).\nDari hasil uji laboratorium, senyawa tersebut memiliki komposisi massa: 40% C, 6,7% H, dan 53,3% O. Melalui spektrometri massa diketahui massa molar senyawa adalah 180 g/mol. (Ar C = 12, Ar H = 1, Ar O = 16).\n\nMereka menyimpulkan bahwa rumus empiris dan rumus molekul senyawa itu adalah CH₂O. Apakah kesimpulan tersebut benar?',
+    options: [
+      'Benar, karena CH₂O adalah rumus empiris dan sesuai dengan rumus molekulnya.',
+      'Benar, karena rumus molekul harus sama dengan rumus empiris.',
+      'Salah, karena rasio mol tidak sesuai dengan komposisi yang diberikan.',
+      'Salah, karena massa molar menunjukkan bahwa rumus molekulnya adalah C₆H₁₂O₆.',
+      'Salah, karena rumus empiris adalah CH₂O tetapi rumus molekulnya adalah C₄H₈O₄.'
+    ],
+    correctAnswerIndex: 3,
+    correctAnswer: 'D',
+    explanation: 'Materi: Rumus Empiris dan Rumus Molekul\n• mol C = 40 / 12 = 3,33; mol H = 6,7 / 1 = 6,7; mol O = 53,3 / 16 = 3,33\n• Perbandingan C : H : O = 1 : 2 : 1 -> Rumus Empiris = (CH₂O)n\n• Mr = 180 => 30n = 180 => n = 6\n• Rumus Molekul sebenarnya adalah C₆H₁₂O₆ (glukosa).\n\nJawaban: D (Salah, karena massa molar menunjukkan bahwa rumus molekulnya adalah C₆H₁₂O₆.)',
+    subject: 'Kimia',
+    difficulty: 'Sedang',
+    bab: 'Rumus Empiris & Molekul',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_kimia_13',
+    text: 'Suatu reaksi asam basa dapat didasarkan pada beberapa teori, yaitu teori asam basa Arrhenius, Brønsted-Lowry, dan Lewis.\nPerhatikan reaksi di bawah ini:\nH₂PO₄⁻ + H₂O ⇌ HPO₄²⁻ + H₃O⁺\n\nBerdasarkan reaksi tersebut, pernyataan yang benar mengenai reaksi asam basa berdasarkan teori Brønsted-Lowry adalah ....',
+    options: [
+      'H₂O menerima ion hidrogen dari H₂PO₄⁻ dan bersifat asam',
+      'H₂O memberikan ion hidrogen kepada H₂PO₄⁻ dan bersifat asam',
+      'H₂PO₄⁻ memberikan ion hidrogen kepada H₂O dan bersifat asam',
+      'H₂PO₄⁻ memberikan ion hidrogen kepada H₂O dan bersifat basa',
+      'H₂PO₄⁻ memberikan ion hidrogen kepada HPO₄²⁻ dan bersifat asam'
+    ],
+    correctAnswerIndex: 2,
+    correctAnswer: 'C',
+    explanation: 'Materi: Teori Asam-Basa Brønsted-Lowry\nReaksi: H₂PO₄⁻ + H₂O ⇌ HPO₄²⁻ + H₃O⁺\n• H₂PO₄⁻ mendonorkan proton (H⁺) kepada H₂O sehingga bertindak sebagai asam.\n• H₂O menerima proton (H⁺) sehingga bertindak sebagai basa.\n\nJawaban: C (H₂PO₄⁻ memberikan ion hidrogen kepada H₂O dan bersifat asam)',
+    subject: 'Kimia',
+    difficulty: 'Mudah',
+    bab: 'Teori Asam Basa Brønsted-Lowry',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_kimia_14',
+    text: 'Minyak bumi terdiri atas ribuan senyawa hidrokarbon yang sebagian besar bersifat nonpolar dan memiliki titik didih yang berbeda-beda. Proses distilasi fraksional digunakan untuk memisahkan hidrokarbon berdasarkan titik didihnya.\n\nTentukan status Tepat / Tidak Tepat untuk pernyataan mengenai titik didih isomer berikut:\n• Pernyataan 1: Titik didih n-butana lebih besar dari titik didih 2-metil-propana.\n• Pernyataan 2: Titik didih 2,2-dimetil-propana lebih besar dari titik didih 2-metil-butana.\n• Pernyataan 3: Titik didih n-heksana lebih besar dari titik didih 3-metil-pentana.',
+    options: [
+      'Pernyataan 1: Tepat; Pernyataan 2: Tidak Tepat; Pernyataan 3: Tepat',
+      'Pernyataan 1: Tepat; Pernyataan 2: Tepat; Pernyataan 3: Tidak Tepat',
+      'Pernyataan 1: Tidak Tepat; Pernyataan 2: Tepat; Pernyataan 3: Tepat',
+      'Pernyataan 1: Tidak Tepat; Pernyataan 2: Tidak Tepat; Pernyataan 3: Tepat',
+      'Semua pernyataan Tepat'
+    ],
+    correctAnswerIndex: 0,
+    correctAnswer: 'A',
+    explanation: 'Materi: Hubungan Struktur dan Titik Didih Hidrokarbon\n• Isomer rantai lurus memiliki luas kontak permukaan lebih besar dibanding rantai bercabang, sehingga gaya Van der Waals lebih kuat dan titik didih lebih tinggi.\n- n-butana > 2-metil-propana: Tepat (rantai lurus > bercabang)\n- 2,2-dimetil-propana > 2-metil-butana: Tidak Tepat (bercabang 2 lebih rendah dari bercabang 1)\n- n-heksana > 3-metil-pentana: Tepat (rantai lurus > bercabang)\n\nJawaban:\n- Pernyataan 1: Tepat\n- Pernyataan 2: Tidak Tepat\n- Pernyataan 3: Tepat',
+    subject: 'Kimia',
+    difficulty: 'Sedang',
+    bab: 'Titik Didih & Isomer Hidrokarbon',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_kimia_15',
+    text: 'Produksi H₂SO₄ dilakukan melalui proses kontak yang berlangsung melalui reaksi kesetimbangan berikut:\n2 SO₂(g) + O₂(g) ⇌ 2 SO₃(g)   ΔH = -197 kJ/mol\n\nPernyataan mana saja yang menunjukkan upaya yang dapat dilakukan untuk mendapatkan SO₃ sebanyak-banyaknya? (Jawaban benar lebih dari satu.)',
+    options: [
+      'Memperbesar volume wadah',
+      'Menambah O₂ ke dalam campuran reaksi',
+      'Menurunkan tekanan gas',
+      'Menurunkan suhu reaksi',
+      'Mengeluarkan SO₃ dari wadah'
+    ],
+    correctAnswerIndex: 1,
+    correctAnswer: 'B, D, E',
+    explanation: 'Materi: Pergeseran Kesetimbangan (Asas Le Chatelier)\nReaksi: 2 SO₂(g) + O₂(g) ⇌ 2 SO₃(g) ΔH = -197 kJ/mol (Eksoterm)\nAgar menghasilkan SO₃ maksimal (geser ke kanan):\n• Menambah O₂ (reaktan ditambah -> geser ke kanan) [BENAR]\n• Menurunkan suhu (reaksi eksoterm bergeser ke kanan saat suhu turun) [BENAR]\n• Mengeluarkan SO₃ dari wadah (produk dikurangi -> geser ke kanan) [BENAR]\n\nJawaban Centang: Menambah O₂, Menurunkan suhu reaksi, Mengeluarkan SO₃ dari wadah',
+    subject: 'Kimia',
+    difficulty: 'Sedang',
+    bab: 'Pergeseran Kesetimbangan Kimia',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_kimia_16',
+    text: 'Seorang murid melakukan percobaan reaksi antara 24 gram logam magnesium (Mg, Ar = 24 g/mol) dengan larutan asam klorida (HCl) 3 M sebanyak 1 Liter, pada kondisi STP (Standard Temperature and Pressure). Reaksi yang terjadi sebagai berikut:\nMg(s) + 2 HCl(aq) → MgCl₂(aq) + H₂(g)\n\nBerdasarkan reaksi tersebut, pilihlah pernyataan yang benar berkaitan dengan zat reaktan dan produk! (Jawaban benar lebih dari satu.)',
+    options: [
+      'Mol Mg yang bereaksi adalah 1 mol',
+      'Volume H₂ yang dihasilkan adalah 22,4 L',
+      'HCl adalah reagen pembatas',
+      'HCl yang bereaksi adalah 3 mol',
+      'MgCl₂ yang dihasilkan adalah 2 mol'
+    ],
+    correctAnswerIndex: 0,
+    correctAnswer: 'A, B',
+    explanation: 'Materi: Stoikiometri dan Pereaksi Pembatas\n• mol Mg = 24 g / 24 g/mol = 1 mol\n• mol HCl = 1 L × 3 M = 3 mol\n• Reaksi: Mg + 2 HCl -> MgCl₂ + H₂\n• 1 mol Mg bereaksi dengan 2 mol HCl, menghasilkan 1 mol MgCl₂ dan 1 mol H₂ (tersisa 1 mol HCl).\n• Volume H₂ STP = 1 mol × 22,4 L/mol = 22,4 L.\n\nJawaban Centang:\n- Mol Mg yang bereaksi adalah 1 mol\n- Volume H₂ yang dihasilkan adalah 22,4 L',
+    subject: 'Kimia',
+    difficulty: 'Sedang',
+    bab: 'Stoikiometri & Pereaksi Pembatas',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_kimia_17',
+    text: 'Asam cuka (CH₃COOH) yang juga dikenal sebagai asam asetat atau asam etanoat adalah senyawa kimia asam organik. Seorang murid melarutkan 0,6 gram asam asetat dalam air sampai volume 1 liter (Ar C = 12, Ar H = 1, Ar O = 16; Ka = 1 × 10⁻⁵).\n\nTentukan status Benar / Salah untuk pernyataan berikut:\n(1) Nilai pH larutan asam cuka tersebut adalah 4.\n(2) Konsentrasi ion H⁺ dalam larutan adalah 1 × 10⁻³ M.\n(3) Asam asetat terionisasi dalam air sebanyak 1%.',
+    options: [
+      'Pernyataan 1: Benar; Pernyataan 2: Salah; Pernyataan 3: Benar',
+      'Pernyataan 1: Benar; Pernyataan 2: Benar; Pernyataan 3: Salah',
+      'Pernyataan 1: Salah; Pernyataan 2: Salah; Pernyataan 3: Benar',
+      'Pernyataan 1: Salah; Pernyataan 2: Benar; Pernyataan 3: Salah',
+      'Semua pernyataan Benar'
+    ],
+    correctAnswerIndex: 0,
+    correctAnswer: 'A',
+    explanation: 'Materi: Larutan Asam Lemah\n• M = (0,6 g / 60 g/mol) / 1 L = 0,01 M = 10⁻² M\n• [H⁺] = √(Ka × M) = √(10⁻⁵ × 10⁻²) = 10⁻³,⁵ M ≈ 10⁻⁴ M (pH ≈ 3,5 - 4)\n• Derajat ionisasi α = √(Ka / M) = √(10⁻⁵ / 10⁻²) = √(10⁻³) ≈ 3,16%\n\nJawaban:\n- Pernyataan 1: Benar\n- Pernyataan 2: Salah\n- Pernyataan 3: Benar',
+    subject: 'Kimia',
+    difficulty: 'Sedang',
+    bab: 'Derajat Ionisasi & pH Asam Lemah',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_kimia_18',
+    text: 'Larutan penyangga adalah larutan yang dapat mempertahankan pH dengan penambahan sedikit asam atau basa. Sebanyak 100 mL CH₃COOH 0,1 M ditambahkan 100 mL NaOH 0,05 M. Nilai tetapan ionisasi asam asetat adalah 1 × 10⁻⁵.\n\nBerdasarkan data dan informasi tersebut, manakah di antara pernyataan berikut yang benar terkait dengan reaksi asam basa? (Jawaban benar lebih dari satu.)',
+    options: [
+      'Nilai pH larutan penyangga tersebut adalah 5.',
+      'Asam asetat yang bereaksi adalah 10 mmol.',
+      'Natrium hidroksida yang bereaksi adalah 5 mmol.',
+      'Asam asetat dan natrium hidroksida habis bereaksi.',
+      'Garam CH₃COONa yang terbentuk adalah 5 mmol.'
+    ],
+    correctAnswerIndex: 0,
+    correctAnswer: 'A, C, E',
+    explanation: 'Materi: Larutan Penyangga (Buffer Asam)\n• mol CH₃COOH = 100 mL × 0,1 M = 10 mmol\n• mol NaOH = 100 mL × 0,05 M = 5 mmol\n• Reaksi: CH₃COOH + NaOH -> CH₃COONa + H₂O\n• NaOH habis (5 mmol), CH₃COONa terbentuk 5 mmol, sisa CH₃COOH = 5 mmol.\n• [H⁺] = Ka × (5 / 5) = 1 × 10⁻⁵ M => pH = 5.\n\nJawaban Centang:\n- Nilai pH larutan penyangga tersebut adalah 5.\n- Natrium hidroksida yang bereaksi adalah 5 mmol.\n- Garam CH₃COONa yang terbentuk adalah 5 mmol.',
+    subject: 'Kimia',
+    difficulty: 'Sedang',
+    bab: 'Larutan Penyangga (Buffer)',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_kimia_19',
+    text: 'Reaksi yang terjadi dalam suatu reaktor tertutup adalah:\n2 COF₂(g) ⇌ CO₂(g) + CF₄(g)\nDalam suatu pengujian, di dalam wadah 5 liter terdapat 1 mol COF₂ yang terurai. Setelah beberapa waktu, reaksi mencapai kesetimbangan dengan nilai tetapan kesetimbangan (Kc) pada suhu tersebut adalah 4.\n\nBanyaknya COF₂ yang terdapat dalam wadah setelah reaksi mencapai kesetimbangan adalah ....',
+    options: ['1/3 mol', '1/4 mol', '1/5 mol', '2/3 mol', '2/15 mol'],
+    correctAnswerIndex: 2,
+    correctAnswer: 'C',
+    explanation: 'Materi: Tetapan Kesetimbangan (Kc)\nReaksi: 2 COF₂(g) ⇌ CO₂(g) + CF₄(g)\n• Mula-mula COF₂ = 1 mol dalam volume V.\n• Terurai: 2x mol COF₂ -> terbentuk x mol CO₂ dan x mol CF₄.\n• Kesetimbangan: Kc = (x · x) / (1 - 2x)² = 4 => x / (1 - 2x) = 2 => x = 2 - 4x => 5x = 2 => x = 0,4 mol.\n• Sisa COF₂ saat setimbang = 1 - 2(0,4) = 0,2 mol = 1/5 mol.\n\nJawaban: C (1/5 mol)',
+    subject: 'Kimia',
+    difficulty: 'Sedang',
+    bab: 'Tetapan Kesetimbangan (Kc)',
+    year: '2026'
+  },
+  {
+    id: 'q_tka_kimia_20',
+    text: 'Berikut adalah set percobaan yang dilakukan untuk menentukan laju suatu reaksi:\nA(aq) + B(s) → Produk\n\nPasangan set percobaan yang dapat dilakukan untuk mengetahui pengaruh suhu terhadap laju reaksi adalah ....',
+    options: ['1 dan 3', '2 dan 5', '3 dan 4', '2 dan 6', '4 dan 6'],
+    correctAnswerIndex: 0,
+    correctAnswer: 'A',
+    explanation: 'Materi: Faktor Laju Reaksi\nUntuk mengetahui pengaruh suhu, variabel suhu harus diubah (variabel bebas) sementara konsentrasi dan bentuk partikel harus tetap sama (variabel kontrol).\n• Set percobaan 1 (suhu 25°C, serbuk, HCl 0,1 M) dan set percobaan 3 (suhu 35°C, serbuk, HCl 0,1 M) memenuhi syarat ini.\n\nJawaban: A (1 dan 3)',
+    subject: 'Kimia',
+    difficulty: 'Mudah',
+    bab: 'Faktor-Faktor Laju Reaksi',
+    year: '2026'
   }
 ];
 
@@ -2450,6 +2941,32 @@ const INITIAL_VIDEOS: LearningVideo[] = [
     duration: '19:15',
     views: 1420,
     createdAt: '2026-07-16T09:30:00Z'
+  },
+  {
+    id: 'v_indo_lanjut_1',
+    title: 'Analisis Wacana Kritis & Kritik Sastra Tingkat Lanjut',
+    url: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+    thumbnail: 'https://images.unsplash.com/photo-1457369804613-52c61a468e7d?w=600&auto=format&fit=crop&q=60',
+    description: 'Bedah tuntas analisis wacana kritis, nominalisasi media, pragmatik kesantunan berbahasa, serta estetika dekonstruksi realisme magis.',
+    subject: 'Bahasa Indonesia Tingkat Lanjut',
+    bab: 'Analisis Wacana Kritis & Retorika',
+    guru: 'Dr. Retno Wulandari, M.Hum.',
+    duration: '21:10',
+    views: 980,
+    createdAt: '2026-07-20T10:00:00Z'
+  },
+  {
+    id: 'v_inggris_lanjut_1',
+    title: 'Mastering Advanced Inversion, Conditionals & Academic Stance',
+    url: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+    thumbnail: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&auto=format&fit=crop&q=60',
+    description: 'Deep dive into negative adverb fronting, mandative subjunctives, epistemic modality, and academic rhetorical syntheses for university readiness.',
+    subject: 'Bahasa Inggris Tingkat Lanjut',
+    bab: 'Grammar Inversion & Epistemic Modality',
+    guru: 'Prof. Alexander Wright, Ph.D.',
+    duration: '24:05',
+    views: 1150,
+    createdAt: '2026-07-20T10:30:00Z'
   }
 ];
 
@@ -2498,6 +3015,20 @@ const INITIAL_TRYOUTS: TryOut[] = [
     solvedCount: 940
   },
   {
+    id: 'to-tka-bindo-lanjut-2026',
+    name: 'Try Out CBT TKA: Bahasa Indonesia Tingkat Lanjut (10 Soal Analisis Wacana & Sastra)',
+    duration: 45,
+    passingGrade: 500,
+    questionCount: 10,
+    subject: 'Bahasa Indonesia Tingkat Lanjut',
+    category: 'TKA',
+    randomizeQuestions: false,
+    randomizeOptions: false,
+    startDate: '2026-07-20',
+    endDate: '2026-12-31',
+    solvedCount: 720
+  },
+  {
     id: 'to-tka-bing-2026',
     name: 'Try Out CBT TKA: Bahasa Inggris (20 Soal IRT)',
     duration: 45,
@@ -2510,6 +3041,62 @@ const INITIAL_TRYOUTS: TryOut[] = [
     startDate: '2026-07-20',
     endDate: '2026-12-31',
     solvedCount: 880
+  },
+  {
+    id: 'to-tka-bing-lanjut-2026',
+    name: 'Try Out CBT TKA: Bahasa Inggris Tingkat Lanjut (20 Soal IRT)',
+    duration: 45,
+    passingGrade: 500,
+    questionCount: 20,
+    subject: 'Bahasa Inggris Tingkat Lanjut',
+    category: 'TKA',
+    randomizeQuestions: false,
+    randomizeOptions: false,
+    startDate: '2026-07-20',
+    endDate: '2026-12-31',
+    solvedCount: 650
+  },
+  {
+    id: 'to-tka-fisika-1-2026',
+    name: 'Try Out CBT TKA: Fisika SMA (20 Soal IRT & Gambar Lengkap)',
+    duration: 45,
+    passingGrade: 600,
+    questionCount: 20,
+    subject: 'Fisika',
+    category: 'TKA',
+    randomizeQuestions: false,
+    randomizeOptions: false,
+    startDate: '2026-07-20',
+    endDate: '2026-12-31',
+    solvedCount: 890
+  },
+  {
+    id: 'to-tka-kimia-1-2026',
+    name: 'Try Out Kimia 1: Bank Soal & Try Out Bab Kimia TKA SMA (20 Soal)',
+    duration: 45,
+    passingGrade: 600,
+    questionCount: 20,
+    subject: 'Kimia',
+    category: 'TKA',
+    randomizeQuestions: false,
+    randomizeOptions: false,
+    startDate: '2026-07-20',
+    endDate: '2026-12-31',
+    solvedCount: 780
+  },
+  {
+    id: 'to-tka-biologi-1-2026',
+    name: 'Try Out CBT TKA: Biologi (20 Soal IRT)',
+    duration: 45,
+    passingGrade: 600,
+    questionCount: 20,
+    subject: 'Biologi',
+    category: 'TKA',
+    randomizeQuestions: false,
+    randomizeOptions: false,
+    startDate: '2026-07-20',
+    endDate: '2026-12-31',
+    solvedCount: 710
   },
   {
     id: 'to3',
@@ -3044,8 +3631,8 @@ export class FirestoreSimulator {
     
     // Filter questions relevant to the TryOut subject or pad to 20 questions
     const filtered = questions.filter(q => {
-      if (examId === 'to-tka-bindo-2026' || exam.subject === 'Bahasa Indonesia') return q.subject === 'Bahasa Indonesia' || q.id.startsWith('q_tka_bindo_');
-      if (examId === 'to-tka-bing-2026' || exam.subject === 'Bahasa Inggris') return q.subject === 'Bahasa Inggris' || q.id.startsWith('q_tka_bing_');
+      if (examId === 'to-tka-bindo-2026' || exam.subject === 'Bahasa Indonesia') return (q.subject === 'Bahasa Indonesia' && !q.subject.includes('Lanjut')) || q.id.startsWith('q_tka_bindo_');
+      if (examId === 'to-tka-bing-2026' || exam.subject === 'Bahasa Inggris') return (q.subject === 'Bahasa Inggris' && !q.subject.includes('Lanjut')) || q.id.startsWith('q_tka_bing_');
       if (examId === 'to-anbk-mtk-wajib-2026' || exam.subject === 'Matematika Wajib') return q.subject === 'Matematika Wajib' || q.id.startsWith('q_anbk_mtkw_');
       if (examId === 'to-tka-mtk-lanjut-2026' || exam.subject === 'Matematika Tingkat Lanjut') return q.subject === 'Matematika Tingkat Lanjut' || q.id.startsWith('q_mtk_lanjut_');
       if (examId === 'to1') return ['Fisika', 'Kimia', 'Biologi', 'Matematika Lanjut', 'Matematika Umum'].includes(q.subject);
@@ -3356,6 +3943,32 @@ const INITIAL_MATERIALS: LearningMaterial[] = [
     guruName: 'Sarah Jenkins, M.A.',
     htmlContent: PEMBAHASAN_TKA_BAHASA_INGGRIS_HTML,
     createdAt: '2026-07-20T09:30:00Z'
+  },
+  {
+    id: 'm_tka_indo_lanjut',
+    title: 'Modul & Pembahasan Lengkap Bahasa Indonesia Tingkat Lanjut TKA 2026',
+    subject: 'Bahasa Indonesia Tingkat Lanjut',
+    bab: 'Analisis Wacana Kritis, Retorika & Kritik Sastra (20 Soal)',
+    description: 'Modul digital komprehensif dan pembahasan lengkap 20 soal Bahasa Indonesia Tingkat Lanjut mencakup analisis wacana kritis, gaya bahasa/retorika, kritik sastra realisme magis, semantik-pragmatik, dan morfologi sintaksis kompleks.',
+    pdfName: 'Pembahasan_TKA_Bahasa_Indonesia_Lanjut_2026.pdf',
+    pdfUrl: '#',
+    youtubeUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    guruName: 'Dr. Retno Wulandari, M.Hum.',
+    htmlContent: PEMBAHASAN_TKA_BAHASA_INDONESIA_LANJUT_HTML,
+    createdAt: '2026-07-20T10:00:00Z'
+  },
+  {
+    id: 'm_tka_inggris_lanjut',
+    title: 'Modul & Pembahasan Lengkap Bahasa Inggris Tingkat Lanjut TKA 2026',
+    subject: 'Bahasa Inggris Tingkat Lanjut',
+    bab: 'Advanced Reading, Rhetorical Analysis & Grammar Inversion (20 Soal)',
+    description: 'Modul digital komprehensif dan pembahasan lengkap 20 soal Bahasa Inggris Tingkat Lanjut mencakup academic discourse analysis, negative adverb inversion, mixed conditionals, epistemic modality, dan rhetorical structures.',
+    pdfName: 'Pembahasan_TKA_Bahasa_Inggris_Lanjut_2026.pdf',
+    pdfUrl: '#',
+    youtubeUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    guruName: 'Prof. Alexander Wright, Ph.D.',
+    htmlContent: PEMBAHASAN_TKA_BAHASA_INGGRIS_LANJUT_HTML,
+    createdAt: '2026-07-20T10:30:00Z'
   },
   {
     id: 'm1',
@@ -4351,6 +4964,18 @@ $$a = \\frac{g \\sin \\theta}{1 + k}$$`,
 export const getQuestions = () => {
   let list = FirestoreSimulator.getCollection<Question>('questions', INITIAL_QUESTIONS);
   
+  // Remove questions from deleted packages (Bahasa Indonesia Tingkat Lanjut & Bahasa Inggris Tingkat Lanjut)
+  const filteredFromDeleted = list.filter(q => 
+    !q.id.startsWith('q_tka_indo_lanjut_') && 
+    !q.id.startsWith('q_tka_inggris_lanjut_') && 
+    q.subject !== 'Bahasa Indonesia Tingkat Lanjut' && 
+    q.subject !== 'Bahasa Inggris Tingkat Lanjut'
+  );
+  if (filteredFromDeleted.length !== list.length) {
+    list = filteredFromDeleted;
+    FirestoreSimulator.saveCollection('questions', list);
+  }
+
   // Deduplicate cached list by question ID
   const seenIds = new Set<string>();
   const uniqueList: Question[] = [];
@@ -4398,10 +5023,18 @@ export const getTryOuts = () => {
   let tryouts = FirestoreSimulator.getCollection<TryOut>('exams', INITIAL_TRYOUTS);
   let updated = false;
 
+  // Filter out removed tryout packages
+  const removedIds = new Set(['to-tka-indo-lanjut-2026', 'to-tka-inggris-lanjut-2026']);
+  const filtered = tryouts.filter(t => !removedIds.has(t.id) && t.subject !== 'Bahasa Indonesia Tingkat Lanjut' && t.subject !== 'Bahasa Inggris Tingkat Lanjut');
+  if (filtered.length !== tryouts.length) {
+    tryouts = filtered;
+    updated = true;
+  }
+
   // Ensure all INITIAL_TRYOUTS are synced into local storage if missing
   const existingIds = new Set(tryouts.map(t => t.id));
   INITIAL_TRYOUTS.forEach(initTo => {
-    if (!existingIds.has(initTo.id)) {
+    if (!existingIds.has(initTo.id) && !removedIds.has(initTo.id)) {
       tryouts.unshift(initTo);
       updated = true;
     }

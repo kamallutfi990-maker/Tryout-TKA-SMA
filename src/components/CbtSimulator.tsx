@@ -80,11 +80,20 @@ export default function CbtSimulator({ tryout, userProfile, onBack, onFinish }: 
       if (tryout.id === 'to-tka-mtk-lanjut-2026' || tryout.name.includes('Matematika Tingkat Lanjut')) {
         return q.id.startsWith('q_mtk_lanjut_') || q.subject === 'Matematika Tingkat Lanjut';
       }
+      if (tryout.id.includes('indo-lanjut') || tryout.name.includes('Bahasa Indonesia Tingkat Lanjut') || tryout.subject === 'Bahasa Indonesia Tingkat Lanjut') {
+        return q.id.startsWith('q_tka_indo_lanjut_') || q.id.startsWith('q_tka_bindo_lanjut_') || q.subject === 'Bahasa Indonesia Tingkat Lanjut';
+      }
+      if (tryout.id.includes('inggris-lanjut') || tryout.name.includes('Bahasa Inggris Tingkat Lanjut') || tryout.subject === 'Bahasa Inggris Tingkat Lanjut') {
+        return q.id.startsWith('q_tka_inggris_lanjut_') || q.subject === 'Bahasa Inggris Tingkat Lanjut';
+      }
       if (tryout.id === 'to-tka-bindo-2026' || tryout.name.includes('Bahasa Indonesia') || tryout.subject === 'Bahasa Indonesia') {
-        return q.id.startsWith('q_tka_bindo_') || q.subject === 'Bahasa Indonesia';
+        return (q.id.startsWith('q_tka_bindo_') || q.subject === 'Bahasa Indonesia') && !q.subject.includes('Lanjut') && !q.id.includes('lanjut');
       }
       if (tryout.id === 'to-tka-bing-2026' || tryout.name.includes('Bahasa Inggris') || tryout.subject === 'Bahasa Inggris') {
-        return q.id.startsWith('q_tka_bing_') || q.subject === 'Bahasa Inggris';
+        return (q.id.startsWith('q_tka_bing_') || q.subject === 'Bahasa Inggris') && !q.subject.includes('Lanjut');
+      }
+      if (tryout.id.includes('kimia') || tryout.name.includes('Kimia') || tryout.subject === 'Kimia') {
+        return q.id.startsWith('q_tka_kimia_') || q.subject === 'Kimia';
       }
       if (tryout.id === 'to-tka-turunan' || tryout.name.includes('Turunan')) {
         return q.id.startsWith('q_turunan_') || q.bab === 'Turunan Fungsi';
@@ -124,6 +133,20 @@ export default function CbtSimulator({ tryout, userProfile, onBack, onFinish }: 
         const numB = parseInt(b.id.replace('q_mtk_lanjut_', '')) || 0;
         return numA - numB;
       });
+    } else if (tryout.id.includes('indo-lanjut') || tryout.name.includes('Bahasa Indonesia Tingkat Lanjut') || tryout.subject === 'Bahasa Indonesia Tingkat Lanjut') {
+      // Sort in order q_tka_bindo_lanjut_1 .. 10
+      pool.sort((a, b) => {
+        const numA = parseInt(a.id.replace('q_tka_bindo_lanjut_', '').replace('q_tka_indo_lanjut_', '')) || 0;
+        const numB = parseInt(b.id.replace('q_tka_bindo_lanjut_', '').replace('q_tka_indo_lanjut_', '')) || 0;
+        return numA - numB;
+      });
+    } else if (tryout.id.includes('inggris-lanjut') || tryout.name.includes('Bahasa Inggris Tingkat Lanjut') || tryout.subject === 'Bahasa Inggris Tingkat Lanjut') {
+      // Sort in order q_tka_inggris_lanjut_1 .. 20
+      pool.sort((a, b) => {
+        const numA = parseInt(a.id.replace('q_tka_inggris_lanjut_', '').replace('q_tka_bing_lanjut_', '')) || 0;
+        const numB = parseInt(b.id.replace('q_tka_inggris_lanjut_', '').replace('q_tka_bing_lanjut_', '')) || 0;
+        return numA - numB;
+      });
     } else if (tryout.id === 'to-tka-bindo-2026' || tryout.name.includes('Bahasa Indonesia') || tryout.subject === 'Bahasa Indonesia') {
       // Sort in order q_tka_bindo_1 .. 20
       pool.sort((a, b) => {
@@ -136,6 +159,13 @@ export default function CbtSimulator({ tryout, userProfile, onBack, onFinish }: 
       pool.sort((a, b) => {
         const numA = parseInt(a.id.replace('q_tka_bing_', '')) || 0;
         const numB = parseInt(b.id.replace('q_tka_bing_', '')) || 0;
+        return numA - numB;
+      });
+    } else if (tryout.id.includes('kimia') || tryout.name.includes('Kimia') || tryout.subject === 'Kimia') {
+      // Sort in order q_tka_kimia_1 .. 20
+      pool.sort((a, b) => {
+        const numA = parseInt(a.id.replace('q_tka_kimia_', '')) || 0;
+        const numB = parseInt(b.id.replace('q_tka_kimia_', '')) || 0;
         return numA - numB;
       });
     } else if (pool.length < (tryout.questionCount || 20) && !tryout.id.includes('integral') && !tryout.id.includes('turunan')) {

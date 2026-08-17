@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Sparkles, Trophy, CheckCircle, XCircle, Target, ExternalLink, RefreshCw, BookOpen, Share2, Edit3, Save, Sliders, Check, FileCode2, Maximize2, Minimize2, X } from 'lucide-react';
 import MathMarkdown from './MathMarkdown';
 import HtmlPembahasanModal from './HtmlPembahasanModal';
@@ -24,6 +24,7 @@ export interface CbtReportData {
   weakSubjects?: string[];
   radarScores?: { [key: string]: number };
   sourceUrl?: string;
+  htmlContent?: string;
 }
 
 interface CbtAnalysisReportProps {
@@ -32,9 +33,93 @@ interface CbtAnalysisReportProps {
   onClose?: () => void;
 }
 
+const buildDefaultStepByStepRecommendation = (
+  examTitle: string,
+  targetProdi: string,
+  targetPTN: string,
+  weakTopicsStr: string,
+  strongTopicsStr: string,
+  correct: number,
+  wrong: number,
+  isAll100: boolean
+) => {
+  if (isAll100) {
+    return `### 🎉 APRESIASI SPESIAL: PENCAPAIAN SEMPURNA ($100\\%$)!
+
+Selamat! Kamu telah menjawab **seluruh ($100\\%$) butir soal dengan benar** tanpa ada kesalahan sedikit pun pada latihan **${examTitle}**! 🏆✨
+
+* **Target Program Studi:** **${targetProdi || "Program Studi Impian"}**
+* **Target Universitas:** **${targetPTN || "PTN Impian"}**
+
+---
+
+#### 🌟 Evaluasi Performa 100% Utuh:
+1. **Penguasaan Materi Sempurna:** Seluruh konsep dan butir soal pada **${strongTopicsStr || "Ujian Ini"}** telah kamu kuasai secara mendalam. Tidak ada materi lemah yang memerlukan remedial konsep dasar!
+2. **Akurasi & Penalaran Sangat Tinggi:** Hasil pengerjaan ini membuktikan kesiapan kompetitif yang sangat matang menuju seleksi PTN impian.
+
+---
+
+#### 🚀 Panduan Belajar Step-by-Step Mempertahankan Ketajaman:
+* **Step 1 (Tantangan Soal HOTS Advance):** Lanjutkan latihan ke paket soal level High Order Thinking Skills yang memadukan penalaran multi-konsep.
+* **Step 2 (Optimalisasi Efisiensi Waktu):** Asah kecepatan pengerjaan hingga rata-rata $t \\le 1{,}0$ menit per butir soal.
+* **Step 3 (Simulasi Kondisi Ujian Asli):** Uji daya tahan konsentrasi dengan simulasi try out CBT berdurasi penuh.
+* **Step 4 (Review Rangkuman Rumus Berkala):** Tinjau kembali formula inti sepekan sekali agar daya ingat jangka panjang tetap solid.
+
+*Pertahankan prestasi luar biasa ini hingga resmi diterima di ${targetProdi || "Program Studi Impian"} ${targetPTN || "PTN Impian"}!* 🎓🔥`;
+  }
+
+  const weakSubjectsFormatted = weakTopicsStr || "Materi yang Terjawab Kurang Tepat";
+  const strongSubjectsFormatted = strongTopicsStr || "Pemahaman Konsep Dasar";
+
+  return `### 📊 AI Tutor Study Strategist: Rekomendasi Belajar Step-by-Step
+
+* **Ujian:** **${examTitle}**
+* **Target Impian:** **${targetProdi || "Program Studi Impian"}** — **${targetPTN || "PTN Impian"}**
+* **Materi Kuat:** **${strongSubjectsFormatted}**
+* **⚠️ MATERI LEMAH (PERLU REVIEW):** **${weakSubjectsFormatted}**
+
+---
+
+#### 🎯 Diagnostik Materi Lemah & Prioritas Evaluasi:
+Berdasarkan hasil analisis pengerjaan, kamu berhasil menjawab **${correct} butir benar** dan **${wrong} butir perlu perbaikan**. Materi prioritas utama yang memerlukan pendalaman konsep dan review terarah adalah **${weakSubjectsFormatted}**.
+
+---
+
+#### 📌 Panduan Belajar Step-by-Step pada Materi Lemah (${weakSubjectsFormatted}):
+
+1. **Step 1: Diagnostik & Analisis Letak Kesalahan**
+   * Buka modul **Pembahasan Try Out** untuk mengidentifikasi detail nomor yang belum tepat pada materi **${weakSubjectsFormatted}**.
+   * Identifikasi apakah kesalahan disebabkan oleh miskonsepsi rumus, ketidaktelitian hitungan, atau salah memahami kata kunci soal.
+
+2. **Step 2: Pendalaman Teori & Pemahaman Formula / Kaidah Kunci**
+   * Pelajari kembali rangkuman materi dan video pembahasan sub-bab **${weakSubjectsFormatted}**.
+   * Tuliskan kembali rumus kunci, kaidah tata bahasa, atau alur logika pembuktian ke dalam buku catatan khusus ringkasan.
+
+3. **Step 3: Latihan Terarah Level Mudah ke Menengah ($10-15$ Soal)**
+   * Kerjakan bank soal khusus sub-materi **${weakSubjectsFormatted}** tanpa batasan timer sampai tingkat akurasi mencapai $\\ge 80\\%$.
+
+4. **Step 4: Latihan Soal Variasi HOTS & Penalaran Konteks**
+   * Latih variasi soal cerita, grafik, tabel, atau wacana analitis yang menuntut pemikiran kritis bertingkat pada materi **${weakSubjectsFormatted}**.
+
+5. **Step 5: Simulasi CBT Terbatas & Manajemen Waktu**
+   * Atur timer latihan ($t \\le 1{,}2$ menit/soal) untuk melatih kecepatan, ketenangan, dan ketepatan pengambilan keputusan.
+
+6. **Step 6: Evaluasi Ulang & Post-Test Ujian**
+   * Uji coba kembali $1$ paket try out CBT sejenis untuk memvalidasi kenaikan skor dan memastikan materi **${weakSubjectsFormatted}** telah kamu kuasai secara permanen.
+
+---
+
+#### 📅 Jadwal Aksi Belajar Terstruktur 7 Hari Ke Depan:
+* **Hari 1–2:** Tinjau pembahasan soal salah dan pelajari teori dasar bab **${weakSubjectsFormatted}**.
+* **Hari 3–4:** Latihan $15-20$ butir soal terfokus sub-bab **${weakSubjectsFormatted}**.
+* **Hari 5:** Latihan soal variasi HOTS dan telaah trik cepat penyelesaian.
+* **Hari 6–7:** Kerjakan simulasi CBT ulang dan ukur lonjakan skor menuju passing grade.
+
+*(Rekomendasi belajar terstruktur disusun otomatis oleh AI Tutor Study Strategist).*`;
+};
+
 export default function CbtAnalysisReport({ report, userProfile, onClose }: CbtAnalysisReportProps) {
   const [loadingAi, setLoadingAi] = useState(false);
-  const [aiRecommendation, setAiRecommendation] = useState('');
   const [showHtmlModal, setShowHtmlModal] = useState(false);
   const [isAiFullscreen, setIsAiFullscreen] = useState(false);
 
@@ -61,6 +146,27 @@ export default function CbtAnalysisReport({ report, userProfile, onClose }: CbtA
       : (report.wrongCount > 0 ? 'Listrik Dinamis, Eksponen' : '')
   );
 
+  const targetPTN = (report.targetPTN && report.targetPTN.trim()) || (userProfile?.targetPTN && userProfile.targetPTN.trim()) || "";
+  const targetProdi = (report.targetProdi && report.targetProdi.trim()) || (userProfile?.targetProdi && userProfile.targetProdi.trim()) || "";
+  const keketatan = report.keketatan || "Keketatan Sangat Kompetitif";
+  const xpValue = report.xpEarned ?? (displayCorrectCount * 15 + 50);
+
+  const numericScore = Number(score) || 0;
+  const isPassing = numericScore >= 550;
+
+  const [aiRecommendation, setAiRecommendation] = useState<string>(() => {
+    return buildDefaultStepByStepRecommendation(
+      report.title,
+      targetProdi,
+      targetPTN,
+      report.weakSubjects && report.weakSubjects.length > 0 ? report.weakSubjects.join(', ') : (report.wrongCount > 0 ? 'Listrik Dinamis, Eksponen' : ''),
+      report.strongSubjects && report.strongSubjects.length > 0 ? report.strongSubjects.join(', ') : 'Pemahaman Konsep & Akurasi Jawaban',
+      displayCorrectCount,
+      displayWrongCount,
+      isAllCorrect
+    );
+  });
+
   const [radarScores, setRadarScores] = useState<{ [key: string]: number | string }>({
     Matematika: report.radarScores?.Matematika ?? 75,
     Fisika: report.radarScores?.Fisika ?? 50,
@@ -70,13 +176,40 @@ export default function CbtAnalysisReport({ report, userProfile, onClose }: CbtA
     Logika: report.radarScores?.Logika ?? 85,
   });
 
-  const targetPTN = (report.targetPTN && report.targetPTN.trim()) || (userProfile?.targetPTN && userProfile.targetPTN.trim()) || "";
-  const targetProdi = (report.targetProdi && report.targetProdi.trim()) || (userProfile?.targetProdi && userProfile.targetProdi.trim()) || "";
-  const keketatan = report.keketatan || "Keketatan Sangat Kompetitif";
-  const xpValue = report.xpEarned ?? (displayCorrectCount * 15 + 50);
+  const handleGetAiRecommendation = async (customWeak?: string, customStrong?: string) => {
+    setLoadingAi(true);
+    try {
+      const response = await fetch('/api/ai/recommend', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          scores: {
+            title: report.title,
+            [report.title]: numericScore,
+            benar: displayCorrectCount,
+            salah: displayWrongCount,
+            materiSangatKuat: customStrong || strongText || (isAllCorrect ? 'Semua Materi Ujian' : 'Pemahaman Konsep'),
+            materiLemah: isAllCorrect ? '' : (customWeak || weakText),
+            isAllCorrect: isAllCorrect,
+            skorTiapMapel: radarScores
+          },
+          targetPTN: targetPTN,
+          targetProdi: targetProdi
+        })
+      });
 
-  const numericScore = Number(score) || 0;
-  const isPassing = numericScore >= 550;
+      if (!response.ok) throw new Error('Gagal memuat rekomendasi');
+      const data = await response.json();
+      if (data.recommendation) {
+        setAiRecommendation(data.recommendation);
+      }
+    } catch (e) {
+      // Fallback is already initialized
+      console.warn("AI recommendation fetch notice (offline/fallback preserved)");
+    } finally {
+      setLoadingAi(false);
+    }
+  };
 
   const handleSubjectScoreChange = (subject: string, rawVal: string) => {
     if (rawVal === '') {
@@ -117,36 +250,10 @@ export default function CbtAnalysisReport({ report, userProfile, onClose }: CbtA
     setScore(calculatedScore);
   };
 
-  const handleGetAiRecommendation = async () => {
-    setLoadingAi(true);
-    try {
-      const response = await fetch('/api/ai/recommend', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          scores: {
-            [report.title]: numericScore,
-            benar: displayCorrectCount,
-            salah: displayWrongCount,
-            materiSangatKuat: strongText || (isAllCorrect ? 'Semua Materi Ujian' : 'Pemahaman Konsep'),
-            materiLemah: isAllCorrect ? '' : weakText,
-            isAllCorrect: isAllCorrect,
-            skorTiapMapel: radarScores
-          },
-          targetPTN: targetPTN,
-          targetProdi: targetProdi
-        })
-      });
-
-      if (!response.ok) throw new Error('Gagal memuat rekomendasi');
-      const data = await response.json();
-      setAiRecommendation(data.recommendation);
-    } catch (e) {
-      setAiRecommendation('Gagal menghasilkan rekomendasi otomatis dari AI Tutor. Pastikan koneksi server aman.');
-    } finally {
-      setLoadingAi(false);
-    }
-  };
+  // Auto-fetch richer AI recommendations on initial load in the background
+  useEffect(() => {
+    handleGetAiRecommendation();
+  }, [report.title]);
 
   const subjectList = [
     { key: 'Matematika', label: 'Matematika', color: 'text-blue-600', bg: 'bg-blue-500' },
@@ -163,6 +270,16 @@ export default function CbtAnalysisReport({ report, userProfile, onClose }: CbtA
   const scoreBio = Number(radarScores.Biologi) || 0;
   const scoreSos = Number(radarScores.Soshum) || 0;
   const scoreLog = Number(radarScores.Logika) || 0;
+
+  const checkStr = `${report.subject || ''} ${report.title || ''}`.toLowerCase();
+  const hasPembahasanDoc = (
+    Boolean(report.htmlContent) ||
+    checkStr.includes('biologi') ||
+    checkStr.includes('kimia') ||
+    checkStr.includes('inggris') ||
+    checkStr.includes('indonesia') ||
+    checkStr.includes('matematika')
+  );
 
   return (
     <div className="bg-white border border-slate-100 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6 animate-in fade-in duration-300">
@@ -181,13 +298,15 @@ export default function CbtAnalysisReport({ report, userProfile, onClose }: CbtA
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
-          <button
-            onClick={() => setShowHtmlModal(true)}
-            className="px-5 py-2.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-700 hover:via-indigo-700 hover:to-purple-700 text-white font-extrabold text-sm rounded-2xl shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition-all cursor-pointer flex items-center gap-2 border border-blue-400/30"
-          >
-            <BookOpen className="w-4 h-4 text-amber-300 shrink-0" />
-            <span>Pembahasan Try Out</span>
-          </button>
+          {hasPembahasanDoc && (
+            <button
+              onClick={() => setShowHtmlModal(true)}
+              className="px-5 py-2.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-700 hover:via-indigo-700 hover:to-purple-700 text-white font-extrabold text-sm rounded-2xl shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition-all cursor-pointer flex items-center gap-2 border border-blue-400/30"
+            >
+              <BookOpen className="w-4 h-4 text-amber-300 shrink-0" />
+              <span>Pembahasan Try Out</span>
+            </button>
+          )}
 
           <button
             onClick={() => setIsEditing(!isEditing)}
@@ -669,16 +788,42 @@ export default function CbtAnalysisReport({ report, userProfile, onClose }: CbtA
           </div>
 
           {aiRecommendation ? (
-            <div className="bg-white border border-slate-200/60 rounded-2xl p-4 text-xs sm:text-sm text-slate-700 leading-relaxed max-h-[45vh] overflow-y-auto space-y-2 relative group">
-              <button
-                onClick={() => setIsAiFullscreen(true)}
-                className="absolute top-2 right-2 p-1.5 bg-slate-100 hover:bg-blue-50 hover:text-blue-600 rounded-lg text-slate-500 transition-all cursor-pointer shadow-xs flex items-center gap-1 text-[11px] font-bold"
-                title="Layar Penuh (Fullscreen)"
-              >
-                <Maximize2 className="w-3.5 h-3.5" />
-                <span className="hidden md:inline">Layar Penuh</span>
-              </button>
-              <MathMarkdown content={aiRecommendation} />
+            <div className="space-y-3">
+              <div className="bg-white border border-slate-200/60 rounded-2xl p-4 text-xs sm:text-sm text-slate-700 leading-relaxed max-h-[48vh] overflow-y-auto space-y-2 relative group shadow-inner">
+                <button
+                  onClick={() => setIsAiFullscreen(true)}
+                  className="absolute top-2 right-2 p-1.5 bg-slate-100 hover:bg-blue-50 hover:text-blue-600 rounded-lg text-slate-500 transition-all cursor-pointer shadow-xs flex items-center gap-1 text-[11px] font-bold z-10"
+                  title="Layar Penuh (Fullscreen)"
+                >
+                  <Maximize2 className="w-3.5 h-3.5" />
+                  <span className="hidden md:inline">Layar Penuh</span>
+                </button>
+                <MathMarkdown content={aiRecommendation} />
+              </div>
+              <div className="flex flex-wrap items-center justify-between gap-2 pt-1">
+                <span className="text-[11px] text-slate-500 font-medium flex items-center gap-1">
+                  <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                  {isAllCorrect ? 'Target Evaluasi: Pertahankan Performa Sempurna' : 'Panduan Step-by-Step Materi Lemah Aktif'}
+                </span>
+                <button
+                  onClick={() => handleGetAiRecommendation()}
+                  disabled={loadingAi}
+                  className="px-3.5 py-1.5 bg-white hover:bg-slate-100 border border-slate-200 text-slate-700 hover:text-slate-900 text-xs font-bold rounded-xl transition-all cursor-pointer shadow-xs flex items-center gap-1.5 disabled:opacity-50"
+                  title="Perbarui rekomendasi belajar"
+                >
+                  {loadingAi ? (
+                    <>
+                      <span className="flex h-2 w-2 rounded-full bg-blue-600 animate-ping"></span>
+                      <span>Menyusun AI...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                      <span>Regenerasi AI</span>
+                    </>
+                  )}
+                </button>
+              </div>
             </div>
           ) : (
             <div className="text-center py-10 space-y-4">
@@ -688,7 +833,7 @@ export default function CbtAnalysisReport({ report, userProfile, onClose }: CbtA
                   : `Dapatkan analisis strategi perbaikan khusus materi yang salah (${weakText || 'materi terindikasi lemah'}) dan jadwal belajar 7 hari ke depan dari Gemini AI.`}
               </p>
               <button
-                onClick={handleGetAiRecommendation}
+                onClick={() => handleGetAiRecommendation()}
                 disabled={loadingAi}
                 className="px-6 py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-200 text-white text-xs font-bold rounded-xl transition-all cursor-pointer shadow-md shadow-blue-50 flex items-center justify-center gap-2 mx-auto"
               >
@@ -739,7 +884,7 @@ export default function CbtAnalysisReport({ report, userProfile, onClose }: CbtA
 
               <div className="flex items-center gap-2">
                 <button
-                  onClick={handleGetAiRecommendation}
+                  onClick={() => handleGetAiRecommendation()}
                   disabled={loadingAi}
                   className="px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-700 text-white text-xs font-bold rounded-xl transition-all cursor-pointer flex items-center gap-1.5 shadow-sm"
                 >
@@ -792,7 +937,7 @@ export default function CbtAnalysisReport({ report, userProfile, onClose }: CbtA
                     </p>
                   </div>
                   <button
-                    onClick={handleGetAiRecommendation}
+                    onClick={() => handleGetAiRecommendation()}
                     disabled={loadingAi}
                     className="px-8 py-3.5 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-300 text-white font-bold text-sm rounded-2xl shadow-lg shadow-blue-500/20 transition-all cursor-pointer flex items-center gap-2"
                   >

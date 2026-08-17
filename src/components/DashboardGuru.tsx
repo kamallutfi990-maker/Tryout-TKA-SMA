@@ -602,7 +602,9 @@ export default function DashboardGuru({ userProfile, onLogout }: DashboardGuruPr
                         <option>Matematika Umum</option>
                         <option>Matematika Lanjut</option>
                         <option>Bahasa Indonesia</option>
+                        <option>Bahasa Indonesia Tingkat Lanjut</option>
                         <option>Bahasa Inggris</option>
+                        <option>Bahasa Inggris Tingkat Lanjut</option>
                         <option>Fisika</option>
                         <option>Kimia</option>
                         <option>Biologi</option>
@@ -610,6 +612,7 @@ export default function DashboardGuru({ userProfile, onLogout }: DashboardGuruPr
                         <option>Geografi</option>
                         <option>Sejarah</option>
                         <option>Sosiologi</option>
+                        <option>PPKn (PKn)</option>
                       </select>
                     </div>
                   </div>
@@ -1116,7 +1119,9 @@ export default function DashboardGuru({ userProfile, onLogout }: DashboardGuruPr
                           <option>Matematika Umum</option>
                           <option>Matematika Lanjut</option>
                           <option>Bahasa Indonesia</option>
+                          <option>Bahasa Indonesia Tingkat Lanjut</option>
                           <option>Bahasa Inggris</option>
+                          <option>Bahasa Inggris Tingkat Lanjut</option>
                           <option>Fisika</option>
                           <option>Kimia</option>
                           <option>Biologi</option>
@@ -1124,6 +1129,7 @@ export default function DashboardGuru({ userProfile, onLogout }: DashboardGuruPr
                           <option>Geografi</option>
                           <option>Sejarah</option>
                           <option>Sosiologi</option>
+                          <option>PPKn (PKn)</option>
                         </select>
                       </div>
 

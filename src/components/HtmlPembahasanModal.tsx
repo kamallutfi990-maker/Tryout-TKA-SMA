@@ -4,7 +4,11 @@ import {
   PEMBAHASAN_TKA_MATEMATIKA_LANJUT_HTML,
   PEMBAHASAN_TKA_MATEMATIKA_WAJIB_HTML,
   PEMBAHASAN_TKA_BAHASA_INDONESIA_HTML,
-  PEMBAHASAN_TKA_BAHASA_INGGRIS_HTML
+  PEMBAHASAN_TKA_BAHASA_INGGRIS_HTML,
+  PEMBAHASAN_TKA_BAHASA_INDONESIA_LANJUT_HTML,
+  PEMBAHASAN_TKA_BAHASA_INGGRIS_LANJUT_HTML,
+  PEMBAHASAN_TKA_KIMIA_1_HTML,
+  PEMBAHASAN_TKA_BIOLOGI_1_HTML
 } from '../data/pembahasanTkaHtml';
 
 interface HtmlPembahasanModalProps {
@@ -27,6 +31,37 @@ export default function HtmlPembahasanModal({
   const resolveSubjectInfo = () => {
     const checkStr = `${subject || ''} ${title || ''}`.toLowerCase();
 
+    if (checkStr.includes('biologi') || checkStr.includes('biology')) {
+      return {
+        key: 'biologi',
+        label: 'Biologi',
+        badgeColor: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+        iconColor: 'bg-emerald-100 text-emerald-700',
+        html: PEMBAHASAN_TKA_BIOLOGI_1_HTML,
+        subLabel: 'Dokumen Pembahasan 20 Soal CBT TKA Biologi 1'
+      };
+    }
+
+    if (checkStr.includes('kimia') || checkStr.includes('chemistry')) {
+      return {
+        key: 'kimia',
+        label: 'Kimia',
+        badgeColor: 'bg-amber-50 text-amber-700 border-amber-200',
+        iconColor: 'bg-amber-100 text-amber-700',
+        html: PEMBAHASAN_TKA_KIMIA_1_HTML,
+        subLabel: 'Dokumen Pembahasan 20 Soal CBT TKA Kimia 1'
+      };
+    }
+    if ((checkStr.includes('inggris') || checkStr.includes('english')) && (checkStr.includes('lanjut') || checkStr.includes('tingkat lanjut'))) {
+      return {
+        key: 'inggris_lanjut',
+        label: 'Bahasa Inggris Tingkat Lanjut',
+        badgeColor: 'bg-sky-50 text-sky-700 border-sky-200',
+        iconColor: 'bg-sky-100 text-sky-700',
+        html: PEMBAHASAN_TKA_BAHASA_INGGRIS_LANJUT_HTML,
+        subLabel: 'Dokumen Pembahasan 20 Soal CBT TKA Bahasa Inggris Tingkat Lanjut'
+      };
+    }
     if (checkStr.includes('inggris') || checkStr.includes('english')) {
       return {
         key: 'inggris',
@@ -37,17 +72,27 @@ export default function HtmlPembahasanModal({
         subLabel: 'Dokumen Pembahasan 20 Soal CBT TKA Bahasa Inggris'
       };
     }
+    if ((checkStr.includes('indonesia') || checkStr.includes('indo')) && (checkStr.includes('lanjut') || checkStr.includes('tingkat lanjut'))) {
+      return {
+        key: 'indo_lanjut',
+        label: 'Bahasa Indonesia Tingkat Lanjut',
+        badgeColor: 'bg-rose-50 text-rose-700 border-rose-200',
+        iconColor: 'bg-rose-100 text-rose-700',
+        html: PEMBAHASAN_TKA_BAHASA_INDONESIA_LANJUT_HTML,
+        subLabel: 'Dokumen Pembahasan 20 Soal CBT TKA Bahasa Indonesia Tingkat Lanjut'
+      };
+    }
     if (checkStr.includes('indonesia') || checkStr.includes('indo')) {
       return {
         key: 'indo',
         label: 'Bahasa Indonesia',
-        badgeColor: 'bg-rose-50 text-rose-700 border-rose-200',
-        iconColor: 'bg-rose-100 text-rose-700',
+        badgeColor: 'bg-red-50 text-red-700 border-red-200',
+        iconColor: 'bg-red-100 text-red-700',
         html: PEMBAHASAN_TKA_BAHASA_INDONESIA_HTML,
         subLabel: 'Dokumen Pembahasan 20 Soal CBT TKA Bahasa Indonesia'
       };
     }
-    if (checkStr.includes('lanjut') || checkStr.includes('tingkat lanjut')) {
+    if (checkStr.includes('matematika') && (checkStr.includes('lanjut') || checkStr.includes('tingkat lanjut'))) {
       return {
         key: 'tka_lanjut',
         label: 'Matematika Tingkat Lanjut',
@@ -57,19 +102,24 @@ export default function HtmlPembahasanModal({
         subLabel: 'Dokumen Pembahasan 20 Soal CBT TKA Matematika Tingkat Lanjut'
       };
     }
-    return {
-      key: 'mtk_wajib',
-      label: 'Matematika Wajib',
-      badgeColor: 'bg-blue-50 text-blue-700 border-blue-200',
-      iconColor: 'bg-blue-100 text-blue-700',
-      html: PEMBAHASAN_TKA_MATEMATIKA_WAJIB_HTML,
-      subLabel: 'Dokumen Pembahasan 20 Soal CBT TKA / ANBK Matematika Wajib'
-    };
+    if (checkStr.includes('matematika') || checkStr.includes('math') || checkStr.includes('wajib')) {
+      return {
+        key: 'mtk_wajib',
+        label: 'Matematika Wajib',
+        badgeColor: 'bg-blue-50 text-blue-700 border-blue-200',
+        iconColor: 'bg-blue-100 text-blue-700',
+        html: PEMBAHASAN_TKA_MATEMATIKA_WAJIB_HTML,
+        subLabel: 'Dokumen Pembahasan 20 Soal CBT TKA / ANBK Matematika Wajib'
+      };
+    }
+    return null;
   };
 
   const subjectInfo = resolveSubjectInfo();
-  const currentHtml = htmlContent || subjectInfo.html;
-  const displayTitle = title || `Pembahasan Try Out CBT - ${subjectInfo.label}`;
+  if (!subjectInfo && !htmlContent) return null;
+
+  const currentHtml = htmlContent || subjectInfo?.html || '';
+  const displayTitle = title || `Pembahasan Try Out CBT - ${subjectInfo?.label || ''}`;
 
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-slate-900/80 backdrop-blur-sm p-2 sm:p-4 animate-fadeIn">

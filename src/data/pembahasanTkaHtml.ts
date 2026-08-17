@@ -1516,3 +1516,1510 @@ export const PEMBAHASAN_TKA_BAHASA_INGGRIS_HTML = `<!DOCTYPE html>
 
 </body>
 </html>`;
+
+export const PEMBAHASAN_TKA_BAHASA_INDONESIA_LANJUT_HTML = `<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pembahasan Try Out TKA Bahasa Indonesia Tingkat Lanjut</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            margin: 0;
+            padding: 24px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 32px;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #fecdd3;
+            padding-bottom: 20px;
+            margin-bottom: 28px;
+        }
+        .header h1 {
+            color: #be123c;
+            margin: 0 0 8px 0;
+            font-size: 22px;
+            font-weight: 800;
+        }
+        .header p {
+            color: #64748b;
+            margin: 0;
+            font-size: 13px;
+        }
+        .soal-box {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-left: 5px solid #e11d48;
+            padding: 20px;
+            margin-bottom: 24px;
+            border-radius: 0 12px 12px 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        }
+        .soal-header {
+            font-weight: 700;
+            color: #9f1239;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+        }
+        .tipe-badge {
+            background-color: #ffe4e6;
+            color: #be123c;
+            font-size: 11px;
+            padding: 3px 10px;
+            border-radius: 9999px;
+            font-weight: 600;
+        }
+        .jawaban-akhir {
+            margin-top: 14px;
+            background-color: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            color: #065f46;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 13px;
+        }
+        .section-title {
+            font-weight: 700;
+            color: #334155;
+            margin-top: 14px;
+            margin-bottom: 6px;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>KUNCI & PEMBAHASAN TKA BAHASA INDONESIA TINGKAT LANJUT (10 SOAL)</h1>
+        <p>Standar Pusmendik: Proposal Kegiatan, Apresiasi Puisi Huesca & Evaluasi Teks Ulasan Budaya Ciptagelar</p>
+    </div>
+
+    <!-- BAGIAN 1: PROPOSAL KEGIATAN (SOAL 1 - 3) -->
+    <div style="background:#fff1f2; border:1px solid #fecdd3; padding:16px; border-radius:12px; margin-bottom:20px; font-size:13px; line-height:1.6; color:#881337;">
+        <strong>BACAAN TEKS PROPOSAL KEGIATAN (Untuk Soal No. 1 s.d. 3):</strong><br/>
+        <em>Pemanfaatan Teknologi Digital untuk Meningkatkan Daya Saing UKM Pangan Lokal</em><br/>
+        Dalam beberapa tahun terakhir, perkembangan teknologi digital telah membuka peluang besar bagi pelaku Usaha Kecil dan Menengah (UKM), khususnya di sektor pangan lokal. Namun, banyak UKM yang belum mampu memanfaatkan teknologi secara optimal karena keterbatasan akses informasi, pelatihan, dan pendanaan. Berdasarkan survei yang dilakukan oleh Dinas Koperasi dan UKM Provinsi Jawa Barat pada 2023, hanya 35% UKM pangan yang aktif menggunakan platform digital untuk pemasaran...
+    </div>
+
+    <!-- Soal 1 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal 1 <span class="tipe-badge">Tabel Sesuai / Tidak Sesuai</span></span>
+            <span>Kesesuaian Usulan Program & Data Pendukung</span>
+        </div>
+        <p><strong>Soal:</strong> Dari pernyataan-pernyataan berikut, manakah pernyataan yang mengungkapkan kesesuaian antara usulan program dan data pendukung sesuai teks proposal tersebut?</p>
+        <ul>
+            <li><strong>Pernyataan 1:</strong> Usulan Program: Mengajukan program pelatihan digitalisasi bagi 100 pelaku UKM di tiga kabupaten. | Data Pendukung: Hanya 35% UKM pangan aktif menggunakan platform digital. &rarr; <strong>Sesuai</strong></li>
+            <li><strong>Pernyataan 2:</strong> Usulan Program: Mengusulkan pelatihan e-commerce, promosi digital, dan penggunaan dompet digital. | Data Pendukung: Nilai transaksi e-commerce nasional mencapai 476 triliun rupiah dan 60% berupa produk konsumsi termasuk pangan. &rarr; <strong>Sesuai</strong></li>
+            <li><strong>Pernyataan 3:</strong> Usulan Program: Meminta Kementerian turun langsung ke lapangan sebelum menyetujui usulan. | Data Pendukung: Data survei telah menunjukkan kebutuhan pelatihan tanpa menyebut perlunya kunjungan langsung oleh kementerian. &rarr; <strong>Tidak Sesuai</strong></li>
+        </ul>
+        <div class="section-title">Pembahasan Solusi:</div>
+        <p>Pernyataan 1 selaras dengan data survei 35% UKM digital yang melandasi urgensi usulan pelatihan. Pernyataan 2 selaras dengan data BI Rp476 triliun produk konsumsi rumah tangga yang mendasari pelatihan e-commerce dan dompet digital. Pernyataan 3 Tidak Sesuai karena proposal mengajukan anggaran Rp450 juta tanpa meminta kementerian turun langsung ke lapangan.</p>
+        <div class="jawaban-akhir">Kunci Jawaban: Sesuai, Sesuai, Tidak Sesuai</div>
+    </div>
+
+    <!-- Soal 2 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal 2 <span class="tipe-badge">Pilihan Ganda</span></span>
+            <span>Koherensi Antarparagraf</span>
+        </div>
+        <p><strong>Soal:</strong> Hubungan koherensi antara paragraf ke-2 dan ke-3 adalah ....</p>
+        <div class="section-title">Pembahasan Solusi:</div>
+        <p>Paragraf ke-2 memaparkan latar belakang alasan pengajuan (pergeseran tren transaksi konsumen ke daring 60% dan ketatnya persaingan produk industri), kemudian disambung secara koheren pada paragraf ke-3 dengan pengajuan program pelatihan "Digitalisasi UKM Pangan Lokal" yang diperkuat dengan rincian tujuan serta sasarannya.</p>
+        <div class="jawaban-akhir">Kunci Jawaban: (B) alasan pengajuan program pelatihan yang diperkuat tujuan</div>
+    </div>
+
+    <!-- Soal 3 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal 3 <span class="tipe-badge">Tabel Logis / Tidak Logis</span></span>
+            <span>Evaluasi Kelogisan Argumen</span>
+        </div>
+        <p><strong>Soal:</strong> Berdasarkan teks, manakah argumen yang logis dari pernyataan-pernyataan berikut?</p>
+        <ul>
+            <li><strong>Argumen 1:</strong> Program pelatihan penting karena teknologi digital pasti memperluas jejaring. &rarr; <strong>Tidak Logis</strong> (klaim mutlak kata "pasti" tanpa dasar rincian).</li>
+            <li><strong>Argumen 2:</strong> Program pelatihan penting karena teknologi digital tidak hanya memperluas pasar, tetapi juga menekan biaya distribusi, meningkatkan efisiensi, dan mempercepat proses transaksi. &rarr; <strong>Logis</strong> (didukung data paragraf ke-4).</li>
+            <li><strong>Argumen 3:</strong> Usulan program didasarkan pada data survei dan kebutuhan nyata di lapangan. &rarr; <strong>Logis</strong> (merujuk data survei Dinas Koperasi Jabar 2023 dan BI 2022).</li>
+        </ul>
+        <div class="jawaban-akhir">Kunci Jawaban: Tidak Logis, Logis, Logis</div>
+    </div>
+
+    <!-- BAGIAN 2: PUISI HUESCA (SOAL 4 - 6) -->
+    <div style="background:#fff1f2; border:1px solid #fecdd3; padding:16px; border-radius:12px; margin-bottom:20px; font-size:13px; line-height:1.6; color:#881337;">
+        <strong>KUTIPAN PUISI HUESCA (Untuk Soal No. 4 s.d. 6):</strong><br/>
+        <em>Karya John Cornford (Diterjemahkan oleh Chairil Anwar)</em><br/>
+        Huesca jiwa di dunia yang hilang / atas sayap kenangan padamu / adalah derita di sisiku / bayangan berkelebat tinjauan beku / angin bangkit ketika senja / ngingatkan musim gugur akan tiba / aku cemas bisa kehilangan kau / aku cemas pada kecemasanku sendiri / di batu penghabisan ke Huesca / batas terakhir dari kebanggaan kita / kenanglah sayang, dengan mesra / kau kubayangkan di sisiku ada / dan jika untung malang menghampirkan / aku dalam kuburan dangkal / ingatlah sebisu-segala yang indah / dan cintaku yang kekal.
+    </div>
+
+    <!-- Soal 4 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal 4 <span class="tipe-badge">Pilihan Ganda</span></span>
+            <span>Makna Kiasan Puisi</span>
+        </div>
+        <p><strong>Soal:</strong> Makna kiasan <em>batu penghabisan</em> dan <em>batas terakhir</em> memperjelas kondisi yang dialami aku lirik (penyair) tentang ....</p>
+        <div class="section-title">Pembahasan Solusi:</div>
+        <p>Frasa metaforis "batu penghabisan" dan "batas terakhir" merefleksikan batas akhir kehidupan dan momen perpisahan yang tak terhindarkan antara penyair dengan kekasihnya di front pertempuran Huesca.</p>
+        <div class="jawaban-akhir">Kunci Jawaban: (A) perpisahan antara penyair dengan orang yang dikasihi</div>
+    </div>
+
+    <!-- Soal 5 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal 5 <span class="tipe-badge">Pilihan Ganda</span></span>
+            <span>Citraan Penglihatan & Simbolik</span>
+        </div>
+        <p><strong>Soal:</strong> Makna citraan penglihatan <em>ketika senja</em> dan <em>musim gugur</em> mengkonkretkan gagasan penyair tentang ....</p>
+        <div class="section-title">Pembahasan Solusi:</div>
+        <p>Simbol citraan visual "senja" (penghujung hari) dan "musim gugur" (gugurnya kehidupan menjelang musim dingin/kematian) merupakan metafora konkret yang melambangkan fase menjelang akhir kehidupan manusia.</p>
+        <div class="jawaban-akhir">Kunci Jawaban: (E) kondisi menjelang akhir kehidupan</div>
+    </div>
+
+    <!-- Soal 6 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal 6 <span class="tipe-badge">Pilihan Ganda</span></span>
+            <span>Suasana Hati (Tone / Mood)</span>
+        </div>
+        <p><strong>Soal:</strong> Suasana hati yang muncul setelah membaca bait puisi tersebut adalah ....</p>
+        <div class="section-title">Pembahasan Solusi:</div>
+        <p>Larik "aku cemas bisa kehilangan kau / aku cemas pada kecemasanku sendiri" secara eksplisit membangun suasana hati kesedihan, duka mendalam, dan ketakutan kehilangan orang yang sangat dikasihi.</p>
+        <div class="jawaban-akhir">Kunci Jawaban: (D) kesedihan karena takut kehilangan orang terkasih</div>
+    </div>
+
+    <!-- BAGIAN 3: TEKS ULASAN KAMPUNG ADAT CIPTAGELAR (SOAL 7 - 10) -->
+    <div style="background:#fff1f2; border:1px solid #fecdd3; padding:16px; border-radius:12px; margin-bottom:20px; font-size:13px; line-height:1.6; color:#881337;">
+        <strong>BACAAN TEKS ULASAN KAMPUNG ADAT CIPTAGELAR (Untuk Soal No. 7 s.d. 10):</strong><br/>
+        Memuat Teks Digital (Ulasan Pengunjung: Rini Kartika, Arif Nugroho, Linda Mariana, Bagas Permana, Melati Dewi) dan Teks Cetak (Eksplorasi Budaya yang Otentik di Kampung Adat Ciptagelar).
+    </div>
+
+    <!-- Soal 7 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal 7 <span class="tipe-badge">Pilihan Ganda Kompleks (Checkbox)</span></span>
+            <span>Kalimat Evaluasi Opini</span>
+        </div>
+        <p><strong>Soal:</strong> Manakah kalimat yang menyatakan evaluasi dalam teks ulasan cetak dan ulasan digital tersebut? (Pilihan jawaban benar lebih dari satu)</p>
+        <ul>
+            <li>&check; <strong>Opsi 1:</strong> Saya merasa seperti kembali ke masa lalu, hidup dalam harmoni dengan alam. (Evaluasi reflektif Rini Kartika)</li>
+            <li>&check; <strong>Opsi 3:</strong> Menurut saya, pernyataan 'semua orang pasti jatuh cinta' terlalu menggeneralisasi. (Evaluasi kritis Bagas Permana)</li>
+            <li>&check; <strong>Opsi 5:</strong> Kekuatan desa ini bukan pada fasilitas wisata modern, melainkan pada kesederhanaan hidup yang penuh makna. (Evaluasi penutup pengulas cetak)</li>
+        </ul>
+        <div class="jawaban-akhir">Kunci Jawaban: Opsi 1, 3, dan 5 dicentang</div>
+    </div>
+
+    <!-- Soal 8 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal 8 <span class="tipe-badge">Tabel Tepat / Tidak Tepat</span></span>
+            <span>Pilihan Kata Kesederhanaan</span>
+        </div>
+        <p><strong>Soal:</strong> Manakah pilihan kata yang tepat untuk menggambarkan kesederhanaan Kampung Ciptagelar?</p>
+        <ul>
+            <li><strong>Kalimat 1:</strong> Suasana yang jauh dari kebisingan kota ini dianggap cocok bagi siapa pun yang ingin beristirahat sekaligus belajar dari kearifan lokal. &rarr; <strong>Tepat</strong></li>
+            <li><strong>Kalimat 2:</strong> Tempat ini bukan sekadar destinasi, tetapi ruang untuk menyelami makna hidup yang sederhana namun bermakna. &rarr; <strong>Tepat</strong></li>
+            <li><strong>Kalimat 3:</strong> Kampung ini menawarkan kehidupan masyarakat adat Sunda yang masih memegang teguh nilai-nilai adat dan tata cara warisan leluhur. &rarr; <strong>Tidak Tepat</strong> (menekankan aspek ketaatan adat leluhur secara umum, bukan kesederhanaan).</li>
+        </ul>
+        <div class="jawaban-akhir">Kunci Jawaban: Tepat, Tepat, Tidak Tepat</div>
+    </div>
+
+    <!-- Soal 9 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal 9 <span class="tipe-badge">Pilihan Ganda Kompleks (Checkbox)</span></span>
+            <span>Kalimat Majemuk Setara Koordinatif</span>
+        </div>
+        <p><strong>Soal:</strong> Manakah kalimat yang merupakan kalimat majemuk setara dalam teks ulasan digital dan cetak tersebut? (Pilihan jawaban benar lebih dari satu)</p>
+        <ul>
+            <li>&check; <strong>Opsi 2:</strong> Namun, ia juga mencatat perlunya peningkatan informasi daring terkait aturan kunjungan agar wisatawan baru lebih <em>siap dan nyaman</em>. (Setara koordinatif predikatif)</li>
+            <li>&check; <strong>Opsi 4:</strong> Kami merasa sangat dihargai sebagai tamu, <em>dan</em> pengalaman berinteraksi langsung dengan masyarakat adat memberikan kesan yang sulit dilupakan. (Setara penggabungan konjungsi 'dan')</li>
+            <li>&check; <strong>Opsi 5:</strong> Ia mengikuti tur budaya yang dipandu oleh sesepuh adat <em>dan</em> merasakan kedalaman nilai-nilai spiritual yang dijunjung tinggi oleh masyarakat. (Setara penggabungan predikat)</li>
+        </ul>
+        <div class="jawaban-akhir">Kunci Jawaban: Opsi 2, 4, dan 5 dicentang</div>
+    </div>
+
+    <!-- Soal 10 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal 10 <span class="tipe-badge">Tabel Sesuai / Tidak Sesuai</span></span>
+            <span>Kesesuaian Ulasan & Fakta</span>
+        </div>
+        <p><strong>Soal:</strong> Manakah pernyataan yang mengungkapkan kesesuaian antara ulasan dan fakta dalam teks ulasan digital dan cetak tersebut?</p>
+        <ul>
+            <li><strong>Pernyataan 1:</strong> Ulasan: Tempat ini cocok untuk siapa pun yang ingin rehat dari hiruk-pikuk kota. | Fakta: Suasana kampung yang tenang, sejuk, dan jauh dari kebisingan kota. &rarr; <strong>Sesuai</strong></li>
+            <li><strong>Pernyataan 2:</strong> Ulasan: Semua orang pasti akan jatuh cinta pada keunikan Ciptagelar. | Fakta: Tidak semua pengunjung merasa nyaman, seperti ulasan Bagas Permana. &rarr; <strong>Tidak Sesuai</strong></li>
+            <li><strong>Pernyataan 3:</strong> Ulasan: Saya merasa seperti kembali ke masa lalu, hidup dalam harmoni dengan alam. | Fakta: Kehidupan tradisional tanpa listrik, penuh nilai adat dan kesederhanaan. &rarr; <strong>Sesuai</strong></li>
+        </ul>
+        <div class="jawaban-akhir">Kunci Jawaban: Sesuai, Tidak Sesuai, Sesuai</div>
+    </div>
+</div>
+
+</body>
+</html>`;
+
+export const PEMBAHASAN_TKA_BAHASA_INGGRIS_LANJUT_HTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Answer Key & Solutions - Advanced English TKA SMA</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            margin: 0;
+            padding: 24px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 32px;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #bae6fd;
+            padding-bottom: 20px;
+            margin-bottom: 28px;
+        }
+        .header h1 {
+            color: #0369a1;
+            margin: 0 0 8px 0;
+            font-size: 22px;
+            font-weight: 800;
+        }
+        .header p {
+            color: #64748b;
+            margin: 0;
+            font-size: 13px;
+        }
+        .soal-box {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-left: 5px solid #0284c7;
+            padding: 20px;
+            margin-bottom: 24px;
+            border-radius: 0 12px 12px 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        }
+        .soal-header {
+            font-weight: 700;
+            color: #075985;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+        }
+        .tipe-badge {
+            background-color: #e0f2fe;
+            color: #0369a1;
+            font-size: 11px;
+            padding: 3px 10px;
+            border-radius: 9999px;
+            font-weight: 600;
+        }
+        .jawaban-akhir {
+            margin-top: 14px;
+            background-color: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            color: #065f46;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 13px;
+        }
+        .section-title {
+            font-weight: 700;
+            color: #334155;
+            margin-top: 14px;
+            margin-bottom: 6px;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>ANSWER KEYS & EXPLANATIONS: ADVANCED ENGLISH TKA SMA</h1>
+        <p>HOTS Academic Modules: Rhetoric, Inversion, Intergenerational Ethics, Epistemic Synthesis & Nuanced Lexicon</p>
+    </div>
+
+    <!-- Question 1 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Question 1 <span class="tipe-badge">Paradox Identification</span></span>
+            <span>Digital Hyperconnectivity</span>
+        </div>
+        <p><strong>Question:</strong> What primary paradox is highlighted in the opening paragraph?</p>
+        <div class="section-title">Detailed Explanation:</div>
+        <p>The passage explicitly states that despite being technically more reachable than ever, individuals report unprecedented zeniths of social isolation and cognitive fragmentation.</p>
+        <div class="jawaban-akhir">Correct Answer: B (Unprecedented technical reachability coincides with increasing feelings of social alienation and cognitive fragmentation)</div>
+    </div>
+
+    <!-- Question 2 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Question 2 <span class="tipe-badge">Cause & Effect</span></span>
+            <span>Algorithmic Echo Chambers</span>
+        </div>
+        <p><strong>Question:</strong> How do recommendation algorithms erode collective epistemic trust?</p>
+        <div class="section-title">Explanation:</div>
+        <p>Paragraph 2 emphasizes that recommendation algorithms feed confirmation biases and create ideological echo chambers that calcify tribal mentalities.</p>
+        <div class="jawaban-akhir">Correct Answer: B (By fostering ideological echo chambers that reinforce tribal biases through affective polarization)</div>
+    </div>
+
+    <!-- Question 3 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Question 3 <span class="tipe-badge">Vocabulary in Context</span></span>
+            <span>Calcifying</span>
+        </div>
+        <p><strong>Question:</strong> Meaning of 'calcifying' in the context of ideological positions?</p>
+        <div class="section-title">Explanation:</div>
+        <p>'Calcifying' metaphorically means hardening, solidifying, and making perspectives rigid or unyielding to reason.</p>
+        <div class="jawaban-akhir">Correct Answer: A (Solidifying and making unyielding)</div>
+    </div>
+
+    <!-- Question 4 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Question 4 <span class="tipe-badge">Tone Analysis</span></span>
+            <span>Author's Attitude</span>
+        </div>
+        <p><strong>Question:</strong> Tone of the final concluding paragraph?</p>
+        <div class="section-title">Explanation:</div>
+        <p>The author advocates constructive solutions involving structural redesign and pedagogical reforms to address the issue.</p>
+        <div class="jawaban-akhir">Correct Answer: B (Constructive and reform-oriented, urging structural and pedagogical interventions)</div>
+    </div>
+
+    <!-- Question 5 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Question 5 <span class="tipe-badge">Ethical Philosophy</span></span>
+            <span>Usufructuary Trust</span>
+        </div>
+        <p><strong>Question:</strong> What does 'usufructuary trust' entail regarding planetary resources?</p>
+        <div class="section-title">Explanation:</div>
+        <p>A usufructuary trust permits the present generation to benefit from ecological resources while maintaining their vitality for future generations.</p>
+        <div class="jawaban-akhir">Correct Answer: B (Current generations may utilize natural resources but are morally obligated to preserve their ecological integrity for future generations)</div>
+    </div>
+
+    <!-- Question 6 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Question 6 <span class="tipe-badge">Inference</span></span>
+            <span>Moral Asymmetry</span>
+        </div>
+        <p><strong>Question:</strong> Why does moral asymmetry exist between present and unborn generations?</p>
+        <div class="section-title">Explanation:</div>
+        <p>Future persons bear the catastrophic consequences of modern environmental degradation but possess zero contemporary voting or legislative power.</p>
+        <div class="jawaban-akhir">Correct Answer: B (Future persons cannot participate in or influence contemporary legislative and economic decisions that affect their environment)</div>
+    </div>
+
+    <!-- Question 7 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Question 7 <span class="tipe-badge">Metaphor Analysis</span></span>
+            <span>Temporal Myopia</span>
+        </div>
+        <p><strong>Question:</strong> Meaning of 'temporal myopia' in environmental policymaking?</p>
+        <div class="section-title">Explanation:</div>
+        <p>'Temporal myopia' denotes short-sighted decision-making that prioritizes immediate economic gains over long-term planetary viability.</p>
+        <div class="jawaban-akhir">Correct Answer: A (Shortsightedness that prioritizes immediate benefits over long-term planetary consequences)</div>
+    </div>
+
+    <!-- Question 8 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Question 8 <span class="tipe-badge">True/False Table</span></span>
+            <span>Climate Ethics</span>
+        </div>
+        <p><strong>Statements Evaluation:</strong></p>
+        <ul>
+            <li>High discount rates devalue future welfare: <strong>True</strong></li>
+            <li>Future generations have equal parliamentary votes: <strong>False</strong></li>
+            <li>Carbon emissions inflict trans-temporal harms: <strong>True</strong></li>
+        </ul>
+        <div class="jawaban-akhir">Correct Answer: S1 (True), S2 (False), S3 (True)</div>
+    </div>
+
+    <!-- Question 9 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Question 9 <span class="tipe-badge">Epistemology</span></span>
+            <span>Linguistic Understanding in AI</span>
+        </div>
+        <p><strong>Question:</strong> Core epistemological dispute regarding LLMs?</p>
+        <div class="section-title">Explanation:</div>
+        <p>The central philosophical tension is whether probabilistic token prediction across vast datasets constitutes genuine semantic comprehension and intentionality.</p>
+        <div class="jawaban-akhir">Correct Answer: A (Statistical token manipulation can be equated with genuine semantic understanding and intentionality)</div>
+    </div>
+
+    <!-- Question 10 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Question 10 <span class="tipe-badge">Scientific Theory</span></span>
+            <span>Stochastic Parrot Concept</span>
+        </div>
+        <p><strong>Question:</strong> What does the 'stochastic parrot' hypothesis argue?</p>
+        <div class="section-title">Explanation:</div>
+        <p>It asserts that language models manipulate syntax probabilistically without true causal comprehension or grounding in experiential reality.</p>
+        <div class="jawaban-akhir">Correct Answer: B (Produce syntactically coherent text probabilistically without physical grounding or causal models)</div>
+    </div>
+
+    <!-- Question 11 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Question 11 <span class="tipe-badge">Advanced Syntax</span></span>
+            <span>Inverted 3rd Conditional</span>
+        </div>
+        <p><strong>Question:</strong> Inverted subjunctive form of "If the committee had scrutinized..."?</p>
+        <div class="section-title">Explanation:</div>
+        <p>In formal inverted third conditional structures, 'If + subject + had + V3' transforms into 'Had + subject + V3'.</p>
+        <div class="jawaban-akhir">Correct Answer: A (Had the regulatory committee scrutinized the financial audit more rigorously, the fraudulent transactions would have been thwarted.)</div>
+    </div>
+
+    <!-- Question 12 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Question 12 <span class="tipe-badge">Syntax</span></span>
+            <span>Negative Adverb Inversion</span>
+        </div>
+        <p><strong>Question:</strong> Correct word order following initial negative adverb 'Seldom'?</p>
+        <div class="section-title">Explanation:</div>
+        <p>Fronted restrictive adverbs require subject-auxiliary inversion: "Seldom have literary critics witnessed...".</p>
+        <div class="jawaban-akhir">Correct Answer: A (have literary critics witnessed)</div>
+    </div>
+
+    <!-- Question 13 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Question 13 <span class="tipe-badge">Discourse Markers</span></span>
+            <span>Concessive Connectors</span>
+        </div>
+        <p><strong>Question:</strong> Appropriate connector for contrasting efficacy with high manufacturing cost?</p>
+        <div class="section-title">Explanation:</div>
+        <p>'Nonetheless' introduces a direct concession and contrast between positive lab findings and practical hurdles.</p>
+        <div class="jawaban-akhir">Correct Answer: A (nonetheless)</div>
+    </div>
+
+    <!-- Question 14 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Question 14 <span class="tipe-badge">Information Focus</span></span>
+            <span>Cleft Sentences</span>
+        </div>
+        <p><strong>Question:</strong> It-cleft structure emphasizing the location of discovery?</p>
+        <div class="section-title">Explanation:</div>
+        <p>An it-cleft emphasizing the prepositional phrase follows: "It was [during the polar expedition] that Dr. Aris discovered the novel enzyme."</p>
+        <div class="jawaban-akhir">Correct Answer: A (It was during the polar expedition that Dr. Aris discovered the novel enzyme.)</div>
+    </div>
+
+    <!-- Question 15 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Question 15 <span class="tipe-badge">Rhetoric</span></span>
+            <span>Fallacy Identification</span>
+        </div>
+        <p><strong>Question:</strong> Fallacy committed in appealing to physicists on environmental policy?</p>
+        <div class="section-title">Explanation:</div>
+        <p>Citing expertise outside its direct disciplinary domain combined with dismissing dissenters as uneducated commits Appeal to Inappropriate Authority & False Dilemma.</p>
+        <div class="jawaban-akhir">Correct Answer: A (Appeal to Inappropriate Authority & False Dilemma)</div>
+    </div>
+
+    <!-- Question 16 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Question 16 <span class="tipe-badge">Lexical Connotation</span></span>
+            <span>Nuanced Adjectives</span>
+        </div>
+        <p><strong>Question:</strong> Positive term for diplomatic insight and discernment?</p>
+        <div class="section-title">Explanation:</div>
+        <p>'Astute' carries a highly respectable connotation of sharp discernment and wisdom, whereas 'cunning' and 'crafty' carry pejorative overtones.</p>
+        <div class="jawaban-akhir">Correct Answer: A (Astute)</div>
+    </div>
+
+    <!-- Question 17 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Question 17 <span class="tipe-badge">Grammar</span></span>
+            <span>Mandative Subjunctive</span>
+        </div>
+        <p><strong>Question:</strong> Strict formal subjunctive after 'recommended that'?</p>
+        <div class="section-title">Explanation:</div>
+        <p>The mandative subjunctive requires the base form of the verb: "recommended that the algorithm be subjected...".</p>
+        <div class="jawaban-akhir">Correct Answer: A (The ethics oversight board recommended that the controversial algorithm be subjected to an independent audit before public rollout.)</div>
+    </div>
+
+    <!-- Question 18 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Question 18 <span class="tipe-badge">Critical Synthesis</span></span>
+            <span>Reconciling Perspectives</span>
+        </div>
+        <p><strong>Question:</strong> Optimal synthesis of worker autonomy and teamwork innovation?</p>
+        <div class="section-title">Explanation:</div>
+        <p>An effective synthesis acknowledges the strengths of both arguments while proposing a balanced hybrid model.</p>
+        <div class="jawaban-akhir">Correct Answer: A (While remote work fosters individual flexibility and ecological benefits, organizations must devise hybrid structures to prevent the erosion of collaborative synergy.)</div>
+    </div>
+
+    <!-- Question 19 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Question 19 <span class="tipe-badge">Coherence</span></span>
+            <span>Avoiding Dangling Modifiers</span>
+        </div>
+        <p><strong>Question:</strong> Sentence with correct participle subject agreement?</p>
+        <div class="section-title">Explanation:</div>
+        <p>The subject following the introductory participle clause "Having synthesized..." must be the agents who performed the synthesis (the researchers).</p>
+        <div class="jawaban-akhir">Correct Answer: A (Having synthesized the biochemical compound, the researchers documented the reaction rates in their laboratory ledger.)</div>
+    </div>
+
+    <!-- Question 20 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Question 20 <span class="tipe-badge">Academic Conventions</span></span>
+            <span>Stylistic Norms</span>
+        </div>
+        <p><strong>Statements Evaluation:</strong></p>
+        <ul>
+            <li>Hedging prevents unsubstantiated absolutes: <strong>True</strong></li>
+            <li>Colloquialisms & contractions are encouraged: <strong>False</strong></li>
+            <li>Nominalization is standard in academic registers: <strong>True</strong></li>
+        </ul>
+        <div class="jawaban-akhir">Correct Answer: S1 (True), S2 (False), S3 (True)</div>
+    </div>
+</div>
+
+</body>
+</html>`;
+
+export const PEMBAHASAN_TKA_KIMIA_1_HTML = `<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pembahasan Try Out TKA Kimia 1</title>
+    <!-- MathJax Configuration & Library -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\\\(', '\\\\)']],
+          displayMath: [['$$', '$$'], ['\\\\[', '\\\\]']]
+        }
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            margin: 0;
+            padding: 24px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 32px;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            border: 1px solid #e2e8f0;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 20px;
+            margin-bottom: 28px;
+        }
+        .header h1 {
+            color: #d97706;
+            margin: 0 0 8px 0;
+            font-size: 22px;
+            font-weight: 800;
+        }
+        .header p {
+            color: #64748b;
+            margin: 0;
+            font-size: 13px;
+        }
+        .soal-box {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-left: 5px solid #d97706;
+            padding: 20px;
+            margin-bottom: 24px;
+            border-radius: 0 12px 12px 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        }
+        .soal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+            color: #b45309;
+            margin-bottom: 12px;
+            border-bottom: 1px dashed #e2e8f0;
+            padding-bottom: 8px;
+            font-size: 14px;
+        }
+        .tipe-badge {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+        .section-title {
+            font-weight: 700;
+            color: #0f172a;
+            margin-top: 14px;
+            margin-bottom: 6px;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .jawaban-akhir {
+            background-color: #fef9c3;
+            color: #854d0e;
+            font-weight: bold;
+            padding: 10px 14px;
+            border-radius: 8px;
+            margin-top: 14px;
+            border: 1px solid #fde047;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+        }
+        ul, ol {
+            margin: 8px 0;
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 4px;
+        }
+        pre {
+            background: #f1f5f9;
+            padding: 12px;
+            border-radius: 8px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 13px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>PEMBAHASAN RESMI TRY OUT TKA KIMIA 1</h1>
+        <p>Solusi Langkah Demi Langkah Berdasarkan Analisis Stoikiometri, Konseptual & Kurikulum Merdeka TKA SMA</p>
+    </div>
+
+    <!-- Soal 1 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal Nomor 1 <span class="tipe-badge">Pilihan Ganda</span></span>
+            <span>Larutan Penyangga (Buffer Asam)</span>
+        </div>
+        <p><strong>Data:</strong></p>
+        <ul>
+            <li>Volume asam asetat ($\\text{CH}_3\\text{COOH}$) = $20\\text{ mL}$, Konsentrasi = $0{,}1\\text{ M}$</li>
+            <li>Volume natrium asetat ($\\text{CH}_3\\text{COONa}$) = $20\\text{ mL}$, Konsentrasi = $0{,}1\\text{ M}$</li>
+            <li>Tetapan ionisasi $K_a = 1 \\times 10^{-5}$</li>
+        </ul>
+        <div class="section-title">Langkah Penyelesaian:</div>
+        <ul>
+            <li>Hitung mol masing-masing zat:<br>
+                $\\text{mol } \\text{CH}_3\\text{COOH} = 20\\text{ mL} \\times 0{,}1\\text{ M} = 2\\text{ mmol}$<br>
+                $\\text{mol } \\text{CH}_3\\text{COONa} = 20\\text{ mL} \\times 0{,}1\\text{ M} = 2\\text{ mmol}$
+            </li>
+            <li>Hitung $[\\text{H}^+]$ menggunakan rumus buffer asam:<br>
+                $$[\\text{H}^+] = K_a \\times \\frac{\\text{mol asam}}{\\text{mol garam}} = (1 \\times 10^{-5}) \\times \\frac{2}{2} = 1 \\times 10^{-5}\\text{ M}$$
+            </li>
+            <li>Hitung $\\text{pH}$:<br>
+                $$\\text{pH} = -\\log[\\text{H}^+] = -\\log(1 \\times 10^{-5}) = 5$$
+            </li>
+        </ul>
+        <div class="jawaban-akhir">Jawaban: B (5)</div>
+    </div>
+
+    <!-- Soal 2 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal Nomor 2 <span class="tipe-badge">Pilihan Ganda</span></span>
+            <span>Identifikasi Atom Karbon (Kimia Organik)</span>
+        </div>
+        <p><strong>Struktur Senyawa:</strong></p>
+        <pre>
+          CH₃ (f)
+        |
+CH₃ - CH₂ - CH₂ - C  -  CH - CH₃ (g)
+(a)   (b)   (c)   |     |
+                 CH₃(d) CH₃ (e)
+        </pre>
+        <div class="section-title">Klasifikasi Atom Karbon:</div>
+        <ul>
+            <li><strong>C Primer ($1^\\circ$):</strong> Mengikat 1 atom C lain $\\rightarrow$ gugus $-\\text{CH}_3$ pada (a), (d), (f), (g), (e) $\\rightarrow$ <strong>5 buah</strong>.</li>
+            <li><strong>C Sekunder ($2^\\circ$):</strong> Mengikat 2 atom C lain $\\rightarrow$ gugus $-\\text{CH}_2-$ pada (b), (c) $\\rightarrow$ <strong>2 buah</strong>.</li>
+            <li><strong>C Tersier ($3^\\circ$):</strong> Mengikat 3 atom C lain $\\rightarrow$ gugus $-\\text{CH}-$ yang mengikat dua $-\\text{CH}_3$ dan satu C kuartener $\\rightarrow$ <strong>1 buah</strong>.</li>
+            <li><strong>C Kuartener ($4^\\circ$):</strong> Mengikat 4 atom C lain $\\rightarrow$ atom C pusat $\\rightarrow$ <strong>1 buah</strong>.</li>
+        </ul>
+        <div class="jawaban-akhir">Jawaban: C (5 dan 1)</div>
+    </div>
+
+    <!-- Soal 3 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal Nomor 3 <span class="tipe-badge">Menjodohkan / Matriks</span></span>
+            <span>Variabel Penelitian Kimia</span>
+        </div>
+        <div class="section-title">Analisis Variabel:</div>
+        <ul>
+            <li><strong>Variabel Bebas:</strong> Faktor yang sengaja dimanipulasi/diubah $\\rightarrow$ <strong>Suhu</strong> (karena diubah: "Ketika suhu dinaikkan...").</li>
+            <li><strong>Variabel Terikat:</strong> Faktor yang merespons/berubah akibat variabel bebas $\\rightarrow$ <strong>Warna</strong> (warna campuran menjadi semakin pekat).</li>
+            <li><strong>Variabel Terkontrol:</strong> Faktor yang dijaga konstan selama pengujian $\\rightarrow$ <strong>Volume</strong> (dalam suatu wadah tertutup dengan volume tertentu).</li>
+        </ul>
+        <div class="jawaban-akhir">Jawaban: Suhu = Variabel Bebas, Volume = Variabel Terkontrol, Warna = Variabel Terikat</div>
+    </div>
+
+    <!-- Soal 4 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal Nomor 4 <span class="tipe-badge">Pilihan Ganda</span></span>
+            <span>Laju Reaksi</span>
+        </div>
+        <p><strong>Data dari Grafik:</strong></p>
+        <ul>
+            <li>Pada saat $t = 0\\text{ s}$, $[\\text{SO}_3] = 4\\text{ M}$</li>
+            <li>Pada saat $t = 40\\text{ s}$, $[\\text{SO}_3] = 2\\text{ M}$</li>
+            <li>$\\Delta t = 40 - 0 = 40\\text{ detik}$</li>
+            <li>$\\Delta[\\text{SO}_3] = 4 - 2 = 2\\text{ M}$</li>
+        </ul>
+        <div class="section-title">Perhitungan Laju:</div>
+        <p>$$v = -\\frac{\\Delta[\\text{SO}_3]}{\\Delta t} = \\frac{2\\text{ M}}{40\\text{ detik}} = 0{,}05\\text{ M/detik} = 5{,}0 \\times 10^{-2}\\text{ M/detik}$$</p>
+        <div class="jawaban-akhir">Jawaban: E (5,0 × 10⁻² M/detik)</div>
+    </div>
+
+    <!-- Soal 5 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal Nomor 5 <span class="tipe-badge">Pilihan Ganda</span></span>
+            <span>Netralisasi Asam-Basa</span>
+        </div>
+        <p><strong>Syarat Reaksi Tepat Netral (Habis Bereaksi):</strong> $\\text{mol } \\text{H}^+ = \\text{mol } \\text{OH}^-$</p>
+        <div class="section-title">Perhitungan Masing-Masing:</div>
+        <ul>
+            <li>(1) $10\\text{ mL } \\text{HCl } 0{,}1\\text{ M} \\rightarrow 10 \\times 0{,}1 \\times 1 = 1\\text{ mmol } \\text{H}^+$</li>
+            <li>(2) $10\\text{ mL } \\text{NaOH } 0{,}2\\text{ M} \\rightarrow 10 \\times 0{,}2 \\times 1 = 2\\text{ mmol } \\text{OH}^-$</li>
+            <li>(3) $10\\text{ mL } \\text{H}_2\\text{SO}_4\\text{ } 0{,}1\\text{ M} \\rightarrow 10 \\times 0{,}1 \\times 2 = 2\\text{ mmol } \\text{H}^+$</li>
+            <li>(4) $20\\text{ mL } \\text{Mg(OH)}_2\\text{ } 0{,}2\\text{ M} \\rightarrow 20 \\times 0{,}2 \\times 2 = 8\\text{ mmol } \\text{OH}^-$</li>
+        </ul>
+        <p>Larutan (2) menghasilkan $2\\text{ mmol } \\text{OH}^-$ dan larutan (3) menghasilkan $2\\text{ mmol } \\text{H}^+$, sehingga tepat habis bereaksi membentuk garam netral $\\text{Na}_2\\text{SO}_4$.</p>
+        <div class="jawaban-akhir">Jawaban: B ((2) dan (3))</div>
+    </div>
+
+    <!-- Soal 6 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal Nomor 6 <span class="tipe-badge">Pilihan Ganda</span></span>
+            <span>Bentuk Molekul & Hibridisasi</span>
+        </div>
+        <div class="section-title">Analisis Struktur:</div>
+        <ul>
+            <li>Konfigurasi atom pusat $_7\\text{Q}$: $2, 5$ (elektron valensi = 5).</li>
+            <li>Konfigurasi atom terikat $_9\\text{Z}$: $2, 7$ (membutuhkan 1 elektron).</li>
+            <li>Molekul $\\text{QZ}_3$:
+                <ul>
+                    <li>Pasangan Elektron Ikatan (PEI) = 3</li>
+                    <li>Pasangan Elektron Bebas (PEB) = $\\frac{5 - 3(1)}{2} = 1$</li>
+                </ul>
+            </li>
+            <li>Tipe Molekul: $\\text{AX}_3\\text{E}$
+                <ul>
+                    <li>Domain elektron = $3 + 1 = 4 \\rightarrow \\text{Hibridisasi } sp^3$</li>
+                    <li>Geometri: <strong>Segitiga piramida (Trigonal piramida)</strong></li>
+                    <li>Kepolaran: Memiliki PEB sehingga bentuk asimetris $\\rightarrow$ <strong>Polar</strong></li>
+                </ul>
+            </li>
+        </ul>
+        <div class="jawaban-akhir">Jawaban: D (sp³; segitiga piramida; polar)</div>
+    </div>
+
+    <!-- Soal 7 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal Nomor 7 <span class="tipe-badge">Pilihan Ganda</span></span>
+            <span>Penyetaraan Reaksi Kimia</span>
+        </div>
+        <p>Persamaan reaksi: $a\\text{ }\\text{SO}_2 + b\\text{ }\\text{O}_2 \\rightarrow c\\text{ }\\text{SO}_3$</p>
+        <div class="section-title">Penyetaraan:</div>
+        <ul>
+            <li>Atom S: $a = c$</li>
+            <li>Atom O: $2a + 2b = 3c$</li>
+            <li>Jika $a = 2 \\rightarrow c = 2$, maka $2(2) + 2b = 3(2) \\Rightarrow 4 + 2b = 6 \\Rightarrow 2b = 2 \\Rightarrow b = 1$.</li>
+            <li>Persamaan setara: $2\\text{ }\\text{SO}_2 + 1\\text{ }\\text{O}_2 \\rightarrow 2\\text{ }\\text{SO}_3$</li>
+        </ul>
+        <div class="jawaban-akhir">Jawaban: C (2, 1, dan 2)</div>
+    </div>
+
+    <!-- Soal 8 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal Nomor 8 <span class="tipe-badge">Pilihan Ganda</span></span>
+            <span>Hasil Kali Kelarutan (Ksp) & Ion Senama</span>
+        </div>
+        <div class="section-title">Perhitungan:</div>
+        <ul>
+            <li>$\\text{mol } \\text{Ag}^+ = 50\\text{ mL} \\times 0{,}01\\text{ M} = 0{,}5\\text{ mmol}$</li>
+            <li>$\\text{mol } \\text{Cl}^- = 50\\text{ mL} \\times 0{,}03\\text{ M} = 1{,}5\\text{ mmol}$</li>
+            <li>Volume total = $100\\text{ mL}$</li>
+            <li>Reaksi pengendapan: $\\text{Ag}^+ + \\text{Cl}^- \\rightarrow \\text{AgCl}(s)$</li>
+            <li>Sisa mol $\\text{Cl}^- = 1{,}5 - 0{,}5 = 1{,}0\\text{ mmol}$</li>
+            <li>$[\\text{Cl}^-] = \\frac{1{,}0\\text{ mmol}}{100\\text{ mL}} = 0{,}01\\text{ M} = 10^{-2}\\text{ M}$</li>
+            <li>$[\\text{Ag}^+] = \\frac{K_{sp}}{[\\text{Cl}^-]} = \\frac{1 \\times 10^{-10}}{10^{-2}} = 1 \\times 10^{-8}\\text{ M}$</li>
+        </ul>
+        <div class="jawaban-akhir">Jawaban: B (1 × 10⁻⁸ M)</div>
+    </div>
+
+    <!-- Soal 9 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal Nomor 9 <span class="tipe-badge">Pilihan Ganda</span></span>
+            <span>Sifat Koligatif Larutan (Titik Beku)</span>
+        </div>
+        <div class="section-title">Penjelasan:</div>
+        <ul>
+            <li>Rumus: $\\Delta T_f = m \\times K_f \\times i$</li>
+            <li>Urea: nonelektrolit ($i = 1$).</li>
+            <li>$\\text{NaCl}$: elektrolit kuat biner (terurai menjadi 2 ion, $\\text{Na}^+$ dan $\\text{Cl}^-$) sehingga $i = 2$.</li>
+            <li>Maka penurunan titik beku $\\text{NaCl}$ bernilai 2 kali lebih besar dari urea karena $\\text{NaCl}$ adalah garam biner ($i = 2$).</li>
+        </ul>
+        <div class="jawaban-akhir">Jawaban: D (NaCl adalah garam biner)</div>
+    </div>
+
+    <!-- Soal 10 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal Nomor 10 <span class="tipe-badge">Pilihan Ganda</span></span>
+            <span>Korosi Logam Besi</span>
+        </div>
+        <div class="section-title">Analisis Laju Korosi:</div>
+        <ul>
+            <li>Korosi membutuhkan oksigen ($\\text{O}_2$) dan air ($\\text{H}_2\\text{O}$).</li>
+            <li>Tabung (3) (udara + air + garam): Paling cepat berkarat karena larutan garam bertindak sebagai elektrolit penghantar elektron.</li>
+            <li>Tabung (1) (udara + air): Mengalami korosi normal.</li>
+            <li>Tabung (2) (tertutup rapat dengan minyak/oli): Paling lambat / tidak berkarat karena minyak menghalangi kontak langsung dengan udara.</li>
+        </ul>
+        <div class="jawaban-akhir">Jawaban: D ((3), (1), (2))</div>
+    </div>
+
+    <!-- Soal 11 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal Nomor 11 <span class="tipe-badge">Pernyataan Tepat/Tidak</span></span>
+            <span>Stoikiometri Pengendapan AgCl</span>
+        </div>
+        <p>$M_r\\text{ AgCl} = 143{,}5\\text{ g/mol}$. Target endapan $= 1{,}435\\text{ g} = 0{,}01\\text{ mol} = 10\\text{ mmol}$.</p>
+        <div class="section-title">Evaluasi:</div>
+        <ul>
+            <li>Komposisi 1: $50\\text{ mL } \\text{AgNO}_3\\text{ } 0{,}2\\text{ M} + 50\\text{ mL } \\text{NaCl } 0{,}2\\text{ M} \\rightarrow 10\\text{ mmol AgCl}$ $\\rightarrow$ <strong>Tepat</strong></li>
+            <li>Komposisi 2: $100\\text{ mL } \\text{AgNO}_3\\text{ } 0{,}05\\text{ M} \\rightarrow 5\\text{ mmol AgCl}$ $\\rightarrow$ <strong>Tidak Tepat</strong></li>
+            <li>Komposisi 3: $20\\text{ mL } \\text{AgNO}_3\\text{ } 0{,}5\\text{ M} + 20\\text{ mL } \\text{KCl } 0{,}5\\text{ M} \\rightarrow 10\\text{ mmol AgCl}$ $\\rightarrow$ <strong>Tepat</strong></li>
+        </ul>
+        <div class="jawaban-akhir">Jawaban: K1 = Tepat, K2 = Tidak Tepat, K3 = Tepat</div>
+    </div>
+
+    <!-- Soal 12 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal Nomor 12 <span class="tipe-badge">Pilihan Ganda</span></span>
+            <span>Rumus Empiris & Molekul</span>
+        </div>
+        <div class="section-title">Perhitungan:</div>
+        <ul>
+            <li>$\\text{mol C} = 40/12 = 3{,}33$; $\\text{mol H} = 6{,}7/1 = 6{,}7$; $\\text{mol O} = 53{,}3/16 = 3{,}33$.</li>
+            <li>Perbandingan $C : H : O = 1 : 2 : 1 \\rightarrow (\\text{CH}_2\\text{O})_n$.</li>
+            <li>$(M_r\\text{ CH}_2\\text{O}) \\times n = 180 \\Rightarrow 30n = 180 \\Rightarrow n = 6$.</li>
+            <li>Rumus Molekul yang benar adalah $\\text{C}_6\\text{H}_{12}\\text{O}_6$.</li>
+        </ul>
+        <div class="jawaban-akhir">Jawaban: D (Salah, karena massa molar menunjukkan bahwa rumus molekulnya adalah C₆H₁₂O₆.)</div>
+    </div>
+
+    <!-- Soal 13 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal Nomor 13 <span class="tipe-badge">Pilihan Ganda</span></span>
+            <span>Teori Asam-Basa Brønsted-Lowry</span>
+        </div>
+        <p>Reaksi: $\\text{H}_2\\text{PO}_4^- + \\text{H}_2\\text{O} \\rightleftharpoons \\text{HPO}_4^{2-} + \\text{H}_3\\text{O}^+$</p>
+        <div class="section-title">Analisis:</div>
+        <p>$\\text{H}_2\\text{PO}_4^-$ melepaskan proton ($\\text{H}^+$) kepada $\\text{H}_2\\text{O}$ sehingga bertindak sebagai asam, sedangkan $\\text{H}_2\\text{O}$ bertindak sebagai basa penerima proton.</p>
+        <div class="jawaban-akhir">Jawaban: C (H₂PO₄⁻ memberikan ion hidrogen kepada H₂O dan bersifat asam)</div>
+    </div>
+
+    <!-- Soal 14 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal Nomor 14 <span class="tipe-badge">Pernyataan Tepat/Tidak</span></span>
+            <span>Struktur & Titik Didih Hidrokarbon</span>
+        </div>
+        <div class="section-title">Evaluasi:</div>
+        <ul>
+            <li>Titik didih n-butana > 2-metil-propana: <strong>Tepat</strong> (rantai lurus memiliki luas kontak lebih besar).</li>
+            <li>Titik didih 2,2-dimetil-propana > 2-metil-butana: <strong>Tidak Tepat</strong> (2,2-dimetil-propana lebih bercabang sehingga titik didihnya lebih rendah).</li>
+            <li>Titik didih n-heksana > 3-metil-pentana: <strong>Tepat</strong> (rantai lurus lebih tinggi dari rantai bercabang).</li>
+        </ul>
+        <div class="jawaban-akhir">Jawaban: P1 = Tepat, P2 = Tidak Tepat, P3 = Tepat</div>
+    </div>
+
+    <!-- Soal 15 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal Nomor 15 <span class="tipe-badge">Pilihan Ganda Kompleks</span></span>
+            <span>Pergeseran Kesetimbangan (Le Chatelier)</span>
+        </div>
+        <p>Reaksi: $2\\text{ }\\text{SO}_2(g) + \\text{O}_2(g) \\rightleftharpoons 2\\text{ }\\text{SO}_3(g) \\quad \\Delta H = -197\\text{ kJ/mol}$ (Eksoterm)</p>
+        <div class="section-title">Tindakan Memaksimalkan Produksi SO₃ (Bergeser ke Kanan):</div>
+        <ul>
+            <li>Menambah $\\text{O}_2$ ke dalam campuran (Reaktan ditambah $\\rightarrow$ geser ke kanan) [✓]</li>
+            <li>Menurunkan suhu reaksi (Reaksi eksoterm $\\rightarrow$ geser ke arah eksoterm/kanan) [✓]</li>
+            <li>Mengeluarkan $\\text{SO}_3$ dari wadah (Produk dikurangi $\\rightarrow$ geser ke kanan) [✓]</li>
+        </ul>
+        <div class="jawaban-akhir">Centang: Menambah O₂, Menurunkan suhu, Mengeluarkan SO₃</div>
+    </div>
+
+    <!-- Soal 16 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal Nomor 16 <span class="tipe-badge">Pilihan Ganda Kompleks</span></span>
+            <span>Stoikiometri & Pereaksi Pembatas</span>
+        </div>
+        <div class="section-title">Perhitungan:</div>
+        <ul>
+            <li>$\\text{mol Mg} = 24 / 24 = 1\\text{ mol}$; $\\text{mol HCl} = 1 \\times 3 = 3\\text{ mol}$.</li>
+            <li>Reaksi: $\\text{Mg} + 2\\text{ HCl} \\rightarrow \\text{MgCl}_2 + \\text{H}_2$.</li>
+            <li>$\\text{Mg}$ habis bereaksi ($1\\text{ mol}$) dan $\\text{HCl}$ bersisa $1\\text{ mol}$.</li>
+            <li>Volume $\\text{H}_2$ STP $= 1\\text{ mol} \\times 22{,}4\\text{ L/mol} = 22{,}4\\text{ L}$.</li>
+        </ul>
+        <div class="jawaban-akhir">Centang: Mol Mg yang bereaksi adalah 1 mol; Volume H₂ yang dihasilkan adalah 22,4 L</div>
+    </div>
+
+    <!-- Soal 17 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal Nomor 17 <span class="tipe-badge">Pernyataan Benar/Salah</span></span>
+            <span>Asam Lemah CH₃COOH</span>
+        </div>
+        <p>$M = 0{,}6 / 60 = 0{,}01\\text{ M} = 10^{-2}\\text{ M}$. $[\\text{H}^+] = \\sqrt{10^{-5} \\times 10^{-2}} = 10^{-3{,}5}\\text{ M} \\approx 10^{-4}\\text{ M}$. $\\alpha = \\sqrt{10^{-3}} \\approx 3{,}16\\%$.</p>
+        <div class="section-title">Evaluasi:</div>
+        <ul>
+            <li>Pernyataan 1 ($[\\text{H}^+] \\approx 10^{-4}\\text{ M}$): <strong>Benar</strong></li>
+            <li>Pernyataan 2 ($\\alpha \\ge 10\\%$): <strong>Salah</strong></li>
+            <li>Pernyataan 3 (Pengenceran menaikkan derajat ionisasi $\\alpha$): <strong>Benar</strong></li>
+        </ul>
+        <div class="jawaban-akhir">Jawaban: P1 = Benar, P2 = Salah, P3 = Benar</div>
+    </div>
+
+    <!-- Soal 18 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal Nomor 18 <span class="tipe-badge">Pilihan Ganda Kompleks</span></span>
+            <span>Campuran Buffer Asam</span>
+        </div>
+        <div class="section-title">Perhitungan:</div>
+        <ul>
+            <li>$\\text{mol } \\text{CH}_3\\text{COOH} = 100 \\times 0{,}1 = 10\\text{ mmol}$.</li>
+            <li>$\\text{mol } \\text{NaOH} = 100 \\times 0{,}05 = 5\\text{ mmol}$.</li>
+            <li>$\\text{NaOH}$ habis ($5\\text{ mmol}$), terbentuk garam $\\text{CH}_3\\text{COONa} = 5\\text{ mmol}$, dan sisa asam $= 5\\text{ mmol}$.</li>
+            <li>$[\\text{H}^+] = 10^{-5} \\times (5/5) = 10^{-5} \\rightarrow \\text{pH} = 5$.</li>
+        </ul>
+        <div class="jawaban-akhir">Centang: pH = 5; NaOH bereaksi = 5 mmol; Garam terbentuk = 5 mmol</div>
+    </div>
+
+    <!-- Soal 19 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal Nomor 19 <span class="tipe-badge">Pilihan Ganda</span></span>
+            <span>Tetapan Kesetimbangan (Kc)</span>
+        </div>
+        <p>Reaksi: $2\\text{ }\\text{COF}_2(g) \\rightleftharpoons \\text{CO}_2(g) + \\text{CF}_4(g)$</p>
+        <div class="section-title">Perhitungan:</div>
+        <p>$$K_c = \\frac{x^2}{(1 - 2x)^2} = 4 \\Rightarrow \\frac{x}{1 - 2x} = 2 \\Rightarrow x = 2 - 4x \\Rightarrow 5x = 2 \\Rightarrow x = 0{,}4\\text{ mol}$$</p>
+        <p>Jumlah $\\text{COF}_2$ saat setimbang $= 1 - 2(0{,}4) = 0{,}2\\text{ mol} = \\frac{1}{5}\\text{ mol}$.</p>
+        <div class="jawaban-akhir">Jawaban: C (1/5 mol)</div>
+    </div>
+
+    <!-- Soal 20 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal Nomor 20 <span class="tipe-badge">Pilihan Ganda</span></span>
+            <span>Faktor Suhu pada Laju Reaksi</span>
+        </div>
+        <div class="section-title">Penjelasan:</div>
+        <p>Untuk menguji pengaruh suhu, suhu harus menjadi variabel bebas (berbeda), sedangkan konsentrasi $\\text{HCl}$ ($0{,}1\\text{ M}$) dan bentuk pualam (serbuk) harus konstan. Kondisi ini dipenuhi oleh percobaan 1 ($25^\\circ\\text{C}$) dan 3 ($35^\\circ\\text{C}$).</p>
+        <div class="jawaban-akhir">Jawaban: A (1 dan 3)</div>
+    </div>
+</div>
+
+</body>
+</html>`;
+
+export const PEMBAHASAN_TKA_BIOLOGI_1_HTML = `<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pembahasan Resmi Try Out TKA Biologi 1</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            padding: 20px;
+            margin: 0;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 32px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #059669;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        h1 {
+            color: #065f46;
+            margin-top: 0;
+            font-size: 24px;
+            font-weight: 800;
+        }
+        .subtitle {
+            color: #64748b;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .badge-info {
+            display: inline-block;
+            background: #ecfdf5;
+            color: #047857;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-top: 8px;
+            border: 1px solid #a7f3d0;
+        }
+        .soal-box {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+            transition: all 0.2s ease;
+        }
+        .soal-box:hover {
+            border-color: #10b981;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.1);
+        }
+        .soal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 10px;
+            margin-bottom: 14px;
+            font-weight: 700;
+            color: #0f766e;
+            font-size: 15px;
+        }
+        .tipe-badge {
+            background: #f0fdf4;
+            color: #15803d;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            border: 1px solid #bbf7d0;
+            margin-left: 6px;
+        }
+        .section-title {
+            font-weight: 700;
+            color: #334155;
+            margin-top: 10px;
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+        .jawaban-akhir {
+            background: #ecfdf5;
+            border-left: 4px solid #10b981;
+            padding: 10px 14px;
+            margin-top: 14px;
+            font-weight: 700;
+            color: #065f46;
+            border-radius: 0 8px 8px 0;
+            font-size: 14px;
+        }
+        .soal-text {
+            color: #334155;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .pembahasan-detail {
+            color: #1e293b;
+            font-size: 14px;
+            background: #f8fafc;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px dashed #cbd5e1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>KUNCI & PEMBAHASAN LENGKAP TRY OUT TKA BIOLOGI 1</h1>
+        <div class="subtitle">Standar TKA Saintek & SNPMB 2026 — Pembahasan Ilmiah 20 Butir Soal</div>
+        <div class="badge-info">20 Soal IRT & Evaluasi Saintifik Terstandarisasi</div>
+    </div>
+
+    <!-- Soal 1 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal Nomor 1 <span class="tipe-badge">Pilihan Ganda</span></span>
+            <span>Ekologi & Analisis Data Malaria</span>
+        </div>
+        <div class="soal-text"><strong>Topik:</strong> Analisis Data Efektivitas DDT dan Kina pada Dua Wilayah Endemik</div>
+        <div class="section-title">Pembahasan Ilmiah:</div>
+        <div class="pembahasan-detail">
+            Soal ini menguji kemampuan membaca data tabel. DDT sangat efektif di wilayah tanpa resistensi (90%), namun efektivitasnya turun drastis di wilayah dengan resistensi (60%). Oleh karena itu, penggunaan DDT di wilayah A sangat tepat untuk hasil cepat, sedangkan untuk wilayah B perlu kombinasi/strategi lain (seperti Kina).
+        </div>
+        <div class="jawaban-akhir">Kunci Jawaban: A (Penggunaan DDT di wilayah A sangat tepat untuk hasil cepat, sedangkan untuk wilayah B perlu kombinasi/strategi lain seperti Kina)</div>
+    </div>
+
+    <!-- Soal 2 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal Nomor 2 <span class="tipe-badge">Pilihan Ganda</span></span>
+            <span>Prinsip Klasifikasi Makhluk Hidup</span>
+        </div>
+        <div class="soal-text"><strong>Topik:</strong> Pemisahan Taksonomi Paus (Mamalia) dan Hiu (Pisces)</div>
+        <div class="section-title">Pembahasan Ilmiah:</div>
+        <div class="pembahasan-detail">
+            Klasifikasi makhluk hidup didasarkan pada hubungan kekerabatan, struktur anatomi internal (seperti cara bernapas dan reproduksi), dan genetika, bukan sekadar penampilan luar. Paus dan hiu memiliki bentuk tubuh serupa karena evolusi konvergen (hidup di lingkungan yang sama), bukan karena mereka berkerabat dekat.
+        </div>
+        <div class="jawaban-akhir">Kunci Jawaban: A (Paus dan hiu memiliki bentuk tubuh serupa karena evolusi konvergen; klasifikasi didasarkan pada hubungan kekerabatan, anatomi internal, dan genetika)</div>
+    </div>
+
+    <!-- Soal 3 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal Nomor 3 <span class="tipe-badge">Pilihan Ganda</span></span>
+            <span>Sistem Reproduksi & Kontrasepsi IUD</span>
+        </div>
+        <div class="soal-text"><strong>Topik:</strong> Mekanisme Kerja Alat Kontrasepsi Dalam Rahim (AKDR/IUD)</div>
+        <div class="section-title">Pembahasan Ilmiah:</div>
+        <div class="pembahasan-detail">
+            IUD bekerja dengan cara mengganggu pergerakan sperma (efek spermasidal/mekanis) sehingga tidak mencapai sel telur, serta mengubah kondisi rahim agar tidak terjadi implantasi (penempelan embrio). IUD bukan metode permanen (bisa dilepas kapan saja).
+        </div>
+        <div class="jawaban-akhir">Kunci Jawaban: B (IUD bekerja dengan cara mengganggu pergerakan sperma dan mengubah kondisi rahim agar tidak terjadi implantasi, serta bersifat non-permanen)</div>
+    </div>
+
+    <!-- Soal 4 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal Nomor 4 <span class="tipe-badge">Pilihan Ganda</span></span>
+            <span>Metode Ilmiah & Identifikasi Masalah</span>
+        </div>
+        <div class="soal-text"><strong>Topik:</strong> Tahapan Awal Penelitian Berbasis Metode Ilmiah</div>
+        <div class="section-title">Pembahasan Ilmiah:</div>
+        <div class="pembahasan-detail">
+            Langkah pertama dalam metode ilmiah adalah mengidentifikasi masalah. Untuk mengidentifikasi masalah dengan tepat, peneliti perlu mengumpulkan informasi awal atau observasi (literatur, data, atau fakta lapangan) agar batasan masalah dapat dirumuskan.
+        </div>
+        <div class="jawaban-akhir">Kunci Jawaban: B (Mengidentifikasi masalah melalui pengumpulan informasi awal atau observasi literatur/fakta lapangan)</div>
+    </div>
+
+    <!-- Soal 5 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal Nomor 5 <span class="tipe-badge">Pilihan Ganda</span></span>
+            <span>Respirasi & Fisiologi Energi</span>
+        </div>
+        <div class="soal-text"><strong>Topik:</strong> Penyesuaian Frekuensi Napas Saat Latihan Fisik Intensif</div>
+        <div class="section-title">Pembahasan Ilmiah:</div>
+        <div class="pembahasan-detail">
+            Aktivitas fisik berat meningkatkan kebutuhan ATP (energi) otot. Untuk memproduksi ATP dalam jumlah besar, sel otot membutuhkan lebih banyak oksigen melalui proses respirasi aerob. Akibatnya, frekuensi napas meningkat untuk menyuplai oksigen dan mengeluarkan CO2.
+        </div>
+        <div class="jawaban-akhir">Kunci Jawaban: A (Kebutuhan ATP meningkat sehingga sel otot membutuhkan lebih banyak O2 melalui respirasi aerob dan membuang CO2)</div>
+    </div>
+
+    <!-- Soal 6 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal Nomor 6 <span class="tipe-badge">Pilihan Ganda</span></span>
+            <span>Sistem Endokrin & Hormon Tiroksin</span>
+        </div>
+        <div class="soal-text"><strong>Topik:</strong> Fungsi Utama Hormon Tiroksin (T4) Kelenjar Tiroid</div>
+        <div class="section-title">Pembahasan Ilmiah:</div>
+        <div class="pembahasan-detail">
+            Kelenjar tiroid memproduksi hormon tiroksin (T4) yang berfungsi utama mengatur laju metabolisme basal sel-sel tubuh, termasuk pengaturan penggunaan energi, suhu tubuh, dan sintesis protein.
+        </div>
+        <div class="jawaban-akhir">Kunci Jawaban: B (Mengatur laju metabolisme basal sel-sel tubuh, penggunaan energi, suhu tubuh, dan sintesis protein)</div>
+    </div>
+
+    <!-- Soal 7 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal Nomor 7 <span class="tipe-badge">Pilihan Ganda & Gambar</span></span>
+            <span>Sistem Organ Reproduksi Pria (Vas Deferens)</span>
+        </div>
+        <div class="soal-text"><strong>Topik:</strong> Analisis Anatomi Gambar Reproduksi Pria (IMG_2361.jpeg)</div>
+        <div style="text-align: center; margin: 12px 0;">
+            <img src="/IMG_2361.jpeg" alt="Diagram Sistem Organ Reproduksi Pria" style="max-width: 100%; height: auto; max-height: 280px; border-radius: 10px; border: 1px solid #cbd5e1; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);" />
+            <div style="font-size: 11px; color: #64748b; margin-top: 4px; font-family: monospace;">Gambar Referensi: IMG_2361.jpeg (Vas Deferens bertanda X)</div>
+        </div>
+        <div class="section-title">Pembahasan Ilmiah:</div>
+        <div class="pembahasan-detail">
+            Huruf X menunjuk pada <strong>vas deferens</strong> (saluran sperma). Jika saluran ini tersumbat (seperti pada prosedur vasektomi), sperma yang diproduksi di testis tidak dapat dialirkan keluar saat ejakulasi. Namun, kelenjar prostat dan vesikula seminalis yang berada di hilir saluran tetap memproduksi cairan semen, sehingga ejakulasi tetap terjadi secara normal tetapi tanpa kandungan sel sperma (<em>azoospermia</em>).
+        </div>
+        <div class="jawaban-akhir">Kunci Jawaban: A (Sperma tidak dapat keluar saat ejakulasi, namun cairan semen dari prostat/vesikula seminalis tetap keluar tanpa sel sperma/azoospermia)</div>
+    </div>
+
+    <!-- Soal 8 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal Nomor 8 <span class="tipe-badge">Pilihan Ganda</span></span>
+            <span>Biologi Sel & Mitokondria</span>
+        </div>
+        <div class="soal-text"><strong>Topik:</strong> Dampak Kerusakan Organel Mitokondria pada Sel Eukariotik</div>
+        <div class="section-title">Pembahasan Ilmiah:</div>
+        <div class="pembahasan-detail">
+            Mitokondria adalah organel tempat terjadinya respirasi seluler yang menghasilkan ATP (energi). Tanpa mitokondria, sel tidak memiliki pasokan energi untuk menjalankan proses metabolisme vital (seperti transpor aktif, sintesis molekul, dll.).
+        </div>
+        <div class="jawaban-akhir">Kunci Jawaban: B (Sel kehilangan pasokan energi utama/ATP dari respirasi seluler sehingga tidak mampu menjalankan proses metabolisme vital)</div>
+    </div>
+
+    <!-- Soal 9 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal Nomor 9 <span class="tipe-badge">Pilihan Ganda</span></span>
+            <span>Sistem Sirkulasi & Analisis Darah</span>
+        </div>
+        <div class="soal-text"><strong>Topik:</strong> Indikasi Hematokrit Rendah dan Abnormalitas Leukosit</div>
+        <div class="section-title">Pembahasan Ilmiah:</div>
+        <div class="pembahasan-detail">
+            Hasil tes menunjukkan ketidakseimbangan sel darah. Hematokrit rendah (anemia) dan abnormalitas pada jenis leukosit (neutrofil tinggi, limfosit rendah) sering kali menjadi indikator gangguan pada sumsum tulang belakang dalam memproduksi sel darah secara normal.
+        </div>
+        <div class="jawaban-akhir">Kunci Jawaban: B (Gangguan pada sumsum tulang belakang / bone marrow dalam memproduksi sel darah secara normal)</div>
+    </div>
+
+    <!-- Soal 10 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal Nomor 10 <span class="tipe-badge">Pilihan Ganda</span></span>
+            <span>Sistem Imunologi & Sindrom Stevens-Johnson (SSJ)</span>
+        </div>
+        <div class="soal-text"><strong>Topik:</strong> Mekanisme Reaksi Hipersensitivitas Berat</div>
+        <div class="section-title">Pembahasan Ilmiah:</div>
+        <div class="pembahasan-detail">
+            Sindrom Stevens-Johnson (SSJ) adalah reaksi hipersensitivitas. Mekanismenya melibatkan aktivasi sel imun yang salah sasaran (autoimun/alergi parah). Imunoglobulin (antibodi) berperan dalam memicu reaksi inflamasi dan pengikatan antigen yang memicu kerusakan jaringan.
+        </div>
+        <div class="jawaban-akhir">Kunci Jawaban: B (Reaksi hipersensitivitas dengan aktivasi sel imun salah sasaran, melibatkan imunoglobulin/antibodi yang memicu inflamasi dan kerusakan jaringan)</div>
+    </div>
+
+    <!-- Soal 11 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal Nomor 11 <span class="tipe-badge">Pilihan Ganda & Gambar</span></span>
+            <span>Ekologi & Jaring-Jaring Makanan</span>
+        </div>
+        <div class="soal-text"><strong>Topik:</strong> Analisis Jaring-Jaring Makanan Ekosistem Laut Kutub (IMG_2362.jpeg)</div>
+        <div style="text-align: center; margin: 12px 0;">
+            <img src="/IMG_2362.jpeg" alt="Diagram Jaring-Jaring Makanan Ekosistem Laut Kutub" style="max-width: 100%; height: auto; max-height: 280px; border-radius: 10px; border: 1px solid #cbd5e1; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);" />
+            <div style="font-size: 11px; color: #64748b; margin-top: 4px; font-family: monospace;">Gambar Referensi: IMG_2362.jpeg (Jaring-Jaring Makanan Antartika)</div>
+        </div>
+        <div class="section-title">Pembahasan Ilmiah:</div>
+        <div class="pembahasan-detail">
+            Dalam jaring-jaring makanan laut kutub, <strong>ikan kecil dan cumi</strong> merupakan mangsa kunci bagi predator tingkat sekunder seperti <strong>pinguin dan anjing laut</strong>. Jika populasi ikan kecil anjlok akibat pemanasan suhu dan eksploitasi berlebih, terjadi efek <em>bottom-up cascade</em>: pemangsa langsungnya mengalami defisit energi dan kelaparan sehingga populasinya berisiko ikut menyusut drastis.
+        </div>
+        <div class="jawaban-akhir">Kunci Jawaban: A (Predator langsung seperti pinguin atau anjing laut kekurangan makanan sehingga populasinya berisiko ikut menurun)</div>
+    </div>
+
+    <!-- Soal 12 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal Nomor 12 <span class="tipe-badge">Pilihan Ganda</span></span>
+            <span>Biologi Sel & Retikulum Endoplasma</span>
+        </div>
+        <div class="soal-text"><strong>Topik:</strong> Perbedaan Fungsi RE Kasar dan RE Halus</div>
+        <div class="section-title">Pembahasan Ilmiah:</div>
+        <div class="pembahasan-detail">
+            Retikulum Endoplasma (RE) Kasar memiliki ribosom dan berfungsi untuk sintesis protein. RE Halus berfungsi untuk sintesis lipid (lemak) dan detoksifikasi sel. Jika keduanya rusak, fungsi krusial ini akan terhenti.
+        </div>
+        <div class="jawaban-akhir">Kunci Jawaban: A (RE Kasar memiliki ribosom untuk sintesis protein, RE Halus untuk sintesis lipid dan detoksifikasi racun)</div>
+    </div>
+
+    <!-- Soal 13 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal Nomor 13 <span class="tipe-badge">Pilihan Ganda & Grafik</span></span>
+            <span>Bioteknologi & Imunisasi Vaksin</span>
+        </div>
+        <div class="soal-text"><strong>Topik:</strong> Analisis Grafik Vaksinasi Primer, Booster & Kasus COVID-19 (IMG_2363.jpeg)</div>
+        <div style="text-align: center; margin: 12px 0;">
+            <img src="/IMG_2363.jpeg" alt="Grafik Dinamika Kasus COVID-19 vs Vaksinasi di Indonesia" style="max-width: 100%; height: auto; max-height: 280px; border-radius: 10px; border: 1px solid #cbd5e1; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);" />
+            <div style="font-size: 11px; color: #64748b; margin-top: 4px; font-family: monospace;">Grafik Referensi: IMG_2363.jpeg (Korelasi Vaksinasi Primer & Booster dengan Penurunan Kasus)</div>
+        </div>
+        <div class="section-title">Pembahasan Ilmiah:</div>
+        <div class="pembahasan-detail">
+            Grafik menyajikan korelasi invers yang signifikan: peningkatan cakupan vaksinasi primer (&gt;70% populasi) yang diperkuat dosis booster menyebabkan tingkat transmisi dan keparahan kasus COVID-19 anjlok serta melandai stabil. Hal ini membuktikan efektivitas pembentukan <em>herd immunity</em> (kekebalan kelompok) melalui vaksinasi massal.
+        </div>
+        <div class="jawaban-akhir">Kunci Jawaban: A (Pemberian vaksin primer dan booster berkorelasi kuat dengan penurunan kasus baru karena terbentuknya herd immunity)</div>
+    </div>
+
+    <!-- Soal 14 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal Nomor 14 <span class="tipe-badge">Pilihan Ganda</span></span>
+            <span>Sistem Reproduksi & Kehamilan Ektopik</span>
+        </div>
+        <div class="soal-text"><strong>Topik:</strong> Penanaman Zigot di Tuba Falopi</div>
+        <div class="section-title">Pembahasan Ilmiah:</div>
+        <div class="pembahasan-detail">
+            Pembuahan normal terjadi di tuba falopi. Zigot seharusnya bergerak menuju rahim untuk menempel. Jika silia di tuba tidak berfungsi baik atau ada sumbatan, zigot tertanam di tuba (kehamilan ektopik) dan tidak bisa berkembang normal karena tuba bukan tempat tumbuh janin.
+        </div>
+        <div class="jawaban-akhir">Kunci Jawaban: B (Kehamilan ektopik, di mana embrio tertanam di tuba falopi dan tidak dapat berkembang secara normal)</div>
+    </div>
+
+    <!-- Soal 15 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal Nomor 15 <span class="tipe-badge">Pilihan Ganda</span></span>
+            <span>Metode Ilmiah & Desain Fair Test</span>
+        </div>
+        <div class="soal-text"><strong>Topik:</strong> Kontrol Variabel dalam Uji Coba Benih Jagung</div>
+        <div class="section-title">Pembahasan Ilmiah:</div>
+        <div class="pembahasan-detail">
+            Prinsip eksperimen yang adil (fair test) adalah mengontrol variabel. Variabel bebasnya adalah jenis benih (toko vs hasil panen). Maka, variabel lain (lahan, pupuk, perlakuan) harus sama.
+        </div>
+        <div class="jawaban-akhir">Kunci Jawaban: B (Menjadikan jenis benih sebagai variabel bebas, sedangkan variabel lahan, pupuk, penyiraman dikontrol agar konstan)</div>
+    </div>
+
+    <!-- Soal 16 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal Nomor 16 <span class="tipe-badge">Pilihan Ganda</span></span>
+            <span>Bioteknologi Pangan & Pembuatan Yogurt</span>
+        </div>
+        <div class="soal-text"><strong>Topik:</strong> Peran Suhu Optimal pada Fermentasi Lactobacillus</div>
+        <div class="section-title">Pembahasan Ilmiah:</div>
+        <div class="pembahasan-detail">
+            Fermentasi yogurt memerlukan suhu optimal agar bakteri Lactobacillus dapat bekerja. Jika suhu terlalu panas, bakteri mati; jika terlalu dingin, bakteri tidak aktif.
+        </div>
+        <div class="jawaban-akhir">Kunci Jawaban: A (Suhu optimal diperlukan agar bakteri bekerja efektif; terlalu panas bakteri mati, terlalu dingin tidak aktif)</div>
+    </div>
+
+    <!-- Soal 17 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal Nomor 17 <span class="tipe-badge">Pilihan Ganda</span></span>
+            <span>Metabolisme Sel & Katabolisme</span>
+        </div>
+        <div class="soal-text"><strong>Topik:</strong> Konsep Pemecahan Molekul Kompleks Menjadi Sederhana</div>
+        <div class="section-title">Pembahasan Ilmiah:</div>
+        <div class="pembahasan-detail">
+            Katabolisme adalah proses pemecahan molekul kompleks menjadi sederhana untuk menghasilkan energi (contoh: glikolisis/pemecahan glukosa menjadi piruvat). Sedangkan anabolisme adalah proses pembentukan molekul.
+        </div>
+        <div class="jawaban-akhir">Kunci Jawaban: B (Proses penguraian molekul organik kompleks menjadi sederhana yang membebaskan energi kimia / glikolisis)</div>
+    </div>
+
+    <!-- Soal 18 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal Nomor 18 <span class="tipe-badge">Pilihan Ganda</span></span>
+            <span>Fisiologi Olahraga & Pendinginan</span>
+        </div>
+        <div class="soal-text"><strong>Topik:</strong> Manfaat Cooling Down dan Pengaturan Napas Pasca-Olahraga</div>
+        <div class="section-title">Pembahasan Ilmiah:</div>
+        <div class="pembahasan-detail">
+            Pendinginan (cooling down) dan pengaturan napas penting setelah olahraga berat agar detak jantung turun secara perlahan, mencegah pingsan (darah tidak terkumpul di kaki), dan membantu pembuangan sisa metabolisme (asam laktat/CO2) dengan lebih efisien.
+        </div>
+        <div class="jawaban-akhir">Kunci Jawaban: A (Menurunkan detak jantung bertahap, mencegah pengumpulan darah di kaki/pingsan, dan mempercepat pembuangan asam laktat)</div>
+    </div>
+
+    <!-- Soal 19 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal Nomor 19 <span class="tipe-badge">Pilihan Ganda</span></span>
+            <span>Sistem Ekskresi & Hemodialisis</span>
+        </div>
+        <div class="soal-text"><strong>Topik:</strong> Prinsip Filtrasi Zat Toksik pada Mesin Cuci Darah</div>
+        <div class="section-title">Pembahasan Ilmiah:</div>
+        <div class="pembahasan-detail">
+            Fungsi utama ginjal adalah menyaring darah dari zat sisa metabolisme (urea, kreatinin, dll.). Jika ginjal rusak (gagal ginjal), racun-racun ini menumpuk di darah (toksik). Cuci darah (hemodialisis) berfungsi menggantikan fungsi ginjal untuk membersihkan darah tersebut secara buatan.
+        </div>
+        <div class="jawaban-akhir">Kunci Jawaban: B (Menggantikan fungsi filtrasi ginjal untuk menyaring zat sisa metabolisme toksik seperti urea dan kreatinin)</div>
+    </div>
+
+    <!-- Soal 20 -->
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal Nomor 20 <span class="tipe-badge">Pilihan Ganda</span></span>
+            <span>Metode Ilmiah & Identifikasi Individu</span>
+        </div>
+        <div class="soal-text"><strong>Topik:</strong> Teknik Penandaan Katak Pohon untuk Pengumpulan Data Hipotesis</div>
+        <div class="section-title">Pembahasan Ilmiah:</div>
+        <div class="pembahasan-detail">
+            Dengan menandai katak (memberi label/nomer), anak tersebut sedang melakukan teknik identifikasi individu. Tujuannya untuk mengetahui apakah katak yang bernyanyi setiap malam adalah katak yang sama (yang pernah ia pindahkan) atau katak yang berbeda. Ini adalah langkah dasar pengumpulan data untuk menjawab hipotesis.
+        </div>
+        <div class="jawaban-akhir">Kunci Jawaban: B (Melakukan teknik identifikasi individu untuk menguji apakah katak yang bernyanyi adalah individu yang sama atau berbeda)</div>
+    </div>
+</div>
+
+</body>
+</html>`;
+
+
+

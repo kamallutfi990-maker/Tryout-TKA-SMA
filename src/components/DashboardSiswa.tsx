@@ -11,6 +11,10 @@ import CbtSimulator from './CbtSimulator';
 import MidtransSimulator from './MidtransSimulator';
 import MathMarkdown from './MathMarkdown';
 import CbtAnalysisReport, { CbtReportData } from './CbtAnalysisReport';
+import CbtTryoutIndoLanjut from './tryout_cbt_tka/bahasa_indonesia_tingkat_lanjut/CbtTryoutIndoLanjut';
+import CbtTryoutKimia from './tryout_cbt_tka/kimia/CbtTryoutKimia';
+import CbtTryoutBiologi from './tryout_cbt_tka/biologi/CbtTryoutBiologi';
+import CbtTryoutFisika from './tryout_cbt_tka/fisika/CbtTryoutFisika';
 
 interface DashboardSiswaProps {
   userProfile: UserProfile;
@@ -673,12 +677,26 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
           
           {/* Active CBT Overlay */}
           {activeCbt ? (
-            <CbtSimulator
-              tryout={activeCbt}
-              userProfile={userProfile}
-              onBack={() => setActiveCbt(null)}
-              onFinish={handleCbtFinished}
-            />
+            activeCbt.id === 'to-tka-bindo-lanjut-2026' || 
+            (activeCbt.subject === 'Bahasa Indonesia Tingkat Lanjut' && !activeCbt.googleFormUrl) ? (
+              <CbtTryoutIndoLanjut onBack={() => setActiveCbt(null)} />
+            ) : activeCbt.id === 'to-tka-kimia-1-2026' || 
+            (activeCbt.subject === 'Kimia' && !activeCbt.googleFormUrl) ? (
+              <CbtTryoutKimia onBack={() => setActiveCbt(null)} />
+            ) : activeCbt.id === 'to-tka-biologi-1-2026' || 
+            (activeCbt.subject === 'Biologi' && !activeCbt.googleFormUrl) ? (
+              <CbtTryoutBiologi onBack={() => setActiveCbt(null)} />
+            ) : activeCbt.id === 'to-tka-fisika-1-2026' ||
+            (activeCbt.subject === 'Fisika' && !activeCbt.googleFormUrl) ? (
+              <CbtTryoutFisika onBack={() => setActiveCbt(null)} />
+            ) : (
+              <CbtSimulator
+                tryout={activeCbt}
+                userProfile={userProfile}
+                onBack={() => setActiveCbt(null)}
+                onFinish={handleCbtFinished}
+              />
+            )
           ) : (
             <>
               {/* Tab: Beranda (Home) */}
@@ -1638,7 +1656,8 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                     match: (s: string, name: string) => {
                       const ls = s.toLowerCase();
                       const ln = name.toLowerCase();
-                      return ls.includes('matematika wajib') || ls.includes('matematika umum') || (ls.includes('matematika') && !ls.includes('lanjut') && !ls.includes('tingkat') && !ln.includes('lanjut'));
+                      const isMath = (ls.includes('matematika') || ls.includes('mtk') || ln.includes('matematika') || ln.includes('mtk')) && !ls.includes('indonesia') && !ls.includes('inggris') && !ln.includes('indonesia') && !ln.includes('inggris');
+                      return isMath && (ls.includes('wajib') || ls.includes('umum') || (!ls.includes('lanjut') && !ls.includes('tingkat') && !ln.includes('lanjut')));
                     }
                   },
                   {
@@ -1653,7 +1672,9 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                     match: (s: string, name: string) => {
                       const ls = s.toLowerCase();
                       const ln = name.toLowerCase();
-                      return ls.includes('matematika lanjut') || ls.includes('tingkat lanjut') || ls.includes('turunan') || ls.includes('integral') || ln.includes('turunan') || ln.includes('integral');
+                      const isMath = (ls.includes('matematika') || ls.includes('mtk') || ln.includes('matematika') || ln.includes('mtk') || ls.includes('kalkulus') || ls.includes('turunan') || ls.includes('integral') || ln.includes('turunan') || ln.includes('integral')) && !ls.includes('indonesia') && !ls.includes('inggris') && !ln.includes('indonesia') && !ln.includes('inggris');
+                      const isLanjut = ls.includes('lanjut') || ln.includes('lanjut') || ls.includes('turunan') || ls.includes('integral') || ln.includes('turunan') || ln.includes('integral') || ln.includes('matriks') || ln.includes('vektor') || ln.includes('polinomial');
+                      return isMath && isLanjut;
                     }
                   },
                   {
@@ -1668,7 +1689,24 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                     match: (s: string, name: string) => {
                       const ls = s.toLowerCase();
                       const ln = name.toLowerCase();
-                      return ls.includes('indonesia') || ln.includes('indonesia') || ls.includes('indo');
+                      const isIndo = (ls.includes('indonesia') || ln.includes('indonesia') || ls.includes('indo') || ln.includes('indo')) && !ls.includes('inggris') && !ln.includes('inggris') && !ls.includes('matematika') && !ln.includes('matematika');
+                      return isIndo && !ls.includes('lanjut') && !ls.includes('tingkat') && !ln.includes('lanjut');
+                    }
+                  },
+                  {
+                    id: 'bahasa_indonesia_lanjut',
+                    name: 'Bahasa Indonesia Tingkat Lanjut',
+                    icon: '📚',
+                    badge: 'Tingkat Lanjut',
+                    badgeClass: 'bg-rose-100 text-rose-800 border-rose-200',
+                    borderClass: 'hover:border-rose-400 hover:shadow-rose-100',
+                    bgLight: 'bg-rose-50/70',
+                    description: 'Wacana Kritis, Retorika, Kritik Sastra, Semantik Lanjut, Morfologi & Sintaksis Kompleks',
+                    match: (s: string, name: string) => {
+                      const ls = s.toLowerCase();
+                      const ln = name.toLowerCase();
+                      const isIndo = (ls.includes('indonesia') || ln.includes('indonesia') || ls.includes('indo') || ln.includes('indo')) && !ls.includes('inggris') && !ln.includes('inggris') && !ls.includes('matematika') && !ln.includes('matematika');
+                      return isIndo && (ls.includes('lanjut') || ln.includes('lanjut') || ls.includes('wacana') || ln.includes('sastra'));
                     }
                   },
                   {
@@ -1683,7 +1721,24 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                     match: (s: string, name: string) => {
                       const ls = s.toLowerCase();
                       const ln = name.toLowerCase();
-                      return ls.includes('inggris') || ls.includes('english') || ln.includes('inggris') || ln.includes('english');
+                      const isInggris = (ls.includes('inggris') || ls.includes('english') || ln.includes('inggris') || ln.includes('english')) && !ls.includes('indonesia') && !ln.includes('indonesia') && !ls.includes('matematika') && !ln.includes('matematika');
+                      return isInggris && !ls.includes('lanjut') && !ls.includes('tingkat') && !ln.includes('lanjut');
+                    }
+                  },
+                  {
+                    id: 'bahasa_inggris_lanjut',
+                    name: 'Bahasa Inggris Tingkat Lanjut',
+                    icon: '🖋️',
+                    badge: 'Tingkat Lanjut',
+                    badgeClass: 'bg-sky-100 text-sky-800 border-sky-200',
+                    borderClass: 'hover:border-sky-400 hover:shadow-sky-100',
+                    bgLight: 'bg-sky-50/70',
+                    description: 'Advanced Reading, Inversion & Conditionals, Rhetorical Analysis, Epistemic Synthesis',
+                    match: (s: string, name: string) => {
+                      const ls = s.toLowerCase();
+                      const ln = name.toLowerCase();
+                      const isInggris = (ls.includes('inggris') || ls.includes('english') || ln.includes('inggris') || ln.includes('english')) && !ls.includes('indonesia') && !ln.includes('indonesia') && !ls.includes('matematika') && !ln.includes('matematika');
+                      return isInggris && (ls.includes('lanjut') || ln.includes('lanjut'));
                     }
                   },
                   {
@@ -1695,7 +1750,11 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                     borderClass: 'hover:border-amber-400 hover:shadow-amber-100',
                     bgLight: 'bg-amber-50/70',
                     description: 'Kinematika, Dinamika, Fluida, Termodinamika, Listrik Magnet, Gelombang',
-                    match: (s: string) => s.toLowerCase().includes('fisika')
+                    match: (s: string, name: string) => {
+                      const ls = s.toLowerCase();
+                      const ln = name.toLowerCase();
+                      return ls.includes('fisika') || ln.includes('fisika');
+                    }
                   },
                   {
                     id: 'kimia',
@@ -1706,7 +1765,11 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                     borderClass: 'hover:border-emerald-400 hover:shadow-emerald-100',
                     bgLight: 'bg-emerald-50/70',
                     description: 'Struktur Atom, Tabel Periodik, Stoikiometri, Larutan, Termokimia, Redoks',
-                    match: (s: string) => s.toLowerCase().includes('kimia')
+                    match: (s: string, name: string) => {
+                      const ls = s.toLowerCase();
+                      const ln = name.toLowerCase();
+                      return ls.includes('kimia') || ln.includes('kimia');
+                    }
                   },
                   {
                     id: 'biologi',
@@ -1717,7 +1780,11 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                     borderClass: 'hover:border-green-400 hover:shadow-green-100',
                     bgLight: 'bg-green-50/70',
                     description: 'Sel & Molekuler, Metabolisme, Genetika, Ekologi, Bioteknologi',
-                    match: (s: string) => s.toLowerCase().includes('biologi')
+                    match: (s: string, name: string) => {
+                      const ls = s.toLowerCase();
+                      const ln = name.toLowerCase();
+                      return ls.includes('biologi') || ln.includes('biologi');
+                    }
                   },
                   {
                     id: 'ekonomi',
@@ -1728,7 +1795,11 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                     borderClass: 'hover:border-cyan-400 hover:shadow-cyan-100',
                     bgLight: 'bg-cyan-50/70',
                     description: 'Mekanisme Pasar, Kebijakan Moneter, Akuntansi Dasar, Perdagangan',
-                    match: (s: string) => s.toLowerCase().includes('ekonomi')
+                    match: (s: string, name: string) => {
+                      const ls = s.toLowerCase();
+                      const ln = name.toLowerCase();
+                      return ls.includes('ekonomi') || ln.includes('ekonomi');
+                    }
                   },
                   {
                     id: 'geografi',
@@ -1739,7 +1810,11 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                     borderClass: 'hover:border-teal-400 hover:shadow-teal-100',
                     bgLight: 'bg-teal-50/70',
                     description: 'Litosfer, Atmosfer, Hidrosfer, Pemetaan, Penginderaan Jauh & SIG',
-                    match: (s: string) => s.toLowerCase().includes('geografi')
+                    match: (s: string, name: string) => {
+                      const ls = s.toLowerCase();
+                      const ln = name.toLowerCase();
+                      return ls.includes('geografi') || ln.includes('geografi');
+                    }
                   },
                   {
                     id: 'sejarah',
@@ -1750,7 +1825,11 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                     borderClass: 'hover:border-yellow-400 hover:shadow-yellow-100',
                     bgLight: 'bg-yellow-50/70',
                     description: 'Sejarah Kemerdekaan Indonesia, Peradaban Dunia, Perang Dunia',
-                    match: (s: string) => s.toLowerCase().includes('sejarah')
+                    match: (s: string, name: string) => {
+                      const ls = s.toLowerCase();
+                      const ln = name.toLowerCase();
+                      return ls.includes('sejarah') || ln.includes('sejarah');
+                    }
                   },
                   {
                     id: 'sosiologi',
@@ -1761,7 +1840,11 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                     borderClass: 'hover:border-rose-400 hover:shadow-rose-100',
                     bgLight: 'bg-rose-50/70',
                     description: 'Interaksi Sosial, Nilai & Norma, Konflik Sosial, Perubahan Sosial',
-                    match: (s: string) => s.toLowerCase().includes('sosiologi')
+                    match: (s: string, name: string) => {
+                      const ls = s.toLowerCase();
+                      const ln = name.toLowerCase();
+                      return ls.includes('sosiologi') || ln.includes('sosiologi');
+                    }
                   },
                   {
                     id: 'ppkn',
@@ -1772,9 +1855,10 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                     borderClass: 'hover:border-red-400 hover:shadow-red-100',
                     bgLight: 'bg-red-50/70',
                     description: 'Pancasila, UUD 1945, Kebinekaan, Hak & Kewajiban Warga Negara',
-                    match: (s: string) => {
+                    match: (s: string, name: string) => {
                       const ls = s.toLowerCase();
-                      return ls.includes('pkn') || ls.includes('ppkn') || ls.includes('kewarganegaraan') || ls.includes('pancasila');
+                      const ln = name.toLowerCase();
+                      return ls.includes('pkn') || ls.includes('ppkn') || ls.includes('kewarganegaraan') || ls.includes('pancasila') || ln.includes('pkn') || ln.includes('ppkn');
                     }
                   }
                 ];
@@ -1830,7 +1914,7 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                       </div>
                       <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
                         {isTka 
-                          ? 'Masing-masing Try Out bab dikumpulkan secara rapi di dalam 10 Folder Mata Pelajaran TKA SMA (Matematika Wajib, Matematika Tingkat Lanjut, Fisika, Kimia, Biologi, Ekonomi, Geografi, Sejarah, Sosiologi, PPKn). Pilih folder mapel di bawah untuk mengakses seluruh paket Try Out bab.'
+                          ? 'Masing-masing Try Out bab dikumpulkan secara rapi di dalam 12 Folder Mata Pelajaran TKA SMA (Matematika Wajib, Matematika Tingkat Lanjut, Bahasa Indonesia, Bahasa Indonesia Tingkat Lanjut, Bahasa Inggris, Bahasa Inggris Tingkat Lanjut, Fisika, Kimia, Biologi, Ekonomi, Geografi, Sejarah, Sosiologi, PPKn). Pilih folder mapel di bawah untuk mengakses seluruh paket Try Out bab.'
                           : 'Daftar seluruh paket Try Out UTBK/SNBT resmi yang diupload oleh Tim Guru dan Admin Utama. Pilih paket di bawah ini untuk mengerjakan simulasi CBT interaktif maupun ujian Google Form.'}
                       </p>
 
@@ -1874,13 +1958,13 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                       )}
                     </div>
 
-                    {/* TKA 10 Folder Grid Section (When selectedTkaFolder is null or showing overview) */}
+                    {/* TKA Folder Grid Section (When selectedTkaFolder is null or showing overview) */}
                     {isTka && selectedTkaFolder === null && (
                       <div className="space-y-4">
                         <div className="flex items-center justify-between">
                           <h3 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
                             <Folder className="w-5 h-5 text-emerald-600" />
-                            Folder 10 Mata Pelajaran TKA SMA
+                            Folder {TKA_SMA_SUBJECT_FOLDERS.length} Mata Pelajaran TKA SMA
                           </h3>
                           <span className="text-xs text-slate-500 font-medium">
                             Pilih folder untuk membuka paket per bab
@@ -1940,7 +2024,7 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                             onClick={() => setSelectedTkaFolder(null)}
                             className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/20 hover:bg-white/30 text-white rounded-xl text-xs font-bold transition-all mb-2 cursor-pointer backdrop-blur-sm"
                           >
-                            <ArrowLeft className="w-3.5 h-3.5" /> Kembali ke Semua 10 Folder
+                            <ArrowLeft className="w-3.5 h-3.5" /> Kembali ke Semua Folder ({TKA_SMA_SUBJECT_FOLDERS.length} Mapel)
                           </button>
                           <div className="flex items-center gap-3">
                             <span className="text-3xl">{currentFolderObj.icon}</span>

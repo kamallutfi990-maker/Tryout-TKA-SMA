@@ -1,21 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { inggrisTryoutData } from './inggrisTryoutData';
-import HtmlPembahasanModal from '../../HtmlPembahasanModal';
+import CbtAnalysisReport, { CbtReportData } from '../../CbtAnalysisReport';
+
+const getInggrisTopic = (id: number): string => {
+  if (id >= 1 && id <= 5) return 'Narrative Text Comprehension & Main Idea Analysis';
+  if (id >= 6 && id <= 10) return 'Procedure Text & Infographic Information Scanning';
+  if (id >= 11 && id <= 13) return 'Descriptive Text & Contextual Details';
+  if (id >= 14 && id <= 16) return 'Recount Text & Chronological Sequence';
+  return 'Analytical Exposition & Argumentative Reasoning';
+};
 
 export default function CbtTryoutInggris() {
   const [currentIdx, setCurrentIdx] = useState(0);
   const [answers, setAnswers] = useState<Record<number, any>>({});
   const [submitted, setSubmitted] = useState(false);
-  const [showPembahasan, setShowPembahasan] = useState(false);
   const [timeLeft, setTimeLeft] = useState(20 * 60); // 20 minutes
 
   useEffect(() => {
     if (submitted || timeLeft <= 0) {
-        if (timeLeft <= 0 && !submitted) setSubmitted(true);
-        return;
+      if (timeLeft <= 0 && !submitted) setSubmitted(true);
+      return;
     }
     const timer = setInterval(() => {
-        setTimeLeft(prev => prev - 1);
+      setTimeLeft(prev => prev - 1);
     }, 1000);
     return () => clearInterval(timer);
   }, [submitted, timeLeft]);
@@ -56,17 +63,78 @@ export default function CbtTryoutInggris() {
     if (currentIdx > 0) setCurrentIdx(currentIdx - 1);
   };
 
+  const evaluation = useMemo(() => {
+    let correct = 0;
+    const strongTopics = new Set<string>();
+    const weakTopics = new Set<string>();
+
+    inggrisTryoutData.forEach(question => {
+      const ans = answers[question.id];
+      let isQuestionCorrect = false;
+
+      if (question.type === 'multiple') {
+        if (ans === question.options?.find(o => o.correct)?.id) isQuestionCorrect = true;
+      } else if (question.type === 'multiple-complex') {
+        const correctIds = question.correctAnswer || [];
+        if (Array.isArray(ans) && ans.length === correctIds.length && ans.every(id => correctIds.includes(id))) {
+          isQuestionCorrect = true;
+        }
+      } else if (question.type === 'true-false-table') {
+        let allCorrect = true;
+        question.statements?.forEach(s => {
+          if (ans?.[s.id] !== s.correct) allCorrect = false;
+        });
+        if (allCorrect) isQuestionCorrect = true;
+      }
+
+      const topic = getInggrisTopic(question.id);
+      if (isQuestionCorrect) {
+        correct++;
+        strongTopics.add(topic);
+      } else {
+        weakTopics.add(topic);
+      }
+    });
+
+    const total = inggrisTryoutData.length;
+    const wrong = total - correct;
+    const scaledScore = Math.round(200 + (correct / total) * 800);
+
+    const report: CbtReportData = {
+      title: 'Try Out Bahasa Inggris',
+      subject: 'Bahasa Inggris',
+      score: scaledScore,
+      correctCount: correct,
+      wrongCount: wrong,
+      totalQuestions: total,
+      targetPTN: 'Universitas Gadjah Mada',
+      targetProdi: 'Hubungan Internasional & Sastra Inggris',
+      keketatan: 'Keketatan Sangat Kompetitif',
+      strongSubjects: Array.from(strongTopics),
+      weakSubjects: Array.from(weakTopics),
+      radarScores: {
+        'Reading Comprehension': Math.min(100, Math.round((correct / total) * 100)),
+        'Grammar & Context': Math.min(100, Math.round((correct / total) * 90 + 10)),
+        'Vocabulary & Lexis': Math.min(100, Math.round((correct / total) * 88 + 12)),
+        'Critical Inference': Math.min(100, Math.round((correct / total) * 95)),
+      },
+      xpEarned: correct * 25 + 50
+    };
+
+    return { correct, wrong, total, scaledScore, report };
+  }, [answers]);
+
   if (submitted) {
     return (
-      <div className="p-6 text-center">
-        <h2 className="text-2xl font-bold mb-4">Kuis Selesai</h2>
-        <p className="text-lg">Waktu habis atau kuis telah dikirim.</p>
-        <button className="px-6 py-2 mt-4 bg-blue-600 text-white rounded-lg" onClick={() => { setSubmitted(false); setAnswers({}); setCurrentIdx(0); setTimeLeft(20 * 60); }}>Ulangi Kuis</button>
-        <button className="px-6 py-2 mt-4 ml-4 bg-green-600 text-white rounded-lg" onClick={() => setShowPembahasan(true)}>Lihat Pembahasan</button>
-        <HtmlPembahasanModal
-          isOpen={showPembahasan}
-          onClose={() => setShowPembahasan(false)}
-          title="Pembahasan Bahasa Inggris"
+      <div className="p-2 sm:p-4 animate-in fade-in duration-200">
+        <CbtAnalysisReport
+          report={evaluation.report}
+          onClose={() => {
+            setSubmitted(false);
+            setAnswers({});
+            setCurrentIdx(0);
+            setTimeLeft(20 * 60);
+          }}
         />
       </div>
     );
