@@ -3021,5 +3021,200 @@ export const PEMBAHASAN_TKA_BIOLOGI_1_HTML = `<!DOCTYPE html>
 </body>
 </html>`;
 
+export function generateSubjectDiscussionHtml(title: string, subject: string, questions: any[]): string {
+  const renderedQuestions = (questions || []).map((q, idx) => {
+    const num = q.number || q.id || (idx + 1);
+    const typeLabel = q.type === 'checkboxes' || q.type === 'multiple-complex'
+      ? 'Pilihan Ganda Kompleks'
+      : q.type === 'true-false-table'
+      ? 'Tabel Benar / Salah'
+      : q.type === 'tepat-table'
+      ? 'Tabel Tepat / Tidak Tepat'
+      : q.type === 'sesuai-table'
+      ? 'Tabel Sesuai / Tidak Sesuai'
+      : 'Pilihan Ganda';
+
+    let optionsHtml = '';
+    if (q.options && q.options.length > 0) {
+      optionsHtml = `<ul style="list-style: none; padding-left: 0; margin: 12px 0;">` +
+        q.options.map((opt: any) => `
+          <li style="margin-bottom: 6px; padding: 6px 12px; border-radius: 8px; background: ${opt.correct ? '#ecfdf5' : '#f8fafc'}; border: 1px solid ${opt.correct ? '#a7f3d0' : '#e2e8f0'}; font-size: 13px;">
+            <strong style="color: ${opt.correct ? '#059669' : '#475569'};">${(opt.id || '').toUpperCase()}.</strong> ${opt.text || ''} ${opt.correct ? '<span style="color: #059669; font-weight: bold; margin-left: 6px;">✓ (Kunci)</span>' : ''}
+          </li>
+        `).join('') + `</ul>`;
+    }
+
+    let statementsHtml = '';
+    if (q.statements && q.statements.length > 0) {
+      statementsHtml = `<table style="width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13px;">
+        <thead>
+          <tr style="background: #f1f5f9; text-align: left;">
+            <th style="padding: 8px 12px; border: 1px solid #cbd5e1;">Pernyataan</th>
+            <th style="padding: 8px 12px; border: 1px solid #cbd5e1; width: 130px; text-align: center;">Nilai Kebenaran</th>
+          </tr>
+        </thead>
+        <tbody>` +
+        q.statements.map((st: any) => `
+          <tr>
+            <td style="padding: 8px 12px; border: 1px solid #cbd5e1;">${st.text}</td>
+            <td style="padding: 8px 12px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: ${st.correct === true || st.correct === 'Benar' || st.correct === 'Tepat' || st.correct === 'Sesuai' ? '#059669' : '#dc2626'};">
+              ${typeof st.correct === 'boolean' ? (st.correct ? (q.type === 'tepat-table' ? 'Tepat' : q.type === 'sesuai-table' ? 'Sesuai' : 'Benar') : (q.type === 'tepat-table' ? 'Tidak Tepat' : q.type === 'sesuai-table' ? 'Tidak Sesuai' : 'Salah')) : st.correct}
+            </td>
+          </tr>
+        `).join('') + `</tbody></table>`;
+    }
+
+    const stimulusHtml = q.stimulus ? `<div style="background: #f8fafc; border-left: 4px solid #3b82f6; padding: 12px 16px; border-radius: 8px; margin-bottom: 12px; font-size: 13px; color: #334155; line-height: 1.6;">${q.stimulus}</div>` : '';
+    const readingHtml = q.readingText ? `<div style="background: #f8fafc; border-left: 4px solid #ec4899; padding: 12px 16px; border-radius: 8px; margin-bottom: 12px; font-size: 13px; color: #334155; line-height: 1.6;">${q.readingText}</div>` : '';
+
+    const explanationContent = q.discussion || q.explanation || 'Pembahasan terstruktur konsep dan pemecahan langkah.';
+    const keyContent = q.officialKeyText || (q.options?.find((o: any) => o.correct) ? `${q.options.find((o: any) => o.correct).id.toUpperCase()} (${q.options.find((o: any) => o.correct).text})` : (q.correctAnswer ? (Array.isArray(q.correctAnswer) ? q.correctAnswer.join(', ') : q.correctAnswer) : 'Lihat Pembahasan'));
+
+    return `
+    <div class="soal-box">
+        <div class="soal-header">
+            <span>Soal Nomor ${num} <span class="tipe-badge">${typeLabel}</span></span>
+            <span>${q.topic || subject}</span>
+        </div>
+        ${stimulusHtml}
+        ${readingHtml}
+        <div class="soal-text"><strong>Pertanyaan:</strong> ${q.text || ''}</div>
+        ${optionsHtml}
+        ${statementsHtml}
+        <div class="section-title">Pembahasan & Analisis Konsep:</div>
+        <div class="pembahasan-detail">
+            ${explanationContent}
+        </div>
+        <div class="jawaban-akhir">Kunci Jawaban: <strong>${keyContent}</strong></div>
+    </div>`;
+  }).join('\n');
+
+  return `<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pembahasan ${title}</title>
+    <!-- MathJax Configuration -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\\\(', '\\\\)']],
+          displayMath: [['$$', '$$'], ['\\\\[', '\\\\]']]
+        }
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Roboto, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            margin: 0;
+            padding: 24px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 32px;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            border: 1px solid #e2e8f0;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 20px;
+            margin-bottom: 28px;
+        }
+        .header h1 {
+            color: #0f172a;
+            font-size: 24px;
+            margin: 0 0 8px 0;
+        }
+        .header p {
+            color: #64748b;
+            font-size: 14px;
+            margin: 0;
+        }
+        .soal-box {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+        }
+        .soal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+            font-size: 14px;
+            color: #2563eb;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .tipe-badge {
+            background: #eff6ff;
+            color: #1d4ed8;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            border: 1px solid #bfdbfe;
+        }
+        .soal-text {
+            font-size: 14px;
+            color: #334155;
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+        .section-title {
+            font-weight: 700;
+            font-size: 13px;
+            color: #475569;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 16px;
+            margin-bottom: 8px;
+        }
+        .pembahasan-detail {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            padding: 14px 18px;
+            border-radius: 0 8px 8px 0;
+            font-size: 14px;
+            color: #1e293b;
+            line-height: 1.7;
+            white-space: pre-line;
+        }
+        .jawaban-akhir {
+            margin-top: 14px;
+            padding: 10px 14px;
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 14px;
+            color: #065f46;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>Kunci Jawaban & Pembahasan Lengkap</h1>
+        <p>${title} &bull; TKA SMA Indonesia Berbasis IRT & HOTS</p>
+    </div>
+    ${renderedQuestions}
+</div>
+</body>
+</html>`;
+}
+
 
 

@@ -4,14 +4,16 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { Home, FileText, Compass, BookOpen, Video, Award, Trophy, Sparkles, Star, Zap, ChevronRight, Play, BookOpenCheck, CheckCircle2, AlertTriangle, ShieldCheck, Heart, Link, Image, Youtube, ExternalLink, FileSpreadsheet, Download, Folder, FolderOpen, ArrowLeft, FileCode, Target, Radio, Calendar, Users, Maximize2, Search } from 'lucide-react';
+import { Home, FileText, Compass, BookOpen, Video, Award, Trophy, Sparkles, Star, Zap, ChevronRight, Play, BookOpenCheck, CheckCircle2, AlertTriangle, ShieldCheck, Heart, Link, Image, Youtube, ExternalLink, FileSpreadsheet, Download, Folder, FolderOpen, ArrowLeft, FileCode, Target, Radio, Calendar, Users, Maximize2, Search, RotateCcw, BarChart3 } from 'lucide-react';
 import { UserProfile, ReportCard, TryOut, LearningVideo, UniversityPrediction, ExamScore, Achievement, LearningMaterial } from '../types';
 import { FirestoreSimulator, getTryouts, getVideos, getAchievements, getUniversities, getStudyPrograms, getMaterials, getAllScores } from '../lib/firestoreSimulator';
+import { UTBK_SNBT_SUBTEST_FOLDERS, UTBK_TOTAL_SUMMARY } from '../data/utbkSubtestsData';
 import CbtSimulator from './CbtSimulator';
 import MidtransSimulator from './MidtransSimulator';
 import MathMarkdown from './MathMarkdown';
 import CbtAnalysisReport, { CbtReportData } from './CbtAnalysisReport';
 import CbtTryoutIndoLanjut from './tryout_cbt_tka/bahasa_indonesia_tingkat_lanjut/CbtTryoutIndoLanjut';
+import CbtTryoutInggrisLanjut from './tryout_cbt_tka/bahasa_inggris_tingkat_lanjut/CbtTryoutInggrisLanjut';
 import CbtTryoutKimia from './tryout_cbt_tka/kimia/CbtTryoutKimia';
 import CbtTryoutBiologi from './tryout_cbt_tka/biologi/CbtTryoutBiologi';
 import CbtTryoutFisika from './tryout_cbt_tka/fisika/CbtTryoutFisika';
@@ -44,6 +46,10 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
   const [tkaCategoryFilter, setTkaCategoryFilter] = useState<'all' | 'wajib' | 'saintek' | 'soshum'>('all');
   const [tkaSearchQuery, setTkaSearchQuery] = useState<string>('');
 
+  const [selectedUtbkFolder, setSelectedUtbkFolder] = useState<string | null>(null);
+  const [utbkCategoryFilter, setUtbkCategoryFilter] = useState<'all' | 'tps' | 'literasi'>('all');
+  const [utbkSearchQuery, setUtbkSearchQuery] = useState<string>('');
+
   useEffect(() => {
     const syncTryouts = () => {
       setTryoutsList(getTryouts());
@@ -74,6 +80,7 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
   });
 
   const [predictionsList, setPredictionsList] = useState<UniversityPrediction[]>([]);
+  const [selectedSemesterTab, setSelectedSemesterTab] = useState<string>('all');
   const [targetUniv, setTargetUniv] = useState('ugm');
   const [targetProdi, setTargetProdi] = useState('prodi_ugm_1');
   const [univSearch, setUnivSearch] = useState('');
@@ -446,10 +453,9 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
   };
 
   const handleCbtFinished = (score: ExamScore) => {
-    setActiveCbt(null);
-    // Reload user profile for fresh XP & levels
+    // Reload user profile for fresh XP & levels without closing the active CBT screen
     const updatedUser = FirestoreSimulator.getCurrentUser();
-    if (updatedUser) onUpdateProfile(updatedUser);
+    if (updatedUser && onUpdateProfile) onUpdateProfile(updatedUser);
   };
 
   const handleCheckoutSuccess = () => {
@@ -606,22 +612,13 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
             </span>
           </button>
           <button
-            onClick={() => setActiveTab('rapor')}
-            className={`px-4 py-3 rounded-xl font-bold text-xs flex items-center gap-2.5 transition-all cursor-pointer shrink-0 ${
-              activeTab === 'rapor' ? 'bg-blue-50 text-[#2563EB] border border-blue-100/50 shadow-sm' : 'bg-white text-slate-500 hover:bg-slate-50 border border-slate-200/60'
-            }`}
-          >
-            <FileText className="w-4 h-4" />
-            <span>Input Nilai Rapor</span>
-          </button>
-          <button
             onClick={() => setActiveTab('prediksi')}
             className={`px-4 py-3 rounded-xl font-bold text-xs flex items-center gap-2.5 transition-all cursor-pointer shrink-0 ${
-              activeTab === 'prediksi' ? 'bg-blue-50 text-[#2563EB] border border-blue-100/50 shadow-sm' : 'bg-white text-slate-500 hover:bg-slate-50 border border-slate-200/60'
+              activeTab === 'prediksi' || activeTab === 'rapor' ? 'bg-blue-50 text-[#2563EB] border border-blue-100/50 shadow-sm' : 'bg-white text-slate-500 hover:bg-slate-50 border border-slate-200/60'
             }`}
           >
             <Compass className="w-4 h-4" />
-            <span>Prediksi Peluang PTN</span>
+            <span>Prediksi Peluang PTN dengan Nilai Raport</span>
           </button>
           <button
             onClick={() => setActiveTab('video')}
@@ -688,7 +685,11 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
           
           {/* Active CBT Overlay */}
           {activeCbt ? (
-            activeCbt.id === 'to-tka-bindo-lanjut-2026' || 
+            activeCbt.id === 'to-tka-bing-lanjut-2026' ||
+            activeCbt.id === 'to-tka-binggris-lanjut-2026' ||
+            (activeCbt.subject === 'Bahasa Inggris Tingkat Lanjut' && !activeCbt.googleFormUrl) ? (
+              <CbtTryoutInggrisLanjut onBack={() => setActiveCbt(null)} />
+            ) : activeCbt.id === 'to-tka-bindo-lanjut-2026' || 
             (activeCbt.subject === 'Bahasa Indonesia Tingkat Lanjut' && !activeCbt.googleFormUrl) ? (
               <CbtTryoutIndoLanjut onBack={() => setActiveCbt(null)} />
             ) : activeCbt.id === 'to-tka-kimia-1-2026' || 
@@ -914,122 +915,250 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                 </div>
               )}
 
-              {/* Tab: Nilai Rapor (Grid Input) */}
-              {activeTab === 'rapor' && (
-                <div className="bg-white border border-slate-100 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
-                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-100 pb-5">
-                    <div>
-                      <h2 className="text-lg font-bold font-display text-slate-900">Arsip Pengisian Nilai Rapor (Semester 1 - 5)</h2>
-                      <p className="text-xs text-slate-500 mt-1">Input nilai pengetahuan rapor 15 mapel SMA untuk menghitung akurasi prediksi kelulusan SNBP.</p>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="bg-blue-50 border border-blue-100 px-4 py-2 rounded-2xl text-right">
-                        <span className="text-[10px] text-slate-400 font-bold block uppercase tracking-wider">RATA-RATA GLOBAL</span>
-                        <span className="text-xl font-black text-blue-700">{reportCard.average || 0} / 100</span>
+              {/* Tab: Prediksi Peluang PTN dengan Nilai Raport (Merged Input Rapor + Prediksi) */}
+              {(activeTab === 'prediksi' || activeTab === 'rapor') && (
+                <div className="space-y-6">
+                  
+                  {/* Header Banner */}
+                  <div className="bg-white border border-slate-100 rounded-3xl p-6 sm:p-8 shadow-sm space-y-4">
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                      <div>
+                        <div className="flex items-center gap-2 mb-1.5">
+                          <span className="px-2.5 py-0.5 bg-blue-100 text-blue-800 text-[10px] font-black rounded-md uppercase tracking-wider">
+                            SNPMB & SNBP Rasionalisasi 2026
+                          </span>
+                          <span className="text-[11px] font-bold text-slate-400">100+ PTN Resmi</span>
+                        </div>
+                        <h2 className="text-xl sm:text-2xl font-black font-display text-slate-900 leading-tight">
+                          Prediksi Peluang PTN dengan Nilai Raport
+                        </h2>
+                        <p className="text-xs sm:text-sm text-slate-500 mt-1 max-w-2xl">
+                          Input nilai rapor Semester 1 sampai 5 Anda di bawah ini, tentukan program studi PTN impian, dan hitung akurasi peluang kelulusan jalur SNBP & SNBT secara komprehensif.
+                        </p>
+                      </div>
+
+                      <div className="flex items-center gap-3 shrink-0">
+                        <div className="bg-blue-50 border border-blue-100 px-5 py-3 rounded-2xl text-right">
+                          <span className="text-[10px] text-slate-400 font-bold block uppercase tracking-wider">RATA-RATA RAPOR GLOBAL</span>
+                          <span className="text-2xl font-black text-blue-700">{reportCard.average || 0} <span className="text-xs font-semibold text-slate-400">/ 100</span></span>
+                        </div>
                       </div>
                     </div>
                   </div>
 
-                  {/* SVG line-graph indicator for Semester Trends */}
-                  <div className="border border-slate-100 p-4 rounded-2xl space-y-3">
-                    <h4 className="text-xs font-bold text-slate-600 block">Tren Grafik Rata-Rata Rapor per Semester</h4>
-                    <div className="flex justify-between items-end h-24 pt-4 px-6 border-b border-slate-100">
+                  {/* Section 1: Formulir Input Nilai Rapor Siswa */}
+                  <div className="bg-white border border-slate-100 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-100 pb-5">
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-8 h-8 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-black text-sm">
+                          1
+                        </div>
+                        <div>
+                          <h3 className="text-base font-extrabold text-slate-900">Arsip & Input Nilai Rapor (Semester 1 - 5)</h3>
+                          <p className="text-xs text-slate-500">Nilai akan otomatis tersimpan dan digunakan untuk merasionalisasi peluang kelulusan.</p>
+                        </div>
+                      </div>
+
+                      {/* Quick Action Buttons */}
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const sampleGrades: { [sem: string]: { [sub: string]: number } } = {};
+                            semesters.forEach((sem, idx) => {
+                              sampleGrades[sem] = {};
+                              subjectsList.forEach((sub, subIdx) => {
+                                // Natural progressive score around 84 - 92
+                                const base = 84 + (idx * 1.5) + ((subIdx % 4) * 1.2);
+                                sampleGrades[sem][sub] = Math.min(95, Math.round(base));
+                              });
+                            });
+                            const sampleCard = {
+                              userId: userProfile.uid,
+                              grades: sampleGrades,
+                              average: 87.5,
+                              updatedAt: new Date().toISOString()
+                            };
+                            setReportCard(sampleCard);
+                            FirestoreSimulator.saveReportCard(sampleCard);
+                          }}
+                          className="px-3 py-2 bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5"
+                        >
+                          <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                          <span>Isi Contoh Nilai (85+)</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={handleClearReportCard}
+                          className="px-3 py-2 bg-red-50 hover:bg-red-100 text-red-700 border border-red-100 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5"
+                        >
+                          <RotateCcw className="w-3.5 h-3.5 text-red-500" />
+                          <span>Kosongkan</span>
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* SVG Bar Chart for Semester Trends */}
+                    <div className="border border-slate-100 bg-slate-50/50 p-5 rounded-2xl space-y-3">
+                      <div className="flex justify-between items-center">
+                        <h4 className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                          <BarChart3 className="w-4 h-4 text-blue-600" />
+                          Tren Grafik Rata-Rata Rapor per Semester
+                        </h4>
+                        <span className="text-[11px] text-slate-400 font-medium">Nilai 0 - 100</span>
+                      </div>
+
+                      <div className="flex justify-between items-end h-28 pt-4 px-4 sm:px-8 border-b border-slate-200 bg-white rounded-xl shadow-inner">
+                        {semesters.map((sem) => {
+                          const sGrades = reportCard.grades[sem] || {};
+                          const validVals = Object.values(sGrades).filter(v => v > 0);
+                          const avg = validVals.length > 0 ? Math.round(validVals.reduce((sum, val) => sum + val, 0) / validVals.length) : 0;
+                          const barHeight = avg > 0 ? `${Math.max(8, avg)}%` : '4px';
+
+                          return (
+                            <div key={sem} className="flex flex-col items-center gap-2 h-full justify-end">
+                              <span className={`text-[10px] font-black ${avg > 0 ? 'text-blue-600' : 'text-slate-300'}`}>
+                                {avg > 0 ? avg : '-'}
+                              </span>
+                              <div
+                                className={`w-8 sm:w-12 rounded-t-md transition-all duration-500 ${
+                                  avg > 80 ? 'bg-gradient-to-t from-blue-600 to-indigo-500' : avg > 0 ? 'bg-blue-400' : 'bg-slate-200'
+                                }`}
+                                style={{ height: barHeight }}
+                              ></div>
+                              <span className="text-[9px] sm:text-[10px] text-slate-500 font-bold">{sem}</span>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Semester Tab Switcher */}
+                    <div className="flex items-center gap-1.5 overflow-x-auto pb-1 border-b border-slate-100">
+                      <button
+                        type="button"
+                        onClick={() => setSelectedSemesterTab('all')}
+                        className={`px-3.5 py-2 rounded-xl text-xs font-extrabold transition-all cursor-pointer shrink-0 ${
+                          selectedSemesterTab === 'all'
+                            ? 'bg-blue-600 text-white shadow-sm shadow-blue-200'
+                            : 'bg-slate-50 hover:bg-slate-100 text-slate-600'
+                        }`}
+                      >
+                        Semua Semester (1 - 5)
+                      </button>
                       {semesters.map((sem) => {
-                        // Calculate specific semester average (only count > 0)
                         const sGrades = reportCard.grades[sem] || {};
                         const validVals = Object.values(sGrades).filter(v => v > 0);
                         const avg = validVals.length > 0 ? Math.round(validVals.reduce((sum, val) => sum + val, 0) / validVals.length) : 0;
-                        const barHeight = avg > 0 ? `${avg}%` : '4px';
-
                         return (
-                          <div key={sem} className="flex flex-col items-center gap-2 h-full justify-end">
-                            <span className="text-[10px] font-black text-blue-600">{avg > 0 ? avg : '-'}</span>
-                            <div className="w-8 bg-blue-600/80 rounded-t-md transition-all duration-300" style={{ height: barHeight }}></div>
-                            <span className="text-[9px] text-slate-400 font-semibold">{sem}</span>
-                          </div>
+                          <button
+                            key={sem}
+                            type="button"
+                            onClick={() => setSelectedSemesterTab(sem)}
+                            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer shrink-0 flex items-center gap-1.5 ${
+                              selectedSemesterTab === sem
+                                ? 'bg-blue-600 text-white shadow-sm shadow-blue-200'
+                                : 'bg-slate-50 hover:bg-slate-100 text-slate-600'
+                            }`}
+                          >
+                            <span>{sem}</span>
+                            {avg > 0 && (
+                              <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-black ${
+                                selectedSemesterTab === sem ? 'bg-white/20 text-white' : 'bg-blue-50 text-blue-700'
+                              }`}>
+                                {avg}
+                              </span>
+                            )}
+                          </button>
                         );
                       })}
                     </div>
-                  </div>
 
-                  {/* Input Grid Map */}
-                  <div className="space-y-6 max-h-[50vh] overflow-y-auto pr-2">
-                    {semesters.map((sem) => (
-                      <div key={sem} className="space-y-3 border-b border-slate-100 pb-5 last:border-b-0 last:pb-0">
-                        <div className="flex justify-between items-center">
-                          <h4 className="font-extrabold text-slate-800 text-sm flex items-center gap-1.5">
-                            <CheckCircle2 className="w-4 h-4 text-blue-600" />
-                            {sem}
-                          </h4>
-                          <button
-                            onClick={() => {
-                              setReportCard(prev => {
-                                const newG = { ...prev.grades };
-                                newG[sem] = {};
-                                subjectsList.forEach(s => newG[sem][s] = 0);
-                                const updated = { ...prev, grades: newG };
-                                FirestoreSimulator.saveReportCard(updated);
-                                return updated;
-                              });
-                            }}
-                            className="text-[11px] font-bold text-slate-400 hover:text-red-600 transition-colors cursor-pointer"
-                          >
-                            Kosongkan {sem}
-                          </button>
-                        </div>
-                        
-                        <div className="grid grid-cols-2 md:grid-cols-5 gap-3.5">
-                          {subjectsList.map((sub) => {
-                            const rawGrade = reportCard.grades[sem]?.[sub];
-                            const displayVal = (rawGrade === undefined || rawGrade === null || rawGrade === 0) ? '' : rawGrade;
-                            return (
-                              <div key={sub} className="space-y-1">
-                                <label className="text-[10px] font-bold text-slate-500 block truncate" title={sub}>{sub}</label>
-                                <input
-                                  type="text"
-                                  inputMode="numeric"
-                                  placeholder="0"
-                                  value={displayVal}
-                                  onFocus={(e) => e.target.select()}
-                                  onChange={(e) => {
-                                    const raw = e.target.value;
-                                    if (raw === '') {
-                                      handleGradeChange(sem, sub, 0);
-                                    } else {
-                                      const parsed = parseFloat(raw);
-                                      if (!isNaN(parsed)) {
-                                        handleGradeChange(sem, sub, parsed);
-                                      } else {
-                                        handleGradeChange(sem, sub, 0);
-                                      }
-                                    }
+                    {/* Input Grid Map */}
+                    <div className="space-y-6 max-h-[55vh] overflow-y-auto pr-2">
+                      {semesters
+                        .filter(sem => selectedSemesterTab === 'all' || selectedSemesterTab === sem)
+                        .map((sem) => {
+                          const sGrades = reportCard.grades[sem] || {};
+                          const validVals = Object.values(sGrades).filter(v => v > 0);
+                          const semAvg = validVals.length > 0 ? (validVals.reduce((sum, val) => sum + val, 0) / validVals.length).toFixed(1) : '0';
+
+                          return (
+                            <div key={sem} className="space-y-3.5 border-b border-slate-100 pb-5 last:border-b-0 last:pb-0">
+                              <div className="flex justify-between items-center">
+                                <div className="flex items-center gap-2">
+                                  <CheckCircle2 className="w-4 h-4 text-blue-600" />
+                                  <h4 className="font-extrabold text-slate-900 text-sm">{sem}</h4>
+                                  <span className="text-[10px] bg-blue-50 text-blue-700 font-bold px-2 py-0.5 rounded-md border border-blue-100">
+                                    Rata-rata: {semAvg}
+                                  </span>
+                                </div>
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    setReportCard(prev => {
+                                      const newG = { ...prev.grades };
+                                      newG[sem] = {};
+                                      subjectsList.forEach(s => newG[sem][s] = 0);
+                                      const updated = { ...prev, grades: newG };
+                                      FirestoreSimulator.saveReportCard(updated);
+                                      return updated;
+                                    });
                                   }}
-                                  className="w-full p-2 border border-slate-200 rounded-lg text-xs font-semibold text-slate-800 text-center focus:outline-none focus:border-blue-500 focus:bg-white"
-                                />
+                                  className="text-[11px] font-bold text-slate-400 hover:text-red-600 transition-colors cursor-pointer"
+                                >
+                                  Kosongkan {sem}
+                                </button>
                               </div>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    ))}
+                              
+                              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+                                {subjectsList.map((sub) => {
+                                  const rawGrade = reportCard.grades[sem]?.[sub];
+                                  const displayVal = (rawGrade === undefined || rawGrade === null || rawGrade === 0) ? '' : rawGrade;
+                                  return (
+                                    <div key={sub} className="space-y-1 bg-slate-50/50 p-2.5 rounded-xl border border-slate-100 focus-within:border-blue-300 focus-within:bg-white transition-all">
+                                      <label className="text-[10px] font-bold text-slate-600 block truncate" title={sub}>{sub}</label>
+                                      <input
+                                        type="text"
+                                        inputMode="numeric"
+                                        placeholder="0"
+                                        value={displayVal}
+                                        onFocus={(e) => e.target.select()}
+                                        onChange={(e) => {
+                                          const raw = e.target.value;
+                                          if (raw === '') {
+                                            handleGradeChange(sem, sub, 0);
+                                          } else {
+                                            const parsed = parseFloat(raw);
+                                            if (!isNaN(parsed)) {
+                                              handleGradeChange(sem, sub, parsed);
+                                            } else {
+                                              handleGradeChange(sem, sub, 0);
+                                            }
+                                          }
+                                        }}
+                                        className="w-full p-2 border border-slate-200 rounded-lg text-xs font-black text-slate-800 text-center focus:outline-none focus:border-blue-500 focus:bg-white shadow-sm"
+                                      />
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            </div>
+                          );
+                        })}
+                    </div>
                   </div>
 
-                </div>
-              )}
-
-              {/* Tab: Prediksi PTN */}
-              {activeTab === 'prediksi' && (
-                <div className="space-y-6">
-                  
-                  {/* Selector card */}
+                  {/* Section 2: Pilih Target PTN & Program Studi */}
                   <div className="bg-white border border-slate-100 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
-                    <div>
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="px-2.5 py-0.5 bg-blue-100 text-blue-800 text-[10px] font-black rounded-md uppercase tracking-wider">SNPMB Official Data</span>
-                        <span className="text-[11px] font-bold text-slate-400">PTN & Jurusan Terdaftar Panitia SNPMB</span>
+                    <div className="flex items-center gap-2.5 border-b border-slate-100 pb-5">
+                      <div className="w-8 h-8 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-black text-sm">
+                        2
                       </div>
-                      <h2 className="text-lg font-bold font-display text-slate-900">Prediksi Peluang Kelulusan PTN</h2>
-                      <p className="text-xs text-slate-500 mt-0.5">Kalkulasi akurasi peluang kelulusan Anda di PTN terfavorit se-Indonesia berdasarkan data Rapor dan Skor Try Out CBT.</p>
+                      <div>
+                        <h3 className="text-base font-extrabold text-slate-900">Pilih Target PTN, Program Studi, & Jalur Seleksi</h3>
+                        <p className="text-xs text-slate-500">Tentukan pilihan kampus dan jurusan untuk mengkalkulasi peluang kelulusan dari nilai rapor Anda.</p>
+                      </div>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
@@ -1068,7 +1197,6 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                         >
                           {ptnCategories.map(cat => {
                             let list = filteredUniversities.filter(u => (u.category || 'PTN Regional') === cat);
-                            // Guarantee currently selected PTN stays visible even if search term is active
                             const currentTargetObj = allUniversities.find(u => u.id === targetUniv);
                             if (currentTargetObj && (currentTargetObj.category || 'PTN Regional') === cat) {
                               if (!list.some(u => u.id === targetUniv)) {
@@ -1137,7 +1265,7 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                       <div className="space-y-1.5 flex flex-col justify-between">
                         <div>
                           <label className="text-xs font-bold text-slate-700">Jalur Masuk Seleksi</label>
-                          <p className="text-[11px] text-slate-400 mt-0.5">SNBP (Prestasi Rapor) / SNBT (CBT TKA)</p>
+                          <p className="text-[11px] text-slate-400 mt-0.5">SNBP (Prestasi Nilai Rapor) / SNBT (CBT UTBK)</p>
                         </div>
 
                         <select
@@ -1145,35 +1273,37 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                           onChange={(e) => setPathway(e.target.value as any)}
                           className="w-full p-3 border border-slate-200 rounded-xl bg-white text-xs sm:text-sm font-semibold text-slate-800 focus:outline-none focus:border-blue-500 shadow-sm"
                         >
-                          <option value="SNBP">SNBP (Prestasi Rapor Semester 1-5)</option>
-                          <option value="SNBT">SNBT (Ujian CBT TKA)</option>
+                          <option value="SNBP">SNBP (Prestasi Nilai Rapor Semester 1 - 5)</option>
+                          <option value="SNBT">SNBT (Ujian CBT UTBK / TKA)</option>
                         </select>
                       </div>
 
                     </div>
 
                     <button
+                      type="button"
                       onClick={handleCalculatePrediction}
-                      className="w-full py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs transition-colors shadow-md shadow-blue-50 flex items-center justify-center gap-1.5 cursor-pointer"
+                      className="w-full py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black rounded-2xl text-sm transition-all shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.01]"
                     >
-                      <Compass className="w-4 h-4" />
+                      <Compass className="w-5 h-5 text-amber-300" />
                       <span>Kalkulasi Akurasi Prediksi Peluang Kelulusan</span>
                     </button>
                   </div>
 
-                  {/* Active calculation outcome & SVG speed gauge dial */}
+                  {/* Section 3: Active calculation outcome & SVG speed gauge dial */}
                   {activePrediction && (
                     <div className="bg-white border border-slate-100 rounded-3xl p-6 sm:p-8 shadow-sm grid grid-cols-1 md:grid-cols-12 gap-8 items-center animate-in fade-in duration-300">
                       
                       <div className="md:col-span-4 flex flex-col items-center text-center space-y-4">
-                        <h4 className="text-xs font-extrabold text-slate-400 uppercase tracking-widest">AKURASI KELULUSAN</h4>
+                        <div className="flex items-center gap-1.5">
+                          <Sparkles className="w-4 h-4 text-amber-500" />
+                          <h4 className="text-xs font-extrabold text-slate-400 uppercase tracking-widest">AKURASI KELULUSAN</h4>
+                        </div>
                         
                         {/* Custom visual SVG Circular speed-gauge */}
                         <div className="relative w-44 h-44">
                           <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
-                            {/* Outer grey circle track */}
                             <circle cx="50" cy="50" r="40" stroke="#F1F5F9" strokeWidth="8" fill="none" />
-                            {/* Inner blue progress indicator */}
                             <circle
                               cx="50"
                               cy="50"
@@ -1189,19 +1319,33 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                           </svg>
                           <div className="absolute inset-0 flex flex-col items-center justify-center">
                             <span className="text-3xl font-black text-slate-800">{activePrediction.probabilityScore}%</span>
-                            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">{activePrediction.probability}</span>
+                            <span className={`text-[11px] font-black uppercase tracking-wider mt-0.5 ${
+                              activePrediction.probabilityScore > 70 ? 'text-emerald-600' : activePrediction.probabilityScore > 50 ? 'text-blue-600' : 'text-red-500'
+                            }`}>
+                              {activePrediction.probability}
+                            </span>
                           </div>
                         </div>
                       </div>
 
                       <div className="md:col-span-8 space-y-4">
                         <div className="space-y-1">
-                          <span className="text-xs text-blue-600 font-extrabold uppercase tracking-widest block">{activePrediction.pathway} PATHWAY OUTCOME</span>
+                          <div className="flex items-center gap-2">
+                            <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-800 font-extrabold uppercase tracking-wider">
+                              Jalur {activePrediction.pathway}
+                            </span>
+                            <span className="text-xs text-slate-400 font-semibold">
+                              Rata-Rata Rapor: <strong className="text-slate-700">{reportCard.average || 0}</strong>
+                            </span>
+                          </div>
                           <h3 className="text-xl font-extrabold text-slate-900">{activePrediction.university} - {activePrediction.studyProgram}</h3>
                         </div>
 
-                        <div className="bg-slate-50 border border-slate-100 p-4 rounded-2xl text-xs sm:text-sm text-slate-700 leading-relaxed space-y-2">
-                          <p className="font-bold text-slate-800">Rekomendasi Taktis Belajar:</p>
+                        <div className="bg-slate-50 border border-slate-100 p-4 sm:p-5 rounded-2xl text-xs sm:text-sm text-slate-700 leading-relaxed space-y-2">
+                          <p className="font-bold text-slate-800 flex items-center gap-1.5">
+                            <Sparkles className="w-4 h-4 text-blue-600" />
+                            Rekomendasi Taktis & Analisis Rasionalisasi:
+                          </p>
                           <MathMarkdown content={activePrediction.recommendation} />
                         </div>
                       </div>
@@ -1209,10 +1353,16 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                     </div>
                   )}
 
-                  {/* Historical prediction requests */}
+                  {/* Section 4: Historical prediction requests */}
                   {predictionsList.length > 0 && (
                     <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
-                      <h3 className="font-extrabold text-slate-800 text-sm">Riwayat Perhitungan Prediksi</h3>
+                      <div className="flex justify-between items-center">
+                        <h3 className="font-extrabold text-slate-800 text-sm flex items-center gap-2">
+                          <RotateCcw className="w-4 h-4 text-slate-400" />
+                          Riwayat Perhitungan Prediksi Peluang PTN
+                        </h3>
+                        <span className="text-xs text-slate-400 font-bold">{predictionsList.length} Riwayat</span>
+                      </div>
                       <div className="divide-y divide-slate-100 text-xs sm:text-sm">
                         {predictionsList.map((p) => (
                           <div key={p.id} className="py-3.5 first:pt-0 last:pb-0 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
@@ -1911,43 +2061,98 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                 );
 
                 // Get current active folder details if selected
-                const currentFolderObj = isTka && selectedTkaFolder 
+                const currentTkaFolderObj = isTka && selectedTkaFolder 
                   ? TKA_SMA_SUBJECT_FOLDERS.find(f => f.id === selectedTkaFolder) 
+                  : null;
+
+                const currentUtbkFolderObj = !isTka && selectedUtbkFolder
+                  ? UTBK_SNBT_SUBTEST_FOLDERS.find(f => f.id === selectedUtbkFolder)
                   : null;
 
                 // Filter tryouts to render
                 let listToRender: TryOut[] = [];
-                if (!isTka) {
-                  listToRender = allUtbkTryouts;
-                } else if (currentFolderObj) {
-                  listToRender = allTkaTryouts.filter(to => currentFolderObj.match(to.subject, to.name));
+                if (isTka) {
+                  if (currentTkaFolderObj) {
+                    listToRender = allTkaTryouts.filter(to => currentTkaFolderObj.match(to.subject, to.name));
+                  } else {
+                    listToRender = allTkaTryouts;
+                  }
                 } else {
-                  listToRender = allTkaTryouts;
+                  if (currentUtbkFolderObj) {
+                    listToRender = allUtbkTryouts.filter(to => currentUtbkFolderObj.match(to.subject, to.name));
+                  } else {
+                    listToRender = allUtbkTryouts;
+                  }
                 }
 
                 return (
                   <div className="space-y-6">
 
                     {/* Informational Header */}
-                    <div className="bg-white border border-slate-100 rounded-3xl p-6 sm:p-8 shadow-sm space-y-3">
+                    <div className="bg-white border border-slate-100 rounded-3xl p-6 sm:p-8 shadow-sm space-y-4">
                       <div className="flex items-center justify-between flex-wrap gap-2">
                         <h2 className="text-xl font-bold font-display text-slate-900 flex items-center gap-2">
                           <Award className={`w-6 h-6 ${isTka ? 'text-emerald-600' : 'text-blue-600'}`} />
-                          {isTka ? 'Pusat CBT Try Out TKA SMA - Folder Mata Pelajaran' : 'Pusat CBT Try Out UTBK/SNBT Nasional'}
+                          {isTka ? 'Pusat CBT Try Out TKA SMA - Folder Mata Pelajaran' : 'Pusat CBT Try Out UTBK/SNBT - 9 Subtes Resmi'}
                         </h2>
                         <span className={`text-xs font-bold px-3 py-1 rounded-full border ${
                           isTka 
                             ? 'bg-emerald-50 text-emerald-700 border-emerald-100' 
                             : 'bg-blue-50 text-blue-700 border-blue-100'
                         }`}>
-                          {isTka ? `${allTkaTryouts.length} Paket TKA (${TKA_SMA_SUBJECT_FOLDERS.length} Folder Mapel)` : `${listToRender.length} Paket UTBK Tersedia`}
+                          {isTka 
+                            ? `${allTkaTryouts.length} Paket TKA (${TKA_SMA_SUBJECT_FOLDERS.length} Folder Mapel)` 
+                            : `${UTBK_SNBT_SUBTEST_FOLDERS.length} Folder Subtes (160 Soal / 195 Menit)`}
                         </span>
                       </div>
                       <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
                         {isTka 
-                          ? `Masing-masing Try Out bab dikumpulkan secara rapi di dalam ${TKA_SMA_SUBJECT_FOLDERS.length} Folder Mata Pelajaran TKA SMA (Matematika Wajib, Matematika Tingkat Lanjut, Bahasa Indonesia, Bahasa Indonesia Tingkat Lanjut, Bahasa Inggris, Bahasa Inggris Tingkat Lanjut, Fisika, Kimia, Biologi, Ekonomi, Geografi, Sejarah, Sosiologi, PPKn). Pilih folder mapel di bawah untuk membuka paket Try Out per bab.`
-                          : 'Daftar seluruh paket Try Out UTBK/SNBT resmi yang diupload oleh Tim Guru dan Admin Utama. Pilih paket di bawah ini untuk mengerjakan simulasi CBT interaktif maupun ujian Google Form.'}
+                          ? `Masing-masing Try Out bab dikumpulkan secara rapi di dalam ${TKA_SMA_SUBJECT_FOLDERS.length} Folder Mata Pelajaran TKA SMA. Pilih folder mapel di bawah untuk membuka paket Try Out per bab.`
+                          : 'Seluruh paket Try Out UTBK/SNBT resmi dikelompokkan ke dalam 9 Folder Subtes sesuai format SNPMB BPPP Kemendikbudristek (Penalaran Induktif, Deduktif, Kuantitatif, PPU, PBM, PK, Literasi Bahasa Indonesia, Literasi Bahasa Inggris, dan Penalaran Matematika). Pilih folder subtes di bawah untuk simulasi CBT interaktif.'}
                       </p>
+
+                      {/* Folder Nav Pills for UTBK */}
+                      {!isTka && (
+                        <div className="pt-2 flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
+                          <button
+                            onClick={() => {
+                              setSelectedUtbkFolder(null);
+                              setUtbkCategoryFilter('all');
+                              setUtbkSearchQuery('');
+                            }}
+                            className={`px-3.5 py-1.5 rounded-xl text-xs font-extrabold transition-all whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
+                              selectedUtbkFolder === null
+                                ? 'bg-blue-600 text-white shadow-sm'
+                                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                            }`}
+                          >
+                            <FolderOpen className="w-3.5 h-3.5" /> Semua Folder ({UTBK_SNBT_SUBTEST_FOLDERS.length})
+                          </button>
+                          {UTBK_SNBT_SUBTEST_FOLDERS.map(f => {
+                            const count = allUtbkTryouts.filter(to => f.match(to.subject, to.name)).length;
+                            const isSelected = selectedUtbkFolder === f.id;
+                            return (
+                              <button
+                                key={f.id}
+                                onClick={() => setSelectedUtbkFolder(f.id)}
+                                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
+                                  isSelected
+                                    ? 'bg-blue-600 text-white shadow-sm'
+                                    : 'bg-slate-50 text-slate-700 hover:bg-slate-100 border border-slate-200/60'
+                                }`}
+                              >
+                                <span>{f.icon}</span>
+                                <span>{f.name}</span>
+                                <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-black ${
+                                  isSelected ? 'bg-blue-800 text-blue-100' : 'bg-slate-200 text-slate-700'
+                                }`}>
+                                  {count} paket
+                                </span>
+                              </button>
+                            );
+                          })}
+                        </div>
+                      )}
 
                       {/* Folder Nav Pills for TKA */}
                       {isTka && (
@@ -1992,6 +2197,195 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                         </div>
                       )}
                     </div>
+
+                    {/* UTBK 9 Subtests Overview Section (When selectedUtbkFolder is null) */}
+                    {!isTka && selectedUtbkFolder === null && (() => {
+                      const filteredUtbkFolders = UTBK_SNBT_SUBTEST_FOLDERS.filter(f => {
+                        if (utbkCategoryFilter === 'tps' && f.testGroup !== 'Tes Potensi Skolastik (TPS)') return false;
+                        if (utbkCategoryFilter === 'literasi' && f.testGroup !== 'Tes Literasi') return false;
+                        if (utbkSearchQuery.trim()) {
+                          const query = utbkSearchQuery.toLowerCase();
+                          return f.name.toLowerCase().includes(query) || f.description.toLowerCase().includes(query) || f.testGroup.toLowerCase().includes(query);
+                        }
+                        return true;
+                      });
+
+                      return (
+                        <div className="space-y-6">
+                          {/* Official UTBK Structure Summary Table Card */}
+                          <div className="bg-gradient-to-br from-slate-900 via-indigo-950 to-blue-950 text-white rounded-3xl p-6 sm:p-7 shadow-lg border border-indigo-500/30 space-y-4">
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-indigo-500/30 pb-4">
+                              <div>
+                                <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-400/20 border border-amber-400/40 rounded-full text-amber-300 text-xs font-black tracking-wide uppercase mb-1.5">
+                                  <Sparkles className="w-3.5 h-3.5" /> Standar Resmi UTBK-SNBT
+                                </div>
+                                <h3 className="text-lg sm:text-xl font-black font-display text-white">
+                                  Struktur 9 Subtes UTBK SNBT
+                                </h3>
+                                <p className="text-xs text-indigo-200">
+                                  Komposisi lengkap ujian resmi: 9 Subtes, 160 Soal, total alokasi durasi 195 Menit.
+                                </p>
+                              </div>
+                              <div className="flex items-center gap-3 shrink-0">
+                                <div className="bg-white/10 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/15 text-center">
+                                  <span className="text-[10px] text-indigo-200 uppercase font-black tracking-wider block">Total Soal</span>
+                                  <span className="text-lg font-black text-amber-300">160 Soal</span>
+                                </div>
+                                <div className="bg-white/10 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/15 text-center">
+                                  <span className="text-[10px] text-indigo-200 uppercase font-black tracking-wider block">Total Waktu</span>
+                                  <span className="text-lg font-black text-emerald-300">195 Menit</span>
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Table Breakdown */}
+                            <div className="overflow-x-auto rounded-2xl border border-indigo-500/20 bg-slate-900/60">
+                              <table className="w-full text-left text-xs text-slate-200">
+                                <thead className="bg-indigo-950/80 text-[11px] font-black uppercase text-indigo-200 border-b border-indigo-500/30">
+                                  <tr>
+                                    <th className="py-3 px-4">No</th>
+                                    <th className="py-3 px-4">Kelompok Tes</th>
+                                    <th className="py-3 px-4">Subtes</th>
+                                    <th className="py-3 px-4 text-center">Jumlah Soal</th>
+                                    <th className="py-3 px-4 text-center">Durasi</th>
+                                    <th className="py-3 px-4 text-center">Aksi</th>
+                                  </tr>
+                                </thead>
+                                <tbody className="divide-y divide-indigo-500/10">
+                                  {UTBK_SNBT_SUBTEST_FOLDERS.map((f, idx) => (
+                                    <tr key={f.id} className="hover:bg-indigo-900/30 transition-colors">
+                                      <td className="py-3 px-4 font-black text-slate-400">{idx + 1}</td>
+                                      <td className="py-3 px-4 font-bold text-slate-300">{f.testGroup}</td>
+                                      <td className="py-3 px-4 font-extrabold text-white flex items-center gap-2">
+                                        <span>{f.icon}</span>
+                                        <span>{f.name}</span>
+                                      </td>
+                                      <td className="py-3 px-4 text-center font-black text-amber-300">{f.questionCount} Soal</td>
+                                      <td className="py-3 px-4 text-center font-black text-emerald-300">{f.durationFormatted}</td>
+                                      <td className="py-3 px-4 text-center">
+                                        <button
+                                          onClick={() => setSelectedUtbkFolder(f.id)}
+                                          className="px-3 py-1 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl text-[11px] transition-all cursor-pointer shadow-sm"
+                                        >
+                                          Buka Folder
+                                        </button>
+                                      </td>
+                                    </tr>
+                                  ))}
+                                  <tr className="bg-indigo-950/90 font-black text-white border-t border-indigo-500/40">
+                                    <td colSpan={3} className="py-3.5 px-4 uppercase tracking-wider text-amber-300">
+                                      TOTAL (9 Subtes UTBK)
+                                    </td>
+                                    <td className="py-3.5 px-4 text-center text-amber-300 text-sm">
+                                      160 Soal
+                                    </td>
+                                    <td className="py-3.5 px-4 text-center text-emerald-300 text-sm">
+                                      195 Menit
+                                    </td>
+                                    <td className="py-3.5 px-4"></td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+
+                          {/* Filter Tabs & Search Controls */}
+                          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-white p-4 rounded-2xl border border-slate-100 shadow-sm">
+                            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 no-scrollbar">
+                              <button
+                                onClick={() => setUtbkCategoryFilter('all')}
+                                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
+                                  utbkCategoryFilter === 'all'
+                                    ? 'bg-slate-900 text-white shadow-sm'
+                                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                                }`}
+                              >
+                                Semua 9 Subtes
+                              </button>
+                              <button
+                                onClick={() => setUtbkCategoryFilter('tps')}
+                                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
+                                  utbkCategoryFilter === 'tps'
+                                    ? 'bg-blue-600 text-white shadow-sm'
+                                    : 'bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-100'
+                                }`}
+                              >
+                                Tes Potensi Skolastik (6)
+                              </button>
+                              <button
+                                onClick={() => setUtbkCategoryFilter('literasi')}
+                                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
+                                  utbkCategoryFilter === 'literasi'
+                                    ? 'bg-indigo-600 text-white shadow-sm'
+                                    : 'bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-100'
+                                }`}
+                              >
+                                Tes Literasi & Matematika (3)
+                              </button>
+                            </div>
+
+                            {/* Search Input */}
+                            <div className="relative w-full sm:w-64">
+                              <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                              <input
+                                type="text"
+                                value={utbkSearchQuery}
+                                onChange={(e) => setUtbkSearchQuery(e.target.value)}
+                                placeholder="Cari folder subtes UTBK..."
+                                className="w-full pl-8 pr-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+                              />
+                            </div>
+                          </div>
+
+                          {/* 9 UTBK Subtest Folders Grid */}
+                          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                            {filteredUtbkFolders.map((f, idx) => {
+                              const matchingTryouts = allUtbkTryouts.filter(to => f.match(to.subject, to.name));
+                              return (
+                                <div
+                                  key={f.id}
+                                  onClick={() => setSelectedUtbkFolder(f.id)}
+                                  className={`bg-white border border-slate-200/80 rounded-3xl p-6 flex flex-col justify-between shadow-sm hover:shadow-md hover:border-blue-400 transition-all cursor-pointer group space-y-4 relative overflow-hidden`}
+                                >
+                                  <div className="space-y-3">
+                                    <div className="flex items-center justify-between">
+                                      <span className="text-2xl p-2.5 bg-slate-50 rounded-2xl border border-slate-100 group-hover:scale-110 transition-transform">
+                                        {f.icon}
+                                      </span>
+                                      <span className={`text-[10px] font-extrabold px-2.5 py-1 rounded-full border ${f.badgeClass}`}>
+                                        {f.testGroup}
+                                      </span>
+                                    </div>
+
+                                    <div>
+                                      <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block">
+                                        Subtes {idx + 1}
+                                      </span>
+                                      <h4 className="font-extrabold text-slate-900 text-sm sm:text-base group-hover:text-blue-600 transition-colors mt-0.5">
+                                        {f.name}
+                                      </h4>
+                                      <p className="text-[11px] text-slate-500 line-clamp-2 mt-1 leading-snug">
+                                        {f.description}
+                                      </p>
+                                    </div>
+                                  </div>
+
+                                  <div className="pt-3.5 border-t border-slate-100 flex items-center justify-between text-xs">
+                                    <div className="flex items-center gap-2 text-[11px] font-bold text-slate-600">
+                                      <span className="bg-slate-100 px-2 py-0.5 rounded-md">📝 {f.questionCount} Soal</span>
+                                      <span className="bg-slate-100 px-2 py-0.5 rounded-md">⏱️ {f.durationFormatted}</span>
+                                    </div>
+                                    <span className="text-[11px] font-black text-blue-600 group-hover:translate-x-1 transition-transform flex items-center">
+                                      Buka <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
+                                    </span>
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      );
+                    })()}
 
                     {/* TKA Folder Grid Section (When selectedTkaFolder is null or showing overview) */}
                     {isTka && selectedTkaFolder === null && (() => {
@@ -2137,8 +2531,8 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                       );
                     })()}
 
-                    {/* Selected Folder Banner / Back navigation */}
-                    {isTka && currentFolderObj && (
+                    {/* Selected TKA Folder Banner / Back navigation */}
+                    {isTka && currentTkaFolderObj && (
                       <div className="bg-gradient-to-r from-emerald-600 to-teal-700 rounded-3xl p-6 text-white shadow-md flex items-center justify-between flex-wrap gap-4">
                         <div className="space-y-1">
                           <button
@@ -2148,13 +2542,13 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                             <ArrowLeft className="w-3.5 h-3.5" /> Kembali ke Semua Folder ({TKA_SMA_SUBJECT_FOLDERS.length} Mapel)
                           </button>
                           <div className="flex items-center gap-3">
-                            <span className="text-3xl">{currentFolderObj.icon}</span>
+                            <span className="text-3xl">{currentTkaFolderObj.icon}</span>
                             <div>
                               <h3 className="font-black text-lg sm:text-xl text-white">
-                                Folder: {currentFolderObj.name}
+                                Folder: {currentTkaFolderObj.name}
                               </h3>
                               <p className="text-xs text-emerald-100 max-w-xl">
-                                {currentFolderObj.description}
+                                {currentTkaFolderObj.description}
                               </p>
                             </div>
                           </div>
@@ -2167,18 +2561,57 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                       </div>
                     )}
 
-                    {/* Standard CBT & Google Form Tryout Simulations Grid (Shown for UTBK or when a TKA Subject Folder is opened) */}
-                    {(!isTka || currentFolderObj) && (
+                    {/* Selected UTBK Folder Banner / Back navigation */}
+                    {!isTka && currentUtbkFolderObj && (
+                      <div className="bg-gradient-to-r from-blue-700 via-indigo-700 to-slate-900 rounded-3xl p-6 text-white shadow-md flex items-center justify-between flex-wrap gap-4">
+                        <div className="space-y-1">
+                          <button
+                            onClick={() => setSelectedUtbkFolder(null)}
+                            className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/20 hover:bg-white/30 text-white rounded-xl text-xs font-bold transition-all mb-2 cursor-pointer backdrop-blur-sm"
+                          >
+                            <ArrowLeft className="w-3.5 h-3.5" /> Kembali ke 9 Subtes UTBK
+                          </button>
+                          <div className="flex items-center gap-3">
+                            <span className="text-3xl">{currentUtbkFolderObj.icon}</span>
+                            <div>
+                              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 bg-blue-500/30 border border-blue-400/40 rounded-full text-blue-200 text-[10px] font-black uppercase mb-1">
+                                {currentUtbkFolderObj.testGroup}
+                              </div>
+                              <h3 className="font-black text-lg sm:text-xl text-white">
+                                {currentUtbkFolderObj.name}
+                              </h3>
+                              <p className="text-xs text-indigo-100 max-w-xl">
+                                {currentUtbkFolderObj.description}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="bg-white/10 backdrop-blur-md px-4 py-3 rounded-2xl border border-white/20 text-center flex items-center gap-3">
+                          <div className="text-center px-3 border-r border-white/20">
+                            <span className="text-[10px] text-indigo-200 uppercase tracking-widest block font-extrabold">Soal</span>
+                            <span className="text-xl font-black text-amber-300">{currentUtbkFolderObj.questionCount}</span>
+                          </div>
+                          <div className="text-center px-3">
+                            <span className="text-[10px] text-indigo-200 uppercase tracking-widest block font-extrabold">Waktu</span>
+                            <span className="text-xl font-black text-emerald-300">{currentUtbkFolderObj.durationFormatted}</span>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Standard CBT & Google Form Tryout Simulations Grid (Shown when a TKA or UTBK Subject Folder is opened) */}
+                    {((isTka && currentTkaFolderObj) || (!isTka && currentUtbkFolderObj)) && (
                       <div className="space-y-4">
                         <div className="flex items-center justify-between">
                           <h3 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
-                            <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                            {isTka && currentFolderObj
-                              ? `Paket Try Out Bab - ${currentFolderObj.name}`
-                              : `Paket UTBK & Ujian Aktif`}
+                            <CheckCircle2 className={`w-4 h-4 ${isTka ? 'text-emerald-600' : 'text-blue-600'}`} />
+                            {isTka && currentTkaFolderObj
+                              ? `Paket Try Out Bab - ${currentTkaFolderObj.name}`
+                              : `Paket Simulasi CBT - ${currentUtbkFolderObj?.name}`}
                           </h3>
                           <span className="text-xs text-slate-400 font-semibold">
-                            Diperbarui Otomatis
+                            Format Resmi Ujian
                           </span>
                         </div>
 
@@ -2189,16 +2622,14 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                               <Folder className="w-6 h-6" />
                             </div>
                             <h4 className="font-extrabold text-slate-800 text-sm">
-                              {isTka && currentFolderObj 
-                                ? `Folder ${currentFolderObj.name} Siap Digunakan`
-                                : `Belum Ada Paket Try Out ${isTka ? 'TKA' : 'UTBK'} Aktif`}
+                              {isTka && currentTkaFolderObj 
+                                ? `Folder ${currentTkaFolderObj.name} Siap Digunakan`
+                                : `Folder ${currentUtbkFolderObj?.name} Siap Digunakan`}
                             </h4>
                             <p className="text-xs text-slate-400 max-w-md mx-auto">
-                              {isTka && currentFolderObj
-                                ? `Belum ada paket Try Out bab untuk ${currentFolderObj.name}. Guru atau Admin dapat menambahkan paket soal baru ke folder ini melalui Dashboard Admin/Guru.`
-                                : isTka 
-                                  ? 'Semua paket Try Out TKA telah dihapus. Guru atau Admin dapat membuat paket Try Out TKA baru melalui Dashboard Guru/Admin.'
-                                  : 'Belum ada paket Try Out UTBK yang tersedia saat ini.'}
+                              {isTka && currentTkaFolderObj
+                                ? `Belum ada paket Try Out bab untuk ${currentTkaFolderObj.name}. Guru atau Admin dapat menambahkan paket soal baru ke folder ini melalui Dashboard Admin/Guru.`
+                                : `Belum ada paket Try Out untuk subtes ${currentUtbkFolderObj?.name}. Paket soal dapat ditambahkan oleh Admin atau Guru.`}
                             </p>
                           </div>
                         ) : (
@@ -2300,8 +2731,8 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                       </div>
 
                       {/* Matching Materials & Interactive HTML Quiz for this Folder */}
-                      {isTka && currentFolderObj && (() => {
-                        const matchingMaterials = materials.filter(m => currentFolderObj.match(m.subject, m.title) || currentFolderObj.match(m.subject, m.bab));
+                      {isTka && currentTkaFolderObj && (() => {
+                        const matchingMaterials = materials.filter(m => currentTkaFolderObj.match(m.subject, m.title) || currentTkaFolderObj.match(m.subject, m.bab));
                         if (matchingMaterials.length === 0) return null;
                         return (
                           <div className="mt-8 pt-6 border-t border-slate-200/80 space-y-4">
@@ -2310,7 +2741,7 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                                 <BookOpen className="w-4 h-4" />
                               </span>
                               <h4 className="font-extrabold text-slate-900 text-sm sm:text-base">
-                                Modul & Kuis Interaktif {currentFolderObj.name}
+                                Modul & Kuis Interaktif {currentTkaFolderObj.name}
                               </h4>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

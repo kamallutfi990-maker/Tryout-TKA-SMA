@@ -233,6 +233,25 @@ export default function CbtTryoutFisika({ onBack }: CbtTryoutFisikaProps) {
   // Count answered questions
   const answeredCount = Object.keys(answers).length;
 
+  if (submitted) {
+    return (
+      <div className="p-2 sm:p-6 bg-slate-50 min-h-screen animate-in fade-in duration-200">
+        <CbtAnalysisReport
+          report={evaluation.report}
+          onClose={() => {
+            if (onBack) onBack();
+            else {
+              setSubmitted(false);
+              setAnswers({});
+              setCurrentIdx(0);
+              setTimeLeft(45 * 60);
+            }
+          }}
+        />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-slate-100 flex flex-col font-sans text-slate-800 antialiased" id="cbt-fisika-module">
       

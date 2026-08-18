@@ -8,8 +8,16 @@ import {
   PEMBAHASAN_TKA_BAHASA_INDONESIA_LANJUT_HTML,
   PEMBAHASAN_TKA_BAHASA_INGGRIS_LANJUT_HTML,
   PEMBAHASAN_TKA_KIMIA_1_HTML,
-  PEMBAHASAN_TKA_BIOLOGI_1_HTML
+  PEMBAHASAN_TKA_BIOLOGI_1_HTML,
+  generateSubjectDiscussionHtml
 } from '../data/pembahasanTkaHtml';
+import { fisikaTryoutData } from './tryout_cbt_tka/fisika/fisikaTryoutData';
+import { sosiologiTryoutData } from './tryout_cbt_tka/sosiologi/sosiologiTryoutData';
+import { ekonomiTryoutData } from './tryout_cbt_tka/ekonomi/ekonomiTryoutData';
+import { ppknTryoutData } from './tryout_cbt_tka/ppkn/ppknTryoutData';
+import { sejarahTryoutData } from './tryout_cbt_tka/sejarah/sejarahTryoutData';
+import { geografiTryoutData } from './tryout_cbt_tka/geografi/geografiTryoutData';
+import { inggrisLanjutTryoutData } from './tryout_cbt_tka/bahasa_inggris_tingkat_lanjut/inggrisLanjutTryoutData';
 
 interface HtmlPembahasanModalProps {
   isOpen: boolean;
@@ -52,14 +60,81 @@ export default function HtmlPembahasanModal({
         subLabel: 'Dokumen Pembahasan 20 Soal CBT TKA Kimia 1'
       };
     }
+
+    if (checkStr.includes('fisika') || checkStr.includes('physics')) {
+      return {
+        key: 'fisika',
+        label: 'Fisika',
+        badgeColor: 'bg-indigo-50 text-indigo-700 border-indigo-200',
+        iconColor: 'bg-indigo-100 text-indigo-700',
+        html: generateSubjectDiscussionHtml('Fisika TKA SMA', 'Fisika', fisikaTryoutData),
+        subLabel: 'Dokumen Pembahasan 20 Soal CBT TKA Fisika'
+      };
+    }
+
+    if (checkStr.includes('sosiologi') || checkStr.includes('sociology')) {
+      return {
+        key: 'sosiologi',
+        label: 'Sosiologi',
+        badgeColor: 'bg-rose-50 text-rose-700 border-rose-200',
+        iconColor: 'bg-rose-100 text-rose-700',
+        html: generateSubjectDiscussionHtml('Sosiologi TKA SMA', 'Sosiologi', sosiologiTryoutData),
+        subLabel: 'Dokumen Pembahasan 20 Soal CBT TKA Sosiologi'
+      };
+    }
+
+    if (checkStr.includes('ekonomi') || checkStr.includes('economy') || checkStr.includes('economics')) {
+      return {
+        key: 'ekonomi',
+        label: 'Ekonomi',
+        badgeColor: 'bg-teal-50 text-teal-700 border-teal-200',
+        iconColor: 'bg-teal-100 text-teal-700',
+        html: generateSubjectDiscussionHtml('Ekonomi TKA SMA', 'Ekonomi', ekonomiTryoutData),
+        subLabel: 'Dokumen Pembahasan 20 Soal CBT TKA Ekonomi'
+      };
+    }
+
+    if (checkStr.includes('ppkn') || checkStr.includes('pkn') || checkStr.includes('pancasila') || checkStr.includes('kewarganegaraan')) {
+      return {
+        key: 'ppkn',
+        label: 'PPKn (PKn)',
+        badgeColor: 'bg-red-50 text-red-700 border-red-200',
+        iconColor: 'bg-red-100 text-red-700',
+        html: generateSubjectDiscussionHtml('PPKn / PKn TKA SMA', 'PPKn', ppknTryoutData),
+        subLabel: 'Dokumen Pembahasan 20 Soal CBT TKA PPKn'
+      };
+    }
+
+    if (checkStr.includes('sejarah') || checkStr.includes('history')) {
+      return {
+        key: 'sejarah',
+        label: 'Sejarah',
+        badgeColor: 'bg-amber-50 text-amber-700 border-amber-200',
+        iconColor: 'bg-amber-100 text-amber-700',
+        html: generateSubjectDiscussionHtml('Sejarah TKA SMA', 'Sejarah', sejarahTryoutData),
+        subLabel: 'Dokumen Pembahasan 20 Soal CBT TKA Sejarah'
+      };
+    }
+
+    if (checkStr.includes('geografi') || checkStr.includes('geography')) {
+      return {
+        key: 'geografi',
+        label: 'Geografi',
+        badgeColor: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+        iconColor: 'bg-emerald-100 text-emerald-700',
+        html: generateSubjectDiscussionHtml('Geografi TKA SMA', 'Geografi', geografiTryoutData),
+        subLabel: 'Dokumen Pembahasan 20 Soal CBT TKA Geografi'
+      };
+    }
+
     if ((checkStr.includes('inggris') || checkStr.includes('english')) && (checkStr.includes('lanjut') || checkStr.includes('tingkat lanjut'))) {
       return {
         key: 'inggris_lanjut',
         label: 'Bahasa Inggris Tingkat Lanjut',
         badgeColor: 'bg-sky-50 text-sky-700 border-sky-200',
         iconColor: 'bg-sky-100 text-sky-700',
-        html: PEMBAHASAN_TKA_BAHASA_INGGRIS_LANJUT_HTML,
-        subLabel: 'Dokumen Pembahasan 20 Soal CBT TKA Bahasa Inggris Tingkat Lanjut'
+        html: generateSubjectDiscussionHtml('Bahasa Inggris Tingkat Lanjut TKA SMA (10 Soal)', 'Bahasa Inggris Tingkat Lanjut', inggrisLanjutTryoutData),
+        subLabel: 'Dokumen Pembahasan 10 Soal CBT TKA Bahasa Inggris Tingkat Lanjut'
       };
     }
     if (checkStr.includes('inggris') || checkStr.includes('english')) {
@@ -112,12 +187,18 @@ export default function HtmlPembahasanModal({
         subLabel: 'Dokumen Pembahasan 20 Soal CBT TKA / ANBK Matematika Wajib'
       };
     }
-    return null;
+
+    return {
+      key: 'general',
+      label: subject || 'Try Out CBT',
+      badgeColor: 'bg-slate-50 text-slate-700 border-slate-200',
+      iconColor: 'bg-blue-100 text-blue-700',
+      html: htmlContent || generateSubjectDiscussionHtml(title || 'Try Out CBT', subject || 'TKA SMA', []),
+      subLabel: 'Dokumen Pembahasan & Kunci Jawaban Resmi'
+    };
   };
 
   const subjectInfo = resolveSubjectInfo();
-  if (!subjectInfo && !htmlContent) return null;
-
   const currentHtml = htmlContent || subjectInfo?.html || '';
   const displayTitle = title || `Pembahasan Try Out CBT - ${subjectInfo?.label || ''}`;
 

@@ -31,6 +31,7 @@ interface CbtAnalysisReportProps {
   report: CbtReportData;
   userProfile?: any;
   onClose?: () => void;
+  onOpenSolutionReview?: () => void;
 }
 
 const buildDefaultStepByStepRecommendation = (
@@ -118,7 +119,7 @@ Berdasarkan hasil analisis pengerjaan, kamu berhasil menjawab **${correct} butir
 *(Rekomendasi belajar terstruktur disusun otomatis oleh AI Tutor Study Strategist).*`;
 };
 
-export default function CbtAnalysisReport({ report, userProfile, onClose }: CbtAnalysisReportProps) {
+export default function CbtAnalysisReport({ report, userProfile, onClose, onOpenSolutionReview }: CbtAnalysisReportProps) {
   const [loadingAi, setLoadingAi] = useState(false);
   const [showHtmlModal, setShowHtmlModal] = useState(false);
   const [isAiFullscreen, setIsAiFullscreen] = useState(false);
@@ -298,15 +299,14 @@ export default function CbtAnalysisReport({ report, userProfile, onClose }: CbtA
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
-          {hasPembahasanDoc && (
-            <button
-              onClick={() => setShowHtmlModal(true)}
-              className="px-5 py-2.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-700 hover:via-indigo-700 hover:to-purple-700 text-white font-extrabold text-sm rounded-2xl shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition-all cursor-pointer flex items-center gap-2 border border-blue-400/30"
-            >
-              <BookOpen className="w-4 h-4 text-amber-300 shrink-0" />
-              <span>Pembahasan Try Out</span>
-            </button>
-          )}
+          {/* Prominent Pembahasan Soal Button */}
+          <button
+            onClick={onOpenSolutionReview || (() => setShowHtmlModal(true))}
+            className="px-5 py-2.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-700 hover:via-indigo-700 hover:to-purple-700 text-white font-black text-xs sm:text-sm rounded-2xl shadow-lg shadow-indigo-200 hover:shadow-indigo-300 hover:scale-105 active:scale-95 transition-all cursor-pointer flex items-center gap-2 border border-white/30 ring-2 ring-indigo-500/20"
+          >
+            <BookOpen className="w-4 h-4 text-amber-300 shrink-0" />
+            <span>Lihat Pembahasan Lengkap & Kunci Jawaban</span>
+          </button>
 
           <button
             onClick={() => setIsEditing(!isEditing)}
@@ -348,6 +348,34 @@ export default function CbtAnalysisReport({ report, userProfile, onClose }: CbtA
               Tutup
             </button>
           )}
+        </div>
+      </div>
+
+      {/* Prominent Hero Banner: Direct to Halaman Pembahasan Soal */}
+      <div className="bg-gradient-to-r from-indigo-950 via-slate-900 to-indigo-950 text-white rounded-3xl p-6 sm:p-7 shadow-xl border border-indigo-500/40 flex flex-col md:flex-row items-center justify-between gap-5 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-80 h-80 bg-indigo-500/15 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute bottom-0 left-1/4 w-60 h-60 bg-blue-500/10 rounded-full blur-2xl pointer-events-none"></div>
+
+        <div className="relative z-10 space-y-1.5 text-center md:text-left">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-400/20 border border-amber-400/40 rounded-full text-amber-300 text-xs font-black tracking-wide uppercase mb-1">
+            <Sparkles className="w-3.5 h-3.5" /> Evaluasi & Kunci Jawaban Siap Ditinjau
+          </div>
+          <h3 className="text-lg sm:text-2xl font-black font-display text-white">
+            Pelajari Pembahasan Soal & Kunci Jawaban Lengkap
+          </h3>
+          <p className="text-xs sm:text-sm text-indigo-200/80 max-w-xl">
+            Buka modul pembahasan terpisah untuk melihat langkah pengerjaan step-by-step, rumus kunci, dan penjelasan konsep tiap nomor soal.
+          </p>
+        </div>
+        
+        <div className="relative z-10 shrink-0 w-full md:w-auto">
+          <button
+            onClick={onOpenSolutionReview || (() => setShowHtmlModal(true))}
+            className="w-full md:w-auto px-7 py-4 bg-gradient-to-r from-amber-400 via-amber-300 to-amber-400 hover:from-amber-300 hover:to-amber-500 text-slate-950 font-black text-sm sm:text-base rounded-2xl shadow-xl shadow-amber-500/20 hover:scale-105 active:scale-95 transition-all cursor-pointer flex items-center justify-center gap-2.5 border border-white/40"
+          >
+            <BookOpen className="w-5 h-5 text-slate-950 shrink-0" />
+            <span>Buka Halaman Pembahasan Soal ➔</span>
+          </button>
         </div>
       </div>
 

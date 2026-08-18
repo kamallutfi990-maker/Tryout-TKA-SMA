@@ -62,7 +62,7 @@ export default function LandingPage({ onStartLearning, onCobaGratis }: LandingPa
     },
     {
       icon: <Compass className="w-6 h-6 text-blue-600" />,
-      title: 'Prediksi Peluang PTN',
+      title: 'Prediksi Peluang PTN dengan Nilai Raport',
       desc: 'Gunakan kecerdasan buatan dan skor rata-rata rapor & tryout untuk menghitung peluang lolos ke PTN impian.'
     },
     {

@@ -179,6 +179,8 @@ import {
   PEMBAHASAN_TKA_BAHASA_INDONESIA_LANJUT_HTML,
   PEMBAHASAN_TKA_BAHASA_INGGRIS_LANJUT_HTML
 } from '../data/pembahasanTkaHtml';
+import { INITIAL_UTBK_TRYOUTS } from '../data/utbkSubtestsData';
+import { UTBK_QUESTIONS } from '../data/utbkQuestions';
 
 // Initial Mock Universities & Programs
 export const MOCK_UNIVERSITIES: University[] = SNPMB_UNIVERSITIES;
@@ -186,6 +188,7 @@ export const MOCK_STUDY_PROGRAMS: StudyProgram[] = SNPMB_STUDY_PROGRAMS;
 
 // Initial Questions Database supporting LaTeX formulas
 const INITIAL_QUESTIONS: Question[] = [
+  ...UTBK_QUESTIONS,
   {
     id: 'q1',
     text: 'Tentukan turunan pertama dari fungsi $f(x) = 3x^2 - 5x + 8$.',
@@ -3168,76 +3171,7 @@ const INITIAL_TRYOUTS: TryOut[] = [
     endDate: '2026-12-31',
     solvedCount: 380
   },
-  {
-    id: 'to3',
-    name: 'Mini Tryout 1: Matematika & Logika Kuantitatif',
-    duration: 30,
-    passingGrade: 620,
-    questionCount: 20,
-    subject: 'Matematika Umum',
-    category: 'UTBK',
-    randomizeQuestions: false,
-    randomizeOptions: true,
-    startDate: '2026-07-10',
-    endDate: '2026-08-31',
-    solvedCount: 512
-  },
-  {
-    id: 'to4',
-    name: 'Mini Tryout 2: TPS & Penalaran Umum UTBK',
-    duration: 25,
-    passingGrade: 600,
-    questionCount: 20,
-    subject: 'Penalaran Umum & TPS',
-    category: 'UTBK',
-    randomizeQuestions: true,
-    randomizeOptions: true,
-    startDate: '2026-07-15',
-    endDate: '2026-08-31',
-    solvedCount: 428
-  },
-  {
-    id: 'to6',
-    name: 'Mini Tryout 4: Literasi Bahasa Indonesia & Inggris',
-    duration: 25,
-    passingGrade: 590,
-    questionCount: 20,
-    subject: 'Literasi Bahasa',
-    category: 'UTBK',
-    randomizeQuestions: true,
-    randomizeOptions: true,
-    startDate: '2026-07-20',
-    endDate: '2026-08-31',
-    solvedCount: 298
-  },
-  {
-    id: 'to7',
-    name: 'Mini Tryout 5: Penalaran Kuantitatif & Soshum',
-    duration: 30,
-    passingGrade: 605,
-    questionCount: 20,
-    subject: 'Penalaran Kuantitatif',
-    category: 'UTBK',
-    randomizeQuestions: true,
-    randomizeOptions: true,
-    startDate: '2026-07-21',
-    endDate: '2026-08-31',
-    solvedCount: 310
-  },
-  {
-    id: 'to8',
-    name: 'Mini Tryout 6: Tes Potensi Skolastik & Penalaran Matematika',
-    duration: 35,
-    passingGrade: 625,
-    questionCount: 20,
-    subject: 'TPS & Penalaran Matematika',
-    category: 'UTBK',
-    randomizeQuestions: true,
-    randomizeOptions: true,
-    startDate: '2026-07-22',
-    endDate: '2026-09-30',
-    solvedCount: 185
-  }
+  ...INITIAL_UTBK_TRYOUTS
 ];
 
 // Initial Announcements
@@ -5062,7 +4996,7 @@ export const getQuestions = () => {
 
   const existingIds = new Set(list.map(q => q.id));
   let updated = false;
-  INITIAL_QUESTIONS.filter(q => q.id.startsWith('q_mtk_slugpost_') || q.id.startsWith('q_limit_') || q.id.startsWith('q_mtk_lanjut_') || q.id.startsWith('q_anbk_mtkw_') || q.id.startsWith('q_integral_') || q.id.startsWith('q_turunan_') || q.id.startsWith('q_tka_bindo_') || q.id.startsWith('q_tka_bing_')).forEach(q => {
+  INITIAL_QUESTIONS.filter(q => q.id.startsWith('q_utbk_') || q.id.startsWith('q_mtk_slugpost_') || q.id.startsWith('q_limit_') || q.id.startsWith('q_mtk_lanjut_') || q.id.startsWith('q_anbk_mtkw_') || q.id.startsWith('q_integral_') || q.id.startsWith('q_turunan_') || q.id.startsWith('q_tka_bindo_') || q.id.startsWith('q_tka_bing_')).forEach(q => {
     if (!existingIds.has(q.id)) {
       list.unshift(q);
       updated = true;
@@ -5094,7 +5028,7 @@ export const getTryOuts = () => {
   let updated = false;
 
   // Filter out removed tryout packages
-  const removedIds = new Set(['to-tka-indo-lanjut-2026', 'to-tka-inggris-lanjut-2026', 'to-tka-ppkn-1-2026', 'to-tka-sejarah-1-2026', 'to-tka-geografi-1-2026']);
+  const removedIds = new Set(['to3', 'to4', 'to6', 'to7', 'to8', 'to-tka-indo-lanjut-2026', 'to-tka-inggris-lanjut-2026', 'to-tka-ppkn-1-2026', 'to-tka-sejarah-1-2026', 'to-tka-geografi-1-2026']);
   const filtered = tryouts.filter(t => 
     !removedIds.has(t.id) && 
     t.subject !== 'Bahasa Indonesia Tingkat Lanjut' && 

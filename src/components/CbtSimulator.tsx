@@ -9,6 +9,7 @@ import { TryOut, Question, ExamScore } from '../types';
 import { FirestoreSimulator, getQuestions } from '../lib/firestoreSimulator';
 import MathMarkdown from './MathMarkdown';
 import CbtAnalysisReport, { CbtReportData } from './CbtAnalysisReport';
+import CbtSolutionReview from './CbtSolutionReview';
 
 interface CbtSimulatorProps {
   tryout: TryOut;
@@ -25,6 +26,7 @@ export default function CbtSimulator({ tryout, userProfile, onBack, onFinish }: 
   const [flagged, setFlagged] = useState<string[]>([]); // Ragu-ragu questions
   const [timeLeft, setTimeLeft] = useState(tryout.duration * 60); // in seconds
   const [isExamActive, setIsExamActive] = useState(true);
+  const [activeStage, setActiveStage] = useState<'exam' | 'result' | 'pembahasan'>('exam');
   
   // Results view
   const [scoreResult, setScoreResult] = useState<ExamScore | null>(null);
@@ -95,12 +97,62 @@ export default function CbtSimulator({ tryout, userProfile, onBack, onFinish }: 
       if (tryout.id.includes('kimia') || tryout.name.includes('Kimia') || tryout.subject === 'Kimia') {
         return q.id.startsWith('q_tka_kimia_') || q.subject === 'Kimia';
       }
+      if (tryout.id.includes('fisika') || tryout.name.includes('Fisika') || tryout.subject === 'Fisika') {
+        return q.id.startsWith('q_tka_fisika_') || q.id.startsWith('q_fisika_') || q.subject === 'Fisika';
+      }
+      if (tryout.id.includes('biologi') || tryout.name.includes('Biologi') || tryout.subject === 'Biologi') {
+        return q.id.startsWith('q_tka_bio_') || q.id.startsWith('q_bio_') || q.subject === 'Biologi';
+      }
+      if (tryout.id.includes('sosiologi') || tryout.name.includes('Sosiologi') || tryout.subject === 'Sosiologi') {
+        return q.id.startsWith('q_tka_sos_') || q.id.startsWith('q_sos_') || q.subject === 'Sosiologi';
+      }
+      if (tryout.id.includes('ekonomi') || tryout.name.includes('Ekonomi') || tryout.subject === 'Ekonomi') {
+        return q.id.startsWith('q_tka_eko_') || q.id.startsWith('q_eko_') || q.subject === 'Ekonomi';
+      }
+      if (tryout.id.includes('ppkn') || tryout.name.includes('PPKn') || tryout.subject.includes('PPKn') || tryout.subject.includes('PKn')) {
+        return q.id.startsWith('q_tka_ppkn_') || q.id.startsWith('q_ppkn_') || q.subject.includes('PPKn') || q.subject.includes('PKn');
+      }
+      if (tryout.id.includes('geografi') || tryout.name.includes('Geografi') || tryout.subject === 'Geografi') {
+        return q.id.startsWith('q_tka_geo_') || q.id.startsWith('q_geo_') || q.subject === 'Geografi';
+      }
+      if (tryout.id.includes('sejarah') || tryout.name.includes('Sejarah') || tryout.subject === 'Sejarah') {
+        return q.id.startsWith('q_tka_sej_') || q.id.startsWith('q_sej_') || q.subject === 'Sejarah';
+      }
       if (tryout.id === 'to-tka-turunan' || tryout.name.includes('Turunan')) {
         return q.id.startsWith('q_turunan_') || q.bab === 'Turunan Fungsi';
       }
       if (tryout.id === 'to-tka-integral' || tryout.name.includes('Integral')) {
         return q.id.startsWith('q_integral_') || q.bab === 'Integral';
       }
+      // 9 UTBK Subtests
+      if (tryout.id === 'to-utbk-penalaran-induktif-2026' || tryout.subject === 'Penalaran Induktif' || tryout.name.includes('Penalaran Induktif')) {
+        return q.subject === 'Penalaran Induktif' || q.id.startsWith('q_utbk_induktif_');
+      }
+      if (tryout.id === 'to-utbk-penalaran-deduktif-2026' || tryout.subject === 'Penalaran Deduktif' || tryout.name.includes('Penalaran Deduktif')) {
+        return q.subject === 'Penalaran Deduktif' || q.id.startsWith('q_utbk_deduktif_');
+      }
+      if (tryout.id === 'to-utbk-penalaran-kuantitatif-2026' || tryout.subject === 'Penalaran Kuantitatif' || tryout.name.includes('Penalaran Kuantitatif')) {
+        return q.subject === 'Penalaran Kuantitatif' || q.id.startsWith('q_utbk_pkuant_');
+      }
+      if (tryout.id === 'to-utbk-ppu-2026' || tryout.subject.includes('PPU') || tryout.subject.includes('Pemahaman Umum') || tryout.name.includes('PPU')) {
+        return q.subject.includes('PPU') || q.subject.includes('Pemahaman Umum') || q.id.startsWith('q_utbk_ppu_') || q.subject.includes('TPS');
+      }
+      if (tryout.id === 'to-utbk-pbm-2026' || tryout.subject.includes('PBM') || tryout.subject.includes('Bacaan dan Menulis') || tryout.name.includes('PBM')) {
+        return q.subject.includes('PBM') || q.subject.includes('Bacaan dan Menulis') || q.id.startsWith('q_utbk_pbm_') || q.subject === 'Bahasa Indonesia';
+      }
+      if (tryout.id === 'to-utbk-pk-2026' || tryout.subject.includes('Pengetahuan Kuantitatif') || tryout.name.includes('Pengetahuan Kuantitatif')) {
+        return (q.subject.includes('Pengetahuan Kuantitatif') || q.id.startsWith('q_utbk_pk_') || q.subject === 'Matematika Umum') && !q.subject.includes('Penalaran Kuantitatif');
+      }
+      if (tryout.id === 'to-utbk-literasi-indonesia-2026' || (tryout.subject.includes('Literasi') && tryout.subject.includes('Indonesia'))) {
+        return (q.subject.includes('Literasi') && (q.subject.includes('Indonesia') || q.subject.includes('Bahasa'))) || q.id.startsWith('q_utbk_lit_indo_') || q.subject === 'Literasi Bahasa' || q.subject === 'Bahasa Indonesia';
+      }
+      if (tryout.id === 'to-utbk-literasi-inggris-2026' || (tryout.subject.includes('Literasi') && (tryout.subject.includes('Inggris') || tryout.subject.includes('English')))) {
+        return (q.subject.includes('Literasi') && (q.subject.includes('Inggris') || q.subject.includes('English'))) || q.id.startsWith('q_utbk_lit_ing_') || q.subject === 'Bahasa Inggris';
+      }
+      if (tryout.id === 'to-utbk-penalaran-matematika-2026' || (tryout.subject.includes('Penalaran') && tryout.subject.includes('Matematika'))) {
+        return (q.subject.includes('Penalaran') && q.subject.includes('Matematika')) || q.subject === 'TPS & Penalaran Matematika' || q.id.startsWith('q_utbk_penalaran_mtk_') || q.subject === 'Matematika Umum';
+      }
+
       if (tryout.id === 'to1') return ['Fisika', 'Kimia', 'Biologi', 'Matematika Lanjut', 'Matematika Umum'].includes(q.subject);
       if (tryout.id === 'to2') return ['Ekonomi', 'Geografi', 'Sosiologi', 'Sejarah', 'Literasi Bahasa'].includes(q.subject);
       if (tryout.id === 'to3') return q.subject === 'Matematika Umum' || q.subject === 'Matematika Lanjut' || q.subject.includes('Kuantitatif') || q.subject.includes('TPS');
@@ -166,6 +218,48 @@ export default function CbtSimulator({ tryout, userProfile, onBack, onFinish }: 
       pool.sort((a, b) => {
         const numA = parseInt(a.id.replace('q_tka_kimia_', '')) || 0;
         const numB = parseInt(b.id.replace('q_tka_kimia_', '')) || 0;
+        return numA - numB;
+      });
+    } else if (tryout.id.includes('fisika') || tryout.name.includes('Fisika') || tryout.subject === 'Fisika') {
+      pool.sort((a, b) => {
+        const numA = parseInt(a.id.replace('q_tka_fisika_', '').replace('q_fisika_', '')) || 0;
+        const numB = parseInt(b.id.replace('q_tka_fisika_', '').replace('q_fisika_', '')) || 0;
+        return numA - numB;
+      });
+    } else if (tryout.id.includes('biologi') || tryout.name.includes('Biologi') || tryout.subject === 'Biologi') {
+      pool.sort((a, b) => {
+        const numA = parseInt(a.id.replace('q_tka_bio_', '').replace('q_bio_', '')) || 0;
+        const numB = parseInt(b.id.replace('q_tka_bio_', '').replace('q_bio_', '')) || 0;
+        return numA - numB;
+      });
+    } else if (tryout.id.includes('sosiologi') || tryout.name.includes('Sosiologi') || tryout.subject === 'Sosiologi') {
+      pool.sort((a, b) => {
+        const numA = parseInt(a.id.replace('q_tka_sos_', '').replace('q_sos_', '')) || 0;
+        const numB = parseInt(b.id.replace('q_tka_sos_', '').replace('q_sos_', '')) || 0;
+        return numA - numB;
+      });
+    } else if (tryout.id.includes('ekonomi') || tryout.name.includes('Ekonomi') || tryout.subject === 'Ekonomi') {
+      pool.sort((a, b) => {
+        const numA = parseInt(a.id.replace('q_tka_eko_', '').replace('q_eko_', '')) || 0;
+        const numB = parseInt(b.id.replace('q_tka_eko_', '').replace('q_eko_', '')) || 0;
+        return numA - numB;
+      });
+    } else if (tryout.id.includes('ppkn') || tryout.name.includes('PPKn') || tryout.subject?.includes('PPKn') || tryout.subject?.includes('PKn')) {
+      pool.sort((a, b) => {
+        const numA = parseInt(a.id.replace('q_tka_ppkn_', '').replace('q_ppkn_', '')) || 0;
+        const numB = parseInt(b.id.replace('q_tka_ppkn_', '').replace('q_ppkn_', '')) || 0;
+        return numA - numB;
+      });
+    } else if (tryout.id.includes('geografi') || tryout.name.includes('Geografi') || tryout.subject === 'Geografi') {
+      pool.sort((a, b) => {
+        const numA = parseInt(a.id.replace('q_tka_geo_', '').replace('q_geo_', '')) || 0;
+        const numB = parseInt(b.id.replace('q_tka_geo_', '').replace('q_geo_', '')) || 0;
+        return numA - numB;
+      });
+    } else if (tryout.id.includes('sejarah') || tryout.name.includes('Sejarah') || tryout.subject === 'Sejarah') {
+      pool.sort((a, b) => {
+        const numA = parseInt(a.id.replace('q_tka_sej_', '').replace('q_sej_', '')) || 0;
+        const numB = parseInt(b.id.replace('q_tka_sej_', '').replace('q_sej_', '')) || 0;
         return numA - numB;
       });
     } else if (pool.length < (tryout.questionCount || 20) && !tryout.id.includes('integral') && !tryout.id.includes('turunan')) {
@@ -245,6 +339,10 @@ export default function CbtSimulator({ tryout, userProfile, onBack, onFinish }: 
     try {
       const score = FirestoreSimulator.submitExam(tryout.id, answers, tryout.duration * 60 - timeLeft);
       setScoreResult(score);
+      setActiveStage('result');
+      if (onFinish) {
+        onFinish(score);
+      }
     } catch (e) {
       alert('Gagal mengirimkan ujian.');
     }
@@ -588,7 +686,7 @@ export default function CbtSimulator({ tryout, userProfile, onBack, onFinish }: 
       )}
 
       {/* CBT Post-Submit Results View */}
-      {scoreResult && (
+      {scoreResult && activeStage === 'result' && (
         <div className="space-y-6">
           <CbtAnalysisReport
             report={{
@@ -608,6 +706,22 @@ export default function CbtSimulator({ tryout, userProfile, onBack, onFinish }: 
             }}
             userProfile={userProfile}
             onClose={onBack}
+            onOpenSolutionReview={() => setActiveStage('pembahasan')}
+          />
+        </div>
+      )}
+
+      {/* CBT Dedicated Halaman Pembahasan Soal */}
+      {scoreResult && activeStage === 'pembahasan' && (
+        <div className="space-y-6">
+          <CbtSolutionReview
+            tryout={tryout}
+            questions={questions}
+            answers={answers}
+            scoreResult={scoreResult}
+            userProfile={userProfile}
+            onBackToResult={() => setActiveStage('result')}
+            onExitToDashboard={onBack}
           />
         </div>
       )}

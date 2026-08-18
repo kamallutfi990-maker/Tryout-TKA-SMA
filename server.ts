@@ -26,6 +26,57 @@ const getGeminiClient = () => {
   });
 };
 
+// Resilient Gemini Execution Helper with automatic model fallback (3.7-flash -> 3.1-flash-lite)
+async function generateGeminiContent(
+  ai: GoogleGenAI,
+  params: {
+    contents: any;
+    config?: any;
+    primaryModel?: string;
+    fallbackModel?: string;
+  }
+) {
+  const primary = params.primaryModel || "gemini-3.7-flash";
+  const fallback = params.fallbackModel || "gemini-3.1-flash-lite";
+
+  try {
+    const response = await ai.models.generateContent({
+      model: primary,
+      contents: params.contents,
+      config: params.config,
+    });
+    return response;
+  } catch (primaryErr: any) {
+    const errMsg = String(primaryErr?.message || "").toLowerCase();
+    const isQuotaOrBusy =
+      errMsg.includes("429") ||
+      errMsg.includes("quota") ||
+      errMsg.includes("resource_exhausted") ||
+      errMsg.includes("503") ||
+      errMsg.includes("high demand") ||
+      errMsg.includes("unavailable") ||
+      primaryErr?.status === "RESOURCE_EXHAUSTED" ||
+      primaryErr?.status === "UNAVAILABLE";
+
+    if (isQuotaOrBusy) {
+      console.info(`[Gemini API] Primary model (${primary}) quota limit or busy. Falling back to ${fallback}...`);
+      try {
+        const fallbackResponse = await ai.models.generateContent({
+          model: fallback,
+          contents: params.contents,
+          config: params.config,
+        });
+        return fallbackResponse;
+      } catch (fallbackErr: any) {
+        console.info(`[Gemini API] Fallback model (${fallback}) also unavailable. Utilizing smart offline engine.`);
+        throw fallbackErr;
+      }
+    } else {
+      throw primaryErr;
+    }
+  }
+}
+
 // Helper to construct AI Knowledge Context from Teacher/Admin uploads
 const buildKnowledgeContext = (aiKnowledgeBase: any[]) => {
   if (!aiKnowledgeBase || !Array.isArray(aiKnowledgeBase) || aiKnowledgeBase.length === 0) {
@@ -113,37 +164,16 @@ Context pelajaran/siswa saat ini: ${JSON.stringify(context || {})}$${knowledgePr
     });
 
     try {
-      let response;
-      try {
-        response = await ai.models.generateContent({
-          model: "gemini-3.7-flash",
-          contents: contents,
-          config: {
-            systemInstruction: sysInstruction,
-            temperature: 0.7,
-          }
-        });
-      } catch (firstErr: any) {
-        // If 503 unavailable or high demand spike, fallback to gemini-3.1-flash-lite
-        if (firstErr?.message?.includes("503") || firstErr?.message?.includes("high demand") || firstErr?.status === "UNAVAILABLE") {
-          console.warn("Primary model busy (503), retrying with gemini-3.1-flash-lite...");
-          response = await ai.models.generateContent({
-            model: "gemini-3.1-flash-lite",
-            contents: contents,
-            config: {
-              systemInstruction: sysInstruction,
-              temperature: 0.7,
-            }
-          });
-        } else {
-          throw firstErr;
+      const response = await generateGeminiContent(ai, {
+        contents,
+        config: {
+          systemInstruction: sysInstruction,
+          temperature: 0.7,
         }
-      }
+      });
 
       return res.json({ text: response.text });
-    } catch (apiErr: any) {
-      console.warn("Gemini API Error (fallback mode activated):", apiErr?.message);
-      
+    } catch {
       const userMsg = (message || "").toLowerCase();
       let fallbackText = "";
 
@@ -224,7 +254,7 @@ app.post("/api/ai/explain", async (req, res) => {
   try {
     const { question, selectedOption } = req.body;
 
-    const fallbackExplanation = `### 📘 Pembahasan Soal TKA (Mode Offline Cerdas)
+    const fallbackExplanation = `### 📘 Pembahasan Soal TKA (Mode Belajar Cerdas)
 
 **Soal:** ${question?.text || "Pertanyaan TKA"}
 **Jawaban Benar:** ${question?.correctAnswer || "Pilihan Tepat"}
@@ -234,9 +264,7 @@ app.post("/api/ai/explain", async (req, res) => {
 2. **Penerapan Konsep:** Masukkan nilai teridentifikasi ke dalam formula dasar $TKA$.
 3. **Pilihan Paling Tepat:** Opsi **${question?.correctAnswer || "Benar"}** dipilih karena secara sistematis memenuhi prinsip perhitungan baku.
 
-*Saran Taktis:* Pelajari kembali rumus turunan/formula dasar terkait pada bab ${question?.subject || "terkait"} untuk kecepatan pengerjaan di ujian UTBK.
-
-*(Catatan: Penjelasan offline otomatis aktif karena kuota/lalu lintas API Gemini padat).*`;
+*Saran Taktis:* Pelajari kembali rumus turunan/formula dasar terkait pada bab ${question?.subject || "terkait"} untuk kecepatan pengerjaan di ujian UTBK.`;
 
     if (!process.env.GEMINI_API_KEY) {
       return res.json({ explanation: fallbackExplanation });
@@ -244,46 +272,24 @@ app.post("/api/ai/explain", async (req, res) => {
 
     try {
       const ai = getGeminiClient();
-      let response;
-      try {
-        response = await ai.models.generateContent({
-          model: "gemini-3.7-flash",
-          contents: `Jelaskan secara mendalam soal TKA berikut ini:
+      const prompt = `Jelaskan secara mendalam soal TKA berikut ini:
 Mata Pelajaran: ${question.subject || "Umum"}
 Soal: ${question.text}
 Pilihan: ${JSON.stringify(question.options)}
 Jawaban Benar: ${question.correctAnswer} (Index ${question.correctAnswerIndex})
 Pilihan Siswa: ${selectedOption || "Belum memilih"}
 
-Berikan penjelasan langkah-demi-langkah (step-by-step), cantumkan rumus atau konsep dasar yang digunakan, berikan trik cepat (cepat kilat) untuk pengerjaan soal sejenis, dan jelaskan mengapa pilihan lainnya salah. Gunakan bahasa Indonesia yang santun dan mudah dipahami anak SMA.`,
-          config: {
-            systemInstruction: "Kamu adalah Tutor Senior TKA yang mahir menguraikan konsep sulit menjadi penjelasan langkah demi langkah yang sederhana dan cerdas."
-          }
-        });
-      } catch (firstErr: any) {
-        if (firstErr?.message?.includes("503") || firstErr?.message?.includes("high demand") || firstErr?.status === "UNAVAILABLE") {
-          console.warn("Primary model busy for explain, retrying with gemini-3.1-flash-lite...");
-          response = await ai.models.generateContent({
-            model: "gemini-3.1-flash-lite",
-            contents: `Jelaskan secara mendalam soal TKA berikut ini:
-Mata Pelajaran: ${question.subject || "Umum"}
-Soal: ${question.text}
-Pilihan: ${JSON.stringify(question.options)}
-Jawaban Benar: ${question.correctAnswer} (Index ${question.correctAnswerIndex})
-Pilihan Siswa: ${selectedOption || "Belum memilih"}
+Berikan penjelasan langkah-demi-langkah (step-by-step), cantumkan rumus atau konsep dasar yang digunakan, berikan trik cepat (cepat kilat) untuk pengerjaan soal sejenis, dan jelaskan mengapa pilihan lainnya salah. Gunakan format LaTeX ($...$ atau $$...$$) untuk rumus matematika/sains. Gunakan bahasa Indonesia yang santun dan mudah dipahami anak SMA.`;
 
-Berikan penjelasan langkah-demi-langkah (step-by-step), cantumkan rumus atau konsep dasar yang digunakan, berikan trik cepat (cepat kilat) untuk pengerjaan soal sejenis, dan jelaskan mengapa pilihan lainnya salah. Gunakan bahasa Indonesia yang santun dan mudah dipahami anak SMA.`,
-            config: {
-              systemInstruction: "Kamu adalah Tutor Senior TKA yang mahir menguraikan konsep sulit menjadi penjelasan langkah demi langkah yang sederhana dan cerdas."
-            }
-          });
-        } else {
-          throw firstErr;
+      const response = await generateGeminiContent(ai, {
+        contents: prompt,
+        config: {
+          systemInstruction: "Kamu adalah Tutor Senior TKA yang mahir menguraikan konsep sulit menjadi penjelasan langkah demi langkah yang sederhana dan cerdas."
         }
-      }
+      });
+
       return res.json({ explanation: response.text });
-    } catch (apiErr: any) {
-      console.warn("Gemini Explain API Error (fallback mode activated):", apiErr?.message);
+    } catch {
       return res.json({ explanation: fallbackExplanation });
     }
   } catch (error: any) {
@@ -415,35 +421,17 @@ TUGAS AI TUTOR:
 4. PENTING: Gunakan format LaTeX ($...$ atau $$...$$) untuk menuliskan semua rumus matematika, variabel, persentase, atau angka skor agar tersaji super rapi dan presisi! Jawab dengan format Markdown yang rapi dan memotivasi.`;
       }
 
-      let response;
       const sysInst = "Kamu adalah AI Tutor Study Strategist senior. Selalu berikan panduan belajar step-by-step yang terstruktur dan mendalam pada materi lemah (yang terjawab salah/perlu review). Sajikan rumus, persamaan, variabel matematika/fisika/kimia, dan angka statistik menggunakan format LaTeX ($...$ atau $$...$$) agar sangat estetis dan mudah dibaca oleh siswa.";
 
-      try {
-        response = await ai.models.generateContent({
-          model: "gemini-3.7-flash",
-          contents: prompt,
-          config: {
-            systemInstruction: sysInst
-          }
-        });
-      } catch (firstErr: any) {
-        if (firstErr?.message?.includes("503") || firstErr?.message?.includes("high demand") || firstErr?.status === "UNAVAILABLE") {
-          console.warn("Primary model busy for recommend, retrying with gemini-3.1-flash-lite...");
-          response = await ai.models.generateContent({
-            model: "gemini-3.1-flash-lite",
-            contents: prompt,
-            config: {
-              systemInstruction: sysInst
-            }
-          });
-        } else {
-          throw firstErr;
+      const response = await generateGeminiContent(ai, {
+        contents: prompt,
+        config: {
+          systemInstruction: sysInst
         }
-      }
+      });
 
       return res.json({ recommendation: response.text });
-    } catch (apiErr: any) {
-      console.warn("Gemini Recommend API Error (fallback mode activated):", apiErr?.message);
+    } catch {
       return res.json({ recommendation: chosenFallback });
     }
   } catch (error: any) {
@@ -492,7 +480,6 @@ app.post("/api/ai/generate-quiz", async (req, res) => {
 
     try {
       const ai = getGeminiClient();
-      let response;
       const quizPrompt = `Buatkan 15 soal latihan TKA tentang mata pelajaran ${subject} dengan topik/bab ${topic}. 
 Sertakan 5 pilihan ganda (A, B, C, D, E). PENTING: Tulis semua opsi pilihan ganda menggunakan format LaTeX ($...$) jika berisi rumus, persamaan, variabel, atau angka matematika/kimia/fisika agar rapi!
 Sertakan pula indeks jawaban benar (0=A, 1=B, dst), pembahasan lengkap yang menyertakan rumus LaTeX ($...$ atau $$...$$), dan tingkat kesulitan (Mudah, Sedang, Sulit).
@@ -510,32 +497,15 @@ Format response harus JSON murni yang sesuai dengan schema ini:
   }
 ]`;
 
-      try {
-        response = await ai.models.generateContent({
-          model: "gemini-3.7-flash",
-          contents: quizPrompt,
-          config: {
-            responseMimeType: "application/json",
-          }
-        });
-      } catch (firstErr: any) {
-        if (firstErr?.message?.includes("503") || firstErr?.message?.includes("high demand") || firstErr?.status === "UNAVAILABLE") {
-          console.warn("Primary model busy for quiz gen, retrying with gemini-3.1-flash-lite...");
-          response = await ai.models.generateContent({
-            model: "gemini-3.1-flash-lite",
-            contents: quizPrompt,
-            config: {
-              responseMimeType: "application/json",
-            }
-          });
-        } else {
-          throw firstErr;
+      const response = await generateGeminiContent(ai, {
+        contents: quizPrompt,
+        config: {
+          responseMimeType: "application/json",
         }
-      }
+      });
 
       return res.json(JSON.parse(response.text || "[]"));
-    } catch (apiErr) {
-      console.warn("Gemini Quiz Generation API Error (falling back to mock questions):", apiErr);
+    } catch {
       return res.json(getMockQuestions());
     }
   } catch (error: any) {
