@@ -204,28 +204,28 @@ export default function HtmlPembahasanModal({
 
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-slate-900/80 backdrop-blur-sm p-2 sm:p-4 animate-fadeIn">
-      <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-5xl h-[92vh] flex flex-col overflow-hidden">
+      <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 w-full max-w-5xl h-[92vh] flex flex-col overflow-hidden">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between px-5 py-4 border-b border-slate-200 bg-slate-50 gap-3">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between px-5 py-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/90 gap-3">
           <div className="flex items-center gap-3">
             <div className={`p-2.5 rounded-xl ${subjectInfo.iconColor}`}>
               <BookOpen className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="text-base sm:text-lg font-bold text-slate-800">{displayTitle}</h3>
+                <h3 className="text-base sm:text-lg font-bold text-slate-800 dark:text-slate-100">{displayTitle}</h3>
                 <span className={`px-2.5 py-0.5 text-[11px] font-bold rounded-lg border ${subjectInfo.badgeColor}`}>
                   {subjectInfo.label}
                 </span>
               </div>
-              <p className="text-xs text-slate-500">{subjectInfo.subLabel}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">{subjectInfo.subLabel}</p>
             </div>
           </div>
 
           <div className="flex items-center gap-2 self-end sm:self-auto">
             <button
               onClick={onClose}
-              className="p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-200/60 rounded-lg transition-colors cursor-pointer"
+              className="p-2 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-200/60 dark:hover:bg-slate-800 rounded-lg transition-colors cursor-pointer"
               title="Tutup"
             >
               <X className="w-5 h-5" />
@@ -234,24 +234,24 @@ export default function HtmlPembahasanModal({
         </div>
 
         {/* Content Preview Frame */}
-        <div className="flex-1 bg-slate-100 p-1 sm:p-2 overflow-hidden relative">
+        <div className="flex-1 bg-slate-100 dark:bg-slate-950 p-1 sm:p-2 overflow-hidden relative">
           <iframe
             srcDoc={currentHtml}
             title={`Pembahasan ${subjectInfo.label}`}
-            className="w-full h-full rounded-lg border border-slate-200 bg-white shadow-inner"
+            className="w-full h-full rounded-lg border border-slate-200 dark:border-slate-800 bg-white shadow-inner"
             sandbox="allow-scripts allow-same-origin allow-popups"
           />
         </div>
 
         {/* Footer */}
-        <div className="px-5 py-3 border-t border-slate-200 bg-slate-50 flex flex-wrap items-center justify-between text-xs text-slate-500 gap-2">
-          <div className="flex items-center gap-1.5 text-emerald-600 font-medium">
+        <div className="px-5 py-3 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 flex flex-wrap items-center justify-between text-xs text-slate-500 dark:text-slate-400 gap-2">
+          <div className="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 font-medium">
             <CheckCircle2 className="w-4 h-4" />
             <span>Terintegrasi dengan Try Out CBT TKA SMA: {subjectInfo.label}</span>
           </div>
           <button
             onClick={onClose}
-            className="px-4 py-1.5 bg-slate-800 text-white font-medium rounded-lg hover:bg-slate-900 transition-colors cursor-pointer"
+            className="px-4 py-1.5 bg-slate-800 dark:bg-blue-600 text-white font-medium rounded-lg hover:bg-slate-900 dark:hover:bg-blue-500 transition-colors cursor-pointer"
           >
             Tutup Pembahasan
           </button>

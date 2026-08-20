@@ -260,16 +260,16 @@ export default function DashboardAdmin({ userProfile, onLogout }: DashboardAdmin
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col font-sans" id="dashboard-admin">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 flex flex-col font-sans transition-colors duration-200" id="dashboard-admin">
       
       {/* Header bar */}
-      <header className="bg-white border-b border-slate-100 shadow-sm shrink-0">
+      <header className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 shadow-sm shrink-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
           <div className="flex items-center gap-2">
             <span className="bg-blue-600 text-white w-9 h-9 rounded-xl flex items-center justify-center font-extrabold text-lg">T</span>
             <div>
-              <h1 className="text-base font-extrabold text-slate-900 leading-none">TKA SMA Indonesia</h1>
-              <span className="text-[10px] text-red-600 font-extrabold uppercase tracking-wider flex items-center gap-1">
+              <h1 className="text-base font-extrabold text-slate-900 dark:text-slate-50 leading-none">TKA SMA Indonesia</h1>
+              <span className="text-[10px] text-red-600 dark:text-red-400 font-extrabold uppercase tracking-wider flex items-center gap-1">
                 <Shield className="w-3.5 h-3.5" /> SECURE ROOT ADMIN
               </span>
             </div>
@@ -277,12 +277,12 @@ export default function DashboardAdmin({ userProfile, onLogout }: DashboardAdmin
 
           <div className="flex items-center gap-4">
             <div className="text-right">
-              <span className="text-sm font-bold text-slate-800 block">Administrator Utama</span>
-              <span className="text-[10px] text-slate-400">ID: adm-99210-91</span>
+              <span className="text-sm font-bold text-slate-800 dark:text-slate-200 block">Administrator Utama</span>
+              <span className="text-[10px] text-slate-400 dark:text-slate-500">ID: adm-99210-91</span>
             </div>
             <button
               onClick={onLogout}
-              className="px-4 py-2 rounded-xl text-xs font-bold text-red-600 hover:bg-red-50 border border-red-100 transition-colors cursor-pointer"
+              className="px-4 py-2 rounded-xl text-xs font-bold text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 border border-red-100 dark:border-red-900/50 transition-colors cursor-pointer"
             >
               Keluar Admin
             </button>
@@ -299,8 +299,8 @@ export default function DashboardAdmin({ userProfile, onLogout }: DashboardAdmin
             onClick={() => setActiveTab('users')}
             className={`w-full text-left px-4 py-3 rounded-xl font-bold text-xs flex items-center gap-2.5 transition-all cursor-pointer ${
               activeTab === 'users'
-                ? 'bg-blue-50 text-[#2563EB] border border-blue-100/50 shadow-sm'
-                : 'bg-white text-slate-500 hover:bg-slate-50 border border-slate-200/60'
+                ? 'bg-blue-50 dark:bg-blue-950/60 text-[#2563EB] dark:text-blue-400 border border-blue-100/50 dark:border-blue-800/60 shadow-sm'
+                : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200/60 dark:border-slate-800'
             }`}
           >
             <Users className="w-4 h-4" />
@@ -310,8 +310,8 @@ export default function DashboardAdmin({ userProfile, onLogout }: DashboardAdmin
             onClick={() => setActiveTab('questions')}
             className={`w-full text-left px-4 py-3 rounded-xl font-bold text-xs flex items-center gap-2.5 transition-all cursor-pointer ${
               activeTab === 'questions'
-                ? 'bg-blue-50 text-[#2563EB] border border-blue-100/50 shadow-sm'
-                : 'bg-white text-slate-500 hover:bg-slate-50 border border-slate-200/60'
+                ? 'bg-blue-50 dark:bg-blue-950/60 text-[#2563EB] dark:text-blue-400 border border-blue-100/50 dark:border-blue-800/60 shadow-sm'
+                : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200/60 dark:border-slate-800'
             }`}
           >
             <Database className="w-4 h-4" />
@@ -321,8 +321,8 @@ export default function DashboardAdmin({ userProfile, onLogout }: DashboardAdmin
             onClick={() => setActiveTab('payments')}
             className={`w-full text-left px-4 py-3 rounded-xl font-bold text-xs flex items-center gap-2.5 transition-all cursor-pointer ${
               activeTab === 'payments'
-                ? 'bg-blue-50 text-[#2563EB] border border-blue-100/50 shadow-sm'
-                : 'bg-white text-slate-500 hover:bg-slate-50 border border-slate-200/60'
+                ? 'bg-blue-50 dark:bg-blue-950/60 text-[#2563EB] dark:text-blue-400 border border-blue-100/50 dark:border-blue-800/60 shadow-sm'
+                : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200/60 dark:border-slate-800'
             }`}
           >
             <DollarSign className="w-4 h-4" />
@@ -333,11 +333,11 @@ export default function DashboardAdmin({ userProfile, onLogout }: DashboardAdmin
             onClick={() => setActiveTab('ai-knowledge')}
             className={`w-full text-left px-4 py-3 rounded-xl font-bold text-xs flex items-center gap-2.5 transition-all cursor-pointer ${
               activeTab === 'ai-knowledge'
-                ? 'bg-purple-600 text-white shadow-md shadow-purple-200'
-                : 'bg-gradient-to-r from-purple-50 to-indigo-50 text-purple-900 hover:bg-purple-100 border border-purple-200/60 font-black'
+                ? 'bg-purple-600 text-white shadow-md shadow-purple-900/30'
+                : 'bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-purple-950/40 dark:to-indigo-950/40 text-purple-900 dark:text-purple-300 hover:bg-purple-100 dark:hover:bg-purple-900/50 border border-purple-200/60 dark:border-purple-800/60 font-black'
             }`}
           >
-            <Bot className="w-4 h-4 text-purple-600 group-hover:text-purple-700" />
+            <Bot className="w-4 h-4 text-purple-600 dark:text-purple-400 group-hover:text-purple-700" />
             <div className="flex flex-col">
               <span>Bank Knowledge Base AI</span>
               <span className="text-[9px] opacity-80 font-normal">PDF, Markdown, Video & YT</span>

@@ -113,21 +113,21 @@ export default function LandingPage({ onStartLearning, onCobaGratis }: LandingPa
   ];
 
   return (
-    <div className="bg-slate-50 min-h-screen text-slate-800 font-sans" id="landing-page">
+    <div className="bg-slate-50 dark:bg-slate-950 min-h-screen text-slate-800 dark:text-slate-100 font-sans transition-colors duration-200" id="landing-page">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-white border-b border-slate-100 py-16 lg:py-24">
+      <section className="relative overflow-hidden bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 py-16 lg:py-24 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
             <div className="lg:col-span-7 space-y-6">
-              <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-3 py-1.5 rounded-full text-xs font-semibold">
-                <span className="flex h-2 w-2 rounded-full bg-blue-600 animate-pulse"></span>
+              <div className="inline-flex items-center gap-2 bg-blue-50 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 px-3 py-1.5 rounded-full text-xs font-semibold border border-blue-100 dark:border-blue-800">
+                <span className="flex h-2 w-2 rounded-full bg-blue-600 dark:bg-blue-400 animate-pulse"></span>
                 Platform Latihan & CBT Terlengkap Kelas XII
               </div>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-display text-slate-900 tracking-tight leading-tight">
-                Persiapkan Tes Kompetensi Akademik SMA dengan <span className="text-[#2563EB]">Latihan Berkualitas</span>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-display text-slate-900 dark:text-white tracking-tight leading-tight">
+                Persiapkan Tes Kompetensi Akademik SMA dengan <span className="text-[#2563EB] dark:text-blue-400">Latihan Berkualitas</span>
               </h1>
-              <p className="text-lg text-slate-600 max-w-xl">
+              <p className="text-lg text-slate-600 dark:text-slate-300 max-w-xl">
                 TKA SMA Indonesia menyediakan ribuan bank soal, kelas video interaktif, simulasi CBT real-time, prediksi kelulusan PTN berbasis rapor, serta tutor bimbingan AI yang aktif 24 jam.
               </p>
               
@@ -135,44 +135,44 @@ export default function LandingPage({ onStartLearning, onCobaGratis }: LandingPa
                 <button
                   id="btn-mulai-belajar"
                   onClick={onStartLearning}
-                  className="px-8 py-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-lg shadow-blue-200 transition-all transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
+                  className="px-8 py-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-lg shadow-blue-500/20 dark:shadow-blue-900/30 transition-all transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
                 >
                   Mulai Belajar Sekarang
                 </button>
               </div>
 
-              <div className="grid grid-cols-3 gap-6 pt-8 border-t border-slate-100">
+              <div className="grid grid-cols-3 gap-6 pt-8 border-t border-slate-100 dark:border-slate-800">
                 <div>
-                  <div className="text-3xl font-bold text-slate-900">10,000+</div>
-                  <div className="text-xs text-slate-500 mt-1">Bank Soal Terkurasi</div>
+                  <div className="text-3xl font-bold text-slate-900 dark:text-white">10,000+</div>
+                  <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">Bank Soal Terkurasi</div>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold text-slate-900">45+</div>
-                  <div className="text-xs text-slate-500 mt-1">Materi Video Bab</div>
+                  <div className="text-3xl font-bold text-slate-900 dark:text-white">45+</div>
+                  <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">Materi Video Bab</div>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold text-slate-900">98%</div>
-                  <div className="text-xs text-slate-500 mt-1">Siswa Puas & Lolos PTN</div>
+                  <div className="text-3xl font-bold text-slate-900 dark:text-white">98%</div>
+                  <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">Siswa Puas & Lolos PTN</div>
                 </div>
               </div>
             </div>
 
             <div className="lg:col-span-5 relative">
-              <div className="absolute inset-0 bg-blue-200 rounded-3xl filter blur-3xl opacity-20 transform rotate-12 scale-90"></div>
-              <div className="relative border border-slate-100 rounded-3xl p-4 bg-white shadow-xl">
+              <div className="absolute inset-0 bg-blue-500/20 dark:bg-blue-600/10 rounded-3xl filter blur-3xl opacity-20 transform rotate-12 scale-90"></div>
+              <div className="relative border border-slate-100 dark:border-slate-800 rounded-3xl p-4 bg-white dark:bg-slate-800/90 shadow-xl">
                 <img
                   src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&auto=format&fit=crop&q=80"
                   alt="Siswa Belajar Bersama TKA SMA Indonesia"
                   className="rounded-2xl w-full object-cover aspect-video sm:aspect-square"
                   referrerPolicy="no-referrer"
                 />
-                <div className="absolute -bottom-4 -left-4 bg-white border border-slate-100 rounded-2xl p-4 shadow-lg flex items-center gap-3">
-                  <div className="bg-emerald-50 text-emerald-600 p-2.5 rounded-xl">
+                <div className="absolute -bottom-4 -left-4 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-700 rounded-2xl p-4 shadow-lg flex items-center gap-3">
+                  <div className="bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 p-2.5 rounded-xl border border-emerald-100 dark:border-emerald-800">
                     <Award className="w-5 h-5" />
                   </div>
                   <div>
-                    <div className="text-xs text-slate-500">Passing Grade Terlampaui</div>
-                    <div className="text-sm font-bold text-slate-800">UI Kedokteran (735)</div>
+                    <div className="text-xs text-slate-500 dark:text-slate-400">Passing Grade Terlampaui</div>
+                    <div className="text-sm font-bold text-slate-800 dark:text-slate-100">UI Kedokteran (735)</div>
                   </div>
                 </div>
               </div>
@@ -183,14 +183,14 @@ export default function LandingPage({ onStartLearning, onCobaGratis }: LandingPa
       </section>
 
       {/* Fitur Section */}
-      <section className="py-20 bg-slate-50" id="fitur-section">
+      <section className="py-20 bg-slate-50 dark:bg-slate-950 transition-colors" id="fitur-section">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-            <h2 className="text-sm font-bold font-display text-[#2563EB] uppercase tracking-widest">Satu Platform, Banyak Fitur Unggulan</h2>
-            <p className="text-3xl sm:text-4xl font-bold font-display text-slate-900">
+            <h2 className="text-sm font-bold font-display text-[#2563EB] dark:text-blue-400 uppercase tracking-widest">Satu Platform, Banyak Fitur Unggulan</h2>
+            <p className="text-3xl sm:text-4xl font-bold font-display text-slate-900 dark:text-white">
               Solusi Pintar Raih Skor TKA & Kelulusan PTN Impian
             </p>
-            <p className="text-slate-600">
+            <p className="text-slate-600 dark:text-slate-400">
               Kami menyusun modul bimbingan terlengkap dengan teknologi CBT persis ujian nasional demi mengoptimalkan peluang diterimanya Anda di universitas dambaan.
             </p>
           </div>
@@ -199,14 +199,14 @@ export default function LandingPage({ onStartLearning, onCobaGratis }: LandingPa
             {features.map((feat, idx) => (
               <div
                 key={idx}
-                className="bg-white border border-slate-100 hover:border-blue-200 hover:shadow-xl p-8 rounded-2xl shadow-sm transition-all group"
+                className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 hover:border-blue-200 dark:hover:border-blue-700/60 hover:shadow-xl p-8 rounded-2xl shadow-sm transition-all group"
                 id={`feature-card-${idx}`}
               >
-                <div className="w-12 h-12 rounded-xl bg-blue-50 group-hover:bg-blue-100 flex items-center justify-center mb-6 transition-colors">
+                <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-900/30 group-hover:bg-blue-100 dark:group-hover:bg-blue-900/50 flex items-center justify-center mb-6 transition-colors">
                   {feat.icon}
                 </div>
-                <h3 className="text-lg font-bold text-slate-900 mb-2">{feat.title}</h3>
-                <p className="text-sm text-slate-600 leading-relaxed">{feat.desc}</p>
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">{feat.title}</h3>
+                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{feat.desc}</p>
               </div>
             ))}
           </div>
@@ -214,14 +214,14 @@ export default function LandingPage({ onStartLearning, onCobaGratis }: LandingPa
       </section>
 
       {/* Testimoni Section */}
-      <section className="py-20 bg-white" id="testimoni-section">
+      <section className="py-20 bg-white dark:bg-slate-900 border-y border-slate-100 dark:border-slate-800 transition-colors" id="testimoni-section">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-            <h2 className="text-sm font-bold font-display text-[#2563EB] uppercase tracking-widest">Kisah Sukses Alumni</h2>
-            <p className="text-3xl sm:text-4xl font-bold font-display text-slate-900">
+            <h2 className="text-sm font-bold font-display text-[#2563EB] dark:text-blue-400 uppercase tracking-widest">Kisah Sukses Alumni</h2>
+            <p className="text-3xl sm:text-4xl font-bold font-display text-slate-900 dark:text-white">
               Mereka yang Telah Membuktikan
             </p>
-            <p className="text-slate-600">
+            <p className="text-slate-600 dark:text-slate-400">
               Simak penuturan jujur dari ribuan siswa kelas XII dan alumni yang berhasil menembus PTN top pilihan pertama mereka.
             </p>
           </div>
@@ -230,22 +230,22 @@ export default function LandingPage({ onStartLearning, onCobaGratis }: LandingPa
             {testimonials.map((testi, idx) => (
               <div
                 key={idx}
-                className="bg-slate-50 border border-slate-100 p-8 rounded-2xl flex flex-col justify-between"
+                className="bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60 p-8 rounded-2xl flex flex-col justify-between"
                 id={`testimoni-card-${idx}`}
               >
-                <p className="text-slate-600 italic text-sm leading-relaxed mb-6">
+                <p className="text-slate-600 dark:text-slate-300 italic text-sm leading-relaxed mb-6">
                   "{testi.comment}"
                 </p>
                 <div className="flex items-center gap-4">
                   <img
                     src={testi.img}
                     alt={testi.name}
-                    className="w-12 h-12 rounded-full object-cover"
+                    className="w-12 h-12 rounded-full object-cover border-2 border-white dark:border-slate-700"
                     referrerPolicy="no-referrer"
                   />
                   <div>
-                    <h4 className="text-sm font-bold text-slate-900">{testi.name}</h4>
-                    <p className="text-xs text-blue-600 font-semibold">{testi.status}</p>
+                    <h4 className="text-sm font-bold text-slate-900 dark:text-white">{testi.name}</h4>
+                    <p className="text-xs text-blue-600 dark:text-blue-400 font-semibold">{testi.status}</p>
                   </div>
                 </div>
               </div>
@@ -255,28 +255,28 @@ export default function LandingPage({ onStartLearning, onCobaGratis }: LandingPa
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 bg-slate-50" id="faq-section">
+      <section className="py-20 bg-slate-50 dark:bg-slate-950 transition-colors" id="faq-section">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16 space-y-4">
-            <h2 className="text-sm font-bold font-display text-[#2563EB] uppercase tracking-widest">Pertanyaan Umum (FAQ)</h2>
-            <p className="text-3xl font-bold font-display text-slate-900">Masih Penasaran tentang TKA SMA Indonesia?</p>
+            <h2 className="text-sm font-bold font-display text-[#2563EB] dark:text-blue-400 uppercase tracking-widest">Pertanyaan Umum (FAQ)</h2>
+            <p className="text-3xl font-bold font-display text-slate-900 dark:text-white">Masih Penasaran tentang TKA SMA Indonesia?</p>
           </div>
 
           <div className="space-y-4">
             {faqs.map((faq, idx) => (
               <div
                 key={idx}
-                className="bg-white border border-slate-100 rounded-xl overflow-hidden shadow-sm"
+                className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm"
               >
                 <button
                   onClick={() => setActiveFaq(activeFaq === idx ? null : idx)}
-                  className="w-full text-left px-6 py-5 flex justify-between items-center hover:bg-slate-50/50 transition-colors"
+                  className="w-full text-left px-6 py-5 flex justify-between items-center hover:bg-slate-50/80 dark:hover:bg-slate-800/80 transition-colors cursor-pointer"
                 >
-                  <span className="font-semibold text-slate-800 text-sm sm:text-base">{faq.q}</span>
-                  <ChevronDown className={`w-5 h-5 text-slate-400 transition-transform ${activeFaq === idx ? 'transform rotate-180' : ''}`} />
+                  <span className="font-semibold text-slate-800 dark:text-slate-200 text-sm sm:text-base">{faq.q}</span>
+                  <ChevronDown className={`w-5 h-5 text-slate-400 dark:text-slate-500 transition-transform ${activeFaq === idx ? 'transform rotate-180' : ''}`} />
                 </button>
                 {activeFaq === idx && (
-                  <div className="px-6 pb-5 text-sm text-slate-600 border-t border-slate-50 pt-3 leading-relaxed">
+                  <div className="px-6 pb-5 text-sm text-slate-600 dark:text-slate-300 border-t border-slate-50 dark:border-slate-800/60 pt-3 leading-relaxed">
                     {faq.a}
                   </div>
                 )}
@@ -287,7 +287,7 @@ export default function LandingPage({ onStartLearning, onCobaGratis }: LandingPa
       </section>
 
       {/* Footer */}
-      <footer className="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+      <footer className="bg-slate-900 dark:bg-black text-slate-400 py-12 border-t border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pb-12 border-b border-slate-800">
             

@@ -7,7 +7,7 @@ import React, { useState, useEffect } from 'react';
 import { Home, FileText, Compass, BookOpen, Video, Award, Trophy, Sparkles, Star, Zap, ChevronRight, Play, BookOpenCheck, CheckCircle2, AlertTriangle, ShieldCheck, Heart, Link, Image, Youtube, ExternalLink, FileSpreadsheet, Download, Folder, FolderOpen, ArrowLeft, FileCode, Target, Radio, Calendar, Users, Maximize2, Search, RotateCcw, BarChart3 } from 'lucide-react';
 import { UserProfile, ReportCard, TryOut, LearningVideo, UniversityPrediction, ExamScore, Achievement, LearningMaterial } from '../types';
 import { FirestoreSimulator, getTryouts, getVideos, getAchievements, getUniversities, getStudyPrograms, getMaterials, getAllScores } from '../lib/firestoreSimulator';
-import { UTBK_SNBT_SUBTEST_FOLDERS, UTBK_TOTAL_SUMMARY } from '../data/utbkSubtestsData';
+import { UTBK_SNBT_SUBTEST_FOLDERS, UTBK_TOTAL_SUMMARY, UTBK_PACKAGES } from '../data/utbkSubtestsData';
 import CbtSimulator from './CbtSimulator';
 import MidtransSimulator from './MidtransSimulator';
 import MathMarkdown from './MathMarkdown';
@@ -22,6 +22,35 @@ import CbtTryoutEkonomi from './tryout_cbt_tka/ekonomi/CbtTryoutEkonomi';
 import CbtTryoutPpkn from './tryout_cbt_tka/ppkn/CbtTryoutPpkn';
 import CbtTryoutSejarah from './tryout_cbt_tka/sejarah/CbtTryoutSejarah';
 import CbtTryoutGeografi from './tryout_cbt_tka/geografi/CbtTryoutGeografi';
+import CbtTryoutInduktifP1 from './tryout_cbt_utbk/tryout_utbk_paket_1/penalaran_induktif/CbtTryoutInduktif';
+import CbtTryoutDeduktifP1 from './tryout_cbt_utbk/tryout_utbk_paket_1/penalaran_deduktif/CbtTryoutDeduktif';
+import CbtTryoutPenalaranKuantitatifP1 from './tryout_cbt_utbk/tryout_utbk_paket_1/penalaran_kuantitatif/CbtTryoutPenalaranKuantitatif';
+import CbtTryoutPpuP1 from './tryout_cbt_utbk/tryout_utbk_paket_1/pengetahuan_pemahaman_umum/CbtTryoutPpu';
+import CbtTryoutPbmP1 from './tryout_cbt_utbk/tryout_utbk_paket_1/pemahaman_bacaan_menulis/CbtTryoutPbm';
+import CbtTryoutPkP1 from './tryout_cbt_utbk/tryout_utbk_paket_1/pengetahuan_kuantitatif/CbtTryoutPk';
+import CbtTryoutLiterasiIndoP1 from './tryout_cbt_utbk/tryout_utbk_paket_1/literasi_bahasa_indonesia/CbtTryoutLiterasiIndo';
+import CbtTryoutLiterasiInggrisP1 from './tryout_cbt_utbk/tryout_utbk_paket_1/literasi_bahasa_inggris/CbtTryoutLiterasiInggris';
+import CbtTryoutPenalaranMatematikaP1 from './tryout_cbt_utbk/tryout_utbk_paket_1/penalaran_matematika/CbtTryoutPenalaranMatematika';
+
+import CbtTryoutInduktifP2 from './tryout_cbt_utbk/tryout_utbk_paket_2/penalaran_induktif/CbtTryoutInduktif';
+import CbtTryoutDeduktifP2 from './tryout_cbt_utbk/tryout_utbk_paket_2/penalaran_deduktif/CbtTryoutDeduktif';
+import CbtTryoutPenalaranKuantitatifP2 from './tryout_cbt_utbk/tryout_utbk_paket_2/penalaran_kuantitatif/CbtTryoutPenalaranKuantitatif';
+import CbtTryoutPpuP2 from './tryout_cbt_utbk/tryout_utbk_paket_2/pengetahuan_pemahaman_umum/CbtTryoutPpu';
+import CbtTryoutPbmP2 from './tryout_cbt_utbk/tryout_utbk_paket_2/pemahaman_bacaan_menulis/CbtTryoutPbm';
+import CbtTryoutPkP2 from './tryout_cbt_utbk/tryout_utbk_paket_2/pengetahuan_kuantitatif/CbtTryoutPk';
+import CbtTryoutLiterasiIndoP2 from './tryout_cbt_utbk/tryout_utbk_paket_2/literasi_bahasa_indonesia/CbtTryoutLiterasiIndo';
+import CbtTryoutLiterasiInggrisP2 from './tryout_cbt_utbk/tryout_utbk_paket_2/literasi_bahasa_inggris/CbtTryoutLiterasiInggris';
+import CbtTryoutPenalaranMatematikaP2 from './tryout_cbt_utbk/tryout_utbk_paket_2/penalaran_matematika/CbtTryoutPenalaranMatematika';
+
+import CbtTryoutInduktifP3 from './tryout_cbt_utbk/tryout_utbk_paket_3/penalaran_induktif/CbtTryoutInduktif';
+import CbtTryoutDeduktifP3 from './tryout_cbt_utbk/tryout_utbk_paket_3/penalaran_deduktif/CbtTryoutDeduktif';
+import CbtTryoutPenalaranKuantitatifP3 from './tryout_cbt_utbk/tryout_utbk_paket_3/penalaran_kuantitatif/CbtTryoutPenalaranKuantitatif';
+import CbtTryoutPpuP3 from './tryout_cbt_utbk/tryout_utbk_paket_3/pengetahuan_pemahaman_umum/CbtTryoutPpu';
+import CbtTryoutPbmP3 from './tryout_cbt_utbk/tryout_utbk_paket_3/pemahaman_bacaan_menulis/CbtTryoutPbm';
+import CbtTryoutPkP3 from './tryout_cbt_utbk/tryout_utbk_paket_3/pengetahuan_kuantitatif/CbtTryoutPk';
+import CbtTryoutLiterasiIndoP3 from './tryout_cbt_utbk/tryout_utbk_paket_3/literasi_bahasa_indonesia/CbtTryoutLiterasiIndo';
+import CbtTryoutLiterasiInggrisP3 from './tryout_cbt_utbk/tryout_utbk_paket_3/literasi_bahasa_inggris/CbtTryoutLiterasiInggris';
+import CbtTryoutPenalaranMatematikaP3 from './tryout_cbt_utbk/tryout_utbk_paket_3/penalaran_matematika/CbtTryoutPenalaranMatematika';
 
 interface DashboardSiswaProps {
   userProfile: UserProfile;
@@ -46,6 +75,7 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
   const [tkaCategoryFilter, setTkaCategoryFilter] = useState<'all' | 'wajib' | 'saintek' | 'soshum'>('all');
   const [tkaSearchQuery, setTkaSearchQuery] = useState<string>('');
 
+  const [selectedUtbkPackage, setSelectedUtbkPackage] = useState<string>('tryout-utbk-paket-1');
   const [selectedUtbkFolder, setSelectedUtbkFolder] = useState<string | null>(null);
   const [utbkCategoryFilter, setUtbkCategoryFilter] = useState<'all' | 'tps' | 'literasi'>('all');
   const [utbkSearchQuery, setUtbkSearchQuery] = useState<string>('');
@@ -592,7 +622,9 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
           <button
             onClick={() => setActiveTab('home')}
             className={`px-4 py-3 rounded-xl font-bold text-xs flex items-center gap-2.5 transition-all cursor-pointer shrink-0 ${
-              activeTab === 'home' ? 'bg-blue-50 text-[#2563EB] border border-blue-100/50 shadow-sm' : 'bg-white text-slate-500 hover:bg-slate-50 border border-slate-200/60'
+              activeTab === 'home'
+                ? 'bg-blue-50 dark:bg-blue-950/60 text-[#2563EB] dark:text-blue-400 border border-blue-100/50 dark:border-blue-800/60 shadow-sm'
+                : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200/60 dark:border-slate-800'
             }`}
           >
             <Home className="w-4 h-4" />
@@ -614,7 +646,9 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
           <button
             onClick={() => setActiveTab('prediksi')}
             className={`px-4 py-3 rounded-xl font-bold text-xs flex items-center gap-2.5 transition-all cursor-pointer shrink-0 ${
-              activeTab === 'prediksi' || activeTab === 'rapor' ? 'bg-blue-50 text-[#2563EB] border border-blue-100/50 shadow-sm' : 'bg-white text-slate-500 hover:bg-slate-50 border border-slate-200/60'
+              activeTab === 'prediksi' || activeTab === 'rapor'
+                ? 'bg-blue-50 dark:bg-blue-950/60 text-[#2563EB] dark:text-blue-400 border border-blue-100/50 dark:border-blue-800/60 shadow-sm'
+                : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200/60 dark:border-slate-800'
             }`}
           >
             <Compass className="w-4 h-4" />
@@ -623,7 +657,9 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
           <button
             onClick={() => setActiveTab('video')}
             className={`px-4 py-3 rounded-xl font-bold text-xs flex items-center text-left gap-2.5 transition-all cursor-pointer shrink-0 ${
-              activeTab === 'video' ? 'bg-blue-50 text-[#2563EB] border border-blue-100/50 shadow-sm' : 'bg-white text-slate-500 hover:bg-slate-50 border border-slate-200/60'
+              activeTab === 'video'
+                ? 'bg-blue-50 dark:bg-blue-950/60 text-[#2563EB] dark:text-blue-400 border border-blue-100/50 dark:border-blue-800/60 shadow-sm'
+                : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200/60 dark:border-slate-800'
             }`}
           >
             <Video className="w-4 h-4 shrink-0" />
@@ -632,7 +668,9 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
           <button
             onClick={() => setActiveTab('tryout')}
             className={`px-4 py-3 rounded-xl font-bold text-xs flex items-center gap-2.5 transition-all cursor-pointer shrink-0 ${
-              activeTab === 'tryout' ? 'bg-blue-50 text-[#2563EB] border border-blue-100/50 shadow-sm' : 'bg-white text-slate-500 hover:bg-slate-50 border border-slate-200/60'
+              activeTab === 'tryout'
+                ? 'bg-blue-50 dark:bg-blue-950/60 text-[#2563EB] dark:text-blue-400 border border-blue-100/50 dark:border-blue-800/60 shadow-sm'
+                : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200/60 dark:border-slate-800'
             }`}
           >
             <Award className="w-4 h-4" />
@@ -645,16 +683,20 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
               setActiveTab('tryout_tka');
             }}
             className={`px-4 py-3 rounded-xl font-bold text-xs flex items-center gap-2.5 transition-all cursor-pointer shrink-0 ${
-              activeTab === 'tryout_tka' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200/80 shadow-sm' : 'bg-white text-slate-500 hover:bg-slate-50 border border-slate-200/60'
+              activeTab === 'tryout_tka'
+                ? 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200/80 dark:border-emerald-800/60 shadow-sm'
+                : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200/60 dark:border-slate-800'
             }`}
           >
-            <Award className="w-4 h-4 text-emerald-600" />
+            <Award className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
             <span>Try Out CBT TKA</span>
           </button>
           <button
             onClick={() => setActiveTab('ranking')}
             className={`px-4 py-3 rounded-xl font-bold text-xs flex items-center gap-2.5 transition-all cursor-pointer shrink-0 ${
-              activeTab === 'ranking' ? 'bg-blue-50 text-[#2563EB] border border-blue-100/50 shadow-sm' : 'bg-white text-slate-500 hover:bg-slate-50 border border-slate-200/60'
+              activeTab === 'ranking'
+                ? 'bg-blue-50 dark:bg-blue-950/60 text-[#2563EB] dark:text-blue-400 border border-blue-100/50 dark:border-blue-800/60 shadow-sm'
+                : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200/60 dark:border-slate-800'
             }`}
           >
             <Trophy className="w-4 h-4" />
@@ -663,14 +705,16 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
           <button
             onClick={() => setActiveTab('badges')}
             className={`px-4 py-3 rounded-xl font-bold text-xs flex items-center gap-2.5 transition-all cursor-pointer shrink-0 ${
-              activeTab === 'badges' ? 'bg-blue-50 text-[#2563EB] border border-blue-100/50 shadow-sm' : 'bg-white text-slate-500 hover:bg-slate-50 border border-slate-200/60'
+              activeTab === 'badges'
+                ? 'bg-blue-50 dark:bg-blue-950/60 text-[#2563EB] dark:text-blue-400 border border-blue-100/50 dark:border-blue-800/60 shadow-sm'
+                : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200/60 dark:border-slate-800'
             }`}
           >
             <Star className="w-4 h-4" />
             <span>Lencana & Level</span>
           </button>
 
-          <div className="hidden lg:block border-t border-slate-100 pt-6 mt-4">
+          <div className="hidden lg:block border-t border-slate-100 dark:border-slate-800 pt-6 mt-4">
             <button
               onClick={onLogout}
               className="w-full text-left px-4 py-3 rounded-xl font-bold text-xs text-red-500 hover:bg-red-50 transition-colors cursor-pointer"
@@ -685,6 +729,94 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
           
           {/* Active CBT Overlay */}
           {activeCbt ? (
+            // UTBK Paket 3 Subtests
+            activeCbt.id === 'to-utbk3-penalaran-induktif-2026' ||
+            (activeCbt.name?.includes('Paket 3') && activeCbt.subject === 'Penalaran Induktif' && !activeCbt.googleFormUrl) ? (
+              <CbtTryoutInduktifP3 onBack={() => setActiveCbt(null)} />
+            ) : activeCbt.id === 'to-utbk3-penalaran-deduktif-2026' ||
+            (activeCbt.name?.includes('Paket 3') && activeCbt.subject === 'Penalaran Deduktif' && !activeCbt.googleFormUrl) ? (
+              <CbtTryoutDeduktifP3 onBack={() => setActiveCbt(null)} />
+            ) : activeCbt.id === 'to-utbk3-penalaran-kuantitatif-2026' ||
+            (activeCbt.name?.includes('Paket 3') && activeCbt.subject === 'Penalaran Kuantitatif' && !activeCbt.googleFormUrl) ? (
+              <CbtTryoutPenalaranKuantitatifP3 onBack={() => setActiveCbt(null)} />
+            ) : activeCbt.id === 'to-utbk3-ppu-2026' ||
+            (activeCbt.name?.includes('Paket 3') && activeCbt.subject === 'Pengetahuan dan Pemahaman Umum (PPU)' && !activeCbt.googleFormUrl) ? (
+              <CbtTryoutPpuP3 onBack={() => setActiveCbt(null)} />
+            ) : activeCbt.id === 'to-utbk3-pbm-2026' ||
+            (activeCbt.name?.includes('Paket 3') && activeCbt.subject === 'Pemahaman Bacaan dan Menulis (PBM)' && !activeCbt.googleFormUrl) ? (
+              <CbtTryoutPbmP3 onBack={() => setActiveCbt(null)} />
+            ) : activeCbt.id === 'to-utbk3-pk-2026' ||
+            (activeCbt.name?.includes('Paket 3') && activeCbt.subject === 'Pengetahuan Kuantitatif (PK)' && !activeCbt.googleFormUrl) ? (
+              <CbtTryoutPkP3 onBack={() => setActiveCbt(null)} />
+            ) : activeCbt.id === 'to-utbk3-literasi-indonesia-2026' ||
+            (activeCbt.name?.includes('Paket 3') && activeCbt.subject === 'Literasi dalam Bahasa Indonesia' && !activeCbt.googleFormUrl) ? (
+              <CbtTryoutLiterasiIndoP3 onBack={() => setActiveCbt(null)} />
+            ) : activeCbt.id === 'to-utbk3-literasi-inggris-2026' ||
+            (activeCbt.name?.includes('Paket 3') && activeCbt.subject === 'Literasi dalam Bahasa Inggris' && !activeCbt.googleFormUrl) ? (
+              <CbtTryoutLiterasiInggrisP3 onBack={() => setActiveCbt(null)} />
+            ) : activeCbt.id === 'to-utbk3-penalaran-matematika-2026' ||
+            (activeCbt.name?.includes('Paket 3') && activeCbt.subject === 'Penalaran Matematika' && !activeCbt.googleFormUrl) ? (
+              <CbtTryoutPenalaranMatematikaP3 onBack={() => setActiveCbt(null)} />
+            ) :
+            // UTBK Paket 2 Subtests
+            activeCbt.id === 'to-utbk2-penalaran-induktif-2026' ||
+            (activeCbt.name?.includes('Paket 2') && activeCbt.subject === 'Penalaran Induktif' && !activeCbt.googleFormUrl) ? (
+              <CbtTryoutInduktifP2 onBack={() => setActiveCbt(null)} />
+            ) : activeCbt.id === 'to-utbk2-penalaran-deduktif-2026' ||
+            (activeCbt.name?.includes('Paket 2') && activeCbt.subject === 'Penalaran Deduktif' && !activeCbt.googleFormUrl) ? (
+              <CbtTryoutDeduktifP2 onBack={() => setActiveCbt(null)} />
+            ) : activeCbt.id === 'to-utbk2-penalaran-kuantitatif-2026' ||
+            (activeCbt.name?.includes('Paket 2') && activeCbt.subject === 'Penalaran Kuantitatif' && !activeCbt.googleFormUrl) ? (
+              <CbtTryoutPenalaranKuantitatifP2 onBack={() => setActiveCbt(null)} />
+            ) : activeCbt.id === 'to-utbk2-ppu-2026' ||
+            (activeCbt.name?.includes('Paket 2') && activeCbt.subject === 'Pengetahuan dan Pemahaman Umum (PPU)' && !activeCbt.googleFormUrl) ? (
+              <CbtTryoutPpuP2 onBack={() => setActiveCbt(null)} />
+            ) : activeCbt.id === 'to-utbk2-pbm-2026' ||
+            (activeCbt.name?.includes('Paket 2') && activeCbt.subject === 'Pemahaman Bacaan dan Menulis (PBM)' && !activeCbt.googleFormUrl) ? (
+              <CbtTryoutPbmP2 onBack={() => setActiveCbt(null)} />
+            ) : activeCbt.id === 'to-utbk2-pk-2026' ||
+            (activeCbt.name?.includes('Paket 2') && activeCbt.subject === 'Pengetahuan Kuantitatif (PK)' && !activeCbt.googleFormUrl) ? (
+              <CbtTryoutPkP2 onBack={() => setActiveCbt(null)} />
+            ) : activeCbt.id === 'to-utbk2-literasi-indonesia-2026' ||
+            (activeCbt.name?.includes('Paket 2') && activeCbt.subject === 'Literasi dalam Bahasa Indonesia' && !activeCbt.googleFormUrl) ? (
+              <CbtTryoutLiterasiIndoP2 onBack={() => setActiveCbt(null)} />
+            ) : activeCbt.id === 'to-utbk2-literasi-inggris-2026' ||
+            (activeCbt.name?.includes('Paket 2') && activeCbt.subject === 'Literasi dalam Bahasa Inggris' && !activeCbt.googleFormUrl) ? (
+              <CbtTryoutLiterasiInggrisP2 onBack={() => setActiveCbt(null)} />
+            ) : activeCbt.id === 'to-utbk2-penalaran-matematika-2026' ||
+            (activeCbt.name?.includes('Paket 2') && activeCbt.subject === 'Penalaran Matematika' && !activeCbt.googleFormUrl) ? (
+              <CbtTryoutPenalaranMatematikaP2 onBack={() => setActiveCbt(null)} />
+            ) :
+            // UTBK Paket 1 Subtests (9 Subtes SNBT)
+            activeCbt.id === 'to-utbk-penalaran-induktif-2026' ||
+            (activeCbt.subject === 'Penalaran Induktif' && !activeCbt.googleFormUrl) ? (
+              <CbtTryoutInduktifP1 onBack={() => setActiveCbt(null)} />
+            ) : activeCbt.id === 'to-utbk-penalaran-deduktif-2026' ||
+            (activeCbt.subject === 'Penalaran Deduktif' && !activeCbt.googleFormUrl) ? (
+              <CbtTryoutDeduktifP1 onBack={() => setActiveCbt(null)} />
+            ) : activeCbt.id === 'to-utbk-penalaran-kuantitatif-2026' ||
+            (activeCbt.subject === 'Penalaran Kuantitatif' && !activeCbt.googleFormUrl) ? (
+              <CbtTryoutPenalaranKuantitatifP1 onBack={() => setActiveCbt(null)} />
+            ) : activeCbt.id === 'to-utbk-ppu-2026' ||
+            (activeCbt.subject === 'Pengetahuan dan Pemahaman Umum (PPU)' && !activeCbt.googleFormUrl) ? (
+              <CbtTryoutPpuP1 onBack={() => setActiveCbt(null)} />
+            ) : activeCbt.id === 'to-utbk-pbm-2026' ||
+            (activeCbt.subject === 'Pemahaman Bacaan dan Menulis (PBM)' && !activeCbt.googleFormUrl) ? (
+              <CbtTryoutPbmP1 onBack={() => setActiveCbt(null)} />
+            ) : activeCbt.id === 'to-utbk-pk-2026' ||
+            (activeCbt.subject === 'Pengetahuan Kuantitatif (PK)' && !activeCbt.googleFormUrl) ? (
+              <CbtTryoutPkP1 onBack={() => setActiveCbt(null)} />
+            ) : activeCbt.id === 'to-utbk-literasi-indonesia-2026' ||
+            (activeCbt.subject === 'Literasi dalam Bahasa Indonesia' && !activeCbt.googleFormUrl) ? (
+              <CbtTryoutLiterasiIndoP1 onBack={() => setActiveCbt(null)} />
+            ) : activeCbt.id === 'to-utbk-literasi-inggris-2026' ||
+            (activeCbt.subject === 'Literasi dalam Bahasa Inggris' && !activeCbt.googleFormUrl) ? (
+              <CbtTryoutLiterasiInggrisP1 onBack={() => setActiveCbt(null)} />
+            ) : activeCbt.id === 'to-utbk-penalaran-matematika-2026' ||
+            (activeCbt.subject === 'Penalaran Matematika' && !activeCbt.googleFormUrl) ? (
+              <CbtTryoutPenalaranMatematikaP1 onBack={() => setActiveCbt(null)} />
+            ) :
+            // TKA Mapel SMA
             activeCbt.id === 'to-tka-bing-lanjut-2026' ||
             activeCbt.id === 'to-tka-binggris-lanjut-2026' ||
             (activeCbt.subject === 'Bahasa Inggris Tingkat Lanjut' && !activeCbt.googleFormUrl) ? (
@@ -2044,6 +2176,8 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                   }
                 ];
 
+                const currentUtbkPackageObj = UTBK_PACKAGES.find(p => p.id === selectedUtbkPackage) || UTBK_PACKAGES[0];
+
                 const allTkaTryouts = tryoutsList.filter(to => 
                   to.category === 'TKA' || 
                   (!to.category && (
@@ -2055,10 +2189,17 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                   ))
                 );
 
-                const allUtbkTryouts = tryoutsList.filter(to => 
-                  to.category === 'UTBK' || 
-                  (!to.category && !to.name.toLowerCase().includes('tka') && !to.subject.toLowerCase().includes('saintek') && !to.subject.toLowerCase().includes('soshum'))
-                );
+                const allUtbkTryouts = tryoutsList.filter(to => {
+                  const isUtbk = to.category === 'UTBK' || (!to.category && !to.name.toLowerCase().includes('tka') && !to.subject.toLowerCase().includes('saintek') && !to.subject.toLowerCase().includes('soshum'));
+                  if (!isUtbk) return false;
+                  if (selectedUtbkPackage === 'tryout-utbk-paket-3') {
+                    return to.id.startsWith('to-utbk3-') || to.name.includes('Paket 3');
+                  } else if (selectedUtbkPackage === 'tryout-utbk-paket-2') {
+                    return to.id.startsWith('to-utbk2-') || to.name.includes('Paket 2');
+                  } else {
+                    return (!to.id.startsWith('to-utbk2-') && !to.id.startsWith('to-utbk3-') && !to.name.includes('Paket 2') && !to.name.includes('Paket 3')) || to.name.includes('Paket 1');
+                  }
+                });
 
                 // Get current active folder details if selected
                 const currentTkaFolderObj = isTka && selectedTkaFolder 
@@ -2089,31 +2230,146 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                   <div className="space-y-6">
 
                     {/* Informational Header */}
-                    <div className="bg-white border border-slate-100 rounded-3xl p-6 sm:p-8 shadow-sm space-y-4">
+                    <div className="bg-white border border-slate-100 rounded-3xl p-6 sm:p-8 shadow-sm space-y-5">
                       <div className="flex items-center justify-between flex-wrap gap-2">
-                        <h2 className="text-xl font-bold font-display text-slate-900 flex items-center gap-2">
-                          <Award className={`w-6 h-6 ${isTka ? 'text-emerald-600' : 'text-blue-600'}`} />
-                          {isTka ? 'Pusat CBT Try Out TKA SMA - Folder Mata Pelajaran' : 'Pusat CBT Try Out UTBK/SNBT - 9 Subtes Resmi'}
+                        <h2 className="text-xl sm:text-2xl font-bold font-display text-slate-900 flex items-center gap-2.5">
+                          <Award className={`w-7 h-7 ${isTka ? 'text-emerald-600' : 'text-blue-600'}`} />
+                          {isTka ? 'Pusat CBT Try Out TKA SMA - Folder Mata Pelajaran' : `Pusat CBT Try Out UTBK/SNBT • ${currentUtbkPackageObj.name}`}
                         </h2>
-                        <span className={`text-xs font-bold px-3 py-1 rounded-full border ${
+                        <span className={`text-xs font-extrabold px-3.5 py-1.5 rounded-full border ${
                           isTka 
                             ? 'bg-emerald-50 text-emerald-700 border-emerald-100' 
-                            : 'bg-blue-50 text-blue-700 border-blue-100'
+                            : 'bg-blue-50 text-blue-700 border-blue-200'
                         }`}>
                           {isTka 
                             ? `${allTkaTryouts.length} Paket TKA (${TKA_SMA_SUBJECT_FOLDERS.length} Folder Mapel)` 
-                            : `${UTBK_SNBT_SUBTEST_FOLDERS.length} Folder Subtes (160 Soal / 195 Menit)`}
+                            : `${currentUtbkPackageObj.name} (9 Subtes • 160 Soal • 195 Menit)`}
                         </span>
                       </div>
-                      <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
+                      <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                         {isTka 
                           ? `Masing-masing Try Out bab dikumpulkan secara rapi di dalam ${TKA_SMA_SUBJECT_FOLDERS.length} Folder Mata Pelajaran TKA SMA. Pilih folder mapel di bawah untuk membuka paket Try Out per bab.`
-                          : 'Seluruh paket Try Out UTBK/SNBT resmi dikelompokkan ke dalam 9 Folder Subtes sesuai format SNPMB BPPP Kemendikbudristek (Penalaran Induktif, Deduktif, Kuantitatif, PPU, PBM, PK, Literasi Bahasa Indonesia, Literasi Bahasa Inggris, dan Penalaran Matematika). Pilih folder subtes di bawah untuk simulasi CBT interaktif.'}
+                          : `Seluruh 9 subtes Try Out UTBK resmi dikumpulkan ke dalam paket simulasi di bawah. Format mengacu pada standar resmi SNPMB BPPP Kemendikbudristek (Penalaran Induktif, Deduktif, Kuantitatif, PPU, PBM, PK, Literasi Bahasa Indonesia, Literasi Bahasa Inggris, dan Penalaran Matematika). Pilih paket UTBK dan subtes yang ingin dikerjakan.`}
                       </p>
+
+                      {/* UTBK Package Selector Cards (Paket 1, Paket 2, Paket 3) - Prominent & Large */}
+                      {!isTka && (
+                        <div className="pt-3 border-t border-slate-100 space-y-3">
+                          <div className="flex items-center justify-between flex-wrap gap-2">
+                            <div className="text-xs font-black text-slate-500 uppercase tracking-wider flex items-center gap-2">
+                              <Sparkles className="w-4 h-4 text-amber-500" />
+                              <span>PILIHAN PAKET TRY OUT UTBK / SNBT (STANDAR BPPP RESMI):</span>
+                            </div>
+                            <span className="text-[11px] font-bold text-slate-400">
+                              Klik salah satu tombol paket untuk berganti paket
+                            </span>
+                          </div>
+
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
+                            {UTBK_PACKAGES.map((pkg, idx) => {
+                              const isSelectedPkg = selectedUtbkPackage === pkg.id;
+                              const pkgNumber = `0${idx + 1}`;
+                              
+                              // Theme styles per package
+                              let activeThemeClass = '';
+                              let badgeAccentClass = '';
+                              let borderHoverClass = '';
+                              let iconColor = '';
+
+                              if (idx === 0) {
+                                // Paket 1: Royal Blue
+                                activeThemeClass = 'bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white border-blue-500 shadow-xl shadow-blue-500/25 ring-4 ring-blue-400/40';
+                                badgeAccentClass = isSelectedPkg ? 'bg-white/20 text-white border-white/30' : 'bg-blue-50 text-blue-700 border-blue-200';
+                                borderHoverClass = 'hover:border-blue-400 hover:shadow-blue-100';
+                                iconColor = isSelectedPkg ? 'text-amber-300' : 'text-blue-600';
+                              } else if (idx === 1) {
+                                // Paket 2: Violet / Purple
+                                activeThemeClass = 'bg-gradient-to-br from-purple-600 via-purple-700 to-indigo-800 text-white border-purple-500 shadow-xl shadow-purple-500/25 ring-4 ring-purple-400/40';
+                                badgeAccentClass = isSelectedPkg ? 'bg-white/20 text-white border-white/30' : 'bg-purple-50 text-purple-700 border-purple-200';
+                                borderHoverClass = 'hover:border-purple-400 hover:shadow-purple-100';
+                                iconColor = isSelectedPkg ? 'text-amber-300' : 'text-purple-600';
+                              } else {
+                                // Paket 3: Emerald / Teal
+                                activeThemeClass = 'bg-gradient-to-br from-emerald-600 via-teal-700 to-slate-900 text-white border-emerald-500 shadow-xl shadow-emerald-500/25 ring-4 ring-emerald-400/40';
+                                badgeAccentClass = isSelectedPkg ? 'bg-white/20 text-white border-white/30' : 'bg-emerald-50 text-emerald-700 border-emerald-200';
+                                borderHoverClass = 'hover:border-emerald-400 hover:shadow-emerald-100';
+                                iconColor = isSelectedPkg ? 'text-amber-300' : 'text-emerald-600';
+                              }
+
+                              return (
+                                <button
+                                  key={pkg.id}
+                                  onClick={() => {
+                                    setSelectedUtbkPackage(pkg.id);
+                                    setSelectedUtbkFolder(null);
+                                    setUtbkCategoryFilter('all');
+                                    setUtbkSearchQuery('');
+                                  }}
+                                  className={`relative text-left p-5 sm:p-6 rounded-3xl transition-all duration-200 cursor-pointer border-2 flex flex-col justify-between space-y-4 ${
+                                    isSelectedPkg
+                                      ? `${activeThemeClass} scale-[1.02]`
+                                      : `bg-white hover:bg-slate-50/80 border-slate-200/80 ${borderHoverClass} text-slate-800 shadow-sm hover:shadow-md hover:scale-[1.01]`
+                                  }`}
+                                >
+                                  {/* Top Row: Package Tag + Active Indicator */}
+                                  <div className="flex items-center justify-between gap-2">
+                                    <div className="flex items-center gap-2">
+                                      <span className={`w-8 h-8 rounded-2xl flex items-center justify-center font-black text-xs shadow-inner ${
+                                        isSelectedPkg ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-700'
+                                      }`}>
+                                        {pkgNumber}
+                                      </span>
+                                      <span className={`text-[11px] font-black uppercase tracking-wider px-2.5 py-1 rounded-xl border ${badgeAccentClass}`}>
+                                        {pkg.name}
+                                      </span>
+                                    </div>
+                                    {isSelectedPkg ? (
+                                      <span className="flex items-center gap-1 text-[10px] font-black bg-amber-400 text-slate-950 px-2.5 py-1 rounded-full shadow-xs uppercase tracking-wide animate-pulse">
+                                        <CheckCircle2 className="w-3 h-3 text-slate-950" /> AKTIF
+                                      </span>
+                                    ) : (
+                                      <span className="text-[10px] font-bold text-slate-400 group-hover:text-slate-600">
+                                        Pilih Paket
+                                      </span>
+                                    )}
+                                  </div>
+
+                                  {/* Middle Content: Title & Specs */}
+                                  <div className="space-y-1.5">
+                                    <h3 className={`text-base sm:text-lg font-black font-display leading-snug flex items-center gap-2 ${
+                                      isSelectedPkg ? 'text-white' : 'text-slate-900'
+                                    }`}>
+                                      <FolderOpen className={`w-5 h-5 shrink-0 ${iconColor}`} />
+                                      <span>{pkg.name}</span>
+                                    </h3>
+                                    <p className={`text-xs leading-relaxed ${
+                                      isSelectedPkg ? 'text-white/80' : 'text-slate-500'
+                                    }`}>
+                                      Simulasi komprehensif 9 Subtes Resmi SNBT • 160 Soal HOTS • Durasi 195 Menit
+                                    </p>
+                                  </div>
+
+                                  {/* Bottom Row: Metadata Badges */}
+                                  <div className="pt-2 border-t border-current/10 flex items-center justify-between gap-2 flex-wrap text-[11px]">
+                                    <span className={`font-black px-2.5 py-0.5 rounded-lg ${
+                                      isSelectedPkg ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-700'
+                                    }`}>
+                                      9 Subtes Lengkap
+                                    </span>
+                                    <span className={`font-bold ${isSelectedPkg ? 'text-amber-200' : 'text-blue-600'}`}>
+                                      {isSelectedPkg ? '⚡ Sedang Ditampilkan' : 'Klik untuk Buka →'}
+                                    </span>
+                                  </div>
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      )}
 
                       {/* Folder Nav Pills for UTBK */}
                       {!isTka && (
-                        <div className="pt-2 flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
+                        <div className="pt-2 flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar border-t border-slate-100 mt-2">
                           <button
                             onClick={() => {
                               setSelectedUtbkFolder(null);
@@ -2126,7 +2382,7 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                                 : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                             }`}
                           >
-                            <FolderOpen className="w-3.5 h-3.5" /> Semua Folder ({UTBK_SNBT_SUBTEST_FOLDERS.length})
+                            <FolderOpen className="w-3.5 h-3.5" /> {currentUtbkPackageObj.name} (Semua Subtes)
                           </button>
                           {UTBK_SNBT_SUBTEST_FOLDERS.map(f => {
                             const count = allUtbkTryouts.filter(to => f.match(to.subject, to.name)).length;
@@ -2217,13 +2473,13 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-indigo-500/30 pb-4">
                               <div>
                                 <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-400/20 border border-amber-400/40 rounded-full text-amber-300 text-xs font-black tracking-wide uppercase mb-1.5">
-                                  <Sparkles className="w-3.5 h-3.5" /> Standar Resmi UTBK-SNBT
+                                  <Sparkles className="w-3.5 h-3.5" /> Standar Resmi UTBK-SNBT • {currentUtbkPackageObj.name}
                                 </div>
                                 <h3 className="text-lg sm:text-xl font-black font-display text-white">
-                                  Struktur 9 Subtes UTBK SNBT
+                                  Folder: {currentUtbkPackageObj.name} (9 Subtes Resmi)
                                 </h3>
                                 <p className="text-xs text-indigo-200">
-                                  Komposisi lengkap ujian resmi: 9 Subtes, 160 Soal, total alokasi durasi 195 Menit.
+                                  Komposisi lengkap ujian {currentUtbkPackageObj.name}: 9 Subtes, 160 Soal, total alokasi durasi 195 Menit.
                                 </p>
                               </div>
                               <div className="flex items-center gap-3 shrink-0">
@@ -2569,13 +2825,13 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                             onClick={() => setSelectedUtbkFolder(null)}
                             className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/20 hover:bg-white/30 text-white rounded-xl text-xs font-bold transition-all mb-2 cursor-pointer backdrop-blur-sm"
                           >
-                            <ArrowLeft className="w-3.5 h-3.5" /> Kembali ke 9 Subtes UTBK
+                            <ArrowLeft className="w-3.5 h-3.5" /> Kembali ke Folder {currentUtbkPackageObj.name}
                           </button>
                           <div className="flex items-center gap-3">
                             <span className="text-3xl">{currentUtbkFolderObj.icon}</span>
                             <div>
                               <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 bg-blue-500/30 border border-blue-400/40 rounded-full text-blue-200 text-[10px] font-black uppercase mb-1">
-                                {currentUtbkFolderObj.testGroup}
+                                {currentUtbkPackageObj.name} • {currentUtbkFolderObj.testGroup}
                               </div>
                               <h3 className="font-black text-lg sm:text-xl text-white">
                                 {currentUtbkFolderObj.name}

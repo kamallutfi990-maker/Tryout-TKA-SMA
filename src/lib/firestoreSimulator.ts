@@ -5041,11 +5041,14 @@ export const getTryOuts = () => {
     updated = true;
   }
 
-  // Ensure all INITIAL_TRYOUTS are synced into local storage if missing
-  const existingIds = new Set(tryouts.map(t => t.id));
+  // Ensure all INITIAL_TRYOUTS are synced into local storage and names kept up to date
   INITIAL_TRYOUTS.forEach(initTo => {
-    if (!existingIds.has(initTo.id) && !removedIds.has(initTo.id)) {
+    const existingIdx = tryouts.findIndex(t => t.id === initTo.id);
+    if (existingIdx === -1 && !removedIds.has(initTo.id)) {
       tryouts.unshift(initTo);
+      updated = true;
+    } else if (existingIdx !== -1 && tryouts[existingIdx].name !== initTo.name) {
+      tryouts[existingIdx].name = initTo.name;
       updated = true;
     }
   });

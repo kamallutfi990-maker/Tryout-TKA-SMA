@@ -283,17 +283,17 @@ export default function CbtAnalysisReport({ report, userProfile, onClose, onOpen
   );
 
   return (
-    <div className="bg-white border border-slate-100 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6 animate-in fade-in duration-300">
+    <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6 animate-in fade-in duration-300 text-slate-800 dark:text-slate-100">
       
       {/* Title & Header Bar */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-4 border-b border-slate-100">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-4 border-b border-slate-100 dark:border-slate-800">
         <div>
           <div className="flex items-center gap-2">
-            <h2 className="text-xl sm:text-2xl font-black font-display text-slate-900 leading-tight">
+            <h2 className="text-xl sm:text-2xl font-black font-display text-slate-900 dark:text-slate-50 leading-tight">
               {report.title}
             </h2>
           </div>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
             Ujian dikirimkan pada {report.timestamp || new Date().toLocaleString('id-ID')}
           </p>
         </div>
@@ -302,7 +302,7 @@ export default function CbtAnalysisReport({ report, userProfile, onClose, onOpen
           {/* Prominent Pembahasan Soal Button */}
           <button
             onClick={onOpenSolutionReview || (() => setShowHtmlModal(true))}
-            className="px-5 py-2.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-700 hover:via-indigo-700 hover:to-purple-700 text-white font-black text-xs sm:text-sm rounded-2xl shadow-lg shadow-indigo-200 hover:shadow-indigo-300 hover:scale-105 active:scale-95 transition-all cursor-pointer flex items-center gap-2 border border-white/30 ring-2 ring-indigo-500/20"
+            className="px-5 py-2.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-700 hover:via-indigo-700 hover:to-purple-700 text-white font-black text-xs sm:text-sm rounded-2xl shadow-lg shadow-indigo-200 dark:shadow-indigo-950/50 hover:shadow-indigo-300 hover:scale-105 active:scale-95 transition-all cursor-pointer flex items-center gap-2 border border-white/30 ring-2 ring-indigo-500/20"
           >
             <BookOpen className="w-4 h-4 text-amber-300 shrink-0" />
             <span>Lihat Pembahasan Lengkap & Kunci Jawaban</span>
@@ -313,7 +313,7 @@ export default function CbtAnalysisReport({ report, userProfile, onClose, onOpen
             className={`px-3.5 py-1.5 font-bold text-xs rounded-xl transition-all cursor-pointer flex items-center gap-1.5 border ${
               isEditing 
                 ? 'bg-amber-400 text-slate-950 border-amber-400 shadow-sm' 
-                : 'bg-slate-100 hover:bg-slate-200 text-slate-800 border-slate-200'
+                : 'bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 border-slate-200 dark:border-slate-700'
             }`}
           >
             {isEditing ? (
@@ -323,7 +323,7 @@ export default function CbtAnalysisReport({ report, userProfile, onClose, onOpen
               </>
             ) : (
               <>
-                <Edit3 className="w-3.5 h-3.5 text-blue-600" />
+                <Edit3 className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
                 <span>Edit Nilai Mapel</span>
               </>
             )}
@@ -334,16 +334,16 @@ export default function CbtAnalysisReport({ report, userProfile, onClose, onOpen
               href={report.sourceUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-3.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition-colors flex items-center gap-1.5"
+              className="px-3.5 py-1.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold text-xs rounded-xl transition-colors flex items-center gap-1.5"
             >
-              <ExternalLink className="w-3.5 h-3.5 text-slate-500" />
+              <ExternalLink className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
               <span>Sumber SlugPost</span>
             </a>
           )}
           {onClose && (
             <button
               onClick={onClose}
-              className="px-3.5 py-1.5 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs rounded-xl cursor-pointer"
+              className="px-3.5 py-1.5 bg-slate-900 dark:bg-slate-800 hover:bg-slate-800 dark:hover:bg-slate-700 text-white font-bold text-xs rounded-xl cursor-pointer"
             >
               Tutup
             </button>

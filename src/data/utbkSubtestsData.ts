@@ -289,10 +289,63 @@ export const UTBK_TOTAL_SUMMARY = {
   ]
 };
 
+export interface UtbkPackage {
+  id: string;
+  name: string;
+  badge: string;
+  description: string;
+  subtestCount: number;
+  totalQuestions: number;
+  totalDurationMinutes: number;
+  totalDurationFormatted: string;
+  year: number;
+  status: 'Tersedia' | 'Segera Hadir';
+}
+
+export const UTBK_PACKAGES: UtbkPackage[] = [
+  {
+    id: 'tryout-utbk-paket-1',
+    name: 'Try Out UTBK Paket 1',
+    badge: 'Paket 1 • 9 Subtes Lengkap',
+    description: 'Paket simulasi lengkap 9 Subtes SNBT resmi (Penalaran Induktif, Deduktif, Kuantitatif, PPU, PBM, PK, Literasi B. Indonesia, Literasi B. Inggris, dan Penalaran Matematika) sesuai standar BPPP Kemendikbudristek.',
+    subtestCount: 9,
+    totalQuestions: 160,
+    totalDurationMinutes: 195,
+    totalDurationFormatted: '195 Menit (3 Jam 15 Menit)',
+    year: 2026,
+    status: 'Tersedia'
+  },
+  {
+    id: 'tryout-utbk-paket-2',
+    name: 'Try Out UTBK Paket 2',
+    badge: 'Paket 2 • 9 Subtes Lengkap',
+    description: 'Paket simulasi lengkap 9 Subtes SNBT resmi Paket 2 (Penalaran Induktif, Deduktif, Kuantitatif, PPU, PBM, PK, Literasi B. Indonesia, Literasi B. Inggris, dan Penalaran Matematika) dengan kurasi butir soal HOTS terstandarisasi.',
+    subtestCount: 9,
+    totalQuestions: 160,
+    totalDurationMinutes: 195,
+    totalDurationFormatted: '195 Menit (3 Jam 15 Menit)',
+    year: 2026,
+    status: 'Tersedia'
+  },
+  {
+    id: 'tryout-utbk-paket-3',
+    name: 'Try Out UTBK Paket 3',
+    badge: 'Paket 3 • 9 Subtes Lengkap',
+    description: 'Paket simulasi lengkap 9 Subtes SNBT resmi Paket 3 (Penalaran Induktif, Deduktif, Kuantitatif, PPU, PBM, PK, Literasi B. Indonesia, Literasi B. Inggris, dan Penalaran Matematika) berstandar BPPP SNPMB Kemendikbudristek.',
+    subtestCount: 9,
+    totalQuestions: 160,
+    totalDurationMinutes: 195,
+    totalDurationFormatted: '195 Menit (3 Jam 15 Menit)',
+    year: 2026,
+    status: 'Tersedia'
+  }
+];
+
 export const INITIAL_UTBK_TRYOUTS: TryOut[] = [
+  // Paket 1
   {
     id: 'to-utbk-penalaran-induktif-2026',
-    name: 'Try Out CBT UTBK: Penalaran Induktif (10 Soal • 10 Menit)',
+    name: 'Try Out UTBK Paket 1: Penalaran Induktif (10 Soal • 10 Menit)',
     duration: 10,
     passingGrade: 650,
     questionCount: 10,
@@ -306,7 +359,7 @@ export const INITIAL_UTBK_TRYOUTS: TryOut[] = [
   },
   {
     id: 'to-utbk-penalaran-deduktif-2026',
-    name: 'Try Out CBT UTBK: Penalaran Deduktif (10 Soal • 10 Menit)',
+    name: 'Try Out UTBK Paket 1: Penalaran Deduktif (10 Soal • 10 Menit)',
     duration: 10,
     passingGrade: 650,
     questionCount: 10,
@@ -320,7 +373,7 @@ export const INITIAL_UTBK_TRYOUTS: TryOut[] = [
   },
   {
     id: 'to-utbk-penalaran-kuantitatif-2026',
-    name: 'Try Out CBT UTBK: Penalaran Kuantitatif (10 Soal • 10 Menit)',
+    name: 'Try Out UTBK Paket 1: Penalaran Kuantitatif (10 Soal • 10 Menit)',
     duration: 10,
     passingGrade: 650,
     questionCount: 10,
@@ -334,7 +387,7 @@ export const INITIAL_UTBK_TRYOUTS: TryOut[] = [
   },
   {
     id: 'to-utbk-ppu-2026',
-    name: 'Try Out CBT UTBK: Pengetahuan dan Pemahaman Umum - PPU (20 Soal • 15 Menit)',
+    name: 'Try Out UTBK Paket 1: Pengetahuan dan Pemahaman Umum - PPU (20 Soal • 15 Menit)',
     duration: 15,
     passingGrade: 650,
     questionCount: 20,
@@ -348,7 +401,7 @@ export const INITIAL_UTBK_TRYOUTS: TryOut[] = [
   },
   {
     id: 'to-utbk-pbm-2026',
-    name: 'Try Out CBT UTBK: Pemahaman Bacaan dan Menulis - PBM (20 Soal • 25 Menit)',
+    name: 'Try Out UTBK Paket 1: Pemahaman Bacaan dan Menulis - PBM (20 Soal • 25 Menit)',
     duration: 25,
     passingGrade: 650,
     questionCount: 20,
@@ -362,7 +415,7 @@ export const INITIAL_UTBK_TRYOUTS: TryOut[] = [
   },
   {
     id: 'to-utbk-pk-2026',
-    name: 'Try Out CBT UTBK: Pengetahuan Kuantitatif - PK (20 Soal • 20 Menit)',
+    name: 'Try Out UTBK Paket 1: Pengetahuan Kuantitatif - PK (20 Soal • 20 Menit)',
     duration: 20,
     passingGrade: 650,
     questionCount: 20,
@@ -376,7 +429,7 @@ export const INITIAL_UTBK_TRYOUTS: TryOut[] = [
   },
   {
     id: 'to-utbk-literasi-indonesia-2026',
-    name: 'Try Out CBT UTBK: Literasi dalam Bahasa Indonesia (30 Soal • 42,5 Menit)',
+    name: 'Try Out UTBK Paket 1: Literasi dalam Bahasa Indonesia (30 Soal • 42,5 Menit)',
     duration: 43,
     passingGrade: 650,
     questionCount: 30,
@@ -390,7 +443,7 @@ export const INITIAL_UTBK_TRYOUTS: TryOut[] = [
   },
   {
     id: 'to-utbk-literasi-inggris-2026',
-    name: 'Try Out CBT UTBK: Literasi dalam Bahasa Inggris (20 Soal • 20 Menit)',
+    name: 'Try Out UTBK Paket 1: Literasi dalam Bahasa Inggris (20 Soal • 20 Menit)',
     duration: 20,
     passingGrade: 650,
     questionCount: 20,
@@ -404,7 +457,7 @@ export const INITIAL_UTBK_TRYOUTS: TryOut[] = [
   },
   {
     id: 'to-utbk-penalaran-matematika-2026',
-    name: 'Try Out CBT UTBK: Penalaran Matematika (20 Soal • 42,5 Menit)',
+    name: 'Try Out UTBK Paket 1: Penalaran Matematika (20 Soal • 42,5 Menit)',
     duration: 43,
     passingGrade: 650,
     questionCount: 20,
@@ -415,5 +468,261 @@ export const INITIAL_UTBK_TRYOUTS: TryOut[] = [
     startDate: '2026-07-01',
     endDate: '2026-12-31',
     solvedCount: 775
+  },
+
+  // Paket 2
+  {
+    id: 'to-utbk2-penalaran-induktif-2026',
+    name: 'Try Out UTBK Paket 2: Penalaran Induktif (10 Soal • 10 Menit)',
+    duration: 10,
+    passingGrade: 650,
+    questionCount: 10,
+    subject: 'Penalaran Induktif',
+    category: 'UTBK',
+    randomizeQuestions: false,
+    randomizeOptions: false,
+    startDate: '2026-07-01',
+    endDate: '2026-12-31',
+    solvedCount: 412
+  },
+  {
+    id: 'to-utbk2-penalaran-deduktif-2026',
+    name: 'Try Out UTBK Paket 2: Penalaran Deduktif (10 Soal • 10 Menit)',
+    duration: 10,
+    passingGrade: 650,
+    questionCount: 10,
+    subject: 'Penalaran Deduktif',
+    category: 'UTBK',
+    randomizeQuestions: false,
+    randomizeOptions: false,
+    startDate: '2026-07-01',
+    endDate: '2026-12-31',
+    solvedCount: 395
+  },
+  {
+    id: 'to-utbk2-penalaran-kuantitatif-2026',
+    name: 'Try Out UTBK Paket 2: Penalaran Kuantitatif (10 Soal • 10 Menit)',
+    duration: 10,
+    passingGrade: 650,
+    questionCount: 10,
+    subject: 'Penalaran Kuantitatif',
+    category: 'UTBK',
+    randomizeQuestions: false,
+    randomizeOptions: false,
+    startDate: '2026-07-01',
+    endDate: '2026-12-31',
+    solvedCount: 480
+  },
+  {
+    id: 'to-utbk2-ppu-2026',
+    name: 'Try Out UTBK Paket 2: Pengetahuan dan Pemahaman Umum - PPU (20 Soal • 15 Menit)',
+    duration: 15,
+    passingGrade: 650,
+    questionCount: 20,
+    subject: 'Pengetahuan dan Pemahaman Umum (PPU)',
+    category: 'UTBK',
+    randomizeQuestions: false,
+    randomizeOptions: false,
+    startDate: '2026-07-01',
+    endDate: '2026-12-31',
+    solvedCount: 520
+  },
+  {
+    id: 'to-utbk2-pbm-2026',
+    name: 'Try Out UTBK Paket 2: Pemahaman Bacaan dan Menulis - PBM (20 Soal • 25 Menit)',
+    duration: 25,
+    passingGrade: 650,
+    questionCount: 20,
+    subject: 'Pemahaman Bacaan dan Menulis (PBM)',
+    category: 'UTBK',
+    randomizeQuestions: false,
+    randomizeOptions: false,
+    startDate: '2026-07-01',
+    endDate: '2026-12-31',
+    solvedCount: 490
+  },
+  {
+    id: 'to-utbk2-pk-2026',
+    name: 'Try Out UTBK Paket 2: Pengetahuan Kuantitatif - PK (20 Soal • 20 Menit)',
+    duration: 20,
+    passingGrade: 650,
+    questionCount: 20,
+    subject: 'Pengetahuan Kuantitatif (PK)',
+    category: 'UTBK',
+    randomizeQuestions: false,
+    randomizeOptions: false,
+    startDate: '2026-07-01',
+    endDate: '2026-12-31',
+    solvedCount: 560
+  },
+  {
+    id: 'to-utbk2-literasi-indonesia-2026',
+    name: 'Try Out UTBK Paket 2: Literasi dalam Bahasa Indonesia (30 Soal • 45 Menit)',
+    duration: 45,
+    passingGrade: 650,
+    questionCount: 30,
+    subject: 'Literasi dalam Bahasa Indonesia',
+    category: 'UTBK',
+    randomizeQuestions: false,
+    randomizeOptions: false,
+    startDate: '2026-07-01',
+    endDate: '2026-12-31',
+    solvedCount: 430
+  },
+  {
+    id: 'to-utbk2-literasi-inggris-2026',
+    name: 'Try Out UTBK Paket 2: Literasi dalam Bahasa Inggris (20 Soal • 30 Menit)',
+    duration: 30,
+    passingGrade: 650,
+    questionCount: 20,
+    subject: 'Literasi dalam Bahasa Inggris',
+    category: 'UTBK',
+    randomizeQuestions: false,
+    randomizeOptions: false,
+    startDate: '2026-07-01',
+    endDate: '2026-12-31',
+    solvedCount: 380
+  },
+  {
+    id: 'to-utbk2-penalaran-matematika-2026',
+    name: 'Try Out UTBK Paket 2: Penalaran Matematika (20 Soal • 30 Menit)',
+    duration: 30,
+    passingGrade: 650,
+    questionCount: 20,
+    subject: 'Penalaran Matematika',
+    category: 'UTBK',
+    randomizeQuestions: false,
+    randomizeOptions: false,
+    startDate: '2026-07-01',
+    endDate: '2026-12-31',
+    solvedCount: 510
+  },
+
+  // Paket 3
+  {
+    id: 'to-utbk3-penalaran-induktif-2026',
+    name: 'Try Out UTBK Paket 3: Penalaran Induktif (10 Soal • 10 Menit)',
+    duration: 10,
+    passingGrade: 650,
+    questionCount: 10,
+    subject: 'Penalaran Induktif',
+    category: 'UTBK',
+    randomizeQuestions: false,
+    randomizeOptions: false,
+    startDate: '2026-07-01',
+    endDate: '2026-12-31',
+    solvedCount: 310
+  },
+  {
+    id: 'to-utbk3-penalaran-deduktif-2026',
+    name: 'Try Out UTBK Paket 3: Penalaran Deduktif (10 Soal • 10 Menit)',
+    duration: 10,
+    passingGrade: 650,
+    questionCount: 10,
+    subject: 'Penalaran Deduktif',
+    category: 'UTBK',
+    randomizeQuestions: false,
+    randomizeOptions: false,
+    startDate: '2026-07-01',
+    endDate: '2026-12-31',
+    solvedCount: 290
+  },
+  {
+    id: 'to-utbk3-penalaran-kuantitatif-2026',
+    name: 'Try Out UTBK Paket 3: Penalaran Kuantitatif (10 Soal • 10 Menit)',
+    duration: 10,
+    passingGrade: 650,
+    questionCount: 10,
+    subject: 'Penalaran Kuantitatif',
+    category: 'UTBK',
+    randomizeQuestions: false,
+    randomizeOptions: false,
+    startDate: '2026-07-01',
+    endDate: '2026-12-31',
+    solvedCount: 345
+  },
+  {
+    id: 'to-utbk3-ppu-2026',
+    name: 'Try Out UTBK Paket 3: Pengetahuan dan Pemahaman Umum - PPU (20 Soal • 15 Menit)',
+    duration: 15,
+    passingGrade: 650,
+    questionCount: 20,
+    subject: 'Pengetahuan dan Pemahaman Umum (PPU)',
+    category: 'UTBK',
+    randomizeQuestions: false,
+    randomizeOptions: false,
+    startDate: '2026-07-01',
+    endDate: '2026-12-31',
+    solvedCount: 420
+  },
+  {
+    id: 'to-utbk3-pbm-2026',
+    name: 'Try Out UTBK Paket 3: Pemahaman Bacaan dan Menulis - PBM (20 Soal • 25 Menit)',
+    duration: 25,
+    passingGrade: 650,
+    questionCount: 20,
+    subject: 'Pemahaman Bacaan dan Menulis (PBM)',
+    category: 'UTBK',
+    randomizeQuestions: false,
+    randomizeOptions: false,
+    startDate: '2026-07-01',
+    endDate: '2026-12-31',
+    solvedCount: 385
+  },
+  {
+    id: 'to-utbk3-pk-2026',
+    name: 'Try Out UTBK Paket 3: Pengetahuan Kuantitatif - PK (15 Soal • 20 Menit)',
+    duration: 20,
+    passingGrade: 650,
+    questionCount: 15,
+    subject: 'Pengetahuan Kuantitatif (PK)',
+    category: 'UTBK',
+    randomizeQuestions: false,
+    randomizeOptions: false,
+    startDate: '2026-07-01',
+    endDate: '2026-12-31',
+    solvedCount: 410
+  },
+  {
+    id: 'to-utbk3-literasi-indonesia-2026',
+    name: 'Try Out UTBK Paket 3: Literasi dalam Bahasa Indonesia (30 Soal • 45 Menit)',
+    duration: 45,
+    passingGrade: 650,
+    questionCount: 30,
+    subject: 'Literasi dalam Bahasa Indonesia',
+    category: 'UTBK',
+    randomizeQuestions: false,
+    randomizeOptions: false,
+    startDate: '2026-07-01',
+    endDate: '2026-12-31',
+    solvedCount: 360
+  },
+  {
+    id: 'to-utbk3-literasi-inggris-2026',
+    name: 'Try Out UTBK Paket 3: Literasi dalam Bahasa Inggris (20 Soal • 30 Menit)',
+    duration: 30,
+    passingGrade: 650,
+    questionCount: 20,
+    subject: 'Literasi dalam Bahasa Inggris',
+    category: 'UTBK',
+    randomizeQuestions: false,
+    randomizeOptions: false,
+    startDate: '2026-07-01',
+    endDate: '2026-12-31',
+    solvedCount: 325
+  },
+  {
+    id: 'to-utbk3-penalaran-matematika-2026',
+    name: 'Try Out UTBK Paket 3: Penalaran Matematika (20 Soal • 30 Menit)',
+    duration: 30,
+    passingGrade: 650,
+    questionCount: 20,
+    subject: 'Penalaran Matematika',
+    category: 'UTBK',
+    randomizeQuestions: false,
+    randomizeOptions: false,
+    startDate: '2026-07-01',
+    endDate: '2026-12-31',
+    solvedCount: 390
   }
 ];

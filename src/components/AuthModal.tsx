@@ -166,22 +166,22 @@ export default function AuthModal({ onClose, onAuthSuccess, initialMode = 'login
 
           {mode === 'verify' ? (
             <div className="text-center space-y-4 py-4">
-              <div className="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto text-3xl font-bold">
+              <div className="w-16 h-16 bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center mx-auto text-3xl font-bold">
                 ✉
               </div>
-              <h3 className="text-lg font-bold text-slate-800">Kode Verifikasi Dikirim</h3>
-              <p className="text-sm text-slate-500 leading-relaxed">
-                Kami telah menyimulasikan pengiriman tautan verifikasi ke email <span className="font-semibold text-slate-800">{email}</span>.
+              <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100">Kode Verifikasi Dikirim</h3>
+              <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                Kami telah menyimulasikan pengiriman tautan verifikasi ke email <span className="font-semibold text-slate-800 dark:text-slate-200">{email}</span>.
               </p>
               <button
                 onClick={handleVerifySuccess}
-                className="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-lg shadow-blue-100 transition-colors cursor-pointer"
+                className="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-lg shadow-blue-500/20 dark:shadow-blue-900/30 transition-colors cursor-pointer"
               >
                 Simulasikan Klik Tautan Verifikasi & Lanjut
               </button>
               <button
                 onClick={() => setMode('register')}
-                className="text-xs text-slate-400 hover:text-slate-600 font-semibold transition-colors block mx-auto"
+                className="text-xs text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 font-semibold transition-colors block mx-auto cursor-pointer"
               >
                 Kembali ke Daftar
               </button>
@@ -190,7 +190,7 @@ export default function AuthModal({ onClose, onAuthSuccess, initialMode = 'login
             <form onSubmit={handleSubmit} className="space-y-4">
               {mode === 'register' && (
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-slate-600">Nama Lengkap</label>
+                  <label className="text-xs font-bold text-slate-600 dark:text-slate-300">Nama Lengkap</label>
                   <div className="relative">
                     <User className="absolute left-3.5 top-3.5 w-4 h-4 text-slate-400" />
                     <input
@@ -199,14 +199,14 @@ export default function AuthModal({ onClose, onAuthSuccess, initialMode = 'login
                       placeholder="Contoh: Sarah Amelia"
                       value={displayName}
                       onChange={(e) => setDisplayName(e.target.value)}
-                      className="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-100 transition-all"
+                      className="w-full pl-10 pr-4 py-3 border border-slate-200 dark:border-slate-700 rounded-xl text-sm bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-100 dark:focus:ring-blue-900 transition-all"
                     />
                   </div>
                 </div>
               )}
 
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-slate-600">Alamat Email</label>
+                <label className="text-xs font-bold text-slate-600 dark:text-slate-300">Alamat Email</label>
                 <div className="relative">
                   <Mail className="absolute left-3.5 top-3.5 w-4 h-4 text-slate-400" />
                   <input
@@ -215,7 +215,7 @@ export default function AuthModal({ onClose, onAuthSuccess, initialMode = 'login
                     placeholder="nama@email.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-100 transition-all"
+                    className="w-full pl-10 pr-4 py-3 border border-slate-200 dark:border-slate-700 rounded-xl text-sm bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-100 dark:focus:ring-blue-900 transition-all"
                   />
                 </div>
               </div>
@@ -223,12 +223,12 @@ export default function AuthModal({ onClose, onAuthSuccess, initialMode = 'login
               {mode !== 'forgot' && (
                 <div className="space-y-1.5">
                   <div className="flex justify-between items-center">
-                    <label className="text-xs font-bold text-slate-600">Kata Sandi</label>
+                    <label className="text-xs font-bold text-slate-600 dark:text-slate-300">Kata Sandi</label>
                     {mode === 'login' && (
                       <button
                         type="button"
                         onClick={() => setMode('forgot')}
-                        className="text-xs text-blue-600 hover:text-blue-800 font-semibold"
+                        className="text-xs text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-semibold cursor-pointer"
                       >
                         Lupa Sandi?
                       </button>
@@ -241,7 +241,7 @@ export default function AuthModal({ onClose, onAuthSuccess, initialMode = 'login
                       placeholder="••••••••"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      className="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-100 transition-all"
+                      className="w-full pl-10 pr-4 py-3 border border-slate-200 dark:border-slate-700 rounded-xl text-sm bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-100 dark:focus:ring-blue-900 transition-all"
                     />
                   </div>
                 </div>
@@ -250,7 +250,7 @@ export default function AuthModal({ onClose, onAuthSuccess, initialMode = 'login
               {/* Role Selector */}
               {mode !== 'forgot' && (
                 <div className="space-y-2">
-                  <label className="text-xs font-bold text-slate-600 block">Pilih Role Akun</label>
+                  <label className="text-xs font-bold text-slate-600 dark:text-slate-300 block">Pilih Role Akun</label>
                   <div className="grid grid-cols-3 gap-2">
                     {(['Siswa', 'Guru', 'Admin'] as const).map((r) => (
                       <button
@@ -259,8 +259,8 @@ export default function AuthModal({ onClose, onAuthSuccess, initialMode = 'login
                         onClick={() => setRole(r)}
                         className={`py-2 rounded-xl border text-xs font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
                           role === r
-                            ? 'bg-blue-50 border-blue-600 text-blue-700'
-                            : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
+                            ? 'bg-blue-50 dark:bg-blue-950/60 border-blue-600 dark:border-blue-500 text-blue-700 dark:text-blue-300'
+                            : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700'
                         }`}
                       >
                         <GraduationCap className="w-3.5 h-3.5" />
@@ -274,7 +274,7 @@ export default function AuthModal({ onClose, onAuthSuccess, initialMode = 'login
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold shadow-lg shadow-blue-100 transition-colors cursor-pointer text-sm disabled:opacity-50"
+                className="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold shadow-lg shadow-blue-500/20 dark:shadow-blue-900/30 transition-colors cursor-pointer text-sm disabled:opacity-50"
               >
                 {loading ? 'Memproses...' : (
                   <>
@@ -291,7 +291,7 @@ export default function AuthModal({ onClose, onAuthSuccess, initialMode = 'login
                   type="button"
                   disabled={loading}
                   onClick={handleGoogleLogin}
-                  className="w-full py-3 border border-slate-200 rounded-xl bg-slate-50/50 hover:bg-slate-50 text-slate-700 text-xs font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer disabled:opacity-50"
+                  className="w-full py-3 border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50/50 dark:bg-slate-800/80 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer disabled:opacity-50"
                 >
                   <svg className="w-4 h-4" viewBox="0 0 24 24">
                     <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
@@ -307,8 +307,8 @@ export default function AuthModal({ onClose, onAuthSuccess, initialMode = 'login
 
           {/* Preset logins helper */}
           {mode === 'login' && (
-            <div className="border-t border-slate-100 pt-5 space-y-2.5">
-              <div className="text-xs font-bold text-slate-500 uppercase tracking-widest text-center">
+            <div className="border-t border-slate-100 dark:border-slate-800 pt-5 space-y-2.5">
+              <div className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest text-center">
                 Atau Masuk Cepat (Satu Klik):
               </div>
               <div className="grid grid-cols-3 gap-2">
@@ -316,7 +316,7 @@ export default function AuthModal({ onClose, onAuthSuccess, initialMode = 'login
                   <button
                     key={preset.role}
                     onClick={() => handlePresetLogin(preset.email, preset.role)}
-                    className="py-2.5 rounded-xl border border-dashed border-blue-300 hover:border-blue-500 bg-blue-50/30 hover:bg-blue-50 text-[10px] sm:text-xs font-bold text-blue-700 text-center transition-all cursor-pointer"
+                    className="py-2.5 rounded-xl border border-dashed border-blue-300 dark:border-blue-700 hover:border-blue-500 bg-blue-50/30 dark:bg-blue-950/30 hover:bg-blue-50 dark:hover:bg-blue-900/40 text-[10px] sm:text-xs font-bold text-blue-700 dark:text-blue-300 text-center transition-all cursor-pointer"
                   >
                     {preset.label}
                   </button>
@@ -327,18 +327,18 @@ export default function AuthModal({ onClose, onAuthSuccess, initialMode = 'login
 
           {/* Toggle login vs register */}
           {mode !== 'verify' && (
-            <div className="text-center text-xs text-slate-500 border-t border-slate-100 pt-4">
+            <div className="text-center text-xs text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800 pt-4">
               {mode === 'login' ? (
                 <>
                   Belum punya akun?{' '}
-                  <button onClick={() => setMode('register')} className="text-blue-600 hover:underline font-semibold">
+                  <button onClick={() => setMode('register')} className="text-blue-600 dark:text-blue-400 hover:underline font-semibold cursor-pointer">
                     Daftar di Sini
                   </button>
                 </>
               ) : (
                 <>
                   Sudah punya akun?{' '}
-                  <button onClick={() => setMode('login')} className="text-blue-600 hover:underline font-semibold">
+                  <button onClick={() => setMode('login')} className="text-blue-600 dark:text-blue-400 hover:underline font-semibold cursor-pointer">
                     Masuk di Sini
                   </button>
                 </>
