@@ -4,11 +4,14 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { Home, FileText, Compass, BookOpen, Video, Award, Trophy, Sparkles, Star, Zap, ChevronRight, Play, BookOpenCheck, CheckCircle2, AlertTriangle, ShieldCheck, Heart, Link, Image, Youtube, ExternalLink, FileSpreadsheet, Download, Folder, FolderOpen, ArrowLeft, FileCode, Target, Radio, Calendar, Users, Maximize2, Search, RotateCcw, BarChart3 } from 'lucide-react';
+import { Home, FileText, Compass, BookOpen, Video, Award, Trophy, Sparkles, Star, Zap, ChevronRight, Play, BookOpenCheck, CheckCircle2, AlertTriangle, ShieldCheck, Heart, Link, Image, Youtube, ExternalLink, FileSpreadsheet, Download, Folder, FolderOpen, ArrowLeft, ArrowRight, FileCode, Target, Radio, Calendar, Users, Maximize2, Search, RotateCcw, BarChart3 } from 'lucide-react';
 import { UserProfile, ReportCard, TryOut, LearningVideo, UniversityPrediction, ExamScore, Achievement, LearningMaterial } from '../types';
 import { FirestoreSimulator, getTryouts, getVideos, getAchievements, getUniversities, getStudyPrograms, getMaterials, getAllScores } from '../lib/firestoreSimulator';
-import { UTBK_SNBT_SUBTEST_FOLDERS, UTBK_TOTAL_SUMMARY, UTBK_PACKAGES } from '../data/utbkSubtestsData';
+import { UTBK_SNBT_SUBTEST_FOLDERS, UTBK_TOTAL_SUMMARY, UTBK_PACKAGES, INITIAL_UTBK_TRYOUTS } from '../data/utbkSubtestsData';
+import { getUtbkQuestions } from '../data/utbkQuestionBank';
+import CbtTryoutUtbkBase from './tryout_cbt_utbk/tryout_utbk_paket_1/CbtTryoutUtbkBase';
 import CbtSimulator from './CbtSimulator';
+
 import MidtransSimulator from './MidtransSimulator';
 import MathMarkdown from './MathMarkdown';
 import CbtAnalysisReport, { CbtReportData } from './CbtAnalysisReport';
@@ -75,7 +78,9 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
   const [tkaCategoryFilter, setTkaCategoryFilter] = useState<'all' | 'wajib' | 'saintek' | 'soshum'>('all');
   const [tkaSearchQuery, setTkaSearchQuery] = useState<string>('');
 
-  const [selectedUtbkPackage, setSelectedUtbkPackage] = useState<string>('tryout-utbk-paket-1');
+  const [selectedUtbkPackage, setSelectedUtbkPackage] = useState<string | null>(null);
+  const [utbkPkgSearchQuery, setUtbkPkgSearchQuery] = useState<string>('');
+  const [utbkPackageFilterGroup, setUtbkPackageFilterGroup] = useState<'all' | '1-5' | '6-10' | '11-15' | '16-20'>('all');
   const [selectedUtbkFolder, setSelectedUtbkFolder] = useState<string | null>(null);
   const [utbkCategoryFilter, setUtbkCategoryFilter] = useState<'all' | 'tps' | 'literasi'>('all');
   const [utbkSearchQuery, setUtbkSearchQuery] = useState<string>('');
@@ -729,92 +734,82 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
           
           {/* Active CBT Overlay */}
           {activeCbt ? (
-            // UTBK Paket 3 Subtests
-            activeCbt.id === 'to-utbk3-penalaran-induktif-2026' ||
-            (activeCbt.name?.includes('Paket 3') && activeCbt.subject === 'Penalaran Induktif' && !activeCbt.googleFormUrl) ? (
-              <CbtTryoutInduktifP3 onBack={() => setActiveCbt(null)} />
-            ) : activeCbt.id === 'to-utbk3-penalaran-deduktif-2026' ||
-            (activeCbt.name?.includes('Paket 3') && activeCbt.subject === 'Penalaran Deduktif' && !activeCbt.googleFormUrl) ? (
-              <CbtTryoutDeduktifP3 onBack={() => setActiveCbt(null)} />
-            ) : activeCbt.id === 'to-utbk3-penalaran-kuantitatif-2026' ||
-            (activeCbt.name?.includes('Paket 3') && activeCbt.subject === 'Penalaran Kuantitatif' && !activeCbt.googleFormUrl) ? (
-              <CbtTryoutPenalaranKuantitatifP3 onBack={() => setActiveCbt(null)} />
-            ) : activeCbt.id === 'to-utbk3-ppu-2026' ||
-            (activeCbt.name?.includes('Paket 3') && activeCbt.subject === 'Pengetahuan dan Pemahaman Umum (PPU)' && !activeCbt.googleFormUrl) ? (
-              <CbtTryoutPpuP3 onBack={() => setActiveCbt(null)} />
-            ) : activeCbt.id === 'to-utbk3-pbm-2026' ||
-            (activeCbt.name?.includes('Paket 3') && activeCbt.subject === 'Pemahaman Bacaan dan Menulis (PBM)' && !activeCbt.googleFormUrl) ? (
-              <CbtTryoutPbmP3 onBack={() => setActiveCbt(null)} />
-            ) : activeCbt.id === 'to-utbk3-pk-2026' ||
-            (activeCbt.name?.includes('Paket 3') && activeCbt.subject === 'Pengetahuan Kuantitatif (PK)' && !activeCbt.googleFormUrl) ? (
-              <CbtTryoutPkP3 onBack={() => setActiveCbt(null)} />
-            ) : activeCbt.id === 'to-utbk3-literasi-indonesia-2026' ||
-            (activeCbt.name?.includes('Paket 3') && activeCbt.subject === 'Literasi dalam Bahasa Indonesia' && !activeCbt.googleFormUrl) ? (
-              <CbtTryoutLiterasiIndoP3 onBack={() => setActiveCbt(null)} />
-            ) : activeCbt.id === 'to-utbk3-literasi-inggris-2026' ||
-            (activeCbt.name?.includes('Paket 3') && activeCbt.subject === 'Literasi dalam Bahasa Inggris' && !activeCbt.googleFormUrl) ? (
-              <CbtTryoutLiterasiInggrisP3 onBack={() => setActiveCbt(null)} />
-            ) : activeCbt.id === 'to-utbk3-penalaran-matematika-2026' ||
-            (activeCbt.name?.includes('Paket 3') && activeCbt.subject === 'Penalaran Matematika' && !activeCbt.googleFormUrl) ? (
-              <CbtTryoutPenalaranMatematikaP3 onBack={() => setActiveCbt(null)} />
-            ) :
-            // UTBK Paket 2 Subtests
-            activeCbt.id === 'to-utbk2-penalaran-induktif-2026' ||
-            (activeCbt.name?.includes('Paket 2') && activeCbt.subject === 'Penalaran Induktif' && !activeCbt.googleFormUrl) ? (
-              <CbtTryoutInduktifP2 onBack={() => setActiveCbt(null)} />
-            ) : activeCbt.id === 'to-utbk2-penalaran-deduktif-2026' ||
-            (activeCbt.name?.includes('Paket 2') && activeCbt.subject === 'Penalaran Deduktif' && !activeCbt.googleFormUrl) ? (
-              <CbtTryoutDeduktifP2 onBack={() => setActiveCbt(null)} />
-            ) : activeCbt.id === 'to-utbk2-penalaran-kuantitatif-2026' ||
-            (activeCbt.name?.includes('Paket 2') && activeCbt.subject === 'Penalaran Kuantitatif' && !activeCbt.googleFormUrl) ? (
-              <CbtTryoutPenalaranKuantitatifP2 onBack={() => setActiveCbt(null)} />
-            ) : activeCbt.id === 'to-utbk2-ppu-2026' ||
-            (activeCbt.name?.includes('Paket 2') && activeCbt.subject === 'Pengetahuan dan Pemahaman Umum (PPU)' && !activeCbt.googleFormUrl) ? (
-              <CbtTryoutPpuP2 onBack={() => setActiveCbt(null)} />
-            ) : activeCbt.id === 'to-utbk2-pbm-2026' ||
-            (activeCbt.name?.includes('Paket 2') && activeCbt.subject === 'Pemahaman Bacaan dan Menulis (PBM)' && !activeCbt.googleFormUrl) ? (
-              <CbtTryoutPbmP2 onBack={() => setActiveCbt(null)} />
-            ) : activeCbt.id === 'to-utbk2-pk-2026' ||
-            (activeCbt.name?.includes('Paket 2') && activeCbt.subject === 'Pengetahuan Kuantitatif (PK)' && !activeCbt.googleFormUrl) ? (
-              <CbtTryoutPkP2 onBack={() => setActiveCbt(null)} />
-            ) : activeCbt.id === 'to-utbk2-literasi-indonesia-2026' ||
-            (activeCbt.name?.includes('Paket 2') && activeCbt.subject === 'Literasi dalam Bahasa Indonesia' && !activeCbt.googleFormUrl) ? (
-              <CbtTryoutLiterasiIndoP2 onBack={() => setActiveCbt(null)} />
-            ) : activeCbt.id === 'to-utbk2-literasi-inggris-2026' ||
-            (activeCbt.name?.includes('Paket 2') && activeCbt.subject === 'Literasi dalam Bahasa Inggris' && !activeCbt.googleFormUrl) ? (
-              <CbtTryoutLiterasiInggrisP2 onBack={() => setActiveCbt(null)} />
-            ) : activeCbt.id === 'to-utbk2-penalaran-matematika-2026' ||
-            (activeCbt.name?.includes('Paket 2') && activeCbt.subject === 'Penalaran Matematika' && !activeCbt.googleFormUrl) ? (
-              <CbtTryoutPenalaranMatematikaP2 onBack={() => setActiveCbt(null)} />
-            ) :
-            // UTBK Paket 1 Subtests (9 Subtes SNBT)
-            activeCbt.id === 'to-utbk-penalaran-induktif-2026' ||
-            (activeCbt.subject === 'Penalaran Induktif' && !activeCbt.googleFormUrl) ? (
-              <CbtTryoutInduktifP1 onBack={() => setActiveCbt(null)} />
-            ) : activeCbt.id === 'to-utbk-penalaran-deduktif-2026' ||
-            (activeCbt.subject === 'Penalaran Deduktif' && !activeCbt.googleFormUrl) ? (
-              <CbtTryoutDeduktifP1 onBack={() => setActiveCbt(null)} />
-            ) : activeCbt.id === 'to-utbk-penalaran-kuantitatif-2026' ||
-            (activeCbt.subject === 'Penalaran Kuantitatif' && !activeCbt.googleFormUrl) ? (
-              <CbtTryoutPenalaranKuantitatifP1 onBack={() => setActiveCbt(null)} />
-            ) : activeCbt.id === 'to-utbk-ppu-2026' ||
-            (activeCbt.subject === 'Pengetahuan dan Pemahaman Umum (PPU)' && !activeCbt.googleFormUrl) ? (
-              <CbtTryoutPpuP1 onBack={() => setActiveCbt(null)} />
-            ) : activeCbt.id === 'to-utbk-pbm-2026' ||
-            (activeCbt.subject === 'Pemahaman Bacaan dan Menulis (PBM)' && !activeCbt.googleFormUrl) ? (
-              <CbtTryoutPbmP1 onBack={() => setActiveCbt(null)} />
-            ) : activeCbt.id === 'to-utbk-pk-2026' ||
-            (activeCbt.subject === 'Pengetahuan Kuantitatif (PK)' && !activeCbt.googleFormUrl) ? (
-              <CbtTryoutPkP1 onBack={() => setActiveCbt(null)} />
-            ) : activeCbt.id === 'to-utbk-literasi-indonesia-2026' ||
-            (activeCbt.subject === 'Literasi dalam Bahasa Indonesia' && !activeCbt.googleFormUrl) ? (
-              <CbtTryoutLiterasiIndoP1 onBack={() => setActiveCbt(null)} />
-            ) : activeCbt.id === 'to-utbk-literasi-inggris-2026' ||
-            (activeCbt.subject === 'Literasi dalam Bahasa Inggris' && !activeCbt.googleFormUrl) ? (
-              <CbtTryoutLiterasiInggrisP1 onBack={() => setActiveCbt(null)} />
-            ) : activeCbt.id === 'to-utbk-penalaran-matematika-2026' ||
-            (activeCbt.subject === 'Penalaran Matematika' && !activeCbt.googleFormUrl) ? (
-              <CbtTryoutPenalaranMatematikaP1 onBack={() => setActiveCbt(null)} />
+            // Check if it is a UTBK Subtest (Paket 1 through 20)
+            (activeCbt.category === 'UTBK' || 
+             activeCbt.id.startsWith('to-utbk') || 
+             activeCbt.name?.toLowerCase().includes('utbk') || 
+             activeCbt.name?.toLowerCase().includes('snbt') ||
+             UTBK_SNBT_SUBTEST_FOLDERS.some(f => f.match(activeCbt.subject, activeCbt.name))) && !activeCbt.googleFormUrl ? (
+              (() => {
+                const match = activeCbt.id.match(/^to-utbk(\d+)?-/);
+                let pkgNum = 1;
+                if (match && match[1]) {
+                  pkgNum = parseInt(match[1], 10);
+                } else {
+                  const nameMatch = activeCbt.name?.match(/Paket\s*(\d+)/i);
+                  if (nameMatch && nameMatch[1]) {
+                    pkgNum = parseInt(nameMatch[1], 10);
+                  }
+                }
+
+                const s = (activeCbt.subject || activeCbt.name || activeCbt.id).toLowerCase();
+
+                // 1. DEDICATED BACKEND & COMPONENTS FOR TRY OUT UTBK PAKET 1
+                if (pkgNum === 1) {
+                  if (s.includes('induktif')) return <CbtTryoutInduktifP1 onBack={() => setActiveCbt(null)} />;
+                  if (s.includes('deduktif')) return <CbtTryoutDeduktifP1 onBack={() => setActiveCbt(null)} />;
+                  if (s.includes('penalaran kuantitatif')) return <CbtTryoutPenalaranKuantitatifP1 onBack={() => setActiveCbt(null)} />;
+                  if (s.includes('ppu') || s.includes('pemahaman umum')) return <CbtTryoutPpuP1 onBack={() => setActiveCbt(null)} />;
+                  if (s.includes('pbm') || s.includes('bacaan dan menulis')) return <CbtTryoutPbmP1 onBack={() => setActiveCbt(null)} />;
+                  if ((s.includes('pengetahuan kuantitatif') || s === 'pk' || s.includes(' pk ') || s.endsWith(' pk')) && !s.includes('penalaran')) return <CbtTryoutPkP1 onBack={() => setActiveCbt(null)} />;
+                  if (s.includes('literasi') && (s.includes('indonesia') || s.includes('indo'))) return <CbtTryoutLiterasiIndoP1 onBack={() => setActiveCbt(null)} />;
+                  if (s.includes('literasi') && (s.includes('inggris') || s.includes('english'))) return <CbtTryoutLiterasiInggrisP1 onBack={() => setActiveCbt(null)} />;
+                  if (s.includes('penalaran matematika') || s.includes('penalaran mtk')) return <CbtTryoutPenalaranMatematikaP1 onBack={() => setActiveCbt(null)} />;
+                }
+
+                // 2. DEDICATED BACKEND & COMPONENTS FOR TRY OUT UTBK PAKET 2
+                if (pkgNum === 2) {
+                  if (s.includes('induktif')) return <CbtTryoutInduktifP2 onBack={() => setActiveCbt(null)} />;
+                  if (s.includes('deduktif')) return <CbtTryoutDeduktifP2 onBack={() => setActiveCbt(null)} />;
+                  if (s.includes('penalaran kuantitatif')) return <CbtTryoutPenalaranKuantitatifP2 onBack={() => setActiveCbt(null)} />;
+                  if (s.includes('ppu') || s.includes('pemahaman umum')) return <CbtTryoutPpuP2 onBack={() => setActiveCbt(null)} />;
+                  if (s.includes('pbm') || s.includes('bacaan dan menulis')) return <CbtTryoutPbmP2 onBack={() => setActiveCbt(null)} />;
+                  if ((s.includes('pengetahuan kuantitatif') || s === 'pk' || s.includes(' pk ') || s.endsWith(' pk')) && !s.includes('penalaran')) return <CbtTryoutPkP2 onBack={() => setActiveCbt(null)} />;
+                  if (s.includes('literasi') && (s.includes('indonesia') || s.includes('indo'))) return <CbtTryoutLiterasiIndoP2 onBack={() => setActiveCbt(null)} />;
+                  if (s.includes('literasi') && (s.includes('inggris') || s.includes('english'))) return <CbtTryoutLiterasiInggrisP2 onBack={() => setActiveCbt(null)} />;
+                  if (s.includes('penalaran matematika') || s.includes('penalaran mtk')) return <CbtTryoutPenalaranMatematikaP2 onBack={() => setActiveCbt(null)} />;
+                }
+
+                // 3. DEDICATED BACKEND & COMPONENTS FOR TRY OUT UTBK PAKET 3
+                if (pkgNum === 3) {
+                  if (s.includes('induktif')) return <CbtTryoutInduktifP3 onBack={() => setActiveCbt(null)} />;
+                  if (s.includes('deduktif')) return <CbtTryoutDeduktifP3 onBack={() => setActiveCbt(null)} />;
+                  if (s.includes('penalaran kuantitatif')) return <CbtTryoutPenalaranKuantitatifP3 onBack={() => setActiveCbt(null)} />;
+                  if (s.includes('ppu') || s.includes('pemahaman umum')) return <CbtTryoutPpuP3 onBack={() => setActiveCbt(null)} />;
+                  if (s.includes('pbm') || s.includes('bacaan dan menulis')) return <CbtTryoutPbmP3 onBack={() => setActiveCbt(null)} />;
+                  if ((s.includes('pengetahuan kuantitatif') || s === 'pk' || s.includes(' pk ') || s.endsWith(' pk')) && !s.includes('penalaran')) return <CbtTryoutPkP3 onBack={() => setActiveCbt(null)} />;
+                  if (s.includes('literasi') && (s.includes('indonesia') || s.includes('indo'))) return <CbtTryoutLiterasiIndoP3 onBack={() => setActiveCbt(null)} />;
+                  if (s.includes('literasi') && (s.includes('inggris') || s.includes('english'))) return <CbtTryoutLiterasiInggrisP3 onBack={() => setActiveCbt(null)} />;
+                  if (s.includes('penalaran matematika') || s.includes('penalaran mtk')) return <CbtTryoutPenalaranMatematikaP3 onBack={() => setActiveCbt(null)} />;
+                }
+
+                // 4. DEDICATED QUESTIONS FOR PAKET 4 - 20
+                const folder = UTBK_SNBT_SUBTEST_FOLDERS.find(f => f.match(activeCbt.subject, activeCbt.name));
+                const subtestGroup = folder?.testGroup || (activeCbt.subject.includes('Literasi') || activeCbt.subject.includes('Matematika') ? 'Tes Literasi' : 'Tes Potensi Skolastik (TPS)');
+                const questions = getUtbkQuestions(pkgNum, activeCbt.subject || activeCbt.id);
+
+                return (
+                  <CbtTryoutUtbkBase
+                    title={activeCbt.name}
+                    subject={activeCbt.subject}
+                    subtestGroup={subtestGroup}
+                    durationMinutes={activeCbt.duration || folder?.duration || 10}
+                    passingGrade={activeCbt.passingGrade || 650}
+                    questions={questions}
+                    onBack={() => setActiveCbt(null)}
+                  />
+                );
+              })()
             ) :
             // TKA Mapel SMA
             activeCbt.id === 'to-tka-bing-lanjut-2026' ||
@@ -2189,16 +2184,60 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                   ))
                 );
 
-                const allUtbkTryouts = tryoutsList.filter(to => {
-                  const isUtbk = to.category === 'UTBK' || (!to.category && !to.name.toLowerCase().includes('tka') && !to.subject.toLowerCase().includes('saintek') && !to.subject.toLowerCase().includes('soshum'));
-                  if (!isUtbk) return false;
-                  if (selectedUtbkPackage === 'tryout-utbk-paket-3') {
-                    return to.id.startsWith('to-utbk3-') || to.name.includes('Paket 3');
-                  } else if (selectedUtbkPackage === 'tryout-utbk-paket-2') {
-                    return to.id.startsWith('to-utbk2-') || to.name.includes('Paket 2');
-                  } else {
-                    return (!to.id.startsWith('to-utbk2-') && !to.id.startsWith('to-utbk3-') && !to.name.includes('Paket 2') && !to.name.includes('Paket 3')) || to.name.includes('Paket 1');
+                const selectedPkgNum = (() => {
+                  if (!selectedUtbkPackage) return 1;
+                  const match = selectedUtbkPackage.match(/paket-(\d+)/i);
+                  return match ? parseInt(match[1], 10) : 1;
+                })();
+
+                const allUtbkTryouts = (() => {
+                  const prefix = selectedPkgNum === 1 ? 'to-utbk' : `to-utbk${selectedPkgNum}`;
+                  
+                  // Filter from active tryoutsList
+                  const filtered = tryoutsList.filter(to => {
+                    const isUtbk = to.category === 'UTBK' || (!to.category && !to.name.toLowerCase().includes('tka') && !to.subject.toLowerCase().includes('saintek') && !to.subject.toLowerCase().includes('soshum'));
+                    if (!isUtbk) return false;
+
+                    if (selectedPkgNum === 1) {
+                      return (
+                        (to.id.startsWith('to-utbk-') && !to.id.match(/^to-utbk\d+-/)) ||
+                        to.id.startsWith('to-utbk1-') ||
+                        (to.name.includes('Paket 1') && !to.name.match(/Paket (?:[2-9]|\d{2,})/i))
+                      );
+                    } else {
+                      return (
+                        to.id.startsWith(`${prefix}-`) ||
+                        to.name.includes(`Paket ${selectedPkgNum}`)
+                      );
+                    }
+                  });
+
+                  // Ensure all 9 subtests are guaranteed present from INITIAL_UTBK_TRYOUTS for this exact package
+                  const pkgDefaults = INITIAL_UTBK_TRYOUTS.filter(t => {
+                    if (selectedPkgNum === 1) {
+                      return t.id.startsWith('to-utbk-') && !t.id.match(/^to-utbk\d+-/);
+                    } else {
+                      return t.id.startsWith(`${prefix}-`);
+                    }
+                  });
+
+                  for (const def of pkgDefaults) {
+                    if (!filtered.some(f => f.id === def.id || UTBK_SNBT_SUBTEST_FOLDERS.some(sf => sf.match(f.subject, f.name) && sf.match(def.subject, def.name)))) {
+                      filtered.push(def);
+                    }
                   }
+
+                  return filtered;
+                })();
+
+                // Filtered packages for card grid
+                const displayedUtbkPackages = UTBK_PACKAGES.filter((_, idx) => {
+                  const num = idx + 1;
+                  if (utbkPackageFilterGroup === '1-5') return num >= 1 && num <= 5;
+                  if (utbkPackageFilterGroup === '6-10') return num >= 6 && num <= 10;
+                  if (utbkPackageFilterGroup === '11-15') return num >= 11 && num <= 15;
+                  if (utbkPackageFilterGroup === '16-20') return num >= 16 && num <= 20;
+                  return true;
                 });
 
                 // Get current active folder details if selected
@@ -2226,15 +2265,263 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                   }
                 }
 
+                // If UTBK and no package is selected yet, render Halaman 1: PILIHAN 20 PAKET TRY OUT
+                if (!isTka && !selectedUtbkPackage) {
+                  const filteredPackages = displayedUtbkPackages.filter(pkg => {
+                    if (!utbkPkgSearchQuery.trim()) return true;
+                    const q = utbkPkgSearchQuery.toLowerCase();
+                    return pkg.name.toLowerCase().includes(q) || pkg.description.toLowerCase().includes(q);
+                  });
+
+                  return (
+                    <div className="space-y-6">
+                      {/* Header Pilihan Paket */}
+                      <div className="bg-white border border-slate-100 rounded-3xl p-6 sm:p-8 shadow-sm space-y-4">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                          <div className="space-y-1">
+                            <div className="flex items-center gap-2">
+                              <span className="p-2.5 bg-blue-50 text-blue-600 rounded-2xl">
+                                <Award className="w-6 h-6" />
+                              </span>
+                              <h2 className="text-xl sm:text-2xl font-black text-slate-900 font-display">
+                                Pilihan 20 Paket Try Out CBT UTBK / SNBT 2026
+                              </h2>
+                            </div>
+                            <p className="text-xs sm:text-sm text-slate-500 font-medium leading-relaxed max-w-3xl">
+                              Pilih salah satu dari 20 paket simulasi try out UTBK/SNBT di bawah ini untuk membuka halaman 9 jenis subtes resmi SNPMB BPPP Kemendikbudristek (Penalaran Induktif, Deduktif, Kuantitatif, PPU, PBM, PK, Literasi Bahasa Indonesia, Literasi Bahasa Inggris, dan Penalaran Matematika).
+                            </p>
+                          </div>
+                          <div className="flex items-center gap-2 shrink-0">
+                            <span className="px-3.5 py-1.5 bg-blue-50 text-blue-700 border border-blue-200 rounded-full text-xs font-black">
+                              ✨ 20 Paket Siap Ujian
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Search & Filter Group Tabs */}
+                        <div className="pt-4 border-t border-slate-100 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
+                          {/* Filter Tabs */}
+                          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0 no-scrollbar text-xs font-bold">
+                            <button
+                              onClick={() => setUtbkPackageFilterGroup('all')}
+                              className={`px-3 py-1.5 rounded-xl transition-all cursor-pointer whitespace-nowrap ${
+                                utbkPackageFilterGroup === 'all'
+                                  ? 'bg-slate-900 text-white shadow-xs'
+                                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                              }`}
+                            >
+                              Semua Paket (1-20)
+                            </button>
+                            <button
+                              onClick={() => setUtbkPackageFilterGroup('1-5')}
+                              className={`px-3 py-1.5 rounded-xl transition-all cursor-pointer whitespace-nowrap ${
+                                utbkPackageFilterGroup === '1-5'
+                                  ? 'bg-blue-600 text-white shadow-xs'
+                                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                              }`}
+                            >
+                              Paket 1 - 5 (Fondasi)
+                            </button>
+                            <button
+                              onClick={() => setUtbkPackageFilterGroup('6-10')}
+                              className={`px-3 py-1.5 rounded-xl transition-all cursor-pointer whitespace-nowrap ${
+                                utbkPackageFilterGroup === '6-10'
+                                  ? 'bg-purple-600 text-white shadow-xs'
+                                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                              }`}
+                            >
+                              Paket 6 - 10 (Pemantapan)
+                            </button>
+                            <button
+                              onClick={() => setUtbkPackageFilterGroup('11-15')}
+                              className={`px-3 py-1.5 rounded-xl transition-all cursor-pointer whitespace-nowrap ${
+                                utbkPackageFilterGroup === '11-15'
+                                  ? 'bg-emerald-600 text-white shadow-xs'
+                                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                              }`}
+                            >
+                              Paket 11 - 15 (HOTS Lanjutan)
+                            </button>
+                            <button
+                              onClick={() => setUtbkPackageFilterGroup('16-20')}
+                              className={`px-3 py-1.5 rounded-xl transition-all cursor-pointer whitespace-nowrap ${
+                                utbkPackageFilterGroup === '16-20'
+                                  ? 'bg-rose-600 text-white shadow-xs'
+                                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                              }`}
+                            >
+                              Paket 16 - 20 (Mastery & Akbar)
+                            </button>
+                          </div>
+
+                          {/* Search Input */}
+                          <div className="relative w-full md:w-64">
+                            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                            <input
+                              type="text"
+                              value={utbkPkgSearchQuery}
+                              onChange={(e) => setUtbkPkgSearchQuery(e.target.value)}
+                              placeholder="Cari paket try out..."
+                              className="w-full pl-9 pr-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* 20 Package Cards Grid */}
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                        {filteredPackages.map((pkg) => {
+                          const match = pkg.id.match(/paket-(\d+)/);
+                          const idx = match ? parseInt(match[1], 10) - 1 : 0;
+                          const pkgNumber = idx + 1 < 10 ? `0${idx + 1}` : `${idx + 1}`;
+                          
+                          // Theme styling per category
+                          let cardBorder = 'border-slate-200 hover:border-blue-400 hover:shadow-lg hover:shadow-blue-500/10';
+                          let tagColor = 'bg-blue-50 text-blue-700 border-blue-200';
+                          let badgeBg = 'bg-blue-600 text-white';
+                          let btnClass = 'bg-blue-600 hover:bg-blue-700 text-white shadow-sm shadow-blue-500/20';
+
+                          if (idx % 5 === 1) {
+                            cardBorder = 'border-slate-200 hover:border-purple-400 hover:shadow-lg hover:shadow-purple-500/10';
+                            tagColor = 'bg-purple-50 text-purple-700 border-purple-200';
+                            badgeBg = 'bg-purple-600 text-white';
+                            btnClass = 'bg-purple-600 hover:bg-purple-700 text-white shadow-sm shadow-purple-500/20';
+                          } else if (idx % 5 === 2) {
+                            cardBorder = 'border-slate-200 hover:border-emerald-400 hover:shadow-lg hover:shadow-emerald-500/10';
+                            tagColor = 'bg-emerald-50 text-emerald-700 border-emerald-200';
+                            badgeBg = 'bg-emerald-600 text-white';
+                            btnClass = 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm shadow-emerald-500/20';
+                          } else if (idx % 5 === 3) {
+                            cardBorder = 'border-slate-200 hover:border-amber-400 hover:shadow-lg hover:shadow-amber-500/10';
+                            tagColor = 'bg-amber-50 text-amber-700 border-amber-200';
+                            badgeBg = 'bg-amber-600 text-white';
+                            btnClass = 'bg-amber-600 hover:bg-amber-700 text-white shadow-sm shadow-amber-500/20';
+                          } else if (idx % 5 === 4) {
+                            cardBorder = 'border-slate-200 hover:border-rose-400 hover:shadow-lg hover:shadow-rose-500/10';
+                            tagColor = 'bg-rose-50 text-rose-700 border-rose-200';
+                            badgeBg = 'bg-rose-600 text-white';
+                            btnClass = 'bg-rose-600 hover:bg-rose-700 text-white shadow-sm shadow-rose-500/20';
+                          }
+
+                          return (
+                            <div
+                              key={pkg.id}
+                              className={`bg-white border rounded-3xl p-5 flex flex-col justify-between space-y-4 transition-all duration-200 group ${cardBorder}`}
+                            >
+                              <div className="space-y-3">
+                                {/* Top Row */}
+                                <div className="flex items-center justify-between">
+                                  <span className={`w-8 h-8 rounded-2xl flex items-center justify-center font-black text-xs shadow-xs ${badgeBg}`}>
+                                    {pkgNumber}
+                                  </span>
+                                  <span className={`text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-xl border ${tagColor}`}>
+                                    Standar SNBT BPPP
+                                  </span>
+                                </div>
+
+                                {/* Title & Description */}
+                                <div>
+                                  <h3 className="text-base font-extrabold text-slate-900 group-hover:text-blue-600 transition-colors font-display">
+                                    {pkg.name}
+                                  </h3>
+                                  <p className="text-xs text-slate-500 line-clamp-2 mt-1 leading-relaxed">
+                                    {pkg.description}
+                                  </p>
+                                </div>
+
+                                {/* Subtest Specs Pill */}
+                                <div className="p-3 bg-slate-50 rounded-2xl border border-slate-100 space-y-1.5 text-[11px]">
+                                  <div className="flex items-center justify-between font-bold text-slate-700">
+                                    <span>📋 Total Subtes</span>
+                                    <span className="font-black text-blue-600">9 Subtes Resmi</span>
+                                  </div>
+                                  <div className="flex items-center justify-between font-bold text-slate-700">
+                                    <span>📝 Jumlah Soal</span>
+                                    <span className="font-black text-amber-600">160 Soal HOTS</span>
+                                  </div>
+                                  <div className="flex items-center justify-between font-bold text-slate-700">
+                                    <span>⏱️ Alokasi Waktu</span>
+                                    <span className="font-black text-emerald-600">195 Menit</span>
+                                  </div>
+                                </div>
+                              </div>
+
+                              {/* Action Button */}
+                              <div className="pt-3 border-t border-slate-100">
+                                <button
+                                  onClick={() => {
+                                    setSelectedUtbkPackage(pkg.id);
+                                    setSelectedUtbkFolder(null);
+                                    setUtbkCategoryFilter('all');
+                                    setUtbkSearchQuery('');
+                                  }}
+                                  className={`w-full py-2.5 px-4 rounded-xl text-xs font-black flex items-center justify-center gap-2 cursor-pointer transition-all ${btnClass}`}
+                                >
+                                  <span>Pilih & Buka 9 Subtes</span>
+                                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                </button>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                }
+
+                // If UTBK and a package is selected, or if TKA, render Halaman 2: JENIS TRY OUT (9 SUBTES)
                 return (
                   <div className="space-y-6">
+                    {/* Breadcrumb / Top Navigation Bar for UTBK */}
+                    {!isTka && (
+                      <div className="bg-white border border-slate-100 rounded-3xl p-4 sm:p-5 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div className="flex items-center gap-3">
+                          <button
+                            onClick={() => {
+                              setSelectedUtbkPackage(null);
+                              setSelectedUtbkFolder(null);
+                            }}
+                            className="inline-flex items-center gap-2 px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-2xl text-xs font-black transition-all cursor-pointer shadow-xs"
+                          >
+                            <ArrowLeft className="w-4 h-4" />
+                            <span>Kembali ke Daftar 20 Paket</span>
+                          </button>
+                          <div className="hidden sm:block h-6 w-px bg-slate-200" />
+                          <div className="flex items-center gap-2">
+                            <span className="text-xs font-bold text-slate-400">Paket Terpilih:</span>
+                            <span className="px-3 py-1 bg-blue-50 text-blue-700 border border-blue-200 rounded-xl text-xs font-black">
+                              {currentUtbkPackageObj.name}
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Quick Switch Dropdown / Jump */}
+                        <div className="flex items-center gap-2 self-end sm:self-auto">
+                          <span className="text-[11px] font-bold text-slate-400">Ganti Paket:</span>
+                          <select
+                            value={selectedUtbkPackage || 'tryout-utbk-paket-1'}
+                            onChange={(e) => {
+                              setSelectedUtbkPackage(e.target.value);
+                              setSelectedUtbkFolder(null);
+                            }}
+                            className="bg-slate-50 border border-slate-200 text-slate-800 text-xs font-black rounded-xl px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500/20 cursor-pointer"
+                          >
+                            {UTBK_PACKAGES.map((pkg, idx) => (
+                              <option key={pkg.id} value={pkg.id}>
+                                Paket {idx + 1}: {pkg.name}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
+                    )}
 
                     {/* Informational Header */}
                     <div className="bg-white border border-slate-100 rounded-3xl p-6 sm:p-8 shadow-sm space-y-5">
                       <div className="flex items-center justify-between flex-wrap gap-2">
                         <h2 className="text-xl sm:text-2xl font-bold font-display text-slate-900 flex items-center gap-2.5">
                           <Award className={`w-7 h-7 ${isTka ? 'text-emerald-600' : 'text-blue-600'}`} />
-                          {isTka ? 'Pusat CBT Try Out TKA SMA - Folder Mata Pelajaran' : `Pusat CBT Try Out UTBK/SNBT • ${currentUtbkPackageObj.name}`}
+                          {isTka ? 'Pusat CBT Try Out TKA SMA - Folder Mata Pelajaran' : `Jenis Subtes Try Out UTBK • ${currentUtbkPackageObj.name}`}
                         </h2>
                         <span className={`text-xs font-extrabold px-3.5 py-1.5 rounded-full border ${
                           isTka 
@@ -2249,123 +2536,8 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                       <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                         {isTka 
                           ? `Masing-masing Try Out bab dikumpulkan secara rapi di dalam ${TKA_SMA_SUBJECT_FOLDERS.length} Folder Mata Pelajaran TKA SMA. Pilih folder mapel di bawah untuk membuka paket Try Out per bab.`
-                          : `Seluruh 9 subtes Try Out UTBK resmi dikumpulkan ke dalam paket simulasi di bawah. Format mengacu pada standar resmi SNPMB BPPP Kemendikbudristek (Penalaran Induktif, Deduktif, Kuantitatif, PPU, PBM, PK, Literasi Bahasa Indonesia, Literasi Bahasa Inggris, dan Penalaran Matematika). Pilih paket UTBK dan subtes yang ingin dikerjakan.`}
+                          : `Pilih jenis subtes yang ingin kamu kerjakan di bawah ini. Masing-masing subtes telah disesuaikan dengan alokasi waktu dan butir soal resmi SNPMB BPPP Kemendikbudristek.`}
                       </p>
-
-                      {/* UTBK Package Selector Cards (Paket 1, Paket 2, Paket 3) - Prominent & Large */}
-                      {!isTka && (
-                        <div className="pt-3 border-t border-slate-100 space-y-3">
-                          <div className="flex items-center justify-between flex-wrap gap-2">
-                            <div className="text-xs font-black text-slate-500 uppercase tracking-wider flex items-center gap-2">
-                              <Sparkles className="w-4 h-4 text-amber-500" />
-                              <span>PILIHAN PAKET TRY OUT UTBK / SNBT (STANDAR BPPP RESMI):</span>
-                            </div>
-                            <span className="text-[11px] font-bold text-slate-400">
-                              Klik salah satu tombol paket untuk berganti paket
-                            </span>
-                          </div>
-
-                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
-                            {UTBK_PACKAGES.map((pkg, idx) => {
-                              const isSelectedPkg = selectedUtbkPackage === pkg.id;
-                              const pkgNumber = `0${idx + 1}`;
-                              
-                              // Theme styles per package
-                              let activeThemeClass = '';
-                              let badgeAccentClass = '';
-                              let borderHoverClass = '';
-                              let iconColor = '';
-
-                              if (idx === 0) {
-                                // Paket 1: Royal Blue
-                                activeThemeClass = 'bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white border-blue-500 shadow-xl shadow-blue-500/25 ring-4 ring-blue-400/40';
-                                badgeAccentClass = isSelectedPkg ? 'bg-white/20 text-white border-white/30' : 'bg-blue-50 text-blue-700 border-blue-200';
-                                borderHoverClass = 'hover:border-blue-400 hover:shadow-blue-100';
-                                iconColor = isSelectedPkg ? 'text-amber-300' : 'text-blue-600';
-                              } else if (idx === 1) {
-                                // Paket 2: Violet / Purple
-                                activeThemeClass = 'bg-gradient-to-br from-purple-600 via-purple-700 to-indigo-800 text-white border-purple-500 shadow-xl shadow-purple-500/25 ring-4 ring-purple-400/40';
-                                badgeAccentClass = isSelectedPkg ? 'bg-white/20 text-white border-white/30' : 'bg-purple-50 text-purple-700 border-purple-200';
-                                borderHoverClass = 'hover:border-purple-400 hover:shadow-purple-100';
-                                iconColor = isSelectedPkg ? 'text-amber-300' : 'text-purple-600';
-                              } else {
-                                // Paket 3: Emerald / Teal
-                                activeThemeClass = 'bg-gradient-to-br from-emerald-600 via-teal-700 to-slate-900 text-white border-emerald-500 shadow-xl shadow-emerald-500/25 ring-4 ring-emerald-400/40';
-                                badgeAccentClass = isSelectedPkg ? 'bg-white/20 text-white border-white/30' : 'bg-emerald-50 text-emerald-700 border-emerald-200';
-                                borderHoverClass = 'hover:border-emerald-400 hover:shadow-emerald-100';
-                                iconColor = isSelectedPkg ? 'text-amber-300' : 'text-emerald-600';
-                              }
-
-                              return (
-                                <button
-                                  key={pkg.id}
-                                  onClick={() => {
-                                    setSelectedUtbkPackage(pkg.id);
-                                    setSelectedUtbkFolder(null);
-                                    setUtbkCategoryFilter('all');
-                                    setUtbkSearchQuery('');
-                                  }}
-                                  className={`relative text-left p-5 sm:p-6 rounded-3xl transition-all duration-200 cursor-pointer border-2 flex flex-col justify-between space-y-4 ${
-                                    isSelectedPkg
-                                      ? `${activeThemeClass} scale-[1.02]`
-                                      : `bg-white hover:bg-slate-50/80 border-slate-200/80 ${borderHoverClass} text-slate-800 shadow-sm hover:shadow-md hover:scale-[1.01]`
-                                  }`}
-                                >
-                                  {/* Top Row: Package Tag + Active Indicator */}
-                                  <div className="flex items-center justify-between gap-2">
-                                    <div className="flex items-center gap-2">
-                                      <span className={`w-8 h-8 rounded-2xl flex items-center justify-center font-black text-xs shadow-inner ${
-                                        isSelectedPkg ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-700'
-                                      }`}>
-                                        {pkgNumber}
-                                      </span>
-                                      <span className={`text-[11px] font-black uppercase tracking-wider px-2.5 py-1 rounded-xl border ${badgeAccentClass}`}>
-                                        {pkg.name}
-                                      </span>
-                                    </div>
-                                    {isSelectedPkg ? (
-                                      <span className="flex items-center gap-1 text-[10px] font-black bg-amber-400 text-slate-950 px-2.5 py-1 rounded-full shadow-xs uppercase tracking-wide animate-pulse">
-                                        <CheckCircle2 className="w-3 h-3 text-slate-950" /> AKTIF
-                                      </span>
-                                    ) : (
-                                      <span className="text-[10px] font-bold text-slate-400 group-hover:text-slate-600">
-                                        Pilih Paket
-                                      </span>
-                                    )}
-                                  </div>
-
-                                  {/* Middle Content: Title & Specs */}
-                                  <div className="space-y-1.5">
-                                    <h3 className={`text-base sm:text-lg font-black font-display leading-snug flex items-center gap-2 ${
-                                      isSelectedPkg ? 'text-white' : 'text-slate-900'
-                                    }`}>
-                                      <FolderOpen className={`w-5 h-5 shrink-0 ${iconColor}`} />
-                                      <span>{pkg.name}</span>
-                                    </h3>
-                                    <p className={`text-xs leading-relaxed ${
-                                      isSelectedPkg ? 'text-white/80' : 'text-slate-500'
-                                    }`}>
-                                      Simulasi komprehensif 9 Subtes Resmi SNBT • 160 Soal HOTS • Durasi 195 Menit
-                                    </p>
-                                  </div>
-
-                                  {/* Bottom Row: Metadata Badges */}
-                                  <div className="pt-2 border-t border-current/10 flex items-center justify-between gap-2 flex-wrap text-[11px]">
-                                    <span className={`font-black px-2.5 py-0.5 rounded-lg ${
-                                      isSelectedPkg ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-700'
-                                    }`}>
-                                      9 Subtes Lengkap
-                                    </span>
-                                    <span className={`font-bold ${isSelectedPkg ? 'text-amber-200' : 'text-blue-600'}`}>
-                                      {isSelectedPkg ? '⚡ Sedang Ditampilkan' : 'Klik untuk Buka →'}
-                                    </span>
-                                  </div>
-                                </button>
-                              );
-                            })}
-                          </div>
-                        </div>
-                      )}
 
                       {/* Folder Nav Pills for UTBK */}
                       {!isTka && (
@@ -2519,12 +2691,28 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                                       <td className="py-3 px-4 text-center font-black text-amber-300">{f.questionCount} Soal</td>
                                       <td className="py-3 px-4 text-center font-black text-emerald-300">{f.durationFormatted}</td>
                                       <td className="py-3 px-4 text-center">
-                                        <button
-                                          onClick={() => setSelectedUtbkFolder(f.id)}
-                                          className="px-3 py-1 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl text-[11px] transition-all cursor-pointer shadow-sm"
-                                        >
-                                          Buka Folder
-                                        </button>
+                                        <div className="flex items-center justify-center gap-1.5">
+                                          <button
+                                            onClick={() => {
+                                              const matchTo = allUtbkTryouts.find(to => f.match(to.subject, to.name));
+                                              if (matchTo) {
+                                                setActiveCbt(matchTo);
+                                              } else {
+                                                setSelectedUtbkFolder(f.id);
+                                              }
+                                            }}
+                                            className="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl text-[11px] transition-all cursor-pointer shadow-sm flex items-center gap-1"
+                                          >
+                                            <Play className="w-3 h-3 fill-current" /> Mulai Subtes
+                                          </button>
+                                          <button
+                                            onClick={() => setSelectedUtbkFolder(f.id)}
+                                            className="px-2.5 py-1.5 bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl text-[11px] transition-all cursor-pointer border border-white/20"
+                                            title="Lihat Kisi-kisi"
+                                          >
+                                            Detail
+                                          </button>
+                                        </div>
                                       </td>
                                     </tr>
                                   ))}
@@ -2626,14 +2814,31 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                                     </div>
                                   </div>
 
-                                  <div className="pt-3.5 border-t border-slate-100 flex items-center justify-between text-xs">
-                                    <div className="flex items-center gap-2 text-[11px] font-bold text-slate-600">
+                                  <div className="pt-3.5 border-t border-slate-100 flex items-center justify-between text-xs gap-2">
+                                    <div className="flex items-center gap-1.5 text-[11px] font-bold text-slate-600">
                                       <span className="bg-slate-100 px-2 py-0.5 rounded-md">📝 {f.questionCount} Soal</span>
                                       <span className="bg-slate-100 px-2 py-0.5 rounded-md">⏱️ {f.durationFormatted}</span>
                                     </div>
-                                    <span className="text-[11px] font-black text-blue-600 group-hover:translate-x-1 transition-transform flex items-center">
-                                      Buka <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
-                                    </span>
+                                    <div className="flex items-center gap-1.5">
+                                      <button
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          const matchTo = allUtbkTryouts.find(to => f.match(to.subject, to.name));
+                                          if (matchTo) {
+                                            setActiveCbt(matchTo);
+                                          } else {
+                                            setSelectedUtbkFolder(f.id);
+                                          }
+                                        }}
+                                        className="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-bold rounded-xl shadow-sm transition-all flex items-center gap-1 cursor-pointer"
+                                      >
+                                        <Play className="w-2.5 h-2.5 fill-current" />
+                                        Mulai CBT
+                                      </button>
+                                      <span className="text-[11px] font-bold text-slate-400 group-hover:text-blue-600 transition-colors flex items-center">
+                                        <ChevronRight className="w-3.5 h-3.5" />
+                                      </span>
+                                    </div>
                                   </div>
                                 </div>
                               );
@@ -2821,12 +3026,24 @@ export default function DashboardSiswa({ userProfile, onLogout, onUpdateProfile,
                     {!isTka && currentUtbkFolderObj && (
                       <div className="bg-gradient-to-r from-blue-700 via-indigo-700 to-slate-900 rounded-3xl p-6 text-white shadow-md flex items-center justify-between flex-wrap gap-4">
                         <div className="space-y-1">
-                          <button
-                            onClick={() => setSelectedUtbkFolder(null)}
-                            className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/20 hover:bg-white/30 text-white rounded-xl text-xs font-bold transition-all mb-2 cursor-pointer backdrop-blur-sm"
-                          >
-                            <ArrowLeft className="w-3.5 h-3.5" /> Kembali ke Folder {currentUtbkPackageObj.name}
-                          </button>
+                          <div className="flex items-center gap-2 flex-wrap mb-2">
+                            <button
+                              onClick={() => {
+                                setSelectedUtbkPackage(null);
+                                setSelectedUtbkFolder(null);
+                              }}
+                              className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-bold transition-all cursor-pointer backdrop-blur-sm"
+                            >
+                              <ArrowLeft className="w-3.5 h-3.5" /> Pilihan 20 Paket
+                            </button>
+                            <span className="text-white/40 text-xs">/</span>
+                            <button
+                              onClick={() => setSelectedUtbkFolder(null)}
+                              className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/20 hover:bg-white/30 text-white rounded-xl text-xs font-bold transition-all cursor-pointer backdrop-blur-sm"
+                            >
+                              <ArrowLeft className="w-3.5 h-3.5" /> 9 Subtes {currentUtbkPackageObj.name}
+                            </button>
+                          </div>
                           <div className="flex items-center gap-3">
                             <span className="text-3xl">{currentUtbkFolderObj.icon}</span>
                             <div>
