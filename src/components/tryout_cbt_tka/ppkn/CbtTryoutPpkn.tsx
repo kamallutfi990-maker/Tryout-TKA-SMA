@@ -262,13 +262,32 @@ export default function CbtTryoutPpkn({ onBack }: CbtTryoutPpknProps) {
                   </div>
                 </div>
 
-                <button
-                  onClick={() => setIsPembahasanWindowOpen(false)}
-                  className="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
-                  title="Tutup Jendela Pembahasan"
-                >
-                  <X className="w-5 h-5" />
-                </button>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={toggleFullscreen}
+                    className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer border border-slate-700"
+                    title={isFullscreen ? 'Keluar Layar Penuh' : 'Mode Layar Penuh (Full Screen)'}
+                  >
+                    {isFullscreen ? (
+                      <>
+                        <Minimize2 className="w-3.5 h-3.5 text-blue-400" />
+                        <span className="hidden sm:inline">Keluar Full Screen</span>
+                      </>
+                    ) : (
+                      <>
+                        <Maximize2 className="w-3.5 h-3.5 text-blue-400" />
+                        <span className="hidden sm:inline">Full Screen</span>
+                      </>
+                    )}
+                  </button>
+                  <button
+                    onClick={() => setIsPembahasanWindowOpen(false)}
+                    className="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+                    title="Tutup Jendela Pembahasan"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
               </div>
 
               {/* Discussion Body */}

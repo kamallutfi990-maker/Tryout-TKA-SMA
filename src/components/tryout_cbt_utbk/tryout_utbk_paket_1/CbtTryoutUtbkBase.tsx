@@ -21,8 +21,19 @@ import {
   Check,
   Send,
   AlertTriangle,
-  FileText
+  FileText,
+  PenTool,
+  Youtube,
+  Play,
+  ExternalLink
 } from 'lucide-react';
+import ScratchpadWorkspace from './ScratchpadWorkspace';
+
+const extractYouTubeId = (url?: string) => {
+  if (!url) return '';
+  const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
+  return match ? match[1] : '';
+};
 
 interface CbtTryoutUtbkBaseProps {
   title: string;
@@ -53,11 +64,13 @@ export default function CbtTryoutUtbkBase({
   const [showHtmlModal, setShowHtmlModal] = useState(false);
   const [timeLeft, setTimeLeft] = useState(durationMinutes * 60);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [showScratchpad, setShowScratchpad] = useState(subject.toLowerCase().includes('matematika') || subject.toLowerCase().includes('kuantitatif'));
 
   // Separate Discussion Window State
   const [isPembahasanWindowOpen, setIsPembahasanWindowOpen] = useState(false);
   const [pembahasanIdx, setPembahasanIdx] = useState(0);
   const [pembahasanFilter, setPembahasanFilter] = useState<'all' | 'correct' | 'wrong' | 'flagged'>('all');
+  const [playingVideoId, setPlayingVideoId] = useState<number | null>(null);
 
   // Countdown timer
   useEffect(() => {
@@ -245,7 +258,7 @@ export default function CbtTryoutUtbkBase({
                 <div>
                   <div className="flex items-center gap-2">
                     <span className="text-[10px] px-2.5 py-0.5 rounded-full font-black uppercase tracking-wider bg-blue-500/20 text-blue-300 border border-blue-500/30">
-                      Modul Pembahasan Interaktif UTBK
+                      {title || 'Modul Pembahasan Interaktif UTBK'}
                     </span>
                     <span className="text-xs text-slate-400 font-semibold">{subject}</span>
                   </div>
@@ -257,6 +270,23 @@ export default function CbtTryoutUtbkBase({
 
               {/* Action Buttons */}
               <div className="flex items-center gap-2.5">
+                <button
+                  onClick={toggleFullscreen}
+                  className="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold transition-all flex items-center gap-2 cursor-pointer shadow-sm"
+                  title={isFullscreen ? 'Keluar dari Layar Penuh' : 'Mode Layar Penuh (Full Screen)'}
+                >
+                  {isFullscreen ? (
+                    <>
+                      <Minimize2 className="w-4 h-4 text-amber-400" />
+                      <span className="hidden sm:inline">Keluar Full Screen</span>
+                    </>
+                  ) : (
+                    <>
+                      <Maximize2 className="w-4 h-4 text-amber-400" />
+                      <span className="hidden sm:inline">Full Screen</span>
+                    </>
+                  )}
+                </button>
                 <button
                   onClick={() => setShowHtmlModal(true)}
                   className="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold transition-all flex items-center gap-2 cursor-pointer shadow-sm"
@@ -465,6 +495,85 @@ export default function CbtTryoutUtbkBase({
 
                 {/* Right Column: Step-by-Step Explanation & Question Navigator */}
                 <div className="lg:col-span-5 space-y-6">
+                  {/* Prominent YouTube Video Pembahasan Card */}
+                  {activePembahasanQ.videoUrl && (
+                    <div className="bg-gradient-to-br from-red-950/70 via-slate-900 to-slate-900 border-2 border-red-500/50 rounded-3xl p-5 shadow-2xl space-y-3.5 relative overflow-hidden ring-1 ring-red-500/20">
+                      <div className="flex items-center justify-between gap-3">
+                        <div className="flex items-center gap-2.5 min-w-0">
+                          <div className="w-9 h-9 rounded-2xl bg-red-600 flex items-center justify-center text-white shadow-lg shadow-red-600/40 shrink-0">
+                            <Youtube className="w-5 h-5" />
+                          </div>
+                          <div className="min-w-0">
+                            <div className="flex items-center gap-2">
+                              <span className="px-2 py-0.5 rounded-md bg-red-500/20 text-red-400 text-[10px] font-black uppercase tracking-wider border border-red-500/30">
+                                Video Pembahasan
+                              </span>
+                              <span className="text-[10px] text-slate-400 font-semibold">UTBK 2025</span>
+                            </div>
+                            <h4 className="text-sm font-bold text-white truncate">
+                              {activePembahasanQ.videoTitle || `Pembahasan Penalaran Matematika No. ${activePembahasanQ.id}`}
+                            </h4>
+                          </div>
+                        </div>
+
+                        <a
+                          href={activePembahasanQ.videoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-3.5 py-1.5 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition-all flex items-center gap-1.5 shadow-md shadow-red-600/30 shrink-0 hover:scale-105 active:scale-95 cursor-pointer"
+                        >
+                          <span>Buka YouTube</span>
+                          <ExternalLink className="w-3.5 h-3.5" />
+                        </a>
+                      </div>
+
+                      {/* Video Player or Interactive Thumbnail */}
+                      {playingVideoId === activePembahasanQ.id ? (
+                        <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-red-500/40 shadow-inner bg-black">
+                          <iframe
+                            src={`https://www.youtube-nocookie.com/embed/${extractYouTubeId(activePembahasanQ.videoUrl)}?autoplay=1&rel=0`}
+                            title={activePembahasanQ.videoTitle || `Pembahasan No. ${activePembahasanQ.id}`}
+                            className="w-full h-full border-0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowFullScreen
+                          />
+                        </div>
+                      ) : (
+                        <div
+                          onClick={() => setPlayingVideoId(activePembahasanQ.id)}
+                          className="relative group rounded-2xl overflow-hidden border border-red-500/40 bg-slate-950 shadow-xl cursor-pointer aspect-video w-full block"
+                        >
+                          <img
+                            src={activePembahasanQ.videoThumbnail || `https://img.youtube.com/vi/${extractYouTubeId(activePembahasanQ.videoUrl)}/hqdefault.jpg`}
+                            alt={activePembahasanQ.videoTitle || `Thumbnail Soal No. ${activePembahasanQ.id}`}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            referrerPolicy="no-referrer"
+                          />
+                          {/* Gradient Overlay */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/20 group-hover:from-black/60 transition-all flex items-center justify-center">
+                            {/* Big YouTube Play Button */}
+                            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-red-600 group-hover:bg-red-500 group-hover:scale-115 transition-all duration-300 flex items-center justify-center text-white shadow-2xl shadow-red-600/70 ring-4 ring-white/30">
+                              <Play className="w-7 h-7 sm:w-8 sm:h-8 fill-white ml-1" />
+                            </div>
+                          </div>
+
+                          {/* Thumbnail Info Overlay */}
+                          <div className="absolute bottom-2.5 left-2.5 right-2.5 flex items-center justify-between pointer-events-none">
+                            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-black/80 backdrop-blur-md border border-white/10 text-white text-[11px] font-bold">
+                              <Youtube className="w-3.5 h-3.5 text-red-500" />
+                              <span className="truncate max-w-[170px] sm:max-w-[220px]">
+                                {activePembahasanQ.videoTitle || `Soal No. ${activePembahasanQ.id}`}
+                              </span>
+                            </div>
+                            <span className="px-2.5 py-1 rounded-xl bg-red-600 text-white text-[10px] font-black uppercase tracking-wider shadow-lg shadow-red-600/50">
+                              Klik Putar Video
+                            </span>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
                   {/* Detailed Explanation Card */}
                   <div className="bg-slate-900 border border-blue-500/30 rounded-3xl p-6 shadow-xl space-y-4">
                     <div className="flex items-center gap-2 text-blue-400 font-bold text-sm">
@@ -652,6 +761,20 @@ export default function CbtTryoutUtbkBase({
             <Clock className="w-4 h-4 text-blue-600" />
             <span>{formatTime(timeLeft)}</span>
           </div>
+
+          {/* Lembar Coret-coret / Scratchpad Toggle */}
+          <button
+            onClick={() => setShowScratchpad(prev => !prev)}
+            className={`px-3.5 py-2 rounded-2xl border text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+              showScratchpad
+                ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
+                : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
+            }`}
+            title="Lembar Coret-coret / Workspace NURLATIF"
+          >
+            <PenTool className="w-4 h-4" />
+            <span className="hidden sm:inline">Lembar Coret-coret</span>
+          </button>
 
           {/* Fullscreen Button */}
           <button
@@ -855,6 +978,13 @@ export default function CbtTryoutUtbkBase({
               )}
             </div>
           </div>
+
+          {/* Optional Interactive Scratchpad / Lembar Coret-coret NURLATIF */}
+          {showScratchpad && (
+            <div className="pt-2">
+              <ScratchpadWorkspace watermarkText="NURLATIF" />
+            </div>
+          )}
         </div>
 
         {/* Right Column: Question Navigator & Summary Card */}

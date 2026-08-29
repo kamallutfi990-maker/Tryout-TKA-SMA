@@ -1,5 +1,5 @@
-import React from 'react';
-import { X, CheckCircle2, BookOpen } from 'lucide-react';
+import React, { useState } from 'react';
+import { X, CheckCircle2, BookOpen, Maximize2, Minimize2 } from 'lucide-react';
 import {
   PEMBAHASAN_TKA_MATEMATIKA_LANJUT_HTML,
   PEMBAHASAN_TKA_MATEMATIKA_WAJIB_HTML,
@@ -34,7 +34,25 @@ export default function HtmlPembahasanModal({
   subject,
   htmlContent
 }: HtmlPembahasanModalProps) {
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
   if (!isOpen) return null;
+
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(err => {
+        console.warn('Fullscreen error:', err);
+      });
+      setIsFullscreen(true);
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().catch(err => {
+          console.warn('Exit fullscreen error:', err);
+        });
+        setIsFullscreen(false);
+      }
+    }
+  };
 
   const resolveSubjectInfo = () => {
     const checkStr = `${subject || ''} ${title || ''}`.toLowerCase();
@@ -223,6 +241,23 @@ export default function HtmlPembahasanModal({
           </div>
 
           <div className="flex items-center gap-2 self-end sm:self-auto">
+            <button
+              onClick={toggleFullscreen}
+              className="px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-750 text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-sm"
+              title={isFullscreen ? 'Keluar dari Layar Penuh' : 'Mode Layar Penuh (Full Screen)'}
+            >
+              {isFullscreen ? (
+                <>
+                  <Minimize2 className="w-3.5 h-3.5 text-amber-500" />
+                  <span>Keluar Full Screen</span>
+                </>
+              ) : (
+                <>
+                  <Maximize2 className="w-3.5 h-3.5 text-amber-500" />
+                  <span>Full Screen</span>
+                </>
+              )}
+            </button>
             <button
               onClick={onClose}
               className="p-2 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-200/60 dark:hover:bg-slate-800 rounded-lg transition-colors cursor-pointer"

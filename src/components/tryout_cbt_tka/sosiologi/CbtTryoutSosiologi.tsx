@@ -267,6 +267,23 @@ export default function CbtTryoutSosiologi({ onBack }: CbtTryoutSosiologiProps) 
 
                 <div className="flex items-center gap-2">
                   <button
+                    onClick={toggleFullscreen}
+                    className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer border border-slate-700"
+                    title={isFullscreen ? 'Keluar Layar Penuh' : 'Mode Layar Penuh (Full Screen)'}
+                  >
+                    {isFullscreen ? (
+                      <>
+                        <Minimize2 className="w-3.5 h-3.5 text-rose-400" />
+                        <span className="hidden sm:inline">Keluar Full Screen</span>
+                      </>
+                    ) : (
+                      <>
+                        <Maximize2 className="w-3.5 h-3.5 text-rose-400" />
+                        <span className="hidden sm:inline">Full Screen</span>
+                      </>
+                    )}
+                  </button>
+                  <button
                     onClick={() => setIsPembahasanWindowOpen(false)}
                     className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors cursor-pointer"
                     title="Tutup Jendela Pembahasan"

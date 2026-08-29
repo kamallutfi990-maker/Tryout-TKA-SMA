@@ -21,7 +21,9 @@ import {
   ChevronRight,
   Eye,
   Activity,
-  Award
+  Award,
+  Maximize2,
+  Minimize2
 } from 'lucide-react';
 
 interface CbtTryoutFisikaProps {
@@ -36,6 +38,23 @@ export default function CbtTryoutFisika({ onBack }: CbtTryoutFisikaProps) {
   const [timeLeft, setTimeLeft] = useState(45 * 60); // 45 minutes
   const [showConfirmSubmit, setShowConfirmSubmit] = useState(false);
   const [activeFilterTab, setActiveFilterTab] = useState<'all' | 'wrong' | 'correct'>('all');
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(err => {
+        console.warn('Fullscreen error:', err);
+      });
+      setIsFullscreen(true);
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().catch(err => {
+          console.warn('Exit fullscreen error:', err);
+        });
+        setIsFullscreen(false);
+      }
+    }
+  };
 
   // Countdown Timer
   useEffect(() => {
@@ -323,6 +342,14 @@ export default function CbtTryoutFisika({ onBack }: CbtTryoutFisikaProps) {
               </button>
             </div>
           )}
+          {/* Fullscreen Button */}
+          <button
+            onClick={toggleFullscreen}
+            className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors cursor-pointer border border-slate-700"
+            title={isFullscreen ? 'Keluar Layar Penuh' : 'Mode Layar Penuh (Full Screen)'}
+          >
+            {isFullscreen ? <Minimize2 className="w-4 h-4 text-amber-400" /> : <Maximize2 className="w-4 h-4 text-amber-400" />}
+          </button>
         </div>
       </header>
 

@@ -180,6 +180,7 @@ import {
   PEMBAHASAN_TKA_BAHASA_INGGRIS_LANJUT_HTML
 } from '../data/pembahasanTkaHtml';
 import { INITIAL_UTBK_TRYOUTS } from '../data/utbkSubtestsData';
+import { INITIAL_TKA_TRYOUTS } from '../data/tkaSubtestsData';
 import { UTBK_QUESTIONS } from '../data/utbkQuestions';
 
 // Initial Mock Universities & Programs
@@ -2975,202 +2976,7 @@ const INITIAL_VIDEOS: LearningVideo[] = [
 
 // Initial Tryouts
 const INITIAL_TRYOUTS: TryOut[] = [
-  {
-    id: 'to-anbk-mtk-wajib-2026',
-    name: 'Try Out Simulasi ANBK / TKA: Matematika Wajib (20 Soal IRT)',
-    duration: 45,
-    passingGrade: 500,
-    questionCount: 20,
-    subject: 'Matematika Wajib',
-    category: 'TKA',
-    randomizeQuestions: false,
-    randomizeOptions: false,
-    startDate: '2026-07-20',
-    endDate: '2026-12-31',
-    solvedCount: 1250
-  },
-  {
-    id: 'to-tka-mtk-lanjut-2026',
-    name: 'Try Out CBT TKA: Matematika Tingkat Lanjut (20 Soal IRT)',
-    duration: 45,
-    passingGrade: 500,
-    questionCount: 20,
-    subject: 'Matematika Tingkat Lanjut',
-    category: 'TKA',
-    randomizeQuestions: false,
-    randomizeOptions: false,
-    startDate: '2026-07-20',
-    endDate: '2026-12-31',
-    solvedCount: 680
-  },
-  {
-    id: 'to-tka-bindo-2026',
-    name: 'Try Out CBT TKA: Bahasa Indonesia (20 Soal IRT)',
-    duration: 45,
-    passingGrade: 500,
-    questionCount: 20,
-    subject: 'Bahasa Indonesia',
-    category: 'TKA',
-    randomizeQuestions: false,
-    randomizeOptions: false,
-    startDate: '2026-07-20',
-    endDate: '2026-12-31',
-    solvedCount: 940
-  },
-  {
-    id: 'to-tka-bindo-lanjut-2026',
-    name: 'Try Out CBT TKA: Bahasa Indonesia Tingkat Lanjut (10 Soal Analisis Wacana & Sastra)',
-    duration: 45,
-    passingGrade: 500,
-    questionCount: 10,
-    subject: 'Bahasa Indonesia Tingkat Lanjut',
-    category: 'TKA',
-    randomizeQuestions: false,
-    randomizeOptions: false,
-    startDate: '2026-07-20',
-    endDate: '2026-12-31',
-    solvedCount: 720
-  },
-  {
-    id: 'to-tka-bing-2026',
-    name: 'Try Out CBT TKA: Bahasa Inggris (20 Soal IRT)',
-    duration: 45,
-    passingGrade: 500,
-    questionCount: 20,
-    subject: 'Bahasa Inggris',
-    category: 'TKA',
-    randomizeQuestions: false,
-    randomizeOptions: false,
-    startDate: '2026-07-20',
-    endDate: '2026-12-31',
-    solvedCount: 880
-  },
-  {
-    id: 'to-tka-bing-lanjut-2026',
-    name: 'Try Out CBT TKA: Bahasa Inggris Tingkat Lanjut (20 Soal IRT)',
-    duration: 45,
-    passingGrade: 500,
-    questionCount: 20,
-    subject: 'Bahasa Inggris Tingkat Lanjut',
-    category: 'TKA',
-    randomizeQuestions: false,
-    randomizeOptions: false,
-    startDate: '2026-07-20',
-    endDate: '2026-12-31',
-    solvedCount: 650
-  },
-  {
-    id: 'to-tka-fisika-1-2026',
-    name: 'Try Out CBT TKA: Fisika SMA (20 Soal IRT & Gambar Lengkap)',
-    duration: 45,
-    passingGrade: 600,
-    questionCount: 20,
-    subject: 'Fisika',
-    category: 'TKA',
-    randomizeQuestions: false,
-    randomizeOptions: false,
-    startDate: '2026-07-20',
-    endDate: '2026-12-31',
-    solvedCount: 890
-  },
-  {
-    id: 'to-tka-kimia-1-2026',
-    name: 'Try Out Kimia 1: Bank Soal & Try Out Bab Kimia TKA SMA (20 Soal)',
-    duration: 45,
-    passingGrade: 600,
-    questionCount: 20,
-    subject: 'Kimia',
-    category: 'TKA',
-    randomizeQuestions: false,
-    randomizeOptions: false,
-    startDate: '2026-07-20',
-    endDate: '2026-12-31',
-    solvedCount: 780
-  },
-  {
-    id: 'to-tka-biologi-1-2026',
-    name: 'Try Out CBT TKA: Biologi (20 Soal IRT)',
-    duration: 45,
-    passingGrade: 600,
-    questionCount: 20,
-    subject: 'Biologi',
-    category: 'TKA',
-    randomizeQuestions: false,
-    randomizeOptions: false,
-    startDate: '2026-07-20',
-    endDate: '2026-12-31',
-    solvedCount: 710
-  },
-  {
-    id: 'to-tka-sosiologi-1-2026',
-    name: 'Try Out CBT TKA: Sosiologi SMA (20 Soal IRT & Analisis Wacana)',
-    duration: 45,
-    passingGrade: 600,
-    questionCount: 20,
-    subject: 'Sosiologi',
-    category: 'TKA',
-    randomizeQuestions: false,
-    randomizeOptions: false,
-    startDate: '2026-07-20',
-    endDate: '2026-12-31',
-    solvedCount: 820
-  },
-  {
-    id: 'to-tka-ekonomi-1-2026',
-    name: 'Try Out CBT TKA: Ekonomi SMA (20 Soal Pusmendik & Analisis Makro-Mikro)',
-    duration: 45,
-    passingGrade: 600,
-    questionCount: 20,
-    subject: 'Ekonomi',
-    category: 'TKA',
-    randomizeQuestions: false,
-    randomizeOptions: false,
-    startDate: '2026-07-20',
-    endDate: '2026-12-31',
-    solvedCount: 780
-  },
-  {
-    id: 'to-tka-ppkn-2026',
-    name: 'Try Out CBT TKA: PPKn SMA (10 Soal Analisis Kebangsaan, Konstitusi & Dinamika Demokrasi)',
-    duration: 30,
-    passingGrade: 650,
-    questionCount: 10,
-    subject: 'PPKn (PKn)',
-    category: 'TKA',
-    randomizeQuestions: false,
-    randomizeOptions: false,
-    startDate: '2026-07-20',
-    endDate: '2026-12-31',
-    solvedCount: 420
-  },
-  {
-    id: 'to-tka-geografi-2026',
-    name: 'Try Out CBT TKA: Geografi SMA (10 Soal Analisis Spasial, Litosfer, Penginderaan Jauh & SIG)',
-    duration: 30,
-    passingGrade: 650,
-    questionCount: 10,
-    subject: 'Geografi',
-    category: 'TKA',
-    randomizeQuestions: false,
-    randomizeOptions: false,
-    startDate: '2026-07-20',
-    endDate: '2026-12-31',
-    solvedCount: 390
-  },
-  {
-    id: 'to-tka-sejarah-2026',
-    name: 'Try Out CBT TKA: Sejarah SMA (10 Soal Analisis Peradaban & Perjuangan Bangsa)',
-    duration: 30,
-    passingGrade: 650,
-    questionCount: 10,
-    subject: 'Sejarah',
-    category: 'TKA',
-    randomizeQuestions: false,
-    randomizeOptions: false,
-    startDate: '2026-07-20',
-    endDate: '2026-12-31',
-    solvedCount: 380
-  },
+  ...INITIAL_TKA_TRYOUTS,
   ...INITIAL_UTBK_TRYOUTS
 ];
 
@@ -4967,18 +4773,6 @@ $$a = \\frac{g \\sin \\theta}{1 + k}$$`,
 // Global bootstrap functions to access static defaults
 export const getQuestions = () => {
   let list = FirestoreSimulator.getCollection<Question>('questions', INITIAL_QUESTIONS);
-  
-  // Remove questions from deleted packages (Bahasa Indonesia Tingkat Lanjut & Bahasa Inggris Tingkat Lanjut)
-  const filteredFromDeleted = list.filter(q => 
-    !q.id.startsWith('q_tka_indo_lanjut_') && 
-    !q.id.startsWith('q_tka_inggris_lanjut_') && 
-    q.subject !== 'Bahasa Indonesia Tingkat Lanjut' && 
-    q.subject !== 'Bahasa Inggris Tingkat Lanjut'
-  );
-  if (filteredFromDeleted.length !== list.length) {
-    list = filteredFromDeleted;
-    FirestoreSimulator.saveCollection('questions', list);
-  }
 
   // Deduplicate cached list by question ID
   const seenIds = new Set<string>();
@@ -5027,25 +4821,33 @@ export const getTryOuts = () => {
   let tryouts = FirestoreSimulator.getCollection<TryOut>('exams', INITIAL_TRYOUTS);
   let updated = false;
 
-  // Filter out removed tryout packages
-  const removedIds = new Set(['to3', 'to4', 'to6', 'to7', 'to8', 'to-tka-indo-lanjut-2026', 'to-tka-inggris-lanjut-2026', 'to-tka-ppkn-1-2026', 'to-tka-sejarah-1-2026', 'to-tka-geografi-1-2026']);
-  const filtered = tryouts.filter(t => 
-    !removedIds.has(t.id) && 
-    t.subject !== 'Bahasa Indonesia Tingkat Lanjut' && 
-    t.subject !== 'Bahasa Inggris Tingkat Lanjut' && 
-    t.id !== 'to-tka-sejarah-1-2026' &&
-    t.id !== 'to-tka-geografi-1-2026'
-  );
+  // Filter out obsolete legacy tryouts if any
+  const removedIds = new Set(['to3', 'to4', 'to6', 'to7', 'to8']);
+  const filtered = tryouts.filter(t => !removedIds.has(t.id));
   if (filtered.length !== tryouts.length) {
     tryouts = filtered;
     updated = true;
   }
+
+  // Deduplicate cached tryouts by ID
+  const seenIds = new Set<string>();
+  const deduplicated: TryOut[] = [];
+  for (const item of tryouts) {
+    if (!seenIds.has(item.id)) {
+      seenIds.add(item.id);
+      deduplicated.push(item);
+    } else {
+      updated = true;
+    }
+  }
+  tryouts = deduplicated;
 
   // Ensure all INITIAL_TRYOUTS are synced into local storage and names kept up to date
   INITIAL_TRYOUTS.forEach(initTo => {
     const existingIdx = tryouts.findIndex(t => t.id === initTo.id);
     if (existingIdx === -1 && !removedIds.has(initTo.id)) {
       tryouts.unshift(initTo);
+      seenIds.add(initTo.id);
       updated = true;
     } else if (existingIdx !== -1 && tryouts[existingIdx].name !== initTo.name) {
       tryouts[existingIdx].name = initTo.name;

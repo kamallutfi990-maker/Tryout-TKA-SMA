@@ -339,9 +339,9 @@ export default function DashboardGuru({ userProfile, onLogout }: DashboardGuruPr
             </div>
             <button
               onClick={onLogout}
-              className="px-4 py-2 rounded-xl text-xs font-bold text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 border border-red-100 dark:border-red-900/50 transition-colors cursor-pointer"
+              className="px-4 py-2 rounded-xl text-xs font-bold text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/40 border border-blue-100 dark:border-blue-900/50 transition-colors cursor-pointer"
             >
-              Keluar Sesi
+              Kembali ke Siswa
             </button>
           </div>
         </div>

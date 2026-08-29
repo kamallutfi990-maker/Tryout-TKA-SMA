@@ -20,7 +20,9 @@ import {
   Layers,
   HelpCircle,
   Clock,
-  RotateCcw
+  RotateCcw,
+  Maximize2,
+  Minimize2
 } from 'lucide-react';
 import { Question, TryOut, ExamScore } from '../types';
 import MathMarkdown from './MathMarkdown';
@@ -47,6 +49,23 @@ export default function CbtSolutionReview({
   const [filterMode, setFilterMode] = useState<'all' | 'correct' | 'wrong' | 'unanswered'>('all');
   const [selectedQuestionIndex, setSelectedQuestionIndex] = useState<number>(0);
   const [viewLayout, setViewLayout] = useState<'single' | 'list'>('single');
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(err => {
+        console.warn('Fullscreen error:', err);
+      });
+      setIsFullscreen(true);
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().catch(err => {
+          console.warn('Exit fullscreen error:', err);
+        });
+        setIsFullscreen(false);
+      }
+    }
+  };
 
   // Helper to determine status of a question
   const getQuestionStatus = (q: Question) => {
@@ -119,6 +138,23 @@ export default function CbtSolutionReview({
                 className="px-3.5 py-1.5 bg-white/10 hover:bg-white/20 active:bg-white/30 text-white rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 backdrop-blur-md cursor-pointer border border-white/10"
               >
                 <ArrowLeft className="w-4 h-4" /> Kembali ke Hasil Ujian
+              </button>
+              <button
+                onClick={toggleFullscreen}
+                className="px-3.5 py-1.5 bg-white/10 hover:bg-white/20 active:bg-white/30 text-white rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 backdrop-blur-md cursor-pointer border border-white/10"
+                title={isFullscreen ? 'Keluar dari Layar Penuh' : 'Mode Layar Penuh (Full Screen)'}
+              >
+                {isFullscreen ? (
+                  <>
+                    <Minimize2 className="w-4 h-4 text-amber-300" />
+                    <span>Keluar Full Screen</span>
+                  </>
+                ) : (
+                  <>
+                    <Maximize2 className="w-4 h-4 text-amber-300" />
+                    <span>Full Screen</span>
+                  </>
+                )}
               </button>
               <span className="px-3 py-1 bg-indigo-500/30 text-indigo-200 border border-indigo-400/30 rounded-xl text-xs font-black uppercase tracking-wider">
                 Halaman Pembahasan Soal

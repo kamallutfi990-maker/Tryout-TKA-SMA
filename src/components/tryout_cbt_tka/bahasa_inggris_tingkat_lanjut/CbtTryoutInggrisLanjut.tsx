@@ -290,6 +290,23 @@ export default function CbtTryoutInggrisLanjut({ onBack }: CbtTryoutInggrisLanju
 
                 <div className="flex items-center gap-2">
                   <button
+                    onClick={toggleFullscreen}
+                    className="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 text-xs font-bold rounded-xl transition-all flex items-center gap-1.5 cursor-pointer border border-slate-600"
+                    title={isFullscreen ? 'Keluar Layar Penuh' : 'Mode Layar Penuh (Full Screen)'}
+                  >
+                    {isFullscreen ? (
+                      <>
+                        <Minimize2 className="w-3.5 h-3.5 text-sky-400" />
+                        <span className="hidden sm:inline">Keluar Full Screen</span>
+                      </>
+                    ) : (
+                      <>
+                        <Maximize2 className="w-3.5 h-3.5 text-sky-400" />
+                        <span className="hidden sm:inline">Full Screen</span>
+                      </>
+                    )}
+                  </button>
+                  <button
                     onClick={() => setShowHtmlModal(true)}
                     className="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-sky-300 text-xs font-bold rounded-xl transition-all flex items-center gap-1.5 cursor-pointer border border-slate-600"
                   >

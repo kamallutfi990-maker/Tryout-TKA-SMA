@@ -282,6 +282,23 @@ export default function CbtTryoutGeografi({ onBack }: CbtTryoutGeografiProps) {
 
                 <div className="flex items-center gap-2">
                   <button
+                    onClick={toggleFullscreen}
+                    className="px-3 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-100 text-slate-700 text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-sm"
+                    title={isFullscreen ? 'Keluar Layar Penuh' : 'Mode Layar Penuh (Full Screen)'}
+                  >
+                    {isFullscreen ? (
+                      <>
+                        <Minimize2 className="w-3.5 h-3.5 text-teal-600" />
+                        <span className="hidden sm:inline">Keluar Full Screen</span>
+                      </>
+                    ) : (
+                      <>
+                        <Maximize2 className="w-3.5 h-3.5 text-teal-600" />
+                        <span className="hidden sm:inline">Full Screen</span>
+                      </>
+                    )}
+                  </button>
+                  <button
                     onClick={() => setIsPembahasanWindowOpen(false)}
                     className="p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-200/60 transition-colors cursor-pointer"
                     title="Tutup Pembahasan"

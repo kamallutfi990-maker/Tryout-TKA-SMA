@@ -30,4 +30,7 @@ export interface UtbkQuestion {
   difficulty?: 'Mudah' | 'Sedang' | 'Sulit';
   trueLabel?: string;
   falseLabel?: string;
+  videoUrl?: string;
+  videoThumbnail?: string;
+  videoTitle?: string;
 }
