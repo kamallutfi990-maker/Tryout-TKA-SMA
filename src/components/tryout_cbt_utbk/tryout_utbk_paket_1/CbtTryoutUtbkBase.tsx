@@ -171,6 +171,12 @@ export default function CbtTryoutUtbkBase({
           }
         });
         if (allCorrect) isQuestionCorrect = true;
+      } else if (question.type === 'numeric') {
+        const userNum = String(ans ?? '').trim().toLowerCase();
+        const correctNum = String(question.correctAnswer ?? '').trim().toLowerCase();
+        if (userNum !== '' && userNum === correctNum) {
+          isQuestionCorrect = true;
+        }
       }
 
       const topicName = question.topic || (getTopic ? getTopic(question) : subject);
@@ -490,6 +496,35 @@ export default function CbtTryoutUtbkBase({
                         </table>
                       </div>
                     )}
+
+                    {/* Numeric / Isian Singkat Review */}
+                    {activePembahasanQ.type === 'numeric' && (
+                      <div className="p-4 rounded-2xl border border-slate-800 bg-slate-950/60 space-y-3 mt-3">
+                        <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                          Jawaban Isian Singkat (Bilangan Cacah):
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          <div className={`p-3.5 rounded-xl border ${
+                            activePembahasanResult?.isCorrect
+                              ? 'border-emerald-500/50 bg-emerald-950/40 text-emerald-300'
+                              : 'border-red-500/50 bg-red-950/40 text-red-300'
+                          }`}>
+                            <span className="text-[11px] font-bold block opacity-70">Jawaban Anda:</span>
+                            <span className="text-base font-black font-mono">
+                              {activePembahasanResult?.userAns !== undefined && activePembahasanResult?.userAns !== ''
+                                ? String(activePembahasanResult.userAns)
+                                : '(Kosong / Tidak Dijawab)'}
+                            </span>
+                          </div>
+                          <div className="p-3.5 rounded-xl border border-emerald-500/50 bg-emerald-950/40 text-emerald-300">
+                            <span className="text-[11px] font-bold block opacity-70">Kunci Jawaban Resmi:</span>
+                            <span className="text-base font-black font-mono">
+                              {String(activePembahasanQ.correctAnswer)}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
 
@@ -511,7 +546,7 @@ export default function CbtTryoutUtbkBase({
                               <span className="text-[10px] text-slate-400 font-semibold">UTBK 2025</span>
                             </div>
                             <h4 className="text-sm font-bold text-white truncate">
-                              {activePembahasanQ.videoTitle || `Pembahasan Penalaran Matematika No. ${activePembahasanQ.id}`}
+                              {activePembahasanQ.videoTitle || `Pembahasan ${subject} No. ${activePembahasanQ.id}`}
                             </h4>
                           </div>
                         </div>
@@ -788,9 +823,13 @@ export default function CbtTryoutUtbkBase({
       </header>
 
       {/* Main CBT Workspace */}
-      <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        {/* Left Column: Reading Stimulus / Problem Description */}
-        <div className="lg:col-span-8 space-y-6">
+      <main
+        className={`flex-1 p-4 sm:p-6 w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 items-start transition-all ${
+          showScratchpad ? 'max-w-[1600px]' : 'max-w-7xl'
+        }`}
+      >
+        {/* Left Column (50% in 1:1 Split Mode, or 66% in Standard Mode): Question & Stimulus */}
+        <div className={`${showScratchpad ? 'lg:col-span-6' : 'lg:col-span-8'} space-y-6`}>
           {/* Stimulus Passage if present */}
           {currentQ.readingText && (
             <div className="bg-white border border-slate-200/80 rounded-3xl p-6 shadow-sm space-y-4">
@@ -806,21 +845,50 @@ export default function CbtTryoutUtbkBase({
 
           {/* Question Box */}
           <div className="bg-white border border-slate-200/80 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-4">
-              <span className="text-xs font-black uppercase tracking-wider text-slate-400">
-                Nomor Soal #{currentQ.id} • {currentQ.topic || (getTopic ? getTopic(currentQ) : subject)}
-              </span>
-              <button
-                onClick={() => toggleFlag(currentQ.id)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer border ${
-                  flagged.includes(currentQ.id)
-                    ? 'bg-amber-100 text-amber-900 border-amber-300 shadow-sm'
-                    : 'bg-slate-100 text-slate-600 border-slate-200 hover:bg-slate-200'
-                }`}
-              >
-                <HelpCircle className="w-3.5 h-3.5" />
-                {flagged.includes(currentQ.id) ? 'Ragu-Ragu (Tandai)' : 'Tandai Ragu'}
-              </button>
+            {/* Header Slide: PENGETAHUAN KUANTITATIF UTBK 2025 + Indikator Nomor Slide (SLIDE 01 / 20) */}
+            <div className="flex flex-wrap items-center justify-between border-b border-slate-100 pb-4 gap-2">
+              <div className="space-y-0.5">
+                <div className="flex items-center gap-2">
+                  <span className="text-[11px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-lg bg-blue-50 text-blue-700 border border-blue-100">
+                    SLIDE {String(currentIdx + 1).padStart(2, '0')} / {String(questions.length).padStart(2, '0')}
+                  </span>
+                  <span className="text-xs font-extrabold text-slate-800 uppercase tracking-tight">
+                    {subject.toUpperCase()} UTBK 2025
+                  </span>
+                </div>
+                <div className="text-[11px] font-semibold text-slate-400">
+                  Nomor Soal #{currentQ.id} • {currentQ.topic || (getTopic ? getTopic(currentQ) : subject)}
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setShowScratchpad(prev => !prev)}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer border ${
+                    showScratchpad
+                      ? 'bg-blue-600 text-white border-blue-600 shadow-xs'
+                      : 'bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200'
+                  }`}
+                  title="Rasio 1:1 Ruang Coret-Coretan ber-watermark NURLATIF"
+                >
+                  <PenTool className="w-3.5 h-3.5" />
+                  <span className="hidden sm:inline">{showScratchpad ? 'Tutup Coretan' : 'Slide 1:1 Coretan'}</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => toggleFlag(currentQ.id)}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer border ${
+                    flagged.includes(currentQ.id)
+                      ? 'bg-amber-100 text-amber-900 border-amber-300 shadow-sm'
+                      : 'bg-slate-100 text-slate-600 border-slate-200 hover:bg-slate-200'
+                  }`}
+                >
+                  <HelpCircle className="w-3.5 h-3.5" />
+                  {flagged.includes(currentQ.id) ? 'Ragu' : 'Tandai Ragu'}
+                </button>
+              </div>
             </div>
 
             {/* Question Text */}
@@ -947,6 +1015,35 @@ export default function CbtTryoutUtbkBase({
               </div>
             )}
 
+            {/* Option Rendering: Numeric / Isian Singkat Bilangan Cacah */}
+            {currentQ.type === 'numeric' && (
+              <div className="space-y-3 pt-2">
+                <label className="block text-xs font-black text-slate-600 uppercase tracking-wider">
+                  Ketikkan Jawaban Isian Singkat:
+                </label>
+                <div className="max-w-xs">
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    pattern="[0-9]*"
+                    value={answers[currentQ.id] !== undefined ? String(answers[currentQ.id]) : ''}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      setAnswers(prev => ({
+                        ...prev,
+                        [currentQ.id]: val
+                      }));
+                    }}
+                    placeholder="Contoh: 3"
+                    className="w-full px-4 py-3 rounded-2xl border-2 border-slate-200 focus:border-blue-600 focus:ring-4 focus:ring-blue-100 font-mono text-xl font-bold text-slate-900 outline-none transition-all shadow-inner"
+                  />
+                </div>
+                <p className="text-xs text-slate-500 italic">
+                  * Tulislah jawaban Anda dengan bilangan cacah sesuai instruksi soal UTBK.
+                </p>
+              </div>
+            )}
+
             {/* Bottom Nav Controls */}
             <div className="flex items-center justify-between pt-6 border-t border-slate-100 gap-3">
               <button
@@ -978,17 +1075,18 @@ export default function CbtTryoutUtbkBase({
               )}
             </div>
           </div>
+        </div>
 
-          {/* Optional Interactive Scratchpad / Lembar Coret-coret NURLATIF */}
+        {/* Right Column: In 1:1 Mode (lg:col-span-6) it hosts the 50% Scratchpad Workspace + Navigator */}
+        <div className={`${showScratchpad ? 'lg:col-span-6' : 'lg:col-span-4'} space-y-6 sticky top-24`}>
+          {/* Scratchpad Workspace (50% area right) */}
           {showScratchpad && (
-            <div className="pt-2">
+            <div className="shadow-lg rounded-3xl overflow-hidden border border-slate-200">
               <ScratchpadWorkspace watermarkText="NURLATIF" />
             </div>
           )}
-        </div>
 
-        {/* Right Column: Question Navigator & Summary Card */}
-        <div className="lg:col-span-4 space-y-6 sticky top-24">
+          {/* Question Navigator & Summary Card */}
           <div className="bg-white border border-slate-200/80 rounded-3xl p-6 shadow-sm space-y-5">
             <div className="flex items-center justify-between border-b border-slate-100 pb-3">
               <h3 className="font-extrabold text-slate-800 text-sm flex items-center gap-2">

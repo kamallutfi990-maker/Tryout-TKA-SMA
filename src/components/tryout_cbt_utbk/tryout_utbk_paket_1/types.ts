@@ -21,7 +21,7 @@ export interface UtbkQuestion {
   id: number;
   readingText?: string;
   text: string;
-  type: 'multiple' | 'multiple-complex' | 'true-false-table';
+  type: 'multiple' | 'multiple-complex' | 'true-false-table' | 'numeric';
   options?: UtbkQuestionOption[];
   statements?: UtbkQuestionStatement[];
   correctAnswer?: any;

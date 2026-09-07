@@ -237,17 +237,17 @@ export default function ScratchpadWorkspace({
       <div className="relative flex-1 bg-white cursor-crosshair overflow-hidden touch-none select-none min-h-[360px]">
         {/* NURLATIF Watermark */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0">
-          <span className="text-slate-200/60 font-black text-5xl sm:text-7xl lg:text-8xl tracking-widest uppercase transform -rotate-12 select-none">
+          <span className="text-slate-300/50 font-black text-5xl sm:text-7xl lg:text-8xl tracking-[0.2em] uppercase transform -rotate-12 select-none font-mono">
             {watermarkText}
           </span>
         </div>
 
-        {/* Grid pattern overlay (subtle) */}
+        {/* Grid pattern overlay (Grid berpetak halus) */}
         <div
-          className="absolute inset-0 pointer-events-none opacity-20"
+          className="absolute inset-0 pointer-events-none opacity-60"
           style={{
             backgroundImage:
-              'radial-gradient(circle, #94a3b8 1px, transparent 1px)',
+              'linear-gradient(to right, #e2e8f0 1px, transparent 1px), linear-gradient(to bottom, #e2e8f0 1px, transparent 1px)',
             backgroundSize: '20px 20px'
           }}
         />
